@@ -4,6 +4,7 @@
  */
 import { Command } from "commander"
 import { loginCommand, logoutCommand, whoamiCommand } from "./commands/login.js"
+import { apikeyListCommand, apikeyCreateCommand } from "./commands/apikey.js"
 
 declare const __VERSION__: string
 
@@ -28,5 +29,17 @@ program
   .command("whoami")
   .description("Show current logged-in user")
   .action(whoamiCommand)
+
+const apikey = program.command("apikey").description("Manage API keys")
+
+apikey
+  .command("list")
+  .description("List your API keys")
+  .action(apikeyListCommand)
+
+apikey
+  .command("create")
+  .description("Create a new API key")
+  .action(apikeyCreateCommand)
 
 program.parse()
