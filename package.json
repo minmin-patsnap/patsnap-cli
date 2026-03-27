@@ -9,7 +9,6 @@
   },
   "scripts": {
     "build": "node build.mjs && shx chmod +x dist/index.js",
-    "prepare": "node build.mjs && shx chmod +x dist/index.js",
     "dev": "tsx src/index.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
