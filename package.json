@@ -32,7 +32,9 @@
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
-  "dependencies": {},
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  },
   "pnpm": {
     "onlyBuiltDependencies": ["esbuild", "keytar"]
   }
