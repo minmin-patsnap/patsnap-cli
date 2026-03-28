@@ -1199,8 +1199,8 @@ var require_command = __commonJS({
   "node_modules/.pnpm/commander@14.0.3/node_modules/commander/lib/command.js"(exports) {
     var EventEmitter2 = __require("node:events").EventEmitter;
     var childProcess = __require("node:child_process");
-    var path = __require("node:path");
-    var fs = __require("node:fs");
+    var path3 = __require("node:path");
+    var fs2 = __require("node:fs");
     var process2 = __require("node:process");
     var { Argument: Argument2, humanReadableArgName } = require_argument();
     var { CommanderError: CommanderError2 } = require_error();
@@ -2194,7 +2194,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
        * @param {string} subcommandName
        */
       _checkForMissingExecutable(executableFile, executableDir, subcommandName) {
-        if (fs.existsSync(executableFile)) return;
+        if (fs2.existsSync(executableFile)) return;
         const executableDirMessage = executableDir ? `searched for local subcommand relative to directory '${executableDir}'` : "no directory for search for local subcommand, use .executableDir() to supply a custom directory";
         const executableMissing = `'${executableFile}' does not exist
  - if '${subcommandName}' is not meant to be an executable command, remove description parameter from '.command()' and use '.description()' instead
@@ -2211,12 +2211,12 @@ Expecting one of '${allowedValues.join("', '")}'`);
         args = args.slice();
         let launchWithNode = false;
         const sourceExt = [".js", ".ts", ".tsx", ".mjs", ".cjs"];
-        function findFile(baseDir, baseName) {
-          const localBin = path.resolve(baseDir, baseName);
-          if (fs.existsSync(localBin)) return localBin;
-          if (sourceExt.includes(path.extname(baseName))) return void 0;
+        function findFile(baseDir2, baseName) {
+          const localBin = path3.resolve(baseDir2, baseName);
+          if (fs2.existsSync(localBin)) return localBin;
+          if (sourceExt.includes(path3.extname(baseName))) return void 0;
           const foundExt = sourceExt.find(
-            (ext) => fs.existsSync(`${localBin}${ext}`)
+            (ext) => fs2.existsSync(`${localBin}${ext}`)
           );
           if (foundExt) return `${localBin}${foundExt}`;
           return void 0;
@@ -2228,21 +2228,21 @@ Expecting one of '${allowedValues.join("', '")}'`);
         if (this._scriptPath) {
           let resolvedScriptPath;
           try {
-            resolvedScriptPath = fs.realpathSync(this._scriptPath);
+            resolvedScriptPath = fs2.realpathSync(this._scriptPath);
           } catch {
             resolvedScriptPath = this._scriptPath;
           }
-          executableDir = path.resolve(
-            path.dirname(resolvedScriptPath),
+          executableDir = path3.resolve(
+            path3.dirname(resolvedScriptPath),
             executableDir
           );
         }
         if (executableDir) {
           let localFile = findFile(executableDir, executableFile);
           if (!localFile && !subcommand._executableFile && this._scriptPath) {
-            const legacyName = path.basename(
+            const legacyName = path3.basename(
               this._scriptPath,
-              path.extname(this._scriptPath)
+              path3.extname(this._scriptPath)
             );
             if (legacyName !== this._name) {
               localFile = findFile(
@@ -2253,7 +2253,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
           }
           executableFile = localFile || executableFile;
         }
-        launchWithNode = sourceExt.includes(path.extname(executableFile));
+        launchWithNode = sourceExt.includes(path3.extname(executableFile));
         let proc;
         if (process2.platform !== "win32") {
           if (launchWithNode) {
@@ -3168,7 +3168,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
        * @return {Command}
        */
       nameFromFilename(filename) {
-        this._name = path.basename(filename, path.extname(filename));
+        this._name = path3.basename(filename, path3.extname(filename));
         return this;
       }
       /**
@@ -3182,9 +3182,9 @@ Expecting one of '${allowedValues.join("', '")}'`);
        * @param {string} [path]
        * @return {(string|null|Command)}
        */
-      executableDir(path2) {
-        if (path2 === void 0) return this._executableDir;
-        this._executableDir = path2;
+      executableDir(path4) {
+        if (path4 === void 0) return this._executableDir;
+        this._executableDir = path4;
         return this;
       }
       /**
@@ -3218,11 +3218,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
        */
       _getOutputContext(contextOptions) {
         contextOptions = contextOptions || {};
-        const error2 = !!contextOptions.error;
+        const error3 = !!contextOptions.error;
         let baseWrite;
         let hasColors;
         let helpWidth;
-        if (error2) {
+        if (error3) {
           baseWrite = (str) => this._outputConfiguration.writeErr(str);
           hasColors = this._outputConfiguration.getErrHasColors();
           helpWidth = this._outputConfiguration.getErrHelpWidth();
@@ -3235,7 +3235,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
           if (!hasColors) str = this._outputConfiguration.stripColor(str);
           return baseWrite(str);
         };
-        return { error: error2, write, hasColors, helpWidth };
+        return { error: error3, write, hasColors, helpWidth };
       }
       /**
        * Output help information for this command.
@@ -12309,11 +12309,11 @@ var require_mime_types = __commonJS({
       }
       return exts[0];
     }
-    function lookup(path) {
-      if (!path || typeof path !== "string") {
+    function lookup(path3) {
+      if (!path3 || typeof path3 !== "string") {
         return false;
       }
-      var extension2 = extname("x." + path).toLowerCase().substr(1);
+      var extension2 = extname("x." + path3).toLowerCase().substr(1);
       if (!extension2) {
         return false;
       }
@@ -12406,17 +12406,17 @@ var require_iterate = __commonJS({
     module.exports = iterate;
     function iterate(list, iterator2, state, callback) {
       var key = state["keyedList"] ? state["keyedList"][state.index] : state.index;
-      state.jobs[key] = runJob(iterator2, key, list[key], function(error2, output) {
+      state.jobs[key] = runJob(iterator2, key, list[key], function(error3, output) {
         if (!(key in state.jobs)) {
           return;
         }
         delete state.jobs[key];
-        if (error2) {
+        if (error3) {
           abort(state);
         } else {
           state.results[key] = output;
         }
-        callback(error2, state.results);
+        callback(error3, state.results);
       });
     }
     function runJob(iterator2, key, item, callback) {
@@ -12480,9 +12480,9 @@ var require_parallel = __commonJS({
     function parallel(list, iterator2, callback) {
       var state = initState(list);
       while (state.index < (state["keyedList"] || list).length) {
-        iterate(list, iterator2, state, function(error2, result) {
-          if (error2) {
-            callback(error2, result);
+        iterate(list, iterator2, state, function(error3, result) {
+          if (error3) {
+            callback(error3, result);
             return;
           }
           if (Object.keys(state.jobs).length === 0) {
@@ -12508,9 +12508,9 @@ var require_serialOrdered = __commonJS({
     module.exports.descending = descending;
     function serialOrdered(list, iterator2, sortMethod, callback) {
       var state = initState(list, sortMethod);
-      iterate(list, iterator2, state, function iteratorHandler(error2, result) {
-        if (error2) {
-          callback(error2, result);
+      iterate(list, iterator2, state, function iteratorHandler(error3, result) {
+        if (error3) {
+          callback(error3, result);
           return;
         }
         state.index++;
@@ -13418,11 +13418,11 @@ var require_form_data = __commonJS({
     "use strict";
     var CombinedStream = require_combined_stream();
     var util4 = __require("util");
-    var path = __require("path");
+    var path3 = __require("path");
     var http3 = __require("http");
     var https2 = __require("https");
     var parseUrl = __require("url").parse;
-    var fs = __require("fs");
+    var fs2 = __require("fs");
     var Stream = __require("stream").Stream;
     var crypto2 = __require("crypto");
     var mime = require_mime_types();
@@ -13489,7 +13489,7 @@ var require_form_data = __commonJS({
         if (value.end != void 0 && value.end != Infinity && value.start != void 0) {
           callback(null, value.end + 1 - (value.start ? value.start : 0));
         } else {
-          fs.stat(value.path, function(err, stat) {
+          fs2.stat(value.path, function(err, stat) {
             if (err) {
               callback(err);
               return;
@@ -13546,11 +13546,11 @@ var require_form_data = __commonJS({
     FormData3.prototype._getContentDisposition = function(value, options) {
       var filename;
       if (typeof options.filepath === "string") {
-        filename = path.normalize(options.filepath).replace(/\\/g, "/");
+        filename = path3.normalize(options.filepath).replace(/\\/g, "/");
       } else if (options.filename || value && (value.name || value.path)) {
-        filename = path.basename(options.filename || value && (value.name || value.path));
+        filename = path3.basename(options.filename || value && (value.name || value.path));
       } else if (value && value.readable && hasOwn(value, "httpVersion")) {
-        filename = path.basename(value.client._httpMessage.path || "");
+        filename = path3.basename(value.client._httpMessage.path || "");
       }
       if (filename) {
         return 'filename="' + filename + '"';
@@ -13704,10 +13704,10 @@ var require_form_data = __commonJS({
         this.pipe(request);
         if (cb) {
           var onResponse;
-          var callback = function(error2, responce) {
+          var callback = function(error3, responce) {
             request.removeListener("error", callback);
             request.removeListener("response", onResponse);
-            return cb.call(this, error2, responce);
+            return cb.call(this, error3, responce);
           };
           onResponse = callback.bind(this, null);
           request.on("error", callback);
@@ -13814,7 +13814,7 @@ var require_ms = __commonJS({
       options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
-        return parse(val);
+        return parse2(val);
       } else if (type === "number" && isFinite(val)) {
         return options.long ? fmtLong(val) : fmtShort(val);
       }
@@ -13822,7 +13822,7 @@ var require_ms = __commonJS({
         "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
       );
     };
-    function parse(str) {
+    function parse2(str) {
       str = String(str);
       if (str.length > 100) {
         return;
@@ -14232,14 +14232,14 @@ var require_browser = __commonJS({
         } else {
           exports.storage.removeItem("debug");
         }
-      } catch (error2) {
+      } catch (error3) {
       }
     }
     function load() {
       let r;
       try {
         r = exports.storage.getItem("debug") || exports.storage.getItem("DEBUG");
-      } catch (error2) {
+      } catch (error3) {
       }
       if (!r && typeof process !== "undefined" && "env" in process) {
         r = process.env.DEBUG;
@@ -14249,7 +14249,7 @@ var require_browser = __commonJS({
     function localstorage() {
       try {
         return localStorage;
-      } catch (error2) {
+      } catch (error3) {
       }
     }
     module.exports = require_common()(exports);
@@ -14257,8 +14257,8 @@ var require_browser = __commonJS({
     formatters.j = function(v) {
       try {
         return JSON.stringify(v);
-      } catch (error2) {
-        return "[UnexpectedJSONParseError]: " + error2.message;
+      } catch (error3) {
+        return "[UnexpectedJSONParseError]: " + error3.message;
       }
     };
   }
@@ -14281,7 +14281,7 @@ var require_has_flag = __commonJS({
 var require_supports_color = __commonJS({
   "node_modules/.pnpm/supports-color@7.2.0/node_modules/supports-color/index.js"(exports, module) {
     "use strict";
-    var os = __require("os");
+    var os2 = __require("os");
     var tty = __require("tty");
     var hasFlag = require_has_flag();
     var { env } = process;
@@ -14329,7 +14329,7 @@ var require_supports_color = __commonJS({
         return min;
       }
       if (process.platform === "win32") {
-        const osRelease = os.release().split(".");
+        const osRelease = os2.release().split(".");
         if (Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
           return Number(osRelease[2]) >= 14931 ? 3 : 2;
         }
@@ -14478,7 +14478,7 @@ var require_node = __commonJS({
           221
         ];
       }
-    } catch (error2) {
+    } catch (error3) {
     }
     exports.inspectOpts = Object.keys(process.env).filter((key) => {
       return /^debug_/i.test(key);
@@ -14572,7 +14572,7 @@ var require_debug = __commonJS({
       if (!debug) {
         try {
           debug = require_src()("follow-redirects");
-        } catch (error2) {
+        } catch (error3) {
         }
         if (typeof debug !== "function") {
           debug = function() {
@@ -14605,8 +14605,8 @@ var require_follow_redirects = __commonJS({
     var useNativeURL = false;
     try {
       assert(new URL2(""));
-    } catch (error2) {
-      useNativeURL = error2.code === "ERR_INVALID_URL";
+    } catch (error3) {
+      useNativeURL = error3.code === "ERR_INVALID_URL";
     }
     var preservedUrlFields = [
       "auth",
@@ -14680,9 +14680,9 @@ var require_follow_redirects = __commonJS({
       this._currentRequest.abort();
       this.emit("abort");
     };
-    RedirectableRequest.prototype.destroy = function(error2) {
-      destroyRequest(this._currentRequest, error2);
-      destroy.call(this, error2);
+    RedirectableRequest.prototype.destroy = function(error3) {
+      destroyRequest(this._currentRequest, error3);
+      destroy.call(this, error3);
       return this;
     };
     RedirectableRequest.prototype.write = function(data, encoding, callback) {
@@ -14849,10 +14849,10 @@ var require_follow_redirects = __commonJS({
         var i = 0;
         var self2 = this;
         var buffers = this._requestBodyBuffers;
-        (function writeNext(error2) {
+        (function writeNext(error3) {
           if (request === self2._currentRequest) {
-            if (error2) {
-              self2.emit("error", error2);
+            if (error3) {
+              self2.emit("error", error3);
             } else if (i < buffers.length) {
               var buffer = buffers[i++];
               if (!request.finished) {
@@ -15051,12 +15051,12 @@ var require_follow_redirects = __commonJS({
       });
       return CustomError;
     }
-    function destroyRequest(request, error2) {
+    function destroyRequest(request, error3) {
       for (var event of events) {
         request.removeListener(event, eventHandlers[event]);
       }
       request.on("error", noop2);
-      request.destroy(error2);
+      request.destroy(error3);
     }
     function isSubdomain(subdomain, domain) {
       assert(isString2(subdomain) && isString2(domain));
@@ -16218,10 +16218,10 @@ var require_util = __commonJS({
         rval = api.setItem(id, obj);
       }
       if (typeof rval !== "undefined" && rval.rval !== true) {
-        var error2 = new Error(rval.error.message);
-        error2.id = rval.error.id;
-        error2.name = rval.error.name;
-        throw error2;
+        var error3 = new Error(rval.error.message);
+        error3.id = rval.error.id;
+        error3.name = rval.error.name;
+        throw error3;
       }
     };
     var _getStorageObject = function(api, id) {
@@ -16232,10 +16232,10 @@ var require_util = __commonJS({
       if (api.init) {
         if (rval.rval === null) {
           if (rval.error) {
-            var error2 = new Error(rval.error.message);
-            error2.id = rval.error.id;
-            error2.name = rval.error.name;
-            throw error2;
+            var error3 = new Error(rval.error.message);
+            error3.id = rval.error.id;
+            error3.name = rval.error.name;
+            throw error3;
           }
           rval = null;
         } else {
@@ -17901,11 +17901,11 @@ var require_asn1 = __commonJS({
     };
     function _checkBufferLength(bytes, remaining, n) {
       if (n > remaining) {
-        var error2 = new Error("Too few bytes to parse DER.");
-        error2.available = bytes.length();
-        error2.remaining = remaining;
-        error2.requested = n;
-        throw error2;
+        var error3 = new Error("Too few bytes to parse DER.");
+        error3.available = bytes.length();
+        error3.remaining = remaining;
+        error3.requested = n;
+        throw error3;
       }
     }
     var _getValueLength = function(bytes, remaining) {
@@ -17961,10 +17961,10 @@ var require_asn1 = __commonJS({
       var byteCount = bytes.length();
       var value = _fromDer(bytes, bytes.length(), 0, options);
       if (options.parseAllBytes && bytes.length() !== 0) {
-        var error2 = new Error("Unparsed DER bytes remain after ASN.1 parsing.");
-        error2.byteCount = byteCount;
-        error2.remaining = bytes.length();
-        throw error2;
+        var error3 = new Error("Unparsed DER bytes remain after ASN.1 parsing.");
+        error3.byteCount = byteCount;
+        error3.remaining = bytes.length();
+        throw error3;
       }
       return value;
     };
@@ -17983,11 +17983,11 @@ var require_asn1 = __commonJS({
       remaining -= start - bytes.length();
       if (length !== void 0 && length > remaining) {
         if (options.strict) {
-          var error2 = new Error("Too few bytes to read ASN.1 value.");
-          error2.available = bytes.length();
-          error2.remaining = remaining;
-          error2.requested = length;
-          throw error2;
+          var error3 = new Error("Too few bytes to read ASN.1 value.");
+          error3.available = bytes.length();
+          error3.remaining = remaining;
+          error3.requested = length;
+          throw error3;
         }
         length = remaining;
       }
@@ -18317,9 +18317,9 @@ var require_asn1 = __commonJS({
       if (x >= -2147483648 && x < 2147483648) {
         return rval.putSignedInt(x, 32);
       }
-      var error2 = new Error("Integer too large; max is 32-bits.");
-      error2.integer = x;
-      throw error2;
+      var error3 = new Error("Integer too large; max is 32-bits.");
+      error3.integer = x;
+      throw error3;
     };
     asn1.derToInteger = function(bytes) {
       if (typeof bytes === "string") {
@@ -21942,10 +21942,10 @@ var require_pkcs1 = __commonJS({
       var keyLength = Math.ceil(key.n.bitLength() / 8);
       var maxLength = keyLength - 2 * md.digestLength - 2;
       if (message.length > maxLength) {
-        var error2 = new Error("RSAES-OAEP input message length is too long.");
-        error2.length = message.length;
-        error2.maxLength = maxLength;
-        throw error2;
+        var error3 = new Error("RSAES-OAEP input message length is too long.");
+        error3.length = message.length;
+        error3.maxLength = maxLength;
+        throw error3;
       }
       if (!label) {
         label = "";
@@ -21961,10 +21961,10 @@ var require_pkcs1 = __commonJS({
       if (!seed) {
         seed = forge2.random.getBytes(md.digestLength);
       } else if (seed.length !== md.digestLength) {
-        var error2 = new Error("Invalid RSAES-OAEP seed. The seed length must match the digest length.");
-        error2.seedLength = seed.length;
-        error2.digestLength = md.digestLength;
-        throw error2;
+        var error3 = new Error("Invalid RSAES-OAEP seed. The seed length must match the digest length.");
+        error3.seedLength = seed.length;
+        error3.digestLength = md.digestLength;
+        throw error3;
       }
       var dbMask = rsa_mgf1(seed, keyLength - md.digestLength - 1, mgf1Md);
       var maskedDB = forge2.util.xorBytes(DB, dbMask, DB.length);
@@ -21988,10 +21988,10 @@ var require_pkcs1 = __commonJS({
       }
       var keyLength = Math.ceil(key.n.bitLength() / 8);
       if (em.length !== keyLength) {
-        var error2 = new Error("RSAES-OAEP encoded message length is invalid.");
-        error2.length = em.length;
-        error2.expectedLength = keyLength;
-        throw error2;
+        var error3 = new Error("RSAES-OAEP encoded message length is invalid.");
+        error3.length = em.length;
+        error3.expectedLength = keyLength;
+        throw error3;
       }
       if (md === void 0) {
         md = forge2.md.sha1.create();
@@ -22017,9 +22017,9 @@ var require_pkcs1 = __commonJS({
       var dbMask = rsa_mgf1(seed, keyLength - md.digestLength - 1, mgf1Md);
       var db = forge2.util.xorBytes(maskedDB, dbMask, maskedDB.length);
       var lHashPrime = db.substring(0, md.digestLength);
-      var error2 = y !== "\0";
+      var error3 = y !== "\0";
       for (var i = 0; i < md.digestLength; ++i) {
-        error2 |= lHash.charAt(i) !== lHashPrime.charAt(i);
+        error3 |= lHash.charAt(i) !== lHashPrime.charAt(i);
       }
       var in_ps = 1;
       var index = md.digestLength;
@@ -22027,11 +22027,11 @@ var require_pkcs1 = __commonJS({
         var code = db.charCodeAt(j);
         var is_0 = code & 1 ^ 1;
         var error_mask = in_ps ? 65534 : 0;
-        error2 |= code & error_mask;
+        error3 |= code & error_mask;
         in_ps = in_ps & is_0;
         index += in_ps;
       }
-      if (error2 || db.charCodeAt(index) !== 1) {
+      if (error3 || db.charCodeAt(index) !== 1) {
         throw new Error("Invalid RSAES-OAEP padding.");
       }
       return db.substring(index + 1);
@@ -22445,9 +22445,9 @@ var require_rsa = __commonJS({
       if (md.algorithm in pki2.oids) {
         oid = pki2.oids[md.algorithm];
       } else {
-        var error2 = new Error("Unknown message digest algorithm.");
-        error2.algorithm = md.algorithm;
-        throw error2;
+        var error3 = new Error("Unknown message digest algorithm.");
+        error3.algorithm = md.algorithm;
+        throw error3;
       }
       var oidBytes = asn1.oidToDer(oid).getBytes();
       var digestInfo = asn1.create(
@@ -22543,10 +22543,10 @@ var require_rsa = __commonJS({
     pki2.rsa.decrypt = function(ed, key, pub, ml) {
       var k = Math.ceil(key.n.bitLength() / 8);
       if (ed.length !== k) {
-        var error2 = new Error("Encrypted message length is invalid.");
-        error2.length = ed.length;
-        error2.expected = k;
-        throw error2;
+        var error3 = new Error("Encrypted message length is invalid.");
+        error3.length = ed.length;
+        error3.expected = k;
+        throw error3;
       }
       var y = new BigInteger(forge2.util.createBuffer(ed).toHex(), 16);
       if (y.compareTo(key.n) >= 0) {
@@ -22922,19 +22922,19 @@ var require_rsa = __commonJS({
               var capture = {};
               var errors = [];
               if (!asn1.validate(obj, digestInfoValidator, capture, errors) || obj.value.length !== 2) {
-                var error2 = new Error(
+                var error3 = new Error(
                   "ASN.1 object does not contain a valid RSASSA-PKCS1-v1_5 DigestInfo value."
                 );
-                error2.errors = errors;
-                throw error2;
+                error3.errors = errors;
+                throw error3;
               }
               var oid = asn1.derToOid(capture.algorithmIdentifier);
               if (!(oid === forge2.oids.md2 || oid === forge2.oids.md5 || oid === forge2.oids.sha1 || oid === forge2.oids.sha224 || oid === forge2.oids.sha256 || oid === forge2.oids.sha384 || oid === forge2.oids.sha512 || oid === forge2.oids["sha512-224"] || oid === forge2.oids["sha512-256"])) {
-                var error2 = new Error(
+                var error3 = new Error(
                   "Unknown RSASSA-PKCS1-v1_5 DigestAlgorithm identifier."
                 );
-                error2.oid = oid;
-                throw error2;
+                error3.oid = oid;
+                throw error3;
               }
               if (oid === forge2.oids.md2 || oid === forge2.oids.md5) {
                 if (!("parameters" in capture)) {
@@ -23050,9 +23050,9 @@ var require_rsa = __commonJS({
       capture = {};
       errors = [];
       if (!asn1.validate(obj, rsaPrivateKeyValidator, capture, errors)) {
-        var error2 = new Error("Cannot read private key. ASN.1 object does not contain an RSAPrivateKey.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read private key. ASN.1 object does not contain an RSAPrivateKey.");
+        error3.errors = errors;
+        throw error3;
       }
       var n, e, d, p, q, dP, dQ, qInv;
       n = forge2.util.createBuffer(capture.privateKeyModulus).toHex();
@@ -23147,17 +23147,17 @@ var require_rsa = __commonJS({
       if (asn1.validate(obj, publicKeyValidator, capture, errors)) {
         var oid = asn1.derToOid(capture.publicKeyOid);
         if (oid !== pki2.oids.rsaEncryption) {
-          var error2 = new Error("Cannot read public key. Unknown OID.");
-          error2.oid = oid;
-          throw error2;
+          var error3 = new Error("Cannot read public key. Unknown OID.");
+          error3.oid = oid;
+          throw error3;
         }
         obj = capture.rsaPublicKey;
       }
       errors = [];
       if (!asn1.validate(obj, rsaPublicKeyValidator, capture, errors)) {
-        var error2 = new Error("Cannot read public key. ASN.1 object does not contain an RSAPublicKey.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read public key. ASN.1 object does not contain an RSAPublicKey.");
+        error3.errors = errors;
+        throw error3;
       }
       var n = forge2.util.createBuffer(capture.publicKeyModulus).toHex();
       var e = forge2.util.createBuffer(capture.publicKeyExponent).toHex();
@@ -23208,10 +23208,10 @@ var require_rsa = __commonJS({
       var eb = forge2.util.createBuffer();
       var k = Math.ceil(key.n.bitLength() / 8);
       if (m.length > k - 11) {
-        var error2 = new Error("Message is too long for PKCS#1 v1.5 padding.");
-        error2.length = m.length;
-        error2.max = k - 11;
-        throw error2;
+        var error3 = new Error("Message is too long for PKCS#1 v1.5 padding.");
+        error3.length = m.length;
+        error3.max = k - 11;
+        throw error3;
       }
       eb.putByte(0);
       eb.putByte(bt);
@@ -23611,9 +23611,9 @@ var require_pbe = __commonJS({
             cipherFn = forge2.des.createEncryptionCipher;
             break;
           default:
-            var error2 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
-            error2.algorithm = options.algorithm;
-            throw error2;
+            var error3 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
+            error3.algorithm = options.algorithm;
+            throw error3;
         }
         var prfAlgorithm = "hmacWith" + options.prfAlgorithm.toUpperCase();
         var md = prfAlgorithmToMessageDigest(prfAlgorithm);
@@ -23703,9 +23703,9 @@ var require_pbe = __commonJS({
           ]
         );
       } else {
-        var error2 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
-        error2.algorithm = options.algorithm;
-        throw error2;
+        var error3 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
+        error3.algorithm = options.algorithm;
+        throw error3;
       }
       var rval = asn1.create(asn1.Class.UNIVERSAL, asn1.Type.SEQUENCE, true, [
         // encryptionAlgorithm
@@ -23725,9 +23725,9 @@ var require_pbe = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, encryptedPrivateKeyValidator, capture, errors)) {
-        var error2 = new Error("Cannot read encrypted private key. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read encrypted private key. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
+        error3.errors = errors;
+        throw error3;
       }
       var oid = asn1.derToOid(capture.encryptionOid);
       var cipher = pki2.pbe.getCipher(oid, capture.encryptionParams, password);
@@ -23748,9 +23748,9 @@ var require_pbe = __commonJS({
     pki2.encryptedPrivateKeyFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "ENCRYPTED PRIVATE KEY") {
-        var error2 = new Error('Could not convert encrypted private key from PEM; PEM header type is "ENCRYPTED PRIVATE KEY".');
-        error2.headerType = msg.type;
-        throw error2;
+        var error3 = new Error('Could not convert encrypted private key from PEM; PEM header type is "ENCRYPTED PRIVATE KEY".');
+        error3.headerType = msg.type;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert encrypted private key from PEM; PEM is encrypted.");
@@ -23800,9 +23800,9 @@ var require_pbe = __commonJS({
           cipherFn = forge2.des.createEncryptionCipher;
           break;
         default:
-          var error2 = new Error('Could not encrypt RSA private key; unsupported encryption algorithm "' + options.algorithm + '".');
-          error2.algorithm = options.algorithm;
-          throw error2;
+          var error3 = new Error('Could not encrypt RSA private key; unsupported encryption algorithm "' + options.algorithm + '".');
+          error3.algorithm = options.algorithm;
+          throw error3;
       }
       var dk = forge2.pbe.opensslDeriveBytes(password, iv.substr(0, 8), dkLen);
       var cipher = cipherFn(dk);
@@ -23827,9 +23827,9 @@ var require_pbe = __commonJS({
       var rval = null;
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "ENCRYPTED PRIVATE KEY" && msg.type !== "PRIVATE KEY" && msg.type !== "RSA PRIVATE KEY") {
-        var error2 = new Error('Could not convert private key from PEM; PEM header type is not "ENCRYPTED PRIVATE KEY", "PRIVATE KEY", or "RSA PRIVATE KEY".');
-        error2.headerType = error2;
-        throw error2;
+        var error3 = new Error('Could not convert private key from PEM; PEM header type is not "ENCRYPTED PRIVATE KEY", "PRIVATE KEY", or "RSA PRIVATE KEY".');
+        error3.headerType = error3;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         var dkLen;
@@ -23874,9 +23874,9 @@ var require_pbe = __commonJS({
             };
             break;
           default:
-            var error2 = new Error('Could not decrypt private key; unsupported encryption algorithm "' + msg.dekInfo.algorithm + '".');
-            error2.algorithm = msg.dekInfo.algorithm;
-            throw error2;
+            var error3 = new Error('Could not decrypt private key; unsupported encryption algorithm "' + msg.dekInfo.algorithm + '".');
+            error3.algorithm = msg.dekInfo.algorithm;
+            throw error3;
         }
         var iv = forge2.util.hexToBytes(msg.dekInfo.parameters);
         var dk = forge2.pbe.opensslDeriveBytes(password, iv.substr(0, 8), dkLen);
@@ -23975,43 +23975,43 @@ var require_pbe = __commonJS({
         case pki2.oids["pbewithSHAAnd40BitRC2-CBC"]:
           return pki2.pbe.getCipherForPKCS12PBE(oid, params, password);
         default:
-          var error2 = new Error("Cannot read encrypted PBE data block. Unsupported OID.");
-          error2.oid = oid;
-          error2.supportedOids = [
+          var error3 = new Error("Cannot read encrypted PBE data block. Unsupported OID.");
+          error3.oid = oid;
+          error3.supportedOids = [
             "pkcs5PBES2",
             "pbeWithSHAAnd3-KeyTripleDES-CBC",
             "pbewithSHAAnd40BitRC2-CBC"
           ];
-          throw error2;
+          throw error3;
       }
     };
     pki2.pbe.getCipherForPBES2 = function(oid, params, password) {
       var capture = {};
       var errors = [];
       if (!asn1.validate(params, PBES2AlgorithmsValidator, capture, errors)) {
-        var error2 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
+        error3.errors = errors;
+        throw error3;
       }
       oid = asn1.derToOid(capture.kdfOid);
       if (oid !== pki2.oids["pkcs5PBKDF2"]) {
-        var error2 = new Error("Cannot read encrypted private key. Unsupported key derivation function OID.");
-        error2.oid = oid;
-        error2.supportedOids = ["pkcs5PBKDF2"];
-        throw error2;
+        var error3 = new Error("Cannot read encrypted private key. Unsupported key derivation function OID.");
+        error3.oid = oid;
+        error3.supportedOids = ["pkcs5PBKDF2"];
+        throw error3;
       }
       oid = asn1.derToOid(capture.encOid);
       if (oid !== pki2.oids["aes128-CBC"] && oid !== pki2.oids["aes192-CBC"] && oid !== pki2.oids["aes256-CBC"] && oid !== pki2.oids["des-EDE3-CBC"] && oid !== pki2.oids["desCBC"]) {
-        var error2 = new Error("Cannot read encrypted private key. Unsupported encryption scheme OID.");
-        error2.oid = oid;
-        error2.supportedOids = [
+        var error3 = new Error("Cannot read encrypted private key. Unsupported encryption scheme OID.");
+        error3.oid = oid;
+        error3.supportedOids = [
           "aes128-CBC",
           "aes192-CBC",
           "aes256-CBC",
           "des-EDE3-CBC",
           "desCBC"
         ];
-        throw error2;
+        throw error3;
       }
       var salt = capture.kdfSalt;
       var count = forge2.util.createBuffer(capture.kdfIterationCount);
@@ -24051,9 +24051,9 @@ var require_pbe = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(params, pkcs12PbeParamsValidator, capture, errors)) {
-        var error2 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
+        error3.errors = errors;
+        throw error3;
       }
       var salt = forge2.util.createBuffer(capture.salt);
       var count = forge2.util.createBuffer(capture.iterations);
@@ -24075,9 +24075,9 @@ var require_pbe = __commonJS({
           };
           break;
         default:
-          var error2 = new Error("Cannot read PKCS #12 PBE data block. Unsupported OID.");
-          error2.oid = oid;
-          throw error2;
+          var error3 = new Error("Cannot read PKCS #12 PBE data block. Unsupported OID.");
+          error3.oid = oid;
+          throw error3;
       }
       var md = prfOidToMessageDigest(capture.prfOid);
       var key = pki2.pbe.generatePkcs12Key(password, salt, 1, count, dkLen, md);
@@ -24111,16 +24111,16 @@ var require_pbe = __commonJS({
       } else {
         prfAlgorithm = pki2.oids[asn1.derToOid(prfOid)];
         if (!prfAlgorithm) {
-          var error2 = new Error("Unsupported PRF OID.");
-          error2.oid = prfOid;
-          error2.supported = [
+          var error3 = new Error("Unsupported PRF OID.");
+          error3.oid = prfOid;
+          error3.supported = [
             "hmacWithSHA1",
             "hmacWithSHA224",
             "hmacWithSHA256",
             "hmacWithSHA384",
             "hmacWithSHA512"
           ];
-          throw error2;
+          throw error3;
         }
       }
       return prfAlgorithmToMessageDigest(prfAlgorithm);
@@ -24137,16 +24137,16 @@ var require_pbe = __commonJS({
           prfAlgorithm = prfAlgorithm.substr(8).toLowerCase();
           break;
         default:
-          var error2 = new Error("Unsupported PRF algorithm.");
-          error2.algorithm = prfAlgorithm;
-          error2.supported = [
+          var error3 = new Error("Unsupported PRF algorithm.");
+          error3.algorithm = prfAlgorithm;
+          error3.supported = [
             "hmacWithSHA1",
             "hmacWithSHA224",
             "hmacWithSHA256",
             "hmacWithSHA384",
             "hmacWithSHA512"
           ];
-          throw error2;
+          throw error3;
       }
       if (!factory2 || !(prfAlgorithm in factory2)) {
         throw new Error("Unknown hash algorithm: " + prfAlgorithm);
@@ -25143,9 +25143,9 @@ var require_x509 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, rsassaPssParameterValidator, capture, errors)) {
-        var error2 = new Error("Cannot read RSASSA-PSS parameter block.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read RSASSA-PSS parameter block.");
+        error3.errors = errors;
+        throw error3;
       }
       if (capture.hashOid !== void 0) {
         params.hash = params.hash || {};
@@ -25179,11 +25179,11 @@ var require_x509 = __commonJS({
         case "RSASSA-PSS":
           return forge2.md.sha256.create();
         default:
-          var error2 = new Error(
+          var error3 = new Error(
             "Could not compute " + options.type + " digest. Unknown signature OID."
           );
-          error2.signatureOid = options.signatureOid;
-          throw error2;
+          error3.signatureOid = options.signatureOid;
+          throw error3;
       }
     };
     var _verifySignature = function(options) {
@@ -25198,25 +25198,25 @@ var require_x509 = __commonJS({
           var hash, mgf;
           hash = oids[cert.signatureParameters.mgf.hash.algorithmOid];
           if (hash === void 0 || forge2.md[hash] === void 0) {
-            var error2 = new Error("Unsupported MGF hash function.");
-            error2.oid = cert.signatureParameters.mgf.hash.algorithmOid;
-            error2.name = hash;
-            throw error2;
+            var error3 = new Error("Unsupported MGF hash function.");
+            error3.oid = cert.signatureParameters.mgf.hash.algorithmOid;
+            error3.name = hash;
+            throw error3;
           }
           mgf = oids[cert.signatureParameters.mgf.algorithmOid];
           if (mgf === void 0 || forge2.mgf[mgf] === void 0) {
-            var error2 = new Error("Unsupported MGF function.");
-            error2.oid = cert.signatureParameters.mgf.algorithmOid;
-            error2.name = mgf;
-            throw error2;
+            var error3 = new Error("Unsupported MGF function.");
+            error3.oid = cert.signatureParameters.mgf.algorithmOid;
+            error3.name = mgf;
+            throw error3;
           }
           mgf = forge2.mgf[mgf].create(forge2.md[hash].create());
           hash = oids[cert.signatureParameters.hash.algorithmOid];
           if (hash === void 0 || forge2.md[hash] === void 0) {
-            var error2 = new Error("Unsupported RSASSA-PSS hash function.");
-            error2.oid = cert.signatureParameters.hash.algorithmOid;
-            error2.name = hash;
-            throw error2;
+            var error3 = new Error("Unsupported RSASSA-PSS hash function.");
+            error3.oid = cert.signatureParameters.hash.algorithmOid;
+            error3.name = hash;
+            throw error3;
           }
           scheme = forge2.pss.create(
             forge2.md[hash].create(),
@@ -25234,11 +25234,11 @@ var require_x509 = __commonJS({
     pki2.certificateFromPem = function(pem, computeHash, strict) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "CERTIFICATE" && msg.type !== "X509 CERTIFICATE" && msg.type !== "TRUSTED CERTIFICATE") {
-        var error2 = new Error(
+        var error3 = new Error(
           'Could not convert certificate from PEM; PEM header type is not "CERTIFICATE", "X509 CERTIFICATE", or "TRUSTED CERTIFICATE".'
         );
-        error2.headerType = msg.type;
-        throw error2;
+        error3.headerType = msg.type;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error(
@@ -25258,9 +25258,9 @@ var require_x509 = __commonJS({
     pki2.publicKeyFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "PUBLIC KEY" && msg.type !== "RSA PUBLIC KEY") {
-        var error2 = new Error('Could not convert public key from PEM; PEM header type is not "PUBLIC KEY" or "RSA PUBLIC KEY".');
-        error2.headerType = msg.type;
-        throw error2;
+        var error3 = new Error('Could not convert public key from PEM; PEM header type is not "PUBLIC KEY" or "RSA PUBLIC KEY".');
+        error3.headerType = msg.type;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert public key from PEM; PEM is encrypted.");
@@ -25316,9 +25316,9 @@ var require_x509 = __commonJS({
     pki2.certificationRequestFromPem = function(pem, computeHash, strict) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "CERTIFICATE REQUEST") {
-        var error2 = new Error('Could not convert certification request from PEM; PEM header type is not "CERTIFICATE REQUEST".');
-        error2.headerType = msg.type;
-        throw error2;
+        var error3 = new Error('Could not convert certification request from PEM; PEM header type is not "CERTIFICATE REQUEST".');
+        error3.headerType = msg.type;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert certification request from PEM; PEM is encrypted.");
@@ -25411,9 +25411,9 @@ var require_x509 = __commonJS({
         cert.md = md || forge2.md.sha1.create();
         var algorithmOid = oids[cert.md.algorithm + "WithRSAEncryption"];
         if (!algorithmOid) {
-          var error2 = new Error("Could not compute certificate digest. Unknown message digest algorithm OID.");
-          error2.algorithm = cert.md.algorithm;
-          throw error2;
+          var error3 = new Error("Could not compute certificate digest. Unknown message digest algorithm OID.");
+          error3.algorithm = cert.md.algorithm;
+          throw error3;
         }
         cert.signatureOid = cert.siginfo.algorithmOid = algorithmOid;
         cert.tbsCertificate = pki2.getTBSCertificate(cert);
@@ -25426,12 +25426,12 @@ var require_x509 = __commonJS({
         if (!cert.issued(child)) {
           var issuer = child.issuer;
           var subject = cert.subject;
-          var error2 = new Error(
+          var error3 = new Error(
             "The parent certificate did not issue the given child certificate; the child certificate's issuer does not match the parent's subject."
           );
-          error2.expectedIssuer = subject.attributes;
-          error2.actualIssuer = issuer.attributes;
-          throw error2;
+          error3.expectedIssuer = subject.attributes;
+          error3.actualIssuer = issuer.attributes;
+          throw error3;
         }
         var md = child.md;
         if (md === null) {
@@ -25494,9 +25494,9 @@ var require_x509 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, x509CertificateValidator, capture, errors)) {
-        var error2 = new Error("Cannot read X.509 certificate. ASN.1 object is not an X509v3 Certificate.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read X.509 certificate. ASN.1 object is not an X509v3 Certificate.");
+        error3.errors = errors;
+        throw error3;
       }
       var oid = asn1.derToOid(capture.publicKeyOid);
       if (oid !== pki2.oids.rsaEncryption) {
@@ -25711,9 +25711,9 @@ var require_x509 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, certificationRequestValidator, capture, errors)) {
-        var error2 = new Error("Cannot read PKCS#10 certificate request. ASN.1 object is not a PKCS#10 CertificationRequest.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read PKCS#10 certificate request. ASN.1 object is not a PKCS#10 CertificationRequest.");
+        error3.errors = errors;
+        throw error3;
       }
       var oid = asn1.derToOid(capture.publicKeyOid);
       if (oid !== pki2.oids.rsaEncryption) {
@@ -25809,9 +25809,9 @@ var require_x509 = __commonJS({
         csr.md = md || forge2.md.sha1.create();
         var algorithmOid = oids[csr.md.algorithm + "WithRSAEncryption"];
         if (!algorithmOid) {
-          var error2 = new Error("Could not compute certification request digest. Unknown message digest algorithm OID.");
-          error2.algorithm = csr.md.algorithm;
-          throw error2;
+          var error3 = new Error("Could not compute certification request digest. Unknown message digest algorithm OID.");
+          error3.algorithm = csr.md.algorithm;
+          throw error3;
         }
         csr.signatureOid = csr.siginfo.algorithmOid = algorithmOid;
         csr.certificationRequestInfo = pki2.getCertificationRequestInfo(csr);
@@ -25893,9 +25893,9 @@ var require_x509 = __commonJS({
           if (attr.name && attr.name in pki2.oids) {
             attr.type = pki2.oids[attr.name];
           } else {
-            var error2 = new Error("Attribute type not specified.");
-            error2.attribute = attr;
-            throw error2;
+            var error3 = new Error("Attribute type not specified.");
+            error3.attribute = attr;
+            throw error3;
           }
         }
         if (typeof attr.shortName === "undefined") {
@@ -25916,9 +25916,9 @@ var require_x509 = __commonJS({
           }
         }
         if (typeof attr.value === "undefined") {
-          var error2 = new Error("Attribute value not specified.");
-          error2.attribute = attr;
-          throw error2;
+          var error3 = new Error("Attribute value not specified.");
+          error3.attribute = attr;
+          throw error3;
         }
       }
     }
@@ -25933,9 +25933,9 @@ var require_x509 = __commonJS({
         if (e.name && e.name in pki2.oids) {
           e.id = pki2.oids[e.name];
         } else {
-          var error2 = new Error("Extension ID not specified.");
-          error2.extension = e;
-          throw error2;
+          var error3 = new Error("Extension ID not specified.");
+          error3.extension = e;
+          throw error3;
         }
       }
       if (typeof e.value !== "undefined") {
@@ -26098,11 +26098,11 @@ var require_x509 = __commonJS({
           if (altName.type === 7 && altName.ip) {
             value = forge2.util.bytesFromIP(altName.ip);
             if (value === null) {
-              var error2 = new Error(
+              var error3 = new Error(
                 'Extension "ip" value is not a valid IPv4 or IPv6 address.'
               );
-              error2.extension = e;
-              throw error2;
+              error3.extension = e;
+              throw error3;
             }
           } else if (altName.type === 8) {
             if (altName.oid) {
@@ -26184,11 +26184,11 @@ var require_x509 = __commonJS({
           if (altName.type === 7 && altName.ip) {
             value = forge2.util.bytesFromIP(altName.ip);
             if (value === null) {
-              var error2 = new Error(
+              var error3 = new Error(
                 'Extension "ip" value is not a valid IPv4 or IPv6 address.'
               );
-              error2.extension = e;
-              throw error2;
+              error3.extension = e;
+              throw error3;
             }
           } else if (altName.type === 8) {
             if (altName.oid) {
@@ -26213,9 +26213,9 @@ var require_x509 = __commonJS({
         seq.push(subSeq);
       }
       if (typeof e.value === "undefined") {
-        var error2 = new Error("Extension value not specified.");
-        error2.extension = e;
-        throw error2;
+        var error3 = new Error("Extension value not specified.");
+        error3.extension = e;
+        throw error3;
       }
       return e;
     }
@@ -26652,7 +26652,7 @@ var require_x509 = __commonJS({
         validityCheckDate = /* @__PURE__ */ new Date();
       }
       var first = true;
-      var error2 = null;
+      var error3 = null;
       var depth = 0;
       do {
         var cert = chain.shift();
@@ -26660,7 +26660,7 @@ var require_x509 = __commonJS({
         var selfSigned = false;
         if (validityCheckDate) {
           if (validityCheckDate < cert.validity.notBefore || validityCheckDate > cert.validity.notAfter) {
-            error2 = {
+            error3 = {
               message: "Certificate is not valid yet or has expired.",
               error: pki2.certificateError.certificate_expired,
               notBefore: cert.validity.notBefore,
@@ -26671,7 +26671,7 @@ var require_x509 = __commonJS({
             };
           }
         }
-        if (error2 === null) {
+        if (error3 === null) {
           parent = chain[0] || caStore.getIssuer(cert);
           if (parent === null) {
             if (cert.isIssuer(cert)) {
@@ -26693,80 +26693,80 @@ var require_x509 = __commonJS({
               }
             }
             if (!verified) {
-              error2 = {
+              error3 = {
                 message: "Certificate signature is invalid.",
                 error: pki2.certificateError.bad_certificate
               };
             }
           }
-          if (error2 === null && (!parent || selfSigned) && !caStore.hasCertificate(cert)) {
-            error2 = {
+          if (error3 === null && (!parent || selfSigned) && !caStore.hasCertificate(cert)) {
+            error3 = {
               message: "Certificate is not trusted.",
               error: pki2.certificateError.unknown_ca
             };
           }
         }
-        if (error2 === null && parent && !cert.isIssuer(parent)) {
-          error2 = {
+        if (error3 === null && parent && !cert.isIssuer(parent)) {
+          error3 = {
             message: "Certificate issuer is invalid.",
             error: pki2.certificateError.bad_certificate
           };
         }
-        if (error2 === null) {
+        if (error3 === null) {
           var se = {
             keyUsage: true,
             basicConstraints: true
           };
-          for (var i = 0; error2 === null && i < cert.extensions.length; ++i) {
+          for (var i = 0; error3 === null && i < cert.extensions.length; ++i) {
             var ext = cert.extensions[i];
             if (ext.critical && !(ext.name in se)) {
-              error2 = {
+              error3 = {
                 message: "Certificate has an unsupported critical extension.",
                 error: pki2.certificateError.unsupported_certificate
               };
             }
           }
         }
-        if (error2 === null && (!first || chain.length === 0 && (!parent || selfSigned))) {
+        if (error3 === null && (!first || chain.length === 0 && (!parent || selfSigned))) {
           var bcExt = cert.getExtension("basicConstraints");
           var keyUsageExt = cert.getExtension("keyUsage");
           if (keyUsageExt !== null) {
             if (!keyUsageExt.keyCertSign || bcExt === null) {
-              error2 = {
+              error3 = {
                 message: "Certificate keyUsage or basicConstraints conflict or indicate that the certificate is not a CA. If the certificate is the only one in the chain or isn't the first then the certificate must be a valid CA.",
                 error: pki2.certificateError.bad_certificate
               };
             }
           }
-          if (error2 === null && bcExt === null) {
-            error2 = {
+          if (error3 === null && bcExt === null) {
+            error3 = {
               message: "Certificate is missing basicConstraints extension and cannot be used as a CA.",
               error: pki2.certificateError.bad_certificate
             };
           }
-          if (error2 === null && bcExt !== null && !bcExt.cA) {
-            error2 = {
+          if (error3 === null && bcExt !== null && !bcExt.cA) {
+            error3 = {
               message: "Certificate basicConstraints indicates the certificate is not a CA.",
               error: pki2.certificateError.bad_certificate
             };
           }
-          if (error2 === null && keyUsageExt !== null && "pathLenConstraint" in bcExt) {
+          if (error3 === null && keyUsageExt !== null && "pathLenConstraint" in bcExt) {
             var pathLen = depth - 1;
             if (pathLen > bcExt.pathLenConstraint) {
-              error2 = {
+              error3 = {
                 message: "Certificate basicConstraints pathLenConstraint violated.",
                 error: pki2.certificateError.bad_certificate
               };
             }
           }
         }
-        var vfd = error2 === null ? true : error2.error;
+        var vfd = error3 === null ? true : error3.error;
         var ret = options.verify ? options.verify(vfd, depth, certs) : vfd;
         if (ret === true) {
-          error2 = null;
+          error3 = null;
         } else {
           if (vfd === true) {
-            error2 = {
+            error3 = {
               message: "The application rejected the certificate.",
               error: pki2.certificateError.bad_certificate
             };
@@ -26774,16 +26774,16 @@ var require_x509 = __commonJS({
           if (ret || ret === 0) {
             if (typeof ret === "object" && !forge2.util.isArray(ret)) {
               if (ret.message) {
-                error2.message = ret.message;
+                error3.message = ret.message;
               }
               if (ret.error) {
-                error2.error = ret.error;
+                error3.error = ret.error;
               }
             } else if (typeof ret === "string") {
-              error2.error = ret;
+              error3.error = ret;
             }
           }
-          throw error2;
+          throw error3;
         }
         first = false;
         ++depth;
@@ -26997,9 +26997,9 @@ var require_pkcs12 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, pfxValidator, capture, errors)) {
-        var error2 = new Error("Cannot read PKCS#12 PFX. ASN.1 object is not an PKCS#12 PFX.");
-        error2.errors = error2;
-        throw error2;
+        var error3 = new Error("Cannot read PKCS#12 PFX. ASN.1 object is not an PKCS#12 PFX.");
+        error3.errors = error3;
+        throw error3;
       }
       var pfx = {
         version: capture.version.charCodeAt(0),
@@ -27089,14 +27089,14 @@ var require_pkcs12 = __commonJS({
         }
       };
       if (capture.version.charCodeAt(0) !== 3) {
-        var error2 = new Error("PKCS#12 PFX of version other than 3 not supported.");
-        error2.version = capture.version.charCodeAt(0);
-        throw error2;
+        var error3 = new Error("PKCS#12 PFX of version other than 3 not supported.");
+        error3.version = capture.version.charCodeAt(0);
+        throw error3;
       }
       if (asn1.derToOid(capture.contentType) !== pki2.oids.data) {
-        var error2 = new Error("Only PKCS#12 PFX in password integrity mode supported.");
-        error2.oid = asn1.derToOid(capture.contentType);
-        throw error2;
+        var error3 = new Error("Only PKCS#12 PFX in password integrity mode supported.");
+        error3.oid = asn1.derToOid(capture.contentType);
+        throw error3;
       }
       var data = capture.content.value[0];
       if (data.tagClass !== asn1.Class.UNIVERSAL || data.type !== asn1.Type.OCTETSTRING) {
@@ -27176,9 +27176,9 @@ var require_pkcs12 = __commonJS({
         var capture = {};
         var errors = [];
         if (!asn1.validate(contentInfo, contentInfoValidator, capture, errors)) {
-          var error2 = new Error("Cannot read ContentInfo.");
-          error2.errors = errors;
-          throw error2;
+          var error3 = new Error("Cannot read ContentInfo.");
+          error3.errors = errors;
+          throw error3;
         }
         var obj = {
           encrypted: false
@@ -27197,9 +27197,9 @@ var require_pkcs12 = __commonJS({
             obj.encrypted = true;
             break;
           default:
-            var error2 = new Error("Unsupported PKCS#12 contentType.");
-            error2.contentType = asn1.derToOid(capture.contentType);
-            throw error2;
+            var error3 = new Error("Unsupported PKCS#12 contentType.");
+            error3.contentType = asn1.derToOid(capture.contentType);
+            throw error3;
         }
         obj.safeBags = _decodeSafeContents(safeContents, strict, password);
         pfx.safeContents.push(obj);
@@ -27214,17 +27214,17 @@ var require_pkcs12 = __commonJS({
         capture,
         errors
       )) {
-        var error2 = new Error("Cannot read EncryptedContentInfo.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read EncryptedContentInfo.");
+        error3.errors = errors;
+        throw error3;
       }
       var oid = asn1.derToOid(capture.contentType);
       if (oid !== pki2.oids.data) {
-        var error2 = new Error(
+        var error3 = new Error(
           "PKCS#12 EncryptedContentInfo ContentType is not Data."
         );
-        error2.oid = oid;
-        throw error2;
+        error3.oid = oid;
+        throw error3;
       }
       oid = asn1.derToOid(capture.encAlgorithm);
       var cipher = pki2.pbe.getCipher(oid, capture.encParameter, password);
@@ -27252,9 +27252,9 @@ var require_pkcs12 = __commonJS({
         var capture = {};
         var errors = [];
         if (!asn1.validate(safeBag, safeBagValidator, capture, errors)) {
-          var error2 = new Error("Cannot read SafeBag.");
-          error2.errors = errors;
-          throw error2;
+          var error3 = new Error("Cannot read SafeBag.");
+          error3.errors = errors;
+          throw error3;
         }
         var bag = {
           type: asn1.derToOid(capture.bagId),
@@ -27285,11 +27285,11 @@ var require_pkcs12 = __commonJS({
             validator = certBagValidator;
             decoder = function() {
               if (asn1.derToOid(capture.certId) !== pki2.oids.x509Certificate) {
-                var error3 = new Error(
+                var error4 = new Error(
                   "Unsupported certificate type, only X.509 supported."
                 );
-                error3.oid = asn1.derToOid(capture.certId);
-                throw error3;
+                error4.oid = asn1.derToOid(capture.certId);
+                throw error4;
               }
               var certAsn1 = asn1.fromDer(capture.cert, strict);
               try {
@@ -27301,14 +27301,14 @@ var require_pkcs12 = __commonJS({
             };
             break;
           default:
-            var error2 = new Error("Unsupported PKCS#12 SafeBag type.");
-            error2.oid = bag.type;
-            throw error2;
+            var error3 = new Error("Unsupported PKCS#12 SafeBag type.");
+            error3.oid = bag.type;
+            throw error3;
         }
         if (validator !== void 0 && !asn1.validate(bagAsn1, validator, capture, errors)) {
-          var error2 = new Error("Cannot read PKCS#12 " + validator.name);
-          error2.errors = errors;
-          throw error2;
+          var error3 = new Error("Cannot read PKCS#12 " + validator.name);
+          error3.errors = errors;
+          throw error3;
         }
         decoder();
       }
@@ -27321,9 +27321,9 @@ var require_pkcs12 = __commonJS({
           var capture = {};
           var errors = [];
           if (!asn1.validate(attributes[i], attributeValidator, capture, errors)) {
-            var error2 = new Error("Cannot read PKCS#12 BagAttribute.");
-            error2.errors = errors;
-            throw error2;
+            var error3 = new Error("Cannot read PKCS#12 BagAttribute.");
+            error3.errors = errors;
+            throw error3;
           }
           var oid = asn1.derToOid(capture.oid);
           if (pki2.oids[oid] === void 0) {
@@ -27682,9 +27682,9 @@ var require_pki = __commonJS({
     pki2.privateKeyFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "PRIVATE KEY" && msg.type !== "RSA PRIVATE KEY") {
-        var error2 = new Error('Could not convert private key from PEM; PEM header type is not "PRIVATE KEY" or "RSA PRIVATE KEY".');
-        error2.headerType = msg.type;
-        throw error2;
+        var error3 = new Error('Could not convert private key from PEM; PEM header type is not "PRIVATE KEY" or "RSA PRIVATE KEY".');
+        error3.headerType = msg.type;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert private key from PEM; PEM is encrypted.");
@@ -28396,7 +28396,7 @@ var require_tls = __commonJS({
         });
       }
       if (c.serverCertificate === null) {
-        var error2 = {
+        var error3 = {
           message: "No server certificate provided. Not enough security.",
           send: true,
           alert: {
@@ -28405,21 +28405,21 @@ var require_tls = __commonJS({
           }
         };
         var depth = 0;
-        var ret = c.verify(c, error2.alert.description, depth, []);
+        var ret = c.verify(c, error3.alert.description, depth, []);
         if (ret !== true) {
           if (ret || ret === 0) {
             if (typeof ret === "object" && !forge2.util.isArray(ret)) {
               if (ret.message) {
-                error2.message = ret.message;
+                error3.message = ret.message;
               }
               if (ret.alert) {
-                error2.alert.description = ret.alert;
+                error3.alert.description = ret.alert;
               }
             } else if (typeof ret === "number") {
-              error2.alert.description = ret;
+              error3.alert.description = ret;
             }
           }
-          return c.error(c, error2);
+          return c.error(c, error3);
         }
       }
       if (c.session.certificateRequest !== null) {
@@ -29067,9 +29067,9 @@ var require_tls = __commonJS({
           for (var i = 0; i < cert.length; ++i) {
             var msg = forge2.pem.decode(cert[i])[0];
             if (msg.type !== "CERTIFICATE" && msg.type !== "X509 CERTIFICATE" && msg.type !== "TRUSTED CERTIFICATE") {
-              var error2 = new Error('Could not convert certificate from PEM; PEM header type is not "CERTIFICATE", "X509 CERTIFICATE", or "TRUSTED CERTIFICATE".');
-              error2.headerType = msg.type;
-              throw error2;
+              var error3 = new Error('Could not convert certificate from PEM; PEM header type is not "CERTIFICATE", "X509 CERTIFICATE", or "TRUSTED CERTIFICATE".');
+              error3.headerType = msg.type;
+              throw error3;
             }
             if (msg.procType && msg.procType.type === "ENCRYPTED") {
               throw new Error("Could not convert certificate from PEM; PEM is encrypted.");
@@ -29295,8 +29295,8 @@ var require_tls = __commonJS({
       c.records = [];
       return c.tlsDataReady(c);
     };
-    var _certErrorToAlertDesc = function(error2) {
-      switch (error2) {
+    var _certErrorToAlertDesc = function(error3) {
+      switch (error3) {
         case true:
           return true;
         case forge2.pki.certificateError.bad_certificate:
@@ -29346,19 +29346,19 @@ var require_tls = __commonJS({
           var ret = c.verify(c, vfd, depth, chain2);
           if (ret !== true) {
             if (typeof ret === "object" && !forge2.util.isArray(ret)) {
-              var error2 = new Error("The application rejected the certificate.");
-              error2.send = true;
-              error2.alert = {
+              var error3 = new Error("The application rejected the certificate.");
+              error3.send = true;
+              error3.alert = {
                 level: tls.Alert.Level.fatal,
                 description: tls.Alert.Description.bad_certificate
               };
               if (ret.message) {
-                error2.message = ret.message;
+                error3.message = ret.message;
               }
               if (ret.alert) {
-                error2.alert.description = ret.alert;
+                error3.alert.description = ret.alert;
               }
-              throw error2;
+              throw error3;
             }
             if (ret !== vfd) {
               ret = _alertDescToCertError(ret);
@@ -29489,12 +29489,12 @@ var require_tls = __commonJS({
             tls.queue(c2, tls.createAlert(c2, ex.alert));
             tls.flush(c2);
           }
-          var fatal = ex.fatal !== false;
-          if (fatal) {
+          var fatal2 = ex.fatal !== false;
+          if (fatal2) {
             c2.fail = true;
           }
           options.error(c2, ex);
-          if (fatal) {
+          if (fatal2) {
             c2.close(false);
           }
         },
@@ -30442,9 +30442,9 @@ var require_ed25519 = __commonJS({
       var errors = [];
       var valid = forge2.asn1.validate(obj, privateKeyValidator, capture, errors);
       if (!valid) {
-        var error2 = new Error("Invalid Key.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Invalid Key.");
+        error3.errors = errors;
+        throw error3;
       }
       var oid = forge2.asn1.derToOid(capture.privateKeyOid);
       var ed25519Oid = forge2.oids.EdDSA25519;
@@ -30463,9 +30463,9 @@ var require_ed25519 = __commonJS({
       var errors = [];
       var valid = forge2.asn1.validate(obj, publicKeyValidator, capture, errors);
       if (!valid) {
-        var error2 = new Error("Invalid Key.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Invalid Key.");
+        error3.errors = errors;
+        throw error3;
       }
       var oid = forge2.asn1.derToOid(capture.publicKeyOid);
       var ed25519Oid = forge2.oids.EdDSA25519;
@@ -31766,9 +31766,9 @@ var require_pkcs7 = __commonJS({
     p7.messageFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "PKCS7") {
-        var error2 = new Error('Could not convert PKCS#7 message from PEM; PEM header type is not "PKCS#7".');
-        error2.headerType = msg.type;
-        throw error2;
+        var error3 = new Error('Could not convert PKCS#7 message from PEM; PEM header type is not "PKCS#7".');
+        error3.headerType = msg.type;
+        throw error3;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert PKCS#7 message from PEM; PEM is encrypted.");
@@ -31787,9 +31787,9 @@ var require_pkcs7 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, p7.asn1.contentInfoValidator, capture, errors)) {
-        var error2 = new Error("Cannot read PKCS#7 message. ASN.1 object is not an PKCS#7 ContentInfo.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read PKCS#7 message. ASN.1 object is not an PKCS#7 ContentInfo.");
+        error3.errors = errors;
+        throw error3;
       }
       var contentType = asn1.derToOid(capture.contentType);
       var msg;
@@ -32420,9 +32420,9 @@ var require_pkcs7 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, p7.asn1.recipientInfoValidator, capture, errors)) {
-        var error2 = new Error("Cannot read PKCS#7 RecipientInfo. ASN.1 object is not an PKCS#7 RecipientInfo.");
-        error2.errors = errors;
-        throw error2;
+        var error3 = new Error("Cannot read PKCS#7 RecipientInfo. ASN.1 object is not an PKCS#7 RecipientInfo.");
+        error3.errors = errors;
+        throw error3;
       }
       return {
         version: capture.version.charCodeAt(0),
@@ -32663,9 +32663,9 @@ var require_pkcs7 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, validator, capture, errors)) {
-        var error2 = new Error("Cannot read PKCS#7 message. ASN.1 object is not a supported PKCS#7 message.");
-        error2.errors = error2;
-        throw error2;
+        var error3 = new Error("Cannot read PKCS#7 message. ASN.1 object is not a supported PKCS#7 message.");
+        error3.errors = error3;
+        throw error3;
       }
       var contentType = asn1.derToOid(capture.contentType);
       if (contentType !== forge2.pki.oids.data) {
@@ -32977,6 +32977,15403 @@ var require_picocolors = __commonJS({
   }
 });
 
+// node_modules/.pnpm/esprima@4.0.1/node_modules/esprima/dist/esprima.js
+var require_esprima = __commonJS({
+  "node_modules/.pnpm/esprima@4.0.1/node_modules/esprima/dist/esprima.js"(exports, module) {
+    (function webpackUniversalModuleDefinition(root, factory2) {
+      if (typeof exports === "object" && typeof module === "object")
+        module.exports = factory2();
+      else if (typeof define === "function" && define.amd)
+        define([], factory2);
+      else if (typeof exports === "object")
+        exports["esprima"] = factory2();
+      else
+        root["esprima"] = factory2();
+    })(exports, function() {
+      return (
+        /******/
+        (function(modules) {
+          var installedModules = {};
+          function __webpack_require__(moduleId) {
+            if (installedModules[moduleId])
+              return installedModules[moduleId].exports;
+            var module2 = installedModules[moduleId] = {
+              /******/
+              exports: {},
+              /******/
+              id: moduleId,
+              /******/
+              loaded: false
+              /******/
+            };
+            modules[moduleId].call(module2.exports, module2, module2.exports, __webpack_require__);
+            module2.loaded = true;
+            return module2.exports;
+          }
+          __webpack_require__.m = modules;
+          __webpack_require__.c = installedModules;
+          __webpack_require__.p = "";
+          return __webpack_require__(0);
+        })([
+          /* 0 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var comment_handler_1 = __webpack_require__(1);
+            var jsx_parser_1 = __webpack_require__(3);
+            var parser_1 = __webpack_require__(8);
+            var tokenizer_1 = __webpack_require__(15);
+            function parse2(code, options, delegate) {
+              var commentHandler = null;
+              var proxyDelegate = function(node, metadata) {
+                if (delegate) {
+                  delegate(node, metadata);
+                }
+                if (commentHandler) {
+                  commentHandler.visit(node, metadata);
+                }
+              };
+              var parserDelegate = typeof delegate === "function" ? proxyDelegate : null;
+              var collectComment = false;
+              if (options) {
+                collectComment = typeof options.comment === "boolean" && options.comment;
+                var attachComment = typeof options.attachComment === "boolean" && options.attachComment;
+                if (collectComment || attachComment) {
+                  commentHandler = new comment_handler_1.CommentHandler();
+                  commentHandler.attach = attachComment;
+                  options.comment = true;
+                  parserDelegate = proxyDelegate;
+                }
+              }
+              var isModule = false;
+              if (options && typeof options.sourceType === "string") {
+                isModule = options.sourceType === "module";
+              }
+              var parser;
+              if (options && typeof options.jsx === "boolean" && options.jsx) {
+                parser = new jsx_parser_1.JSXParser(code, options, parserDelegate);
+              } else {
+                parser = new parser_1.Parser(code, options, parserDelegate);
+              }
+              var program3 = isModule ? parser.parseModule() : parser.parseScript();
+              var ast = program3;
+              if (collectComment && commentHandler) {
+                ast.comments = commentHandler.comments;
+              }
+              if (parser.config.tokens) {
+                ast.tokens = parser.tokens;
+              }
+              if (parser.config.tolerant) {
+                ast.errors = parser.errorHandler.errors;
+              }
+              return ast;
+            }
+            exports2.parse = parse2;
+            function parseModule(code, options, delegate) {
+              var parsingOptions = options || {};
+              parsingOptions.sourceType = "module";
+              return parse2(code, parsingOptions, delegate);
+            }
+            exports2.parseModule = parseModule;
+            function parseScript(code, options, delegate) {
+              var parsingOptions = options || {};
+              parsingOptions.sourceType = "script";
+              return parse2(code, parsingOptions, delegate);
+            }
+            exports2.parseScript = parseScript;
+            function tokenize(code, options, delegate) {
+              var tokenizer = new tokenizer_1.Tokenizer(code, options);
+              var tokens;
+              tokens = [];
+              try {
+                while (true) {
+                  var token = tokenizer.getNextToken();
+                  if (!token) {
+                    break;
+                  }
+                  if (delegate) {
+                    token = delegate(token);
+                  }
+                  tokens.push(token);
+                }
+              } catch (e) {
+                tokenizer.errorHandler.tolerate(e);
+              }
+              if (tokenizer.errorHandler.tolerant) {
+                tokens.errors = tokenizer.errors();
+              }
+              return tokens;
+            }
+            exports2.tokenize = tokenize;
+            var syntax_1 = __webpack_require__(2);
+            exports2.Syntax = syntax_1.Syntax;
+            exports2.version = "4.0.1";
+          },
+          /* 1 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var syntax_1 = __webpack_require__(2);
+            var CommentHandler = (function() {
+              function CommentHandler2() {
+                this.attach = false;
+                this.comments = [];
+                this.stack = [];
+                this.leading = [];
+                this.trailing = [];
+              }
+              CommentHandler2.prototype.insertInnerComments = function(node, metadata) {
+                if (node.type === syntax_1.Syntax.BlockStatement && node.body.length === 0) {
+                  var innerComments = [];
+                  for (var i = this.leading.length - 1; i >= 0; --i) {
+                    var entry = this.leading[i];
+                    if (metadata.end.offset >= entry.start) {
+                      innerComments.unshift(entry.comment);
+                      this.leading.splice(i, 1);
+                      this.trailing.splice(i, 1);
+                    }
+                  }
+                  if (innerComments.length) {
+                    node.innerComments = innerComments;
+                  }
+                }
+              };
+              CommentHandler2.prototype.findTrailingComments = function(metadata) {
+                var trailingComments = [];
+                if (this.trailing.length > 0) {
+                  for (var i = this.trailing.length - 1; i >= 0; --i) {
+                    var entry_1 = this.trailing[i];
+                    if (entry_1.start >= metadata.end.offset) {
+                      trailingComments.unshift(entry_1.comment);
+                    }
+                  }
+                  this.trailing.length = 0;
+                  return trailingComments;
+                }
+                var entry = this.stack[this.stack.length - 1];
+                if (entry && entry.node.trailingComments) {
+                  var firstComment = entry.node.trailingComments[0];
+                  if (firstComment && firstComment.range[0] >= metadata.end.offset) {
+                    trailingComments = entry.node.trailingComments;
+                    delete entry.node.trailingComments;
+                  }
+                }
+                return trailingComments;
+              };
+              CommentHandler2.prototype.findLeadingComments = function(metadata) {
+                var leadingComments = [];
+                var target;
+                while (this.stack.length > 0) {
+                  var entry = this.stack[this.stack.length - 1];
+                  if (entry && entry.start >= metadata.start.offset) {
+                    target = entry.node;
+                    this.stack.pop();
+                  } else {
+                    break;
+                  }
+                }
+                if (target) {
+                  var count = target.leadingComments ? target.leadingComments.length : 0;
+                  for (var i = count - 1; i >= 0; --i) {
+                    var comment = target.leadingComments[i];
+                    if (comment.range[1] <= metadata.start.offset) {
+                      leadingComments.unshift(comment);
+                      target.leadingComments.splice(i, 1);
+                    }
+                  }
+                  if (target.leadingComments && target.leadingComments.length === 0) {
+                    delete target.leadingComments;
+                  }
+                  return leadingComments;
+                }
+                for (var i = this.leading.length - 1; i >= 0; --i) {
+                  var entry = this.leading[i];
+                  if (entry.start <= metadata.start.offset) {
+                    leadingComments.unshift(entry.comment);
+                    this.leading.splice(i, 1);
+                  }
+                }
+                return leadingComments;
+              };
+              CommentHandler2.prototype.visitNode = function(node, metadata) {
+                if (node.type === syntax_1.Syntax.Program && node.body.length > 0) {
+                  return;
+                }
+                this.insertInnerComments(node, metadata);
+                var trailingComments = this.findTrailingComments(metadata);
+                var leadingComments = this.findLeadingComments(metadata);
+                if (leadingComments.length > 0) {
+                  node.leadingComments = leadingComments;
+                }
+                if (trailingComments.length > 0) {
+                  node.trailingComments = trailingComments;
+                }
+                this.stack.push({
+                  node,
+                  start: metadata.start.offset
+                });
+              };
+              CommentHandler2.prototype.visitComment = function(node, metadata) {
+                var type = node.type[0] === "L" ? "Line" : "Block";
+                var comment = {
+                  type,
+                  value: node.value
+                };
+                if (node.range) {
+                  comment.range = node.range;
+                }
+                if (node.loc) {
+                  comment.loc = node.loc;
+                }
+                this.comments.push(comment);
+                if (this.attach) {
+                  var entry = {
+                    comment: {
+                      type,
+                      value: node.value,
+                      range: [metadata.start.offset, metadata.end.offset]
+                    },
+                    start: metadata.start.offset
+                  };
+                  if (node.loc) {
+                    entry.comment.loc = node.loc;
+                  }
+                  node.type = type;
+                  this.leading.push(entry);
+                  this.trailing.push(entry);
+                }
+              };
+              CommentHandler2.prototype.visit = function(node, metadata) {
+                if (node.type === "LineComment") {
+                  this.visitComment(node, metadata);
+                } else if (node.type === "BlockComment") {
+                  this.visitComment(node, metadata);
+                } else if (this.attach) {
+                  this.visitNode(node, metadata);
+                }
+              };
+              return CommentHandler2;
+            })();
+            exports2.CommentHandler = CommentHandler;
+          },
+          /* 2 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            exports2.Syntax = {
+              AssignmentExpression: "AssignmentExpression",
+              AssignmentPattern: "AssignmentPattern",
+              ArrayExpression: "ArrayExpression",
+              ArrayPattern: "ArrayPattern",
+              ArrowFunctionExpression: "ArrowFunctionExpression",
+              AwaitExpression: "AwaitExpression",
+              BlockStatement: "BlockStatement",
+              BinaryExpression: "BinaryExpression",
+              BreakStatement: "BreakStatement",
+              CallExpression: "CallExpression",
+              CatchClause: "CatchClause",
+              ClassBody: "ClassBody",
+              ClassDeclaration: "ClassDeclaration",
+              ClassExpression: "ClassExpression",
+              ConditionalExpression: "ConditionalExpression",
+              ContinueStatement: "ContinueStatement",
+              DoWhileStatement: "DoWhileStatement",
+              DebuggerStatement: "DebuggerStatement",
+              EmptyStatement: "EmptyStatement",
+              ExportAllDeclaration: "ExportAllDeclaration",
+              ExportDefaultDeclaration: "ExportDefaultDeclaration",
+              ExportNamedDeclaration: "ExportNamedDeclaration",
+              ExportSpecifier: "ExportSpecifier",
+              ExpressionStatement: "ExpressionStatement",
+              ForStatement: "ForStatement",
+              ForOfStatement: "ForOfStatement",
+              ForInStatement: "ForInStatement",
+              FunctionDeclaration: "FunctionDeclaration",
+              FunctionExpression: "FunctionExpression",
+              Identifier: "Identifier",
+              IfStatement: "IfStatement",
+              ImportDeclaration: "ImportDeclaration",
+              ImportDefaultSpecifier: "ImportDefaultSpecifier",
+              ImportNamespaceSpecifier: "ImportNamespaceSpecifier",
+              ImportSpecifier: "ImportSpecifier",
+              Literal: "Literal",
+              LabeledStatement: "LabeledStatement",
+              LogicalExpression: "LogicalExpression",
+              MemberExpression: "MemberExpression",
+              MetaProperty: "MetaProperty",
+              MethodDefinition: "MethodDefinition",
+              NewExpression: "NewExpression",
+              ObjectExpression: "ObjectExpression",
+              ObjectPattern: "ObjectPattern",
+              Program: "Program",
+              Property: "Property",
+              RestElement: "RestElement",
+              ReturnStatement: "ReturnStatement",
+              SequenceExpression: "SequenceExpression",
+              SpreadElement: "SpreadElement",
+              Super: "Super",
+              SwitchCase: "SwitchCase",
+              SwitchStatement: "SwitchStatement",
+              TaggedTemplateExpression: "TaggedTemplateExpression",
+              TemplateElement: "TemplateElement",
+              TemplateLiteral: "TemplateLiteral",
+              ThisExpression: "ThisExpression",
+              ThrowStatement: "ThrowStatement",
+              TryStatement: "TryStatement",
+              UnaryExpression: "UnaryExpression",
+              UpdateExpression: "UpdateExpression",
+              VariableDeclaration: "VariableDeclaration",
+              VariableDeclarator: "VariableDeclarator",
+              WhileStatement: "WhileStatement",
+              WithStatement: "WithStatement",
+              YieldExpression: "YieldExpression"
+            };
+          },
+          /* 3 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            var __extends = this && this.__extends || (function() {
+              var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b) {
+                d.__proto__ = b;
+              } || function(d, b) {
+                for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+              };
+              return function(d, b) {
+                extendStatics(d, b);
+                function __() {
+                  this.constructor = d;
+                }
+                d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+              };
+            })();
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var character_1 = __webpack_require__(4);
+            var JSXNode = __webpack_require__(5);
+            var jsx_syntax_1 = __webpack_require__(6);
+            var Node = __webpack_require__(7);
+            var parser_1 = __webpack_require__(8);
+            var token_1 = __webpack_require__(13);
+            var xhtml_entities_1 = __webpack_require__(14);
+            token_1.TokenName[
+              100
+              /* Identifier */
+            ] = "JSXIdentifier";
+            token_1.TokenName[
+              101
+              /* Text */
+            ] = "JSXText";
+            function getQualifiedElementName(elementName) {
+              var qualifiedName;
+              switch (elementName.type) {
+                case jsx_syntax_1.JSXSyntax.JSXIdentifier:
+                  var id = elementName;
+                  qualifiedName = id.name;
+                  break;
+                case jsx_syntax_1.JSXSyntax.JSXNamespacedName:
+                  var ns = elementName;
+                  qualifiedName = getQualifiedElementName(ns.namespace) + ":" + getQualifiedElementName(ns.name);
+                  break;
+                case jsx_syntax_1.JSXSyntax.JSXMemberExpression:
+                  var expr = elementName;
+                  qualifiedName = getQualifiedElementName(expr.object) + "." + getQualifiedElementName(expr.property);
+                  break;
+                /* istanbul ignore next */
+                default:
+                  break;
+              }
+              return qualifiedName;
+            }
+            var JSXParser = (function(_super) {
+              __extends(JSXParser2, _super);
+              function JSXParser2(code, options, delegate) {
+                return _super.call(this, code, options, delegate) || this;
+              }
+              JSXParser2.prototype.parsePrimaryExpression = function() {
+                return this.match("<") ? this.parseJSXRoot() : _super.prototype.parsePrimaryExpression.call(this);
+              };
+              JSXParser2.prototype.startJSX = function() {
+                this.scanner.index = this.startMarker.index;
+                this.scanner.lineNumber = this.startMarker.line;
+                this.scanner.lineStart = this.startMarker.index - this.startMarker.column;
+              };
+              JSXParser2.prototype.finishJSX = function() {
+                this.nextToken();
+              };
+              JSXParser2.prototype.reenterJSX = function() {
+                this.startJSX();
+                this.expectJSX("}");
+                if (this.config.tokens) {
+                  this.tokens.pop();
+                }
+              };
+              JSXParser2.prototype.createJSXNode = function() {
+                this.collectComments();
+                return {
+                  index: this.scanner.index,
+                  line: this.scanner.lineNumber,
+                  column: this.scanner.index - this.scanner.lineStart
+                };
+              };
+              JSXParser2.prototype.createJSXChildNode = function() {
+                return {
+                  index: this.scanner.index,
+                  line: this.scanner.lineNumber,
+                  column: this.scanner.index - this.scanner.lineStart
+                };
+              };
+              JSXParser2.prototype.scanXHTMLEntity = function(quote) {
+                var result = "&";
+                var valid = true;
+                var terminated = false;
+                var numeric = false;
+                var hex = false;
+                while (!this.scanner.eof() && valid && !terminated) {
+                  var ch = this.scanner.source[this.scanner.index];
+                  if (ch === quote) {
+                    break;
+                  }
+                  terminated = ch === ";";
+                  result += ch;
+                  ++this.scanner.index;
+                  if (!terminated) {
+                    switch (result.length) {
+                      case 2:
+                        numeric = ch === "#";
+                        break;
+                      case 3:
+                        if (numeric) {
+                          hex = ch === "x";
+                          valid = hex || character_1.Character.isDecimalDigit(ch.charCodeAt(0));
+                          numeric = numeric && !hex;
+                        }
+                        break;
+                      default:
+                        valid = valid && !(numeric && !character_1.Character.isDecimalDigit(ch.charCodeAt(0)));
+                        valid = valid && !(hex && !character_1.Character.isHexDigit(ch.charCodeAt(0)));
+                        break;
+                    }
+                  }
+                }
+                if (valid && terminated && result.length > 2) {
+                  var str = result.substr(1, result.length - 2);
+                  if (numeric && str.length > 1) {
+                    result = String.fromCharCode(parseInt(str.substr(1), 10));
+                  } else if (hex && str.length > 2) {
+                    result = String.fromCharCode(parseInt("0" + str.substr(1), 16));
+                  } else if (!numeric && !hex && xhtml_entities_1.XHTMLEntities[str]) {
+                    result = xhtml_entities_1.XHTMLEntities[str];
+                  }
+                }
+                return result;
+              };
+              JSXParser2.prototype.lexJSX = function() {
+                var cp = this.scanner.source.charCodeAt(this.scanner.index);
+                if (cp === 60 || cp === 62 || cp === 47 || cp === 58 || cp === 61 || cp === 123 || cp === 125) {
+                  var value = this.scanner.source[this.scanner.index++];
+                  return {
+                    type: 7,
+                    value,
+                    lineNumber: this.scanner.lineNumber,
+                    lineStart: this.scanner.lineStart,
+                    start: this.scanner.index - 1,
+                    end: this.scanner.index
+                  };
+                }
+                if (cp === 34 || cp === 39) {
+                  var start = this.scanner.index;
+                  var quote = this.scanner.source[this.scanner.index++];
+                  var str = "";
+                  while (!this.scanner.eof()) {
+                    var ch = this.scanner.source[this.scanner.index++];
+                    if (ch === quote) {
+                      break;
+                    } else if (ch === "&") {
+                      str += this.scanXHTMLEntity(quote);
+                    } else {
+                      str += ch;
+                    }
+                  }
+                  return {
+                    type: 8,
+                    value: str,
+                    lineNumber: this.scanner.lineNumber,
+                    lineStart: this.scanner.lineStart,
+                    start,
+                    end: this.scanner.index
+                  };
+                }
+                if (cp === 46) {
+                  var n1 = this.scanner.source.charCodeAt(this.scanner.index + 1);
+                  var n2 = this.scanner.source.charCodeAt(this.scanner.index + 2);
+                  var value = n1 === 46 && n2 === 46 ? "..." : ".";
+                  var start = this.scanner.index;
+                  this.scanner.index += value.length;
+                  return {
+                    type: 7,
+                    value,
+                    lineNumber: this.scanner.lineNumber,
+                    lineStart: this.scanner.lineStart,
+                    start,
+                    end: this.scanner.index
+                  };
+                }
+                if (cp === 96) {
+                  return {
+                    type: 10,
+                    value: "",
+                    lineNumber: this.scanner.lineNumber,
+                    lineStart: this.scanner.lineStart,
+                    start: this.scanner.index,
+                    end: this.scanner.index
+                  };
+                }
+                if (character_1.Character.isIdentifierStart(cp) && cp !== 92) {
+                  var start = this.scanner.index;
+                  ++this.scanner.index;
+                  while (!this.scanner.eof()) {
+                    var ch = this.scanner.source.charCodeAt(this.scanner.index);
+                    if (character_1.Character.isIdentifierPart(ch) && ch !== 92) {
+                      ++this.scanner.index;
+                    } else if (ch === 45) {
+                      ++this.scanner.index;
+                    } else {
+                      break;
+                    }
+                  }
+                  var id = this.scanner.source.slice(start, this.scanner.index);
+                  return {
+                    type: 100,
+                    value: id,
+                    lineNumber: this.scanner.lineNumber,
+                    lineStart: this.scanner.lineStart,
+                    start,
+                    end: this.scanner.index
+                  };
+                }
+                return this.scanner.lex();
+              };
+              JSXParser2.prototype.nextJSXToken = function() {
+                this.collectComments();
+                this.startMarker.index = this.scanner.index;
+                this.startMarker.line = this.scanner.lineNumber;
+                this.startMarker.column = this.scanner.index - this.scanner.lineStart;
+                var token = this.lexJSX();
+                this.lastMarker.index = this.scanner.index;
+                this.lastMarker.line = this.scanner.lineNumber;
+                this.lastMarker.column = this.scanner.index - this.scanner.lineStart;
+                if (this.config.tokens) {
+                  this.tokens.push(this.convertToken(token));
+                }
+                return token;
+              };
+              JSXParser2.prototype.nextJSXText = function() {
+                this.startMarker.index = this.scanner.index;
+                this.startMarker.line = this.scanner.lineNumber;
+                this.startMarker.column = this.scanner.index - this.scanner.lineStart;
+                var start = this.scanner.index;
+                var text = "";
+                while (!this.scanner.eof()) {
+                  var ch = this.scanner.source[this.scanner.index];
+                  if (ch === "{" || ch === "<") {
+                    break;
+                  }
+                  ++this.scanner.index;
+                  text += ch;
+                  if (character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                    ++this.scanner.lineNumber;
+                    if (ch === "\r" && this.scanner.source[this.scanner.index] === "\n") {
+                      ++this.scanner.index;
+                    }
+                    this.scanner.lineStart = this.scanner.index;
+                  }
+                }
+                this.lastMarker.index = this.scanner.index;
+                this.lastMarker.line = this.scanner.lineNumber;
+                this.lastMarker.column = this.scanner.index - this.scanner.lineStart;
+                var token = {
+                  type: 101,
+                  value: text,
+                  lineNumber: this.scanner.lineNumber,
+                  lineStart: this.scanner.lineStart,
+                  start,
+                  end: this.scanner.index
+                };
+                if (text.length > 0 && this.config.tokens) {
+                  this.tokens.push(this.convertToken(token));
+                }
+                return token;
+              };
+              JSXParser2.prototype.peekJSXToken = function() {
+                var state = this.scanner.saveState();
+                this.scanner.scanComments();
+                var next = this.lexJSX();
+                this.scanner.restoreState(state);
+                return next;
+              };
+              JSXParser2.prototype.expectJSX = function(value) {
+                var token = this.nextJSXToken();
+                if (token.type !== 7 || token.value !== value) {
+                  this.throwUnexpectedToken(token);
+                }
+              };
+              JSXParser2.prototype.matchJSX = function(value) {
+                var next = this.peekJSXToken();
+                return next.type === 7 && next.value === value;
+              };
+              JSXParser2.prototype.parseJSXIdentifier = function() {
+                var node = this.createJSXNode();
+                var token = this.nextJSXToken();
+                if (token.type !== 100) {
+                  this.throwUnexpectedToken(token);
+                }
+                return this.finalize(node, new JSXNode.JSXIdentifier(token.value));
+              };
+              JSXParser2.prototype.parseJSXElementName = function() {
+                var node = this.createJSXNode();
+                var elementName = this.parseJSXIdentifier();
+                if (this.matchJSX(":")) {
+                  var namespace = elementName;
+                  this.expectJSX(":");
+                  var name_1 = this.parseJSXIdentifier();
+                  elementName = this.finalize(node, new JSXNode.JSXNamespacedName(namespace, name_1));
+                } else if (this.matchJSX(".")) {
+                  while (this.matchJSX(".")) {
+                    var object = elementName;
+                    this.expectJSX(".");
+                    var property = this.parseJSXIdentifier();
+                    elementName = this.finalize(node, new JSXNode.JSXMemberExpression(object, property));
+                  }
+                }
+                return elementName;
+              };
+              JSXParser2.prototype.parseJSXAttributeName = function() {
+                var node = this.createJSXNode();
+                var attributeName;
+                var identifier = this.parseJSXIdentifier();
+                if (this.matchJSX(":")) {
+                  var namespace = identifier;
+                  this.expectJSX(":");
+                  var name_2 = this.parseJSXIdentifier();
+                  attributeName = this.finalize(node, new JSXNode.JSXNamespacedName(namespace, name_2));
+                } else {
+                  attributeName = identifier;
+                }
+                return attributeName;
+              };
+              JSXParser2.prototype.parseJSXStringLiteralAttribute = function() {
+                var node = this.createJSXNode();
+                var token = this.nextJSXToken();
+                if (token.type !== 8) {
+                  this.throwUnexpectedToken(token);
+                }
+                var raw = this.getTokenRaw(token);
+                return this.finalize(node, new Node.Literal(token.value, raw));
+              };
+              JSXParser2.prototype.parseJSXExpressionAttribute = function() {
+                var node = this.createJSXNode();
+                this.expectJSX("{");
+                this.finishJSX();
+                if (this.match("}")) {
+                  this.tolerateError("JSX attributes must only be assigned a non-empty expression");
+                }
+                var expression = this.parseAssignmentExpression();
+                this.reenterJSX();
+                return this.finalize(node, new JSXNode.JSXExpressionContainer(expression));
+              };
+              JSXParser2.prototype.parseJSXAttributeValue = function() {
+                return this.matchJSX("{") ? this.parseJSXExpressionAttribute() : this.matchJSX("<") ? this.parseJSXElement() : this.parseJSXStringLiteralAttribute();
+              };
+              JSXParser2.prototype.parseJSXNameValueAttribute = function() {
+                var node = this.createJSXNode();
+                var name = this.parseJSXAttributeName();
+                var value = null;
+                if (this.matchJSX("=")) {
+                  this.expectJSX("=");
+                  value = this.parseJSXAttributeValue();
+                }
+                return this.finalize(node, new JSXNode.JSXAttribute(name, value));
+              };
+              JSXParser2.prototype.parseJSXSpreadAttribute = function() {
+                var node = this.createJSXNode();
+                this.expectJSX("{");
+                this.expectJSX("...");
+                this.finishJSX();
+                var argument = this.parseAssignmentExpression();
+                this.reenterJSX();
+                return this.finalize(node, new JSXNode.JSXSpreadAttribute(argument));
+              };
+              JSXParser2.prototype.parseJSXAttributes = function() {
+                var attributes = [];
+                while (!this.matchJSX("/") && !this.matchJSX(">")) {
+                  var attribute = this.matchJSX("{") ? this.parseJSXSpreadAttribute() : this.parseJSXNameValueAttribute();
+                  attributes.push(attribute);
+                }
+                return attributes;
+              };
+              JSXParser2.prototype.parseJSXOpeningElement = function() {
+                var node = this.createJSXNode();
+                this.expectJSX("<");
+                var name = this.parseJSXElementName();
+                var attributes = this.parseJSXAttributes();
+                var selfClosing = this.matchJSX("/");
+                if (selfClosing) {
+                  this.expectJSX("/");
+                }
+                this.expectJSX(">");
+                return this.finalize(node, new JSXNode.JSXOpeningElement(name, selfClosing, attributes));
+              };
+              JSXParser2.prototype.parseJSXBoundaryElement = function() {
+                var node = this.createJSXNode();
+                this.expectJSX("<");
+                if (this.matchJSX("/")) {
+                  this.expectJSX("/");
+                  var name_3 = this.parseJSXElementName();
+                  this.expectJSX(">");
+                  return this.finalize(node, new JSXNode.JSXClosingElement(name_3));
+                }
+                var name = this.parseJSXElementName();
+                var attributes = this.parseJSXAttributes();
+                var selfClosing = this.matchJSX("/");
+                if (selfClosing) {
+                  this.expectJSX("/");
+                }
+                this.expectJSX(">");
+                return this.finalize(node, new JSXNode.JSXOpeningElement(name, selfClosing, attributes));
+              };
+              JSXParser2.prototype.parseJSXEmptyExpression = function() {
+                var node = this.createJSXChildNode();
+                this.collectComments();
+                this.lastMarker.index = this.scanner.index;
+                this.lastMarker.line = this.scanner.lineNumber;
+                this.lastMarker.column = this.scanner.index - this.scanner.lineStart;
+                return this.finalize(node, new JSXNode.JSXEmptyExpression());
+              };
+              JSXParser2.prototype.parseJSXExpressionContainer = function() {
+                var node = this.createJSXNode();
+                this.expectJSX("{");
+                var expression;
+                if (this.matchJSX("}")) {
+                  expression = this.parseJSXEmptyExpression();
+                  this.expectJSX("}");
+                } else {
+                  this.finishJSX();
+                  expression = this.parseAssignmentExpression();
+                  this.reenterJSX();
+                }
+                return this.finalize(node, new JSXNode.JSXExpressionContainer(expression));
+              };
+              JSXParser2.prototype.parseJSXChildren = function() {
+                var children = [];
+                while (!this.scanner.eof()) {
+                  var node = this.createJSXChildNode();
+                  var token = this.nextJSXText();
+                  if (token.start < token.end) {
+                    var raw = this.getTokenRaw(token);
+                    var child = this.finalize(node, new JSXNode.JSXText(token.value, raw));
+                    children.push(child);
+                  }
+                  if (this.scanner.source[this.scanner.index] === "{") {
+                    var container = this.parseJSXExpressionContainer();
+                    children.push(container);
+                  } else {
+                    break;
+                  }
+                }
+                return children;
+              };
+              JSXParser2.prototype.parseComplexJSXElement = function(el) {
+                var stack = [];
+                while (!this.scanner.eof()) {
+                  el.children = el.children.concat(this.parseJSXChildren());
+                  var node = this.createJSXChildNode();
+                  var element = this.parseJSXBoundaryElement();
+                  if (element.type === jsx_syntax_1.JSXSyntax.JSXOpeningElement) {
+                    var opening = element;
+                    if (opening.selfClosing) {
+                      var child = this.finalize(node, new JSXNode.JSXElement(opening, [], null));
+                      el.children.push(child);
+                    } else {
+                      stack.push(el);
+                      el = { node, opening, closing: null, children: [] };
+                    }
+                  }
+                  if (element.type === jsx_syntax_1.JSXSyntax.JSXClosingElement) {
+                    el.closing = element;
+                    var open_1 = getQualifiedElementName(el.opening.name);
+                    var close_1 = getQualifiedElementName(el.closing.name);
+                    if (open_1 !== close_1) {
+                      this.tolerateError("Expected corresponding JSX closing tag for %0", open_1);
+                    }
+                    if (stack.length > 0) {
+                      var child = this.finalize(el.node, new JSXNode.JSXElement(el.opening, el.children, el.closing));
+                      el = stack[stack.length - 1];
+                      el.children.push(child);
+                      stack.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                return el;
+              };
+              JSXParser2.prototype.parseJSXElement = function() {
+                var node = this.createJSXNode();
+                var opening = this.parseJSXOpeningElement();
+                var children = [];
+                var closing = null;
+                if (!opening.selfClosing) {
+                  var el = this.parseComplexJSXElement({ node, opening, closing, children });
+                  children = el.children;
+                  closing = el.closing;
+                }
+                return this.finalize(node, new JSXNode.JSXElement(opening, children, closing));
+              };
+              JSXParser2.prototype.parseJSXRoot = function() {
+                if (this.config.tokens) {
+                  this.tokens.pop();
+                }
+                this.startJSX();
+                var element = this.parseJSXElement();
+                this.finishJSX();
+                return element;
+              };
+              JSXParser2.prototype.isStartOfExpression = function() {
+                return _super.prototype.isStartOfExpression.call(this) || this.match("<");
+              };
+              return JSXParser2;
+            })(parser_1.Parser);
+            exports2.JSXParser = JSXParser;
+          },
+          /* 4 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var Regex = {
+              // Unicode v8.0.0 NonAsciiIdentifierStart:
+              NonAsciiIdentifierStart: /[\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0-\u08B4\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0980\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0AF9\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C58-\u0C5A\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D5F-\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EE-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191E\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2118-\u211D\u2124\u2126\u2128\u212A-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2160-\u2188\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3005-\u3007\u3021-\u3029\u3031-\u3035\u3038-\u303C\u3041-\u3096\u309B-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FD5\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA69D\uA6A0-\uA6EF\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AD\uA7B0-\uA7B7\uA7F7-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA8FD\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uA9E0-\uA9E4\uA9E6-\uA9EF\uA9FA-\uA9FE\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA7E-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]|\uD800[\uDC00-\uDC0B\uDC0D-\uDC26\uDC28-\uDC3A\uDC3C\uDC3D\uDC3F-\uDC4D\uDC50-\uDC5D\uDC80-\uDCFA\uDD40-\uDD74\uDE80-\uDE9C\uDEA0-\uDED0\uDF00-\uDF1F\uDF30-\uDF4A\uDF50-\uDF75\uDF80-\uDF9D\uDFA0-\uDFC3\uDFC8-\uDFCF\uDFD1-\uDFD5]|\uD801[\uDC00-\uDC9D\uDD00-\uDD27\uDD30-\uDD63\uDE00-\uDF36\uDF40-\uDF55\uDF60-\uDF67]|\uD802[\uDC00-\uDC05\uDC08\uDC0A-\uDC35\uDC37\uDC38\uDC3C\uDC3F-\uDC55\uDC60-\uDC76\uDC80-\uDC9E\uDCE0-\uDCF2\uDCF4\uDCF5\uDD00-\uDD15\uDD20-\uDD39\uDD80-\uDDB7\uDDBE\uDDBF\uDE00\uDE10-\uDE13\uDE15-\uDE17\uDE19-\uDE33\uDE60-\uDE7C\uDE80-\uDE9C\uDEC0-\uDEC7\uDEC9-\uDEE4\uDF00-\uDF35\uDF40-\uDF55\uDF60-\uDF72\uDF80-\uDF91]|\uD803[\uDC00-\uDC48\uDC80-\uDCB2\uDCC0-\uDCF2]|\uD804[\uDC03-\uDC37\uDC83-\uDCAF\uDCD0-\uDCE8\uDD03-\uDD26\uDD50-\uDD72\uDD76\uDD83-\uDDB2\uDDC1-\uDDC4\uDDDA\uDDDC\uDE00-\uDE11\uDE13-\uDE2B\uDE80-\uDE86\uDE88\uDE8A-\uDE8D\uDE8F-\uDE9D\uDE9F-\uDEA8\uDEB0-\uDEDE\uDF05-\uDF0C\uDF0F\uDF10\uDF13-\uDF28\uDF2A-\uDF30\uDF32\uDF33\uDF35-\uDF39\uDF3D\uDF50\uDF5D-\uDF61]|\uD805[\uDC80-\uDCAF\uDCC4\uDCC5\uDCC7\uDD80-\uDDAE\uDDD8-\uDDDB\uDE00-\uDE2F\uDE44\uDE80-\uDEAA\uDF00-\uDF19]|\uD806[\uDCA0-\uDCDF\uDCFF\uDEC0-\uDEF8]|\uD808[\uDC00-\uDF99]|\uD809[\uDC00-\uDC6E\uDC80-\uDD43]|[\uD80C\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872][\uDC00-\uDFFF]|\uD80D[\uDC00-\uDC2E]|\uD811[\uDC00-\uDE46]|\uD81A[\uDC00-\uDE38\uDE40-\uDE5E\uDED0-\uDEED\uDF00-\uDF2F\uDF40-\uDF43\uDF63-\uDF77\uDF7D-\uDF8F]|\uD81B[\uDF00-\uDF44\uDF50\uDF93-\uDF9F]|\uD82C[\uDC00\uDC01]|\uD82F[\uDC00-\uDC6A\uDC70-\uDC7C\uDC80-\uDC88\uDC90-\uDC99]|\uD835[\uDC00-\uDC54\uDC56-\uDC9C\uDC9E\uDC9F\uDCA2\uDCA5\uDCA6\uDCA9-\uDCAC\uDCAE-\uDCB9\uDCBB\uDCBD-\uDCC3\uDCC5-\uDD05\uDD07-\uDD0A\uDD0D-\uDD14\uDD16-\uDD1C\uDD1E-\uDD39\uDD3B-\uDD3E\uDD40-\uDD44\uDD46\uDD4A-\uDD50\uDD52-\uDEA5\uDEA8-\uDEC0\uDEC2-\uDEDA\uDEDC-\uDEFA\uDEFC-\uDF14\uDF16-\uDF34\uDF36-\uDF4E\uDF50-\uDF6E\uDF70-\uDF88\uDF8A-\uDFA8\uDFAA-\uDFC2\uDFC4-\uDFCB]|\uD83A[\uDC00-\uDCC4]|\uD83B[\uDE00-\uDE03\uDE05-\uDE1F\uDE21\uDE22\uDE24\uDE27\uDE29-\uDE32\uDE34-\uDE37\uDE39\uDE3B\uDE42\uDE47\uDE49\uDE4B\uDE4D-\uDE4F\uDE51\uDE52\uDE54\uDE57\uDE59\uDE5B\uDE5D\uDE5F\uDE61\uDE62\uDE64\uDE67-\uDE6A\uDE6C-\uDE72\uDE74-\uDE77\uDE79-\uDE7C\uDE7E\uDE80-\uDE89\uDE8B-\uDE9B\uDEA1-\uDEA3\uDEA5-\uDEA9\uDEAB-\uDEBB]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1]|\uD87E[\uDC00-\uDE1D]/,
+              // Unicode v8.0.0 NonAsciiIdentifierPart:
+              NonAsciiIdentifierPart: /[\xAA\xB5\xB7\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0300-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u0483-\u0487\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u05D0-\u05EA\u05F0-\u05F2\u0610-\u061A\u0620-\u0669\u066E-\u06D3\u06D5-\u06DC\u06DF-\u06E8\u06EA-\u06FC\u06FF\u0710-\u074A\u074D-\u07B1\u07C0-\u07F5\u07FA\u0800-\u082D\u0840-\u085B\u08A0-\u08B4\u08E3-\u0963\u0966-\u096F\u0971-\u0983\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BC-\u09C4\u09C7\u09C8\u09CB-\u09CE\u09D7\u09DC\u09DD\u09DF-\u09E3\u09E6-\u09F1\u0A01-\u0A03\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A75\u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0-\u0AE3\u0AE6-\u0AEF\u0AF9\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3C-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B5C\u0B5D\u0B5F-\u0B63\u0B66-\u0B6F\u0B71\u0B82\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BEF\u0C00-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C58-\u0C5A\u0C60-\u0C63\u0C66-\u0C6F\u0C81-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1\u0CF2\u0D01-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D-\u0D44\u0D46-\u0D48\u0D4A-\u0D4E\u0D57\u0D5F-\u0D63\u0D66-\u0D6F\u0D7A-\u0D7F\u0D82\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2\u0DF3\u0E01-\u0E3A\u0E40-\u0E4E\u0E50-\u0E59\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB9\u0EBB-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECD\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F18\u0F19\u0F20-\u0F29\u0F35\u0F37\u0F39\u0F3E-\u0F47\u0F49-\u0F6C\u0F71-\u0F84\u0F86-\u0F97\u0F99-\u0FBC\u0FC6\u1000-\u1049\u1050-\u109D\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u135D-\u135F\u1369-\u1371\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EE-\u16F8\u1700-\u170C\u170E-\u1714\u1720-\u1734\u1740-\u1753\u1760-\u176C\u176E-\u1770\u1772\u1773\u1780-\u17D3\u17D7\u17DC\u17DD\u17E0-\u17E9\u180B-\u180D\u1810-\u1819\u1820-\u1877\u1880-\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1946-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u1A00-\u1A1B\u1A20-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA7\u1AB0-\u1ABD\u1B00-\u1B4B\u1B50-\u1B59\u1B6B-\u1B73\u1B80-\u1BF3\u1C00-\u1C37\u1C40-\u1C49\u1C4D-\u1C7D\u1CD0-\u1CD2\u1CD4-\u1CF6\u1CF8\u1CF9\u1D00-\u1DF5\u1DFC-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200C\u200D\u203F\u2040\u2054\u2071\u207F\u2090-\u209C\u20D0-\u20DC\u20E1\u20E5-\u20F0\u2102\u2107\u210A-\u2113\u2115\u2118-\u211D\u2124\u2126\u2128\u212A-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2160-\u2188\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2DE0-\u2DFF\u3005-\u3007\u3021-\u302F\u3031-\u3035\u3038-\u303C\u3041-\u3096\u3099-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FD5\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA62B\uA640-\uA66F\uA674-\uA67D\uA67F-\uA6F1\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AD\uA7B0-\uA7B7\uA7F7-\uA827\uA840-\uA873\uA880-\uA8C4\uA8D0-\uA8D9\uA8E0-\uA8F7\uA8FB\uA8FD\uA900-\uA92D\uA930-\uA953\uA960-\uA97C\uA980-\uA9C0\uA9CF-\uA9D9\uA9E0-\uA9FE\uAA00-\uAA36\uAA40-\uAA4D\uAA50-\uAA59\uAA60-\uAA76\uAA7A-\uAAC2\uAADB-\uAADD\uAAE0-\uAAEF\uAAF2-\uAAF6\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABEA\uABEC\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE00-\uFE0F\uFE20-\uFE2F\uFE33\uFE34\uFE4D-\uFE4F\uFE70-\uFE74\uFE76-\uFEFC\uFF10-\uFF19\uFF21-\uFF3A\uFF3F\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]|\uD800[\uDC00-\uDC0B\uDC0D-\uDC26\uDC28-\uDC3A\uDC3C\uDC3D\uDC3F-\uDC4D\uDC50-\uDC5D\uDC80-\uDCFA\uDD40-\uDD74\uDDFD\uDE80-\uDE9C\uDEA0-\uDED0\uDEE0\uDF00-\uDF1F\uDF30-\uDF4A\uDF50-\uDF7A\uDF80-\uDF9D\uDFA0-\uDFC3\uDFC8-\uDFCF\uDFD1-\uDFD5]|\uD801[\uDC00-\uDC9D\uDCA0-\uDCA9\uDD00-\uDD27\uDD30-\uDD63\uDE00-\uDF36\uDF40-\uDF55\uDF60-\uDF67]|\uD802[\uDC00-\uDC05\uDC08\uDC0A-\uDC35\uDC37\uDC38\uDC3C\uDC3F-\uDC55\uDC60-\uDC76\uDC80-\uDC9E\uDCE0-\uDCF2\uDCF4\uDCF5\uDD00-\uDD15\uDD20-\uDD39\uDD80-\uDDB7\uDDBE\uDDBF\uDE00-\uDE03\uDE05\uDE06\uDE0C-\uDE13\uDE15-\uDE17\uDE19-\uDE33\uDE38-\uDE3A\uDE3F\uDE60-\uDE7C\uDE80-\uDE9C\uDEC0-\uDEC7\uDEC9-\uDEE6\uDF00-\uDF35\uDF40-\uDF55\uDF60-\uDF72\uDF80-\uDF91]|\uD803[\uDC00-\uDC48\uDC80-\uDCB2\uDCC0-\uDCF2]|\uD804[\uDC00-\uDC46\uDC66-\uDC6F\uDC7F-\uDCBA\uDCD0-\uDCE8\uDCF0-\uDCF9\uDD00-\uDD34\uDD36-\uDD3F\uDD50-\uDD73\uDD76\uDD80-\uDDC4\uDDCA-\uDDCC\uDDD0-\uDDDA\uDDDC\uDE00-\uDE11\uDE13-\uDE37\uDE80-\uDE86\uDE88\uDE8A-\uDE8D\uDE8F-\uDE9D\uDE9F-\uDEA8\uDEB0-\uDEEA\uDEF0-\uDEF9\uDF00-\uDF03\uDF05-\uDF0C\uDF0F\uDF10\uDF13-\uDF28\uDF2A-\uDF30\uDF32\uDF33\uDF35-\uDF39\uDF3C-\uDF44\uDF47\uDF48\uDF4B-\uDF4D\uDF50\uDF57\uDF5D-\uDF63\uDF66-\uDF6C\uDF70-\uDF74]|\uD805[\uDC80-\uDCC5\uDCC7\uDCD0-\uDCD9\uDD80-\uDDB5\uDDB8-\uDDC0\uDDD8-\uDDDD\uDE00-\uDE40\uDE44\uDE50-\uDE59\uDE80-\uDEB7\uDEC0-\uDEC9\uDF00-\uDF19\uDF1D-\uDF2B\uDF30-\uDF39]|\uD806[\uDCA0-\uDCE9\uDCFF\uDEC0-\uDEF8]|\uD808[\uDC00-\uDF99]|\uD809[\uDC00-\uDC6E\uDC80-\uDD43]|[\uD80C\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872][\uDC00-\uDFFF]|\uD80D[\uDC00-\uDC2E]|\uD811[\uDC00-\uDE46]|\uD81A[\uDC00-\uDE38\uDE40-\uDE5E\uDE60-\uDE69\uDED0-\uDEED\uDEF0-\uDEF4\uDF00-\uDF36\uDF40-\uDF43\uDF50-\uDF59\uDF63-\uDF77\uDF7D-\uDF8F]|\uD81B[\uDF00-\uDF44\uDF50-\uDF7E\uDF8F-\uDF9F]|\uD82C[\uDC00\uDC01]|\uD82F[\uDC00-\uDC6A\uDC70-\uDC7C\uDC80-\uDC88\uDC90-\uDC99\uDC9D\uDC9E]|\uD834[\uDD65-\uDD69\uDD6D-\uDD72\uDD7B-\uDD82\uDD85-\uDD8B\uDDAA-\uDDAD\uDE42-\uDE44]|\uD835[\uDC00-\uDC54\uDC56-\uDC9C\uDC9E\uDC9F\uDCA2\uDCA5\uDCA6\uDCA9-\uDCAC\uDCAE-\uDCB9\uDCBB\uDCBD-\uDCC3\uDCC5-\uDD05\uDD07-\uDD0A\uDD0D-\uDD14\uDD16-\uDD1C\uDD1E-\uDD39\uDD3B-\uDD3E\uDD40-\uDD44\uDD46\uDD4A-\uDD50\uDD52-\uDEA5\uDEA8-\uDEC0\uDEC2-\uDEDA\uDEDC-\uDEFA\uDEFC-\uDF14\uDF16-\uDF34\uDF36-\uDF4E\uDF50-\uDF6E\uDF70-\uDF88\uDF8A-\uDFA8\uDFAA-\uDFC2\uDFC4-\uDFCB\uDFCE-\uDFFF]|\uD836[\uDE00-\uDE36\uDE3B-\uDE6C\uDE75\uDE84\uDE9B-\uDE9F\uDEA1-\uDEAF]|\uD83A[\uDC00-\uDCC4\uDCD0-\uDCD6]|\uD83B[\uDE00-\uDE03\uDE05-\uDE1F\uDE21\uDE22\uDE24\uDE27\uDE29-\uDE32\uDE34-\uDE37\uDE39\uDE3B\uDE42\uDE47\uDE49\uDE4B\uDE4D-\uDE4F\uDE51\uDE52\uDE54\uDE57\uDE59\uDE5B\uDE5D\uDE5F\uDE61\uDE62\uDE64\uDE67-\uDE6A\uDE6C-\uDE72\uDE74-\uDE77\uDE79-\uDE7C\uDE7E\uDE80-\uDE89\uDE8B-\uDE9B\uDEA1-\uDEA3\uDEA5-\uDEA9\uDEAB-\uDEBB]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1]|\uD87E[\uDC00-\uDE1D]|\uDB40[\uDD00-\uDDEF]/
+            };
+            exports2.Character = {
+              /* tslint:disable:no-bitwise */
+              fromCodePoint: function(cp) {
+                return cp < 65536 ? String.fromCharCode(cp) : String.fromCharCode(55296 + (cp - 65536 >> 10)) + String.fromCharCode(56320 + (cp - 65536 & 1023));
+              },
+              // https://tc39.github.io/ecma262/#sec-white-space
+              isWhiteSpace: function(cp) {
+                return cp === 32 || cp === 9 || cp === 11 || cp === 12 || cp === 160 || cp >= 5760 && [5760, 8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201, 8202, 8239, 8287, 12288, 65279].indexOf(cp) >= 0;
+              },
+              // https://tc39.github.io/ecma262/#sec-line-terminators
+              isLineTerminator: function(cp) {
+                return cp === 10 || cp === 13 || cp === 8232 || cp === 8233;
+              },
+              // https://tc39.github.io/ecma262/#sec-names-and-keywords
+              isIdentifierStart: function(cp) {
+                return cp === 36 || cp === 95 || cp >= 65 && cp <= 90 || cp >= 97 && cp <= 122 || cp === 92 || cp >= 128 && Regex.NonAsciiIdentifierStart.test(exports2.Character.fromCodePoint(cp));
+              },
+              isIdentifierPart: function(cp) {
+                return cp === 36 || cp === 95 || cp >= 65 && cp <= 90 || cp >= 97 && cp <= 122 || cp >= 48 && cp <= 57 || cp === 92 || cp >= 128 && Regex.NonAsciiIdentifierPart.test(exports2.Character.fromCodePoint(cp));
+              },
+              // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
+              isDecimalDigit: function(cp) {
+                return cp >= 48 && cp <= 57;
+              },
+              isHexDigit: function(cp) {
+                return cp >= 48 && cp <= 57 || cp >= 65 && cp <= 70 || cp >= 97 && cp <= 102;
+              },
+              isOctalDigit: function(cp) {
+                return cp >= 48 && cp <= 55;
+              }
+            };
+          },
+          /* 5 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var jsx_syntax_1 = __webpack_require__(6);
+            var JSXClosingElement = /* @__PURE__ */ (function() {
+              function JSXClosingElement2(name) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXClosingElement;
+                this.name = name;
+              }
+              return JSXClosingElement2;
+            })();
+            exports2.JSXClosingElement = JSXClosingElement;
+            var JSXElement = /* @__PURE__ */ (function() {
+              function JSXElement2(openingElement, children, closingElement) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXElement;
+                this.openingElement = openingElement;
+                this.children = children;
+                this.closingElement = closingElement;
+              }
+              return JSXElement2;
+            })();
+            exports2.JSXElement = JSXElement;
+            var JSXEmptyExpression = /* @__PURE__ */ (function() {
+              function JSXEmptyExpression2() {
+                this.type = jsx_syntax_1.JSXSyntax.JSXEmptyExpression;
+              }
+              return JSXEmptyExpression2;
+            })();
+            exports2.JSXEmptyExpression = JSXEmptyExpression;
+            var JSXExpressionContainer = /* @__PURE__ */ (function() {
+              function JSXExpressionContainer2(expression) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXExpressionContainer;
+                this.expression = expression;
+              }
+              return JSXExpressionContainer2;
+            })();
+            exports2.JSXExpressionContainer = JSXExpressionContainer;
+            var JSXIdentifier = /* @__PURE__ */ (function() {
+              function JSXIdentifier2(name) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXIdentifier;
+                this.name = name;
+              }
+              return JSXIdentifier2;
+            })();
+            exports2.JSXIdentifier = JSXIdentifier;
+            var JSXMemberExpression = /* @__PURE__ */ (function() {
+              function JSXMemberExpression2(object, property) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXMemberExpression;
+                this.object = object;
+                this.property = property;
+              }
+              return JSXMemberExpression2;
+            })();
+            exports2.JSXMemberExpression = JSXMemberExpression;
+            var JSXAttribute = /* @__PURE__ */ (function() {
+              function JSXAttribute2(name, value) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXAttribute;
+                this.name = name;
+                this.value = value;
+              }
+              return JSXAttribute2;
+            })();
+            exports2.JSXAttribute = JSXAttribute;
+            var JSXNamespacedName = /* @__PURE__ */ (function() {
+              function JSXNamespacedName2(namespace, name) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXNamespacedName;
+                this.namespace = namespace;
+                this.name = name;
+              }
+              return JSXNamespacedName2;
+            })();
+            exports2.JSXNamespacedName = JSXNamespacedName;
+            var JSXOpeningElement = /* @__PURE__ */ (function() {
+              function JSXOpeningElement2(name, selfClosing, attributes) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXOpeningElement;
+                this.name = name;
+                this.selfClosing = selfClosing;
+                this.attributes = attributes;
+              }
+              return JSXOpeningElement2;
+            })();
+            exports2.JSXOpeningElement = JSXOpeningElement;
+            var JSXSpreadAttribute = /* @__PURE__ */ (function() {
+              function JSXSpreadAttribute2(argument) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXSpreadAttribute;
+                this.argument = argument;
+              }
+              return JSXSpreadAttribute2;
+            })();
+            exports2.JSXSpreadAttribute = JSXSpreadAttribute;
+            var JSXText = /* @__PURE__ */ (function() {
+              function JSXText2(value, raw) {
+                this.type = jsx_syntax_1.JSXSyntax.JSXText;
+                this.value = value;
+                this.raw = raw;
+              }
+              return JSXText2;
+            })();
+            exports2.JSXText = JSXText;
+          },
+          /* 6 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            exports2.JSXSyntax = {
+              JSXAttribute: "JSXAttribute",
+              JSXClosingElement: "JSXClosingElement",
+              JSXElement: "JSXElement",
+              JSXEmptyExpression: "JSXEmptyExpression",
+              JSXExpressionContainer: "JSXExpressionContainer",
+              JSXIdentifier: "JSXIdentifier",
+              JSXMemberExpression: "JSXMemberExpression",
+              JSXNamespacedName: "JSXNamespacedName",
+              JSXOpeningElement: "JSXOpeningElement",
+              JSXSpreadAttribute: "JSXSpreadAttribute",
+              JSXText: "JSXText"
+            };
+          },
+          /* 7 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var syntax_1 = __webpack_require__(2);
+            var ArrayExpression = /* @__PURE__ */ (function() {
+              function ArrayExpression2(elements) {
+                this.type = syntax_1.Syntax.ArrayExpression;
+                this.elements = elements;
+              }
+              return ArrayExpression2;
+            })();
+            exports2.ArrayExpression = ArrayExpression;
+            var ArrayPattern = /* @__PURE__ */ (function() {
+              function ArrayPattern2(elements) {
+                this.type = syntax_1.Syntax.ArrayPattern;
+                this.elements = elements;
+              }
+              return ArrayPattern2;
+            })();
+            exports2.ArrayPattern = ArrayPattern;
+            var ArrowFunctionExpression = /* @__PURE__ */ (function() {
+              function ArrowFunctionExpression2(params, body, expression) {
+                this.type = syntax_1.Syntax.ArrowFunctionExpression;
+                this.id = null;
+                this.params = params;
+                this.body = body;
+                this.generator = false;
+                this.expression = expression;
+                this.async = false;
+              }
+              return ArrowFunctionExpression2;
+            })();
+            exports2.ArrowFunctionExpression = ArrowFunctionExpression;
+            var AssignmentExpression = /* @__PURE__ */ (function() {
+              function AssignmentExpression2(operator, left, right) {
+                this.type = syntax_1.Syntax.AssignmentExpression;
+                this.operator = operator;
+                this.left = left;
+                this.right = right;
+              }
+              return AssignmentExpression2;
+            })();
+            exports2.AssignmentExpression = AssignmentExpression;
+            var AssignmentPattern = /* @__PURE__ */ (function() {
+              function AssignmentPattern2(left, right) {
+                this.type = syntax_1.Syntax.AssignmentPattern;
+                this.left = left;
+                this.right = right;
+              }
+              return AssignmentPattern2;
+            })();
+            exports2.AssignmentPattern = AssignmentPattern;
+            var AsyncArrowFunctionExpression = /* @__PURE__ */ (function() {
+              function AsyncArrowFunctionExpression2(params, body, expression) {
+                this.type = syntax_1.Syntax.ArrowFunctionExpression;
+                this.id = null;
+                this.params = params;
+                this.body = body;
+                this.generator = false;
+                this.expression = expression;
+                this.async = true;
+              }
+              return AsyncArrowFunctionExpression2;
+            })();
+            exports2.AsyncArrowFunctionExpression = AsyncArrowFunctionExpression;
+            var AsyncFunctionDeclaration = /* @__PURE__ */ (function() {
+              function AsyncFunctionDeclaration2(id, params, body) {
+                this.type = syntax_1.Syntax.FunctionDeclaration;
+                this.id = id;
+                this.params = params;
+                this.body = body;
+                this.generator = false;
+                this.expression = false;
+                this.async = true;
+              }
+              return AsyncFunctionDeclaration2;
+            })();
+            exports2.AsyncFunctionDeclaration = AsyncFunctionDeclaration;
+            var AsyncFunctionExpression = /* @__PURE__ */ (function() {
+              function AsyncFunctionExpression2(id, params, body) {
+                this.type = syntax_1.Syntax.FunctionExpression;
+                this.id = id;
+                this.params = params;
+                this.body = body;
+                this.generator = false;
+                this.expression = false;
+                this.async = true;
+              }
+              return AsyncFunctionExpression2;
+            })();
+            exports2.AsyncFunctionExpression = AsyncFunctionExpression;
+            var AwaitExpression = /* @__PURE__ */ (function() {
+              function AwaitExpression2(argument) {
+                this.type = syntax_1.Syntax.AwaitExpression;
+                this.argument = argument;
+              }
+              return AwaitExpression2;
+            })();
+            exports2.AwaitExpression = AwaitExpression;
+            var BinaryExpression = /* @__PURE__ */ (function() {
+              function BinaryExpression2(operator, left, right) {
+                var logical = operator === "||" || operator === "&&";
+                this.type = logical ? syntax_1.Syntax.LogicalExpression : syntax_1.Syntax.BinaryExpression;
+                this.operator = operator;
+                this.left = left;
+                this.right = right;
+              }
+              return BinaryExpression2;
+            })();
+            exports2.BinaryExpression = BinaryExpression;
+            var BlockStatement = /* @__PURE__ */ (function() {
+              function BlockStatement2(body) {
+                this.type = syntax_1.Syntax.BlockStatement;
+                this.body = body;
+              }
+              return BlockStatement2;
+            })();
+            exports2.BlockStatement = BlockStatement;
+            var BreakStatement = /* @__PURE__ */ (function() {
+              function BreakStatement2(label) {
+                this.type = syntax_1.Syntax.BreakStatement;
+                this.label = label;
+              }
+              return BreakStatement2;
+            })();
+            exports2.BreakStatement = BreakStatement;
+            var CallExpression = /* @__PURE__ */ (function() {
+              function CallExpression2(callee, args) {
+                this.type = syntax_1.Syntax.CallExpression;
+                this.callee = callee;
+                this.arguments = args;
+              }
+              return CallExpression2;
+            })();
+            exports2.CallExpression = CallExpression;
+            var CatchClause = /* @__PURE__ */ (function() {
+              function CatchClause2(param, body) {
+                this.type = syntax_1.Syntax.CatchClause;
+                this.param = param;
+                this.body = body;
+              }
+              return CatchClause2;
+            })();
+            exports2.CatchClause = CatchClause;
+            var ClassBody = /* @__PURE__ */ (function() {
+              function ClassBody2(body) {
+                this.type = syntax_1.Syntax.ClassBody;
+                this.body = body;
+              }
+              return ClassBody2;
+            })();
+            exports2.ClassBody = ClassBody;
+            var ClassDeclaration = /* @__PURE__ */ (function() {
+              function ClassDeclaration2(id, superClass, body) {
+                this.type = syntax_1.Syntax.ClassDeclaration;
+                this.id = id;
+                this.superClass = superClass;
+                this.body = body;
+              }
+              return ClassDeclaration2;
+            })();
+            exports2.ClassDeclaration = ClassDeclaration;
+            var ClassExpression = /* @__PURE__ */ (function() {
+              function ClassExpression2(id, superClass, body) {
+                this.type = syntax_1.Syntax.ClassExpression;
+                this.id = id;
+                this.superClass = superClass;
+                this.body = body;
+              }
+              return ClassExpression2;
+            })();
+            exports2.ClassExpression = ClassExpression;
+            var ComputedMemberExpression = /* @__PURE__ */ (function() {
+              function ComputedMemberExpression2(object, property) {
+                this.type = syntax_1.Syntax.MemberExpression;
+                this.computed = true;
+                this.object = object;
+                this.property = property;
+              }
+              return ComputedMemberExpression2;
+            })();
+            exports2.ComputedMemberExpression = ComputedMemberExpression;
+            var ConditionalExpression = /* @__PURE__ */ (function() {
+              function ConditionalExpression2(test2, consequent, alternate) {
+                this.type = syntax_1.Syntax.ConditionalExpression;
+                this.test = test2;
+                this.consequent = consequent;
+                this.alternate = alternate;
+              }
+              return ConditionalExpression2;
+            })();
+            exports2.ConditionalExpression = ConditionalExpression;
+            var ContinueStatement = /* @__PURE__ */ (function() {
+              function ContinueStatement2(label) {
+                this.type = syntax_1.Syntax.ContinueStatement;
+                this.label = label;
+              }
+              return ContinueStatement2;
+            })();
+            exports2.ContinueStatement = ContinueStatement;
+            var DebuggerStatement = /* @__PURE__ */ (function() {
+              function DebuggerStatement2() {
+                this.type = syntax_1.Syntax.DebuggerStatement;
+              }
+              return DebuggerStatement2;
+            })();
+            exports2.DebuggerStatement = DebuggerStatement;
+            var Directive = /* @__PURE__ */ (function() {
+              function Directive2(expression, directive) {
+                this.type = syntax_1.Syntax.ExpressionStatement;
+                this.expression = expression;
+                this.directive = directive;
+              }
+              return Directive2;
+            })();
+            exports2.Directive = Directive;
+            var DoWhileStatement = /* @__PURE__ */ (function() {
+              function DoWhileStatement2(body, test2) {
+                this.type = syntax_1.Syntax.DoWhileStatement;
+                this.body = body;
+                this.test = test2;
+              }
+              return DoWhileStatement2;
+            })();
+            exports2.DoWhileStatement = DoWhileStatement;
+            var EmptyStatement = /* @__PURE__ */ (function() {
+              function EmptyStatement2() {
+                this.type = syntax_1.Syntax.EmptyStatement;
+              }
+              return EmptyStatement2;
+            })();
+            exports2.EmptyStatement = EmptyStatement;
+            var ExportAllDeclaration = /* @__PURE__ */ (function() {
+              function ExportAllDeclaration2(source) {
+                this.type = syntax_1.Syntax.ExportAllDeclaration;
+                this.source = source;
+              }
+              return ExportAllDeclaration2;
+            })();
+            exports2.ExportAllDeclaration = ExportAllDeclaration;
+            var ExportDefaultDeclaration = /* @__PURE__ */ (function() {
+              function ExportDefaultDeclaration2(declaration) {
+                this.type = syntax_1.Syntax.ExportDefaultDeclaration;
+                this.declaration = declaration;
+              }
+              return ExportDefaultDeclaration2;
+            })();
+            exports2.ExportDefaultDeclaration = ExportDefaultDeclaration;
+            var ExportNamedDeclaration = /* @__PURE__ */ (function() {
+              function ExportNamedDeclaration2(declaration, specifiers, source) {
+                this.type = syntax_1.Syntax.ExportNamedDeclaration;
+                this.declaration = declaration;
+                this.specifiers = specifiers;
+                this.source = source;
+              }
+              return ExportNamedDeclaration2;
+            })();
+            exports2.ExportNamedDeclaration = ExportNamedDeclaration;
+            var ExportSpecifier = /* @__PURE__ */ (function() {
+              function ExportSpecifier2(local, exported) {
+                this.type = syntax_1.Syntax.ExportSpecifier;
+                this.exported = exported;
+                this.local = local;
+              }
+              return ExportSpecifier2;
+            })();
+            exports2.ExportSpecifier = ExportSpecifier;
+            var ExpressionStatement = /* @__PURE__ */ (function() {
+              function ExpressionStatement2(expression) {
+                this.type = syntax_1.Syntax.ExpressionStatement;
+                this.expression = expression;
+              }
+              return ExpressionStatement2;
+            })();
+            exports2.ExpressionStatement = ExpressionStatement;
+            var ForInStatement = /* @__PURE__ */ (function() {
+              function ForInStatement2(left, right, body) {
+                this.type = syntax_1.Syntax.ForInStatement;
+                this.left = left;
+                this.right = right;
+                this.body = body;
+                this.each = false;
+              }
+              return ForInStatement2;
+            })();
+            exports2.ForInStatement = ForInStatement;
+            var ForOfStatement = /* @__PURE__ */ (function() {
+              function ForOfStatement2(left, right, body) {
+                this.type = syntax_1.Syntax.ForOfStatement;
+                this.left = left;
+                this.right = right;
+                this.body = body;
+              }
+              return ForOfStatement2;
+            })();
+            exports2.ForOfStatement = ForOfStatement;
+            var ForStatement = /* @__PURE__ */ (function() {
+              function ForStatement2(init, test2, update, body) {
+                this.type = syntax_1.Syntax.ForStatement;
+                this.init = init;
+                this.test = test2;
+                this.update = update;
+                this.body = body;
+              }
+              return ForStatement2;
+            })();
+            exports2.ForStatement = ForStatement;
+            var FunctionDeclaration = /* @__PURE__ */ (function() {
+              function FunctionDeclaration2(id, params, body, generator) {
+                this.type = syntax_1.Syntax.FunctionDeclaration;
+                this.id = id;
+                this.params = params;
+                this.body = body;
+                this.generator = generator;
+                this.expression = false;
+                this.async = false;
+              }
+              return FunctionDeclaration2;
+            })();
+            exports2.FunctionDeclaration = FunctionDeclaration;
+            var FunctionExpression = /* @__PURE__ */ (function() {
+              function FunctionExpression2(id, params, body, generator) {
+                this.type = syntax_1.Syntax.FunctionExpression;
+                this.id = id;
+                this.params = params;
+                this.body = body;
+                this.generator = generator;
+                this.expression = false;
+                this.async = false;
+              }
+              return FunctionExpression2;
+            })();
+            exports2.FunctionExpression = FunctionExpression;
+            var Identifier = /* @__PURE__ */ (function() {
+              function Identifier2(name) {
+                this.type = syntax_1.Syntax.Identifier;
+                this.name = name;
+              }
+              return Identifier2;
+            })();
+            exports2.Identifier = Identifier;
+            var IfStatement = /* @__PURE__ */ (function() {
+              function IfStatement2(test2, consequent, alternate) {
+                this.type = syntax_1.Syntax.IfStatement;
+                this.test = test2;
+                this.consequent = consequent;
+                this.alternate = alternate;
+              }
+              return IfStatement2;
+            })();
+            exports2.IfStatement = IfStatement;
+            var ImportDeclaration = /* @__PURE__ */ (function() {
+              function ImportDeclaration2(specifiers, source) {
+                this.type = syntax_1.Syntax.ImportDeclaration;
+                this.specifiers = specifiers;
+                this.source = source;
+              }
+              return ImportDeclaration2;
+            })();
+            exports2.ImportDeclaration = ImportDeclaration;
+            var ImportDefaultSpecifier = /* @__PURE__ */ (function() {
+              function ImportDefaultSpecifier2(local) {
+                this.type = syntax_1.Syntax.ImportDefaultSpecifier;
+                this.local = local;
+              }
+              return ImportDefaultSpecifier2;
+            })();
+            exports2.ImportDefaultSpecifier = ImportDefaultSpecifier;
+            var ImportNamespaceSpecifier = /* @__PURE__ */ (function() {
+              function ImportNamespaceSpecifier2(local) {
+                this.type = syntax_1.Syntax.ImportNamespaceSpecifier;
+                this.local = local;
+              }
+              return ImportNamespaceSpecifier2;
+            })();
+            exports2.ImportNamespaceSpecifier = ImportNamespaceSpecifier;
+            var ImportSpecifier = /* @__PURE__ */ (function() {
+              function ImportSpecifier2(local, imported) {
+                this.type = syntax_1.Syntax.ImportSpecifier;
+                this.local = local;
+                this.imported = imported;
+              }
+              return ImportSpecifier2;
+            })();
+            exports2.ImportSpecifier = ImportSpecifier;
+            var LabeledStatement = /* @__PURE__ */ (function() {
+              function LabeledStatement2(label, body) {
+                this.type = syntax_1.Syntax.LabeledStatement;
+                this.label = label;
+                this.body = body;
+              }
+              return LabeledStatement2;
+            })();
+            exports2.LabeledStatement = LabeledStatement;
+            var Literal = /* @__PURE__ */ (function() {
+              function Literal2(value, raw) {
+                this.type = syntax_1.Syntax.Literal;
+                this.value = value;
+                this.raw = raw;
+              }
+              return Literal2;
+            })();
+            exports2.Literal = Literal;
+            var MetaProperty = /* @__PURE__ */ (function() {
+              function MetaProperty2(meta, property) {
+                this.type = syntax_1.Syntax.MetaProperty;
+                this.meta = meta;
+                this.property = property;
+              }
+              return MetaProperty2;
+            })();
+            exports2.MetaProperty = MetaProperty;
+            var MethodDefinition = /* @__PURE__ */ (function() {
+              function MethodDefinition2(key, computed, value, kind, isStatic) {
+                this.type = syntax_1.Syntax.MethodDefinition;
+                this.key = key;
+                this.computed = computed;
+                this.value = value;
+                this.kind = kind;
+                this.static = isStatic;
+              }
+              return MethodDefinition2;
+            })();
+            exports2.MethodDefinition = MethodDefinition;
+            var Module = /* @__PURE__ */ (function() {
+              function Module2(body) {
+                this.type = syntax_1.Syntax.Program;
+                this.body = body;
+                this.sourceType = "module";
+              }
+              return Module2;
+            })();
+            exports2.Module = Module;
+            var NewExpression = /* @__PURE__ */ (function() {
+              function NewExpression2(callee, args) {
+                this.type = syntax_1.Syntax.NewExpression;
+                this.callee = callee;
+                this.arguments = args;
+              }
+              return NewExpression2;
+            })();
+            exports2.NewExpression = NewExpression;
+            var ObjectExpression = /* @__PURE__ */ (function() {
+              function ObjectExpression2(properties) {
+                this.type = syntax_1.Syntax.ObjectExpression;
+                this.properties = properties;
+              }
+              return ObjectExpression2;
+            })();
+            exports2.ObjectExpression = ObjectExpression;
+            var ObjectPattern = /* @__PURE__ */ (function() {
+              function ObjectPattern2(properties) {
+                this.type = syntax_1.Syntax.ObjectPattern;
+                this.properties = properties;
+              }
+              return ObjectPattern2;
+            })();
+            exports2.ObjectPattern = ObjectPattern;
+            var Property = /* @__PURE__ */ (function() {
+              function Property2(kind, key, computed, value, method, shorthand) {
+                this.type = syntax_1.Syntax.Property;
+                this.key = key;
+                this.computed = computed;
+                this.value = value;
+                this.kind = kind;
+                this.method = method;
+                this.shorthand = shorthand;
+              }
+              return Property2;
+            })();
+            exports2.Property = Property;
+            var RegexLiteral = /* @__PURE__ */ (function() {
+              function RegexLiteral2(value, raw, pattern, flags) {
+                this.type = syntax_1.Syntax.Literal;
+                this.value = value;
+                this.raw = raw;
+                this.regex = { pattern, flags };
+              }
+              return RegexLiteral2;
+            })();
+            exports2.RegexLiteral = RegexLiteral;
+            var RestElement = /* @__PURE__ */ (function() {
+              function RestElement2(argument) {
+                this.type = syntax_1.Syntax.RestElement;
+                this.argument = argument;
+              }
+              return RestElement2;
+            })();
+            exports2.RestElement = RestElement;
+            var ReturnStatement = /* @__PURE__ */ (function() {
+              function ReturnStatement2(argument) {
+                this.type = syntax_1.Syntax.ReturnStatement;
+                this.argument = argument;
+              }
+              return ReturnStatement2;
+            })();
+            exports2.ReturnStatement = ReturnStatement;
+            var Script = /* @__PURE__ */ (function() {
+              function Script2(body) {
+                this.type = syntax_1.Syntax.Program;
+                this.body = body;
+                this.sourceType = "script";
+              }
+              return Script2;
+            })();
+            exports2.Script = Script;
+            var SequenceExpression = /* @__PURE__ */ (function() {
+              function SequenceExpression2(expressions) {
+                this.type = syntax_1.Syntax.SequenceExpression;
+                this.expressions = expressions;
+              }
+              return SequenceExpression2;
+            })();
+            exports2.SequenceExpression = SequenceExpression;
+            var SpreadElement = /* @__PURE__ */ (function() {
+              function SpreadElement2(argument) {
+                this.type = syntax_1.Syntax.SpreadElement;
+                this.argument = argument;
+              }
+              return SpreadElement2;
+            })();
+            exports2.SpreadElement = SpreadElement;
+            var StaticMemberExpression = /* @__PURE__ */ (function() {
+              function StaticMemberExpression2(object, property) {
+                this.type = syntax_1.Syntax.MemberExpression;
+                this.computed = false;
+                this.object = object;
+                this.property = property;
+              }
+              return StaticMemberExpression2;
+            })();
+            exports2.StaticMemberExpression = StaticMemberExpression;
+            var Super = /* @__PURE__ */ (function() {
+              function Super2() {
+                this.type = syntax_1.Syntax.Super;
+              }
+              return Super2;
+            })();
+            exports2.Super = Super;
+            var SwitchCase = /* @__PURE__ */ (function() {
+              function SwitchCase2(test2, consequent) {
+                this.type = syntax_1.Syntax.SwitchCase;
+                this.test = test2;
+                this.consequent = consequent;
+              }
+              return SwitchCase2;
+            })();
+            exports2.SwitchCase = SwitchCase;
+            var SwitchStatement = /* @__PURE__ */ (function() {
+              function SwitchStatement2(discriminant, cases) {
+                this.type = syntax_1.Syntax.SwitchStatement;
+                this.discriminant = discriminant;
+                this.cases = cases;
+              }
+              return SwitchStatement2;
+            })();
+            exports2.SwitchStatement = SwitchStatement;
+            var TaggedTemplateExpression = /* @__PURE__ */ (function() {
+              function TaggedTemplateExpression2(tag, quasi) {
+                this.type = syntax_1.Syntax.TaggedTemplateExpression;
+                this.tag = tag;
+                this.quasi = quasi;
+              }
+              return TaggedTemplateExpression2;
+            })();
+            exports2.TaggedTemplateExpression = TaggedTemplateExpression;
+            var TemplateElement = /* @__PURE__ */ (function() {
+              function TemplateElement2(value, tail) {
+                this.type = syntax_1.Syntax.TemplateElement;
+                this.value = value;
+                this.tail = tail;
+              }
+              return TemplateElement2;
+            })();
+            exports2.TemplateElement = TemplateElement;
+            var TemplateLiteral = /* @__PURE__ */ (function() {
+              function TemplateLiteral2(quasis, expressions) {
+                this.type = syntax_1.Syntax.TemplateLiteral;
+                this.quasis = quasis;
+                this.expressions = expressions;
+              }
+              return TemplateLiteral2;
+            })();
+            exports2.TemplateLiteral = TemplateLiteral;
+            var ThisExpression = /* @__PURE__ */ (function() {
+              function ThisExpression2() {
+                this.type = syntax_1.Syntax.ThisExpression;
+              }
+              return ThisExpression2;
+            })();
+            exports2.ThisExpression = ThisExpression;
+            var ThrowStatement = /* @__PURE__ */ (function() {
+              function ThrowStatement2(argument) {
+                this.type = syntax_1.Syntax.ThrowStatement;
+                this.argument = argument;
+              }
+              return ThrowStatement2;
+            })();
+            exports2.ThrowStatement = ThrowStatement;
+            var TryStatement = /* @__PURE__ */ (function() {
+              function TryStatement2(block, handler, finalizer) {
+                this.type = syntax_1.Syntax.TryStatement;
+                this.block = block;
+                this.handler = handler;
+                this.finalizer = finalizer;
+              }
+              return TryStatement2;
+            })();
+            exports2.TryStatement = TryStatement;
+            var UnaryExpression = /* @__PURE__ */ (function() {
+              function UnaryExpression2(operator, argument) {
+                this.type = syntax_1.Syntax.UnaryExpression;
+                this.operator = operator;
+                this.argument = argument;
+                this.prefix = true;
+              }
+              return UnaryExpression2;
+            })();
+            exports2.UnaryExpression = UnaryExpression;
+            var UpdateExpression = /* @__PURE__ */ (function() {
+              function UpdateExpression2(operator, argument, prefix) {
+                this.type = syntax_1.Syntax.UpdateExpression;
+                this.operator = operator;
+                this.argument = argument;
+                this.prefix = prefix;
+              }
+              return UpdateExpression2;
+            })();
+            exports2.UpdateExpression = UpdateExpression;
+            var VariableDeclaration = /* @__PURE__ */ (function() {
+              function VariableDeclaration2(declarations, kind) {
+                this.type = syntax_1.Syntax.VariableDeclaration;
+                this.declarations = declarations;
+                this.kind = kind;
+              }
+              return VariableDeclaration2;
+            })();
+            exports2.VariableDeclaration = VariableDeclaration;
+            var VariableDeclarator = /* @__PURE__ */ (function() {
+              function VariableDeclarator2(id, init) {
+                this.type = syntax_1.Syntax.VariableDeclarator;
+                this.id = id;
+                this.init = init;
+              }
+              return VariableDeclarator2;
+            })();
+            exports2.VariableDeclarator = VariableDeclarator;
+            var WhileStatement = /* @__PURE__ */ (function() {
+              function WhileStatement2(test2, body) {
+                this.type = syntax_1.Syntax.WhileStatement;
+                this.test = test2;
+                this.body = body;
+              }
+              return WhileStatement2;
+            })();
+            exports2.WhileStatement = WhileStatement;
+            var WithStatement = /* @__PURE__ */ (function() {
+              function WithStatement2(object, body) {
+                this.type = syntax_1.Syntax.WithStatement;
+                this.object = object;
+                this.body = body;
+              }
+              return WithStatement2;
+            })();
+            exports2.WithStatement = WithStatement;
+            var YieldExpression = /* @__PURE__ */ (function() {
+              function YieldExpression2(argument, delegate) {
+                this.type = syntax_1.Syntax.YieldExpression;
+                this.argument = argument;
+                this.delegate = delegate;
+              }
+              return YieldExpression2;
+            })();
+            exports2.YieldExpression = YieldExpression;
+          },
+          /* 8 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var assert_1 = __webpack_require__(9);
+            var error_handler_1 = __webpack_require__(10);
+            var messages_1 = __webpack_require__(11);
+            var Node = __webpack_require__(7);
+            var scanner_1 = __webpack_require__(12);
+            var syntax_1 = __webpack_require__(2);
+            var token_1 = __webpack_require__(13);
+            var ArrowParameterPlaceHolder = "ArrowParameterPlaceHolder";
+            var Parser = (function() {
+              function Parser2(code, options, delegate) {
+                if (options === void 0) {
+                  options = {};
+                }
+                this.config = {
+                  range: typeof options.range === "boolean" && options.range,
+                  loc: typeof options.loc === "boolean" && options.loc,
+                  source: null,
+                  tokens: typeof options.tokens === "boolean" && options.tokens,
+                  comment: typeof options.comment === "boolean" && options.comment,
+                  tolerant: typeof options.tolerant === "boolean" && options.tolerant
+                };
+                if (this.config.loc && options.source && options.source !== null) {
+                  this.config.source = String(options.source);
+                }
+                this.delegate = delegate;
+                this.errorHandler = new error_handler_1.ErrorHandler();
+                this.errorHandler.tolerant = this.config.tolerant;
+                this.scanner = new scanner_1.Scanner(code, this.errorHandler);
+                this.scanner.trackComment = this.config.comment;
+                this.operatorPrecedence = {
+                  ")": 0,
+                  ";": 0,
+                  ",": 0,
+                  "=": 0,
+                  "]": 0,
+                  "||": 1,
+                  "&&": 2,
+                  "|": 3,
+                  "^": 4,
+                  "&": 5,
+                  "==": 6,
+                  "!=": 6,
+                  "===": 6,
+                  "!==": 6,
+                  "<": 7,
+                  ">": 7,
+                  "<=": 7,
+                  ">=": 7,
+                  "<<": 8,
+                  ">>": 8,
+                  ">>>": 8,
+                  "+": 9,
+                  "-": 9,
+                  "*": 11,
+                  "/": 11,
+                  "%": 11
+                };
+                this.lookahead = {
+                  type: 2,
+                  value: "",
+                  lineNumber: this.scanner.lineNumber,
+                  lineStart: 0,
+                  start: 0,
+                  end: 0
+                };
+                this.hasLineTerminator = false;
+                this.context = {
+                  isModule: false,
+                  await: false,
+                  allowIn: true,
+                  allowStrictDirective: true,
+                  allowYield: true,
+                  firstCoverInitializedNameError: null,
+                  isAssignmentTarget: false,
+                  isBindingElement: false,
+                  inFunctionBody: false,
+                  inIteration: false,
+                  inSwitch: false,
+                  labelSet: {},
+                  strict: false
+                };
+                this.tokens = [];
+                this.startMarker = {
+                  index: 0,
+                  line: this.scanner.lineNumber,
+                  column: 0
+                };
+                this.lastMarker = {
+                  index: 0,
+                  line: this.scanner.lineNumber,
+                  column: 0
+                };
+                this.nextToken();
+                this.lastMarker = {
+                  index: this.scanner.index,
+                  line: this.scanner.lineNumber,
+                  column: this.scanner.index - this.scanner.lineStart
+                };
+              }
+              Parser2.prototype.throwError = function(messageFormat) {
+                var values = [];
+                for (var _i = 1; _i < arguments.length; _i++) {
+                  values[_i - 1] = arguments[_i];
+                }
+                var args = Array.prototype.slice.call(arguments, 1);
+                var msg = messageFormat.replace(/%(\d)/g, function(whole, idx) {
+                  assert_1.assert(idx < args.length, "Message reference must be in range");
+                  return args[idx];
+                });
+                var index = this.lastMarker.index;
+                var line = this.lastMarker.line;
+                var column = this.lastMarker.column + 1;
+                throw this.errorHandler.createError(index, line, column, msg);
+              };
+              Parser2.prototype.tolerateError = function(messageFormat) {
+                var values = [];
+                for (var _i = 1; _i < arguments.length; _i++) {
+                  values[_i - 1] = arguments[_i];
+                }
+                var args = Array.prototype.slice.call(arguments, 1);
+                var msg = messageFormat.replace(/%(\d)/g, function(whole, idx) {
+                  assert_1.assert(idx < args.length, "Message reference must be in range");
+                  return args[idx];
+                });
+                var index = this.lastMarker.index;
+                var line = this.scanner.lineNumber;
+                var column = this.lastMarker.column + 1;
+                this.errorHandler.tolerateError(index, line, column, msg);
+              };
+              Parser2.prototype.unexpectedTokenError = function(token, message) {
+                var msg = message || messages_1.Messages.UnexpectedToken;
+                var value;
+                if (token) {
+                  if (!message) {
+                    msg = token.type === 2 ? messages_1.Messages.UnexpectedEOS : token.type === 3 ? messages_1.Messages.UnexpectedIdentifier : token.type === 6 ? messages_1.Messages.UnexpectedNumber : token.type === 8 ? messages_1.Messages.UnexpectedString : token.type === 10 ? messages_1.Messages.UnexpectedTemplate : messages_1.Messages.UnexpectedToken;
+                    if (token.type === 4) {
+                      if (this.scanner.isFutureReservedWord(token.value)) {
+                        msg = messages_1.Messages.UnexpectedReserved;
+                      } else if (this.context.strict && this.scanner.isStrictModeReservedWord(token.value)) {
+                        msg = messages_1.Messages.StrictReservedWord;
+                      }
+                    }
+                  }
+                  value = token.value;
+                } else {
+                  value = "ILLEGAL";
+                }
+                msg = msg.replace("%0", value);
+                if (token && typeof token.lineNumber === "number") {
+                  var index = token.start;
+                  var line = token.lineNumber;
+                  var lastMarkerLineStart = this.lastMarker.index - this.lastMarker.column;
+                  var column = token.start - lastMarkerLineStart + 1;
+                  return this.errorHandler.createError(index, line, column, msg);
+                } else {
+                  var index = this.lastMarker.index;
+                  var line = this.lastMarker.line;
+                  var column = this.lastMarker.column + 1;
+                  return this.errorHandler.createError(index, line, column, msg);
+                }
+              };
+              Parser2.prototype.throwUnexpectedToken = function(token, message) {
+                throw this.unexpectedTokenError(token, message);
+              };
+              Parser2.prototype.tolerateUnexpectedToken = function(token, message) {
+                this.errorHandler.tolerate(this.unexpectedTokenError(token, message));
+              };
+              Parser2.prototype.collectComments = function() {
+                if (!this.config.comment) {
+                  this.scanner.scanComments();
+                } else {
+                  var comments = this.scanner.scanComments();
+                  if (comments.length > 0 && this.delegate) {
+                    for (var i = 0; i < comments.length; ++i) {
+                      var e = comments[i];
+                      var node = void 0;
+                      node = {
+                        type: e.multiLine ? "BlockComment" : "LineComment",
+                        value: this.scanner.source.slice(e.slice[0], e.slice[1])
+                      };
+                      if (this.config.range) {
+                        node.range = e.range;
+                      }
+                      if (this.config.loc) {
+                        node.loc = e.loc;
+                      }
+                      var metadata = {
+                        start: {
+                          line: e.loc.start.line,
+                          column: e.loc.start.column,
+                          offset: e.range[0]
+                        },
+                        end: {
+                          line: e.loc.end.line,
+                          column: e.loc.end.column,
+                          offset: e.range[1]
+                        }
+                      };
+                      this.delegate(node, metadata);
+                    }
+                  }
+                }
+              };
+              Parser2.prototype.getTokenRaw = function(token) {
+                return this.scanner.source.slice(token.start, token.end);
+              };
+              Parser2.prototype.convertToken = function(token) {
+                var t = {
+                  type: token_1.TokenName[token.type],
+                  value: this.getTokenRaw(token)
+                };
+                if (this.config.range) {
+                  t.range = [token.start, token.end];
+                }
+                if (this.config.loc) {
+                  t.loc = {
+                    start: {
+                      line: this.startMarker.line,
+                      column: this.startMarker.column
+                    },
+                    end: {
+                      line: this.scanner.lineNumber,
+                      column: this.scanner.index - this.scanner.lineStart
+                    }
+                  };
+                }
+                if (token.type === 9) {
+                  var pattern = token.pattern;
+                  var flags = token.flags;
+                  t.regex = { pattern, flags };
+                }
+                return t;
+              };
+              Parser2.prototype.nextToken = function() {
+                var token = this.lookahead;
+                this.lastMarker.index = this.scanner.index;
+                this.lastMarker.line = this.scanner.lineNumber;
+                this.lastMarker.column = this.scanner.index - this.scanner.lineStart;
+                this.collectComments();
+                if (this.scanner.index !== this.startMarker.index) {
+                  this.startMarker.index = this.scanner.index;
+                  this.startMarker.line = this.scanner.lineNumber;
+                  this.startMarker.column = this.scanner.index - this.scanner.lineStart;
+                }
+                var next = this.scanner.lex();
+                this.hasLineTerminator = token.lineNumber !== next.lineNumber;
+                if (next && this.context.strict && next.type === 3) {
+                  if (this.scanner.isStrictModeReservedWord(next.value)) {
+                    next.type = 4;
+                  }
+                }
+                this.lookahead = next;
+                if (this.config.tokens && next.type !== 2) {
+                  this.tokens.push(this.convertToken(next));
+                }
+                return token;
+              };
+              Parser2.prototype.nextRegexToken = function() {
+                this.collectComments();
+                var token = this.scanner.scanRegExp();
+                if (this.config.tokens) {
+                  this.tokens.pop();
+                  this.tokens.push(this.convertToken(token));
+                }
+                this.lookahead = token;
+                this.nextToken();
+                return token;
+              };
+              Parser2.prototype.createNode = function() {
+                return {
+                  index: this.startMarker.index,
+                  line: this.startMarker.line,
+                  column: this.startMarker.column
+                };
+              };
+              Parser2.prototype.startNode = function(token, lastLineStart) {
+                if (lastLineStart === void 0) {
+                  lastLineStart = 0;
+                }
+                var column = token.start - token.lineStart;
+                var line = token.lineNumber;
+                if (column < 0) {
+                  column += lastLineStart;
+                  line--;
+                }
+                return {
+                  index: token.start,
+                  line,
+                  column
+                };
+              };
+              Parser2.prototype.finalize = function(marker, node) {
+                if (this.config.range) {
+                  node.range = [marker.index, this.lastMarker.index];
+                }
+                if (this.config.loc) {
+                  node.loc = {
+                    start: {
+                      line: marker.line,
+                      column: marker.column
+                    },
+                    end: {
+                      line: this.lastMarker.line,
+                      column: this.lastMarker.column
+                    }
+                  };
+                  if (this.config.source) {
+                    node.loc.source = this.config.source;
+                  }
+                }
+                if (this.delegate) {
+                  var metadata = {
+                    start: {
+                      line: marker.line,
+                      column: marker.column,
+                      offset: marker.index
+                    },
+                    end: {
+                      line: this.lastMarker.line,
+                      column: this.lastMarker.column,
+                      offset: this.lastMarker.index
+                    }
+                  };
+                  this.delegate(node, metadata);
+                }
+                return node;
+              };
+              Parser2.prototype.expect = function(value) {
+                var token = this.nextToken();
+                if (token.type !== 7 || token.value !== value) {
+                  this.throwUnexpectedToken(token);
+                }
+              };
+              Parser2.prototype.expectCommaSeparator = function() {
+                if (this.config.tolerant) {
+                  var token = this.lookahead;
+                  if (token.type === 7 && token.value === ",") {
+                    this.nextToken();
+                  } else if (token.type === 7 && token.value === ";") {
+                    this.nextToken();
+                    this.tolerateUnexpectedToken(token);
+                  } else {
+                    this.tolerateUnexpectedToken(token, messages_1.Messages.UnexpectedToken);
+                  }
+                } else {
+                  this.expect(",");
+                }
+              };
+              Parser2.prototype.expectKeyword = function(keyword) {
+                var token = this.nextToken();
+                if (token.type !== 4 || token.value !== keyword) {
+                  this.throwUnexpectedToken(token);
+                }
+              };
+              Parser2.prototype.match = function(value) {
+                return this.lookahead.type === 7 && this.lookahead.value === value;
+              };
+              Parser2.prototype.matchKeyword = function(keyword) {
+                return this.lookahead.type === 4 && this.lookahead.value === keyword;
+              };
+              Parser2.prototype.matchContextualKeyword = function(keyword) {
+                return this.lookahead.type === 3 && this.lookahead.value === keyword;
+              };
+              Parser2.prototype.matchAssign = function() {
+                if (this.lookahead.type !== 7) {
+                  return false;
+                }
+                var op = this.lookahead.value;
+                return op === "=" || op === "*=" || op === "**=" || op === "/=" || op === "%=" || op === "+=" || op === "-=" || op === "<<=" || op === ">>=" || op === ">>>=" || op === "&=" || op === "^=" || op === "|=";
+              };
+              Parser2.prototype.isolateCoverGrammar = function(parseFunction) {
+                var previousIsBindingElement = this.context.isBindingElement;
+                var previousIsAssignmentTarget = this.context.isAssignmentTarget;
+                var previousFirstCoverInitializedNameError = this.context.firstCoverInitializedNameError;
+                this.context.isBindingElement = true;
+                this.context.isAssignmentTarget = true;
+                this.context.firstCoverInitializedNameError = null;
+                var result = parseFunction.call(this);
+                if (this.context.firstCoverInitializedNameError !== null) {
+                  this.throwUnexpectedToken(this.context.firstCoverInitializedNameError);
+                }
+                this.context.isBindingElement = previousIsBindingElement;
+                this.context.isAssignmentTarget = previousIsAssignmentTarget;
+                this.context.firstCoverInitializedNameError = previousFirstCoverInitializedNameError;
+                return result;
+              };
+              Parser2.prototype.inheritCoverGrammar = function(parseFunction) {
+                var previousIsBindingElement = this.context.isBindingElement;
+                var previousIsAssignmentTarget = this.context.isAssignmentTarget;
+                var previousFirstCoverInitializedNameError = this.context.firstCoverInitializedNameError;
+                this.context.isBindingElement = true;
+                this.context.isAssignmentTarget = true;
+                this.context.firstCoverInitializedNameError = null;
+                var result = parseFunction.call(this);
+                this.context.isBindingElement = this.context.isBindingElement && previousIsBindingElement;
+                this.context.isAssignmentTarget = this.context.isAssignmentTarget && previousIsAssignmentTarget;
+                this.context.firstCoverInitializedNameError = previousFirstCoverInitializedNameError || this.context.firstCoverInitializedNameError;
+                return result;
+              };
+              Parser2.prototype.consumeSemicolon = function() {
+                if (this.match(";")) {
+                  this.nextToken();
+                } else if (!this.hasLineTerminator) {
+                  if (this.lookahead.type !== 2 && !this.match("}")) {
+                    this.throwUnexpectedToken(this.lookahead);
+                  }
+                  this.lastMarker.index = this.startMarker.index;
+                  this.lastMarker.line = this.startMarker.line;
+                  this.lastMarker.column = this.startMarker.column;
+                }
+              };
+              Parser2.prototype.parsePrimaryExpression = function() {
+                var node = this.createNode();
+                var expr;
+                var token, raw;
+                switch (this.lookahead.type) {
+                  case 3:
+                    if ((this.context.isModule || this.context.await) && this.lookahead.value === "await") {
+                      this.tolerateUnexpectedToken(this.lookahead);
+                    }
+                    expr = this.matchAsyncFunction() ? this.parseFunctionExpression() : this.finalize(node, new Node.Identifier(this.nextToken().value));
+                    break;
+                  case 6:
+                  case 8:
+                    if (this.context.strict && this.lookahead.octal) {
+                      this.tolerateUnexpectedToken(this.lookahead, messages_1.Messages.StrictOctalLiteral);
+                    }
+                    this.context.isAssignmentTarget = false;
+                    this.context.isBindingElement = false;
+                    token = this.nextToken();
+                    raw = this.getTokenRaw(token);
+                    expr = this.finalize(node, new Node.Literal(token.value, raw));
+                    break;
+                  case 1:
+                    this.context.isAssignmentTarget = false;
+                    this.context.isBindingElement = false;
+                    token = this.nextToken();
+                    raw = this.getTokenRaw(token);
+                    expr = this.finalize(node, new Node.Literal(token.value === "true", raw));
+                    break;
+                  case 5:
+                    this.context.isAssignmentTarget = false;
+                    this.context.isBindingElement = false;
+                    token = this.nextToken();
+                    raw = this.getTokenRaw(token);
+                    expr = this.finalize(node, new Node.Literal(null, raw));
+                    break;
+                  case 10:
+                    expr = this.parseTemplateLiteral();
+                    break;
+                  case 7:
+                    switch (this.lookahead.value) {
+                      case "(":
+                        this.context.isBindingElement = false;
+                        expr = this.inheritCoverGrammar(this.parseGroupExpression);
+                        break;
+                      case "[":
+                        expr = this.inheritCoverGrammar(this.parseArrayInitializer);
+                        break;
+                      case "{":
+                        expr = this.inheritCoverGrammar(this.parseObjectInitializer);
+                        break;
+                      case "/":
+                      case "/=":
+                        this.context.isAssignmentTarget = false;
+                        this.context.isBindingElement = false;
+                        this.scanner.index = this.startMarker.index;
+                        token = this.nextRegexToken();
+                        raw = this.getTokenRaw(token);
+                        expr = this.finalize(node, new Node.RegexLiteral(token.regex, raw, token.pattern, token.flags));
+                        break;
+                      default:
+                        expr = this.throwUnexpectedToken(this.nextToken());
+                    }
+                    break;
+                  case 4:
+                    if (!this.context.strict && this.context.allowYield && this.matchKeyword("yield")) {
+                      expr = this.parseIdentifierName();
+                    } else if (!this.context.strict && this.matchKeyword("let")) {
+                      expr = this.finalize(node, new Node.Identifier(this.nextToken().value));
+                    } else {
+                      this.context.isAssignmentTarget = false;
+                      this.context.isBindingElement = false;
+                      if (this.matchKeyword("function")) {
+                        expr = this.parseFunctionExpression();
+                      } else if (this.matchKeyword("this")) {
+                        this.nextToken();
+                        expr = this.finalize(node, new Node.ThisExpression());
+                      } else if (this.matchKeyword("class")) {
+                        expr = this.parseClassExpression();
+                      } else {
+                        expr = this.throwUnexpectedToken(this.nextToken());
+                      }
+                    }
+                    break;
+                  default:
+                    expr = this.throwUnexpectedToken(this.nextToken());
+                }
+                return expr;
+              };
+              Parser2.prototype.parseSpreadElement = function() {
+                var node = this.createNode();
+                this.expect("...");
+                var arg = this.inheritCoverGrammar(this.parseAssignmentExpression);
+                return this.finalize(node, new Node.SpreadElement(arg));
+              };
+              Parser2.prototype.parseArrayInitializer = function() {
+                var node = this.createNode();
+                var elements = [];
+                this.expect("[");
+                while (!this.match("]")) {
+                  if (this.match(",")) {
+                    this.nextToken();
+                    elements.push(null);
+                  } else if (this.match("...")) {
+                    var element = this.parseSpreadElement();
+                    if (!this.match("]")) {
+                      this.context.isAssignmentTarget = false;
+                      this.context.isBindingElement = false;
+                      this.expect(",");
+                    }
+                    elements.push(element);
+                  } else {
+                    elements.push(this.inheritCoverGrammar(this.parseAssignmentExpression));
+                    if (!this.match("]")) {
+                      this.expect(",");
+                    }
+                  }
+                }
+                this.expect("]");
+                return this.finalize(node, new Node.ArrayExpression(elements));
+              };
+              Parser2.prototype.parsePropertyMethod = function(params) {
+                this.context.isAssignmentTarget = false;
+                this.context.isBindingElement = false;
+                var previousStrict = this.context.strict;
+                var previousAllowStrictDirective = this.context.allowStrictDirective;
+                this.context.allowStrictDirective = params.simple;
+                var body = this.isolateCoverGrammar(this.parseFunctionSourceElements);
+                if (this.context.strict && params.firstRestricted) {
+                  this.tolerateUnexpectedToken(params.firstRestricted, params.message);
+                }
+                if (this.context.strict && params.stricted) {
+                  this.tolerateUnexpectedToken(params.stricted, params.message);
+                }
+                this.context.strict = previousStrict;
+                this.context.allowStrictDirective = previousAllowStrictDirective;
+                return body;
+              };
+              Parser2.prototype.parsePropertyMethodFunction = function() {
+                var isGenerator = false;
+                var node = this.createNode();
+                var previousAllowYield = this.context.allowYield;
+                this.context.allowYield = true;
+                var params = this.parseFormalParameters();
+                var method = this.parsePropertyMethod(params);
+                this.context.allowYield = previousAllowYield;
+                return this.finalize(node, new Node.FunctionExpression(null, params.params, method, isGenerator));
+              };
+              Parser2.prototype.parsePropertyMethodAsyncFunction = function() {
+                var node = this.createNode();
+                var previousAllowYield = this.context.allowYield;
+                var previousAwait = this.context.await;
+                this.context.allowYield = false;
+                this.context.await = true;
+                var params = this.parseFormalParameters();
+                var method = this.parsePropertyMethod(params);
+                this.context.allowYield = previousAllowYield;
+                this.context.await = previousAwait;
+                return this.finalize(node, new Node.AsyncFunctionExpression(null, params.params, method));
+              };
+              Parser2.prototype.parseObjectPropertyKey = function() {
+                var node = this.createNode();
+                var token = this.nextToken();
+                var key;
+                switch (token.type) {
+                  case 8:
+                  case 6:
+                    if (this.context.strict && token.octal) {
+                      this.tolerateUnexpectedToken(token, messages_1.Messages.StrictOctalLiteral);
+                    }
+                    var raw = this.getTokenRaw(token);
+                    key = this.finalize(node, new Node.Literal(token.value, raw));
+                    break;
+                  case 3:
+                  case 1:
+                  case 5:
+                  case 4:
+                    key = this.finalize(node, new Node.Identifier(token.value));
+                    break;
+                  case 7:
+                    if (token.value === "[") {
+                      key = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                      this.expect("]");
+                    } else {
+                      key = this.throwUnexpectedToken(token);
+                    }
+                    break;
+                  default:
+                    key = this.throwUnexpectedToken(token);
+                }
+                return key;
+              };
+              Parser2.prototype.isPropertyKey = function(key, value) {
+                return key.type === syntax_1.Syntax.Identifier && key.name === value || key.type === syntax_1.Syntax.Literal && key.value === value;
+              };
+              Parser2.prototype.parseObjectProperty = function(hasProto) {
+                var node = this.createNode();
+                var token = this.lookahead;
+                var kind;
+                var key = null;
+                var value = null;
+                var computed = false;
+                var method = false;
+                var shorthand = false;
+                var isAsync = false;
+                if (token.type === 3) {
+                  var id = token.value;
+                  this.nextToken();
+                  computed = this.match("[");
+                  isAsync = !this.hasLineTerminator && id === "async" && !this.match(":") && !this.match("(") && !this.match("*") && !this.match(",");
+                  key = isAsync ? this.parseObjectPropertyKey() : this.finalize(node, new Node.Identifier(id));
+                } else if (this.match("*")) {
+                  this.nextToken();
+                } else {
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                }
+                var lookaheadPropertyKey = this.qualifiedPropertyName(this.lookahead);
+                if (token.type === 3 && !isAsync && token.value === "get" && lookaheadPropertyKey) {
+                  kind = "get";
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                  this.context.allowYield = false;
+                  value = this.parseGetterMethod();
+                } else if (token.type === 3 && !isAsync && token.value === "set" && lookaheadPropertyKey) {
+                  kind = "set";
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                  value = this.parseSetterMethod();
+                } else if (token.type === 7 && token.value === "*" && lookaheadPropertyKey) {
+                  kind = "init";
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                  value = this.parseGeneratorMethod();
+                  method = true;
+                } else {
+                  if (!key) {
+                    this.throwUnexpectedToken(this.lookahead);
+                  }
+                  kind = "init";
+                  if (this.match(":") && !isAsync) {
+                    if (!computed && this.isPropertyKey(key, "__proto__")) {
+                      if (hasProto.value) {
+                        this.tolerateError(messages_1.Messages.DuplicateProtoProperty);
+                      }
+                      hasProto.value = true;
+                    }
+                    this.nextToken();
+                    value = this.inheritCoverGrammar(this.parseAssignmentExpression);
+                  } else if (this.match("(")) {
+                    value = isAsync ? this.parsePropertyMethodAsyncFunction() : this.parsePropertyMethodFunction();
+                    method = true;
+                  } else if (token.type === 3) {
+                    var id = this.finalize(node, new Node.Identifier(token.value));
+                    if (this.match("=")) {
+                      this.context.firstCoverInitializedNameError = this.lookahead;
+                      this.nextToken();
+                      shorthand = true;
+                      var init = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                      value = this.finalize(node, new Node.AssignmentPattern(id, init));
+                    } else {
+                      shorthand = true;
+                      value = id;
+                    }
+                  } else {
+                    this.throwUnexpectedToken(this.nextToken());
+                  }
+                }
+                return this.finalize(node, new Node.Property(kind, key, computed, value, method, shorthand));
+              };
+              Parser2.prototype.parseObjectInitializer = function() {
+                var node = this.createNode();
+                this.expect("{");
+                var properties = [];
+                var hasProto = { value: false };
+                while (!this.match("}")) {
+                  properties.push(this.parseObjectProperty(hasProto));
+                  if (!this.match("}")) {
+                    this.expectCommaSeparator();
+                  }
+                }
+                this.expect("}");
+                return this.finalize(node, new Node.ObjectExpression(properties));
+              };
+              Parser2.prototype.parseTemplateHead = function() {
+                assert_1.assert(this.lookahead.head, "Template literal must start with a template head");
+                var node = this.createNode();
+                var token = this.nextToken();
+                var raw = token.value;
+                var cooked = token.cooked;
+                return this.finalize(node, new Node.TemplateElement({ raw, cooked }, token.tail));
+              };
+              Parser2.prototype.parseTemplateElement = function() {
+                if (this.lookahead.type !== 10) {
+                  this.throwUnexpectedToken();
+                }
+                var node = this.createNode();
+                var token = this.nextToken();
+                var raw = token.value;
+                var cooked = token.cooked;
+                return this.finalize(node, new Node.TemplateElement({ raw, cooked }, token.tail));
+              };
+              Parser2.prototype.parseTemplateLiteral = function() {
+                var node = this.createNode();
+                var expressions = [];
+                var quasis = [];
+                var quasi = this.parseTemplateHead();
+                quasis.push(quasi);
+                while (!quasi.tail) {
+                  expressions.push(this.parseExpression());
+                  quasi = this.parseTemplateElement();
+                  quasis.push(quasi);
+                }
+                return this.finalize(node, new Node.TemplateLiteral(quasis, expressions));
+              };
+              Parser2.prototype.reinterpretExpressionAsPattern = function(expr) {
+                switch (expr.type) {
+                  case syntax_1.Syntax.Identifier:
+                  case syntax_1.Syntax.MemberExpression:
+                  case syntax_1.Syntax.RestElement:
+                  case syntax_1.Syntax.AssignmentPattern:
+                    break;
+                  case syntax_1.Syntax.SpreadElement:
+                    expr.type = syntax_1.Syntax.RestElement;
+                    this.reinterpretExpressionAsPattern(expr.argument);
+                    break;
+                  case syntax_1.Syntax.ArrayExpression:
+                    expr.type = syntax_1.Syntax.ArrayPattern;
+                    for (var i = 0; i < expr.elements.length; i++) {
+                      if (expr.elements[i] !== null) {
+                        this.reinterpretExpressionAsPattern(expr.elements[i]);
+                      }
+                    }
+                    break;
+                  case syntax_1.Syntax.ObjectExpression:
+                    expr.type = syntax_1.Syntax.ObjectPattern;
+                    for (var i = 0; i < expr.properties.length; i++) {
+                      this.reinterpretExpressionAsPattern(expr.properties[i].value);
+                    }
+                    break;
+                  case syntax_1.Syntax.AssignmentExpression:
+                    expr.type = syntax_1.Syntax.AssignmentPattern;
+                    delete expr.operator;
+                    this.reinterpretExpressionAsPattern(expr.left);
+                    break;
+                  default:
+                    break;
+                }
+              };
+              Parser2.prototype.parseGroupExpression = function() {
+                var expr;
+                this.expect("(");
+                if (this.match(")")) {
+                  this.nextToken();
+                  if (!this.match("=>")) {
+                    this.expect("=>");
+                  }
+                  expr = {
+                    type: ArrowParameterPlaceHolder,
+                    params: [],
+                    async: false
+                  };
+                } else {
+                  var startToken = this.lookahead;
+                  var params = [];
+                  if (this.match("...")) {
+                    expr = this.parseRestElement(params);
+                    this.expect(")");
+                    if (!this.match("=>")) {
+                      this.expect("=>");
+                    }
+                    expr = {
+                      type: ArrowParameterPlaceHolder,
+                      params: [expr],
+                      async: false
+                    };
+                  } else {
+                    var arrow = false;
+                    this.context.isBindingElement = true;
+                    expr = this.inheritCoverGrammar(this.parseAssignmentExpression);
+                    if (this.match(",")) {
+                      var expressions = [];
+                      this.context.isAssignmentTarget = false;
+                      expressions.push(expr);
+                      while (this.lookahead.type !== 2) {
+                        if (!this.match(",")) {
+                          break;
+                        }
+                        this.nextToken();
+                        if (this.match(")")) {
+                          this.nextToken();
+                          for (var i = 0; i < expressions.length; i++) {
+                            this.reinterpretExpressionAsPattern(expressions[i]);
+                          }
+                          arrow = true;
+                          expr = {
+                            type: ArrowParameterPlaceHolder,
+                            params: expressions,
+                            async: false
+                          };
+                        } else if (this.match("...")) {
+                          if (!this.context.isBindingElement) {
+                            this.throwUnexpectedToken(this.lookahead);
+                          }
+                          expressions.push(this.parseRestElement(params));
+                          this.expect(")");
+                          if (!this.match("=>")) {
+                            this.expect("=>");
+                          }
+                          this.context.isBindingElement = false;
+                          for (var i = 0; i < expressions.length; i++) {
+                            this.reinterpretExpressionAsPattern(expressions[i]);
+                          }
+                          arrow = true;
+                          expr = {
+                            type: ArrowParameterPlaceHolder,
+                            params: expressions,
+                            async: false
+                          };
+                        } else {
+                          expressions.push(this.inheritCoverGrammar(this.parseAssignmentExpression));
+                        }
+                        if (arrow) {
+                          break;
+                        }
+                      }
+                      if (!arrow) {
+                        expr = this.finalize(this.startNode(startToken), new Node.SequenceExpression(expressions));
+                      }
+                    }
+                    if (!arrow) {
+                      this.expect(")");
+                      if (this.match("=>")) {
+                        if (expr.type === syntax_1.Syntax.Identifier && expr.name === "yield") {
+                          arrow = true;
+                          expr = {
+                            type: ArrowParameterPlaceHolder,
+                            params: [expr],
+                            async: false
+                          };
+                        }
+                        if (!arrow) {
+                          if (!this.context.isBindingElement) {
+                            this.throwUnexpectedToken(this.lookahead);
+                          }
+                          if (expr.type === syntax_1.Syntax.SequenceExpression) {
+                            for (var i = 0; i < expr.expressions.length; i++) {
+                              this.reinterpretExpressionAsPattern(expr.expressions[i]);
+                            }
+                          } else {
+                            this.reinterpretExpressionAsPattern(expr);
+                          }
+                          var parameters = expr.type === syntax_1.Syntax.SequenceExpression ? expr.expressions : [expr];
+                          expr = {
+                            type: ArrowParameterPlaceHolder,
+                            params: parameters,
+                            async: false
+                          };
+                        }
+                      }
+                      this.context.isBindingElement = false;
+                    }
+                  }
+                }
+                return expr;
+              };
+              Parser2.prototype.parseArguments = function() {
+                this.expect("(");
+                var args = [];
+                if (!this.match(")")) {
+                  while (true) {
+                    var expr = this.match("...") ? this.parseSpreadElement() : this.isolateCoverGrammar(this.parseAssignmentExpression);
+                    args.push(expr);
+                    if (this.match(")")) {
+                      break;
+                    }
+                    this.expectCommaSeparator();
+                    if (this.match(")")) {
+                      break;
+                    }
+                  }
+                }
+                this.expect(")");
+                return args;
+              };
+              Parser2.prototype.isIdentifierName = function(token) {
+                return token.type === 3 || token.type === 4 || token.type === 1 || token.type === 5;
+              };
+              Parser2.prototype.parseIdentifierName = function() {
+                var node = this.createNode();
+                var token = this.nextToken();
+                if (!this.isIdentifierName(token)) {
+                  this.throwUnexpectedToken(token);
+                }
+                return this.finalize(node, new Node.Identifier(token.value));
+              };
+              Parser2.prototype.parseNewExpression = function() {
+                var node = this.createNode();
+                var id = this.parseIdentifierName();
+                assert_1.assert(id.name === "new", "New expression must start with `new`");
+                var expr;
+                if (this.match(".")) {
+                  this.nextToken();
+                  if (this.lookahead.type === 3 && this.context.inFunctionBody && this.lookahead.value === "target") {
+                    var property = this.parseIdentifierName();
+                    expr = new Node.MetaProperty(id, property);
+                  } else {
+                    this.throwUnexpectedToken(this.lookahead);
+                  }
+                } else {
+                  var callee = this.isolateCoverGrammar(this.parseLeftHandSideExpression);
+                  var args = this.match("(") ? this.parseArguments() : [];
+                  expr = new Node.NewExpression(callee, args);
+                  this.context.isAssignmentTarget = false;
+                  this.context.isBindingElement = false;
+                }
+                return this.finalize(node, expr);
+              };
+              Parser2.prototype.parseAsyncArgument = function() {
+                var arg = this.parseAssignmentExpression();
+                this.context.firstCoverInitializedNameError = null;
+                return arg;
+              };
+              Parser2.prototype.parseAsyncArguments = function() {
+                this.expect("(");
+                var args = [];
+                if (!this.match(")")) {
+                  while (true) {
+                    var expr = this.match("...") ? this.parseSpreadElement() : this.isolateCoverGrammar(this.parseAsyncArgument);
+                    args.push(expr);
+                    if (this.match(")")) {
+                      break;
+                    }
+                    this.expectCommaSeparator();
+                    if (this.match(")")) {
+                      break;
+                    }
+                  }
+                }
+                this.expect(")");
+                return args;
+              };
+              Parser2.prototype.parseLeftHandSideExpressionAllowCall = function() {
+                var startToken = this.lookahead;
+                var maybeAsync = this.matchContextualKeyword("async");
+                var previousAllowIn = this.context.allowIn;
+                this.context.allowIn = true;
+                var expr;
+                if (this.matchKeyword("super") && this.context.inFunctionBody) {
+                  expr = this.createNode();
+                  this.nextToken();
+                  expr = this.finalize(expr, new Node.Super());
+                  if (!this.match("(") && !this.match(".") && !this.match("[")) {
+                    this.throwUnexpectedToken(this.lookahead);
+                  }
+                } else {
+                  expr = this.inheritCoverGrammar(this.matchKeyword("new") ? this.parseNewExpression : this.parsePrimaryExpression);
+                }
+                while (true) {
+                  if (this.match(".")) {
+                    this.context.isBindingElement = false;
+                    this.context.isAssignmentTarget = true;
+                    this.expect(".");
+                    var property = this.parseIdentifierName();
+                    expr = this.finalize(this.startNode(startToken), new Node.StaticMemberExpression(expr, property));
+                  } else if (this.match("(")) {
+                    var asyncArrow = maybeAsync && startToken.lineNumber === this.lookahead.lineNumber;
+                    this.context.isBindingElement = false;
+                    this.context.isAssignmentTarget = false;
+                    var args = asyncArrow ? this.parseAsyncArguments() : this.parseArguments();
+                    expr = this.finalize(this.startNode(startToken), new Node.CallExpression(expr, args));
+                    if (asyncArrow && this.match("=>")) {
+                      for (var i = 0; i < args.length; ++i) {
+                        this.reinterpretExpressionAsPattern(args[i]);
+                      }
+                      expr = {
+                        type: ArrowParameterPlaceHolder,
+                        params: args,
+                        async: true
+                      };
+                    }
+                  } else if (this.match("[")) {
+                    this.context.isBindingElement = false;
+                    this.context.isAssignmentTarget = true;
+                    this.expect("[");
+                    var property = this.isolateCoverGrammar(this.parseExpression);
+                    this.expect("]");
+                    expr = this.finalize(this.startNode(startToken), new Node.ComputedMemberExpression(expr, property));
+                  } else if (this.lookahead.type === 10 && this.lookahead.head) {
+                    var quasi = this.parseTemplateLiteral();
+                    expr = this.finalize(this.startNode(startToken), new Node.TaggedTemplateExpression(expr, quasi));
+                  } else {
+                    break;
+                  }
+                }
+                this.context.allowIn = previousAllowIn;
+                return expr;
+              };
+              Parser2.prototype.parseSuper = function() {
+                var node = this.createNode();
+                this.expectKeyword("super");
+                if (!this.match("[") && !this.match(".")) {
+                  this.throwUnexpectedToken(this.lookahead);
+                }
+                return this.finalize(node, new Node.Super());
+              };
+              Parser2.prototype.parseLeftHandSideExpression = function() {
+                assert_1.assert(this.context.allowIn, "callee of new expression always allow in keyword.");
+                var node = this.startNode(this.lookahead);
+                var expr = this.matchKeyword("super") && this.context.inFunctionBody ? this.parseSuper() : this.inheritCoverGrammar(this.matchKeyword("new") ? this.parseNewExpression : this.parsePrimaryExpression);
+                while (true) {
+                  if (this.match("[")) {
+                    this.context.isBindingElement = false;
+                    this.context.isAssignmentTarget = true;
+                    this.expect("[");
+                    var property = this.isolateCoverGrammar(this.parseExpression);
+                    this.expect("]");
+                    expr = this.finalize(node, new Node.ComputedMemberExpression(expr, property));
+                  } else if (this.match(".")) {
+                    this.context.isBindingElement = false;
+                    this.context.isAssignmentTarget = true;
+                    this.expect(".");
+                    var property = this.parseIdentifierName();
+                    expr = this.finalize(node, new Node.StaticMemberExpression(expr, property));
+                  } else if (this.lookahead.type === 10 && this.lookahead.head) {
+                    var quasi = this.parseTemplateLiteral();
+                    expr = this.finalize(node, new Node.TaggedTemplateExpression(expr, quasi));
+                  } else {
+                    break;
+                  }
+                }
+                return expr;
+              };
+              Parser2.prototype.parseUpdateExpression = function() {
+                var expr;
+                var startToken = this.lookahead;
+                if (this.match("++") || this.match("--")) {
+                  var node = this.startNode(startToken);
+                  var token = this.nextToken();
+                  expr = this.inheritCoverGrammar(this.parseUnaryExpression);
+                  if (this.context.strict && expr.type === syntax_1.Syntax.Identifier && this.scanner.isRestrictedWord(expr.name)) {
+                    this.tolerateError(messages_1.Messages.StrictLHSPrefix);
+                  }
+                  if (!this.context.isAssignmentTarget) {
+                    this.tolerateError(messages_1.Messages.InvalidLHSInAssignment);
+                  }
+                  var prefix = true;
+                  expr = this.finalize(node, new Node.UpdateExpression(token.value, expr, prefix));
+                  this.context.isAssignmentTarget = false;
+                  this.context.isBindingElement = false;
+                } else {
+                  expr = this.inheritCoverGrammar(this.parseLeftHandSideExpressionAllowCall);
+                  if (!this.hasLineTerminator && this.lookahead.type === 7) {
+                    if (this.match("++") || this.match("--")) {
+                      if (this.context.strict && expr.type === syntax_1.Syntax.Identifier && this.scanner.isRestrictedWord(expr.name)) {
+                        this.tolerateError(messages_1.Messages.StrictLHSPostfix);
+                      }
+                      if (!this.context.isAssignmentTarget) {
+                        this.tolerateError(messages_1.Messages.InvalidLHSInAssignment);
+                      }
+                      this.context.isAssignmentTarget = false;
+                      this.context.isBindingElement = false;
+                      var operator = this.nextToken().value;
+                      var prefix = false;
+                      expr = this.finalize(this.startNode(startToken), new Node.UpdateExpression(operator, expr, prefix));
+                    }
+                  }
+                }
+                return expr;
+              };
+              Parser2.prototype.parseAwaitExpression = function() {
+                var node = this.createNode();
+                this.nextToken();
+                var argument = this.parseUnaryExpression();
+                return this.finalize(node, new Node.AwaitExpression(argument));
+              };
+              Parser2.prototype.parseUnaryExpression = function() {
+                var expr;
+                if (this.match("+") || this.match("-") || this.match("~") || this.match("!") || this.matchKeyword("delete") || this.matchKeyword("void") || this.matchKeyword("typeof")) {
+                  var node = this.startNode(this.lookahead);
+                  var token = this.nextToken();
+                  expr = this.inheritCoverGrammar(this.parseUnaryExpression);
+                  expr = this.finalize(node, new Node.UnaryExpression(token.value, expr));
+                  if (this.context.strict && expr.operator === "delete" && expr.argument.type === syntax_1.Syntax.Identifier) {
+                    this.tolerateError(messages_1.Messages.StrictDelete);
+                  }
+                  this.context.isAssignmentTarget = false;
+                  this.context.isBindingElement = false;
+                } else if (this.context.await && this.matchContextualKeyword("await")) {
+                  expr = this.parseAwaitExpression();
+                } else {
+                  expr = this.parseUpdateExpression();
+                }
+                return expr;
+              };
+              Parser2.prototype.parseExponentiationExpression = function() {
+                var startToken = this.lookahead;
+                var expr = this.inheritCoverGrammar(this.parseUnaryExpression);
+                if (expr.type !== syntax_1.Syntax.UnaryExpression && this.match("**")) {
+                  this.nextToken();
+                  this.context.isAssignmentTarget = false;
+                  this.context.isBindingElement = false;
+                  var left = expr;
+                  var right = this.isolateCoverGrammar(this.parseExponentiationExpression);
+                  expr = this.finalize(this.startNode(startToken), new Node.BinaryExpression("**", left, right));
+                }
+                return expr;
+              };
+              Parser2.prototype.binaryPrecedence = function(token) {
+                var op = token.value;
+                var precedence;
+                if (token.type === 7) {
+                  precedence = this.operatorPrecedence[op] || 0;
+                } else if (token.type === 4) {
+                  precedence = op === "instanceof" || this.context.allowIn && op === "in" ? 7 : 0;
+                } else {
+                  precedence = 0;
+                }
+                return precedence;
+              };
+              Parser2.prototype.parseBinaryExpression = function() {
+                var startToken = this.lookahead;
+                var expr = this.inheritCoverGrammar(this.parseExponentiationExpression);
+                var token = this.lookahead;
+                var prec = this.binaryPrecedence(token);
+                if (prec > 0) {
+                  this.nextToken();
+                  this.context.isAssignmentTarget = false;
+                  this.context.isBindingElement = false;
+                  var markers = [startToken, this.lookahead];
+                  var left = expr;
+                  var right = this.isolateCoverGrammar(this.parseExponentiationExpression);
+                  var stack = [left, token.value, right];
+                  var precedences = [prec];
+                  while (true) {
+                    prec = this.binaryPrecedence(this.lookahead);
+                    if (prec <= 0) {
+                      break;
+                    }
+                    while (stack.length > 2 && prec <= precedences[precedences.length - 1]) {
+                      right = stack.pop();
+                      var operator = stack.pop();
+                      precedences.pop();
+                      left = stack.pop();
+                      markers.pop();
+                      var node = this.startNode(markers[markers.length - 1]);
+                      stack.push(this.finalize(node, new Node.BinaryExpression(operator, left, right)));
+                    }
+                    stack.push(this.nextToken().value);
+                    precedences.push(prec);
+                    markers.push(this.lookahead);
+                    stack.push(this.isolateCoverGrammar(this.parseExponentiationExpression));
+                  }
+                  var i = stack.length - 1;
+                  expr = stack[i];
+                  var lastMarker = markers.pop();
+                  while (i > 1) {
+                    var marker = markers.pop();
+                    var lastLineStart = lastMarker && lastMarker.lineStart;
+                    var node = this.startNode(marker, lastLineStart);
+                    var operator = stack[i - 1];
+                    expr = this.finalize(node, new Node.BinaryExpression(operator, stack[i - 2], expr));
+                    i -= 2;
+                    lastMarker = marker;
+                  }
+                }
+                return expr;
+              };
+              Parser2.prototype.parseConditionalExpression = function() {
+                var startToken = this.lookahead;
+                var expr = this.inheritCoverGrammar(this.parseBinaryExpression);
+                if (this.match("?")) {
+                  this.nextToken();
+                  var previousAllowIn = this.context.allowIn;
+                  this.context.allowIn = true;
+                  var consequent = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                  this.context.allowIn = previousAllowIn;
+                  this.expect(":");
+                  var alternate = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                  expr = this.finalize(this.startNode(startToken), new Node.ConditionalExpression(expr, consequent, alternate));
+                  this.context.isAssignmentTarget = false;
+                  this.context.isBindingElement = false;
+                }
+                return expr;
+              };
+              Parser2.prototype.checkPatternParam = function(options, param) {
+                switch (param.type) {
+                  case syntax_1.Syntax.Identifier:
+                    this.validateParam(options, param, param.name);
+                    break;
+                  case syntax_1.Syntax.RestElement:
+                    this.checkPatternParam(options, param.argument);
+                    break;
+                  case syntax_1.Syntax.AssignmentPattern:
+                    this.checkPatternParam(options, param.left);
+                    break;
+                  case syntax_1.Syntax.ArrayPattern:
+                    for (var i = 0; i < param.elements.length; i++) {
+                      if (param.elements[i] !== null) {
+                        this.checkPatternParam(options, param.elements[i]);
+                      }
+                    }
+                    break;
+                  case syntax_1.Syntax.ObjectPattern:
+                    for (var i = 0; i < param.properties.length; i++) {
+                      this.checkPatternParam(options, param.properties[i].value);
+                    }
+                    break;
+                  default:
+                    break;
+                }
+                options.simple = options.simple && param instanceof Node.Identifier;
+              };
+              Parser2.prototype.reinterpretAsCoverFormalsList = function(expr) {
+                var params = [expr];
+                var options;
+                var asyncArrow = false;
+                switch (expr.type) {
+                  case syntax_1.Syntax.Identifier:
+                    break;
+                  case ArrowParameterPlaceHolder:
+                    params = expr.params;
+                    asyncArrow = expr.async;
+                    break;
+                  default:
+                    return null;
+                }
+                options = {
+                  simple: true,
+                  paramSet: {}
+                };
+                for (var i = 0; i < params.length; ++i) {
+                  var param = params[i];
+                  if (param.type === syntax_1.Syntax.AssignmentPattern) {
+                    if (param.right.type === syntax_1.Syntax.YieldExpression) {
+                      if (param.right.argument) {
+                        this.throwUnexpectedToken(this.lookahead);
+                      }
+                      param.right.type = syntax_1.Syntax.Identifier;
+                      param.right.name = "yield";
+                      delete param.right.argument;
+                      delete param.right.delegate;
+                    }
+                  } else if (asyncArrow && param.type === syntax_1.Syntax.Identifier && param.name === "await") {
+                    this.throwUnexpectedToken(this.lookahead);
+                  }
+                  this.checkPatternParam(options, param);
+                  params[i] = param;
+                }
+                if (this.context.strict || !this.context.allowYield) {
+                  for (var i = 0; i < params.length; ++i) {
+                    var param = params[i];
+                    if (param.type === syntax_1.Syntax.YieldExpression) {
+                      this.throwUnexpectedToken(this.lookahead);
+                    }
+                  }
+                }
+                if (options.message === messages_1.Messages.StrictParamDupe) {
+                  var token = this.context.strict ? options.stricted : options.firstRestricted;
+                  this.throwUnexpectedToken(token, options.message);
+                }
+                return {
+                  simple: options.simple,
+                  params,
+                  stricted: options.stricted,
+                  firstRestricted: options.firstRestricted,
+                  message: options.message
+                };
+              };
+              Parser2.prototype.parseAssignmentExpression = function() {
+                var expr;
+                if (!this.context.allowYield && this.matchKeyword("yield")) {
+                  expr = this.parseYieldExpression();
+                } else {
+                  var startToken = this.lookahead;
+                  var token = startToken;
+                  expr = this.parseConditionalExpression();
+                  if (token.type === 3 && token.lineNumber === this.lookahead.lineNumber && token.value === "async") {
+                    if (this.lookahead.type === 3 || this.matchKeyword("yield")) {
+                      var arg = this.parsePrimaryExpression();
+                      this.reinterpretExpressionAsPattern(arg);
+                      expr = {
+                        type: ArrowParameterPlaceHolder,
+                        params: [arg],
+                        async: true
+                      };
+                    }
+                  }
+                  if (expr.type === ArrowParameterPlaceHolder || this.match("=>")) {
+                    this.context.isAssignmentTarget = false;
+                    this.context.isBindingElement = false;
+                    var isAsync = expr.async;
+                    var list = this.reinterpretAsCoverFormalsList(expr);
+                    if (list) {
+                      if (this.hasLineTerminator) {
+                        this.tolerateUnexpectedToken(this.lookahead);
+                      }
+                      this.context.firstCoverInitializedNameError = null;
+                      var previousStrict = this.context.strict;
+                      var previousAllowStrictDirective = this.context.allowStrictDirective;
+                      this.context.allowStrictDirective = list.simple;
+                      var previousAllowYield = this.context.allowYield;
+                      var previousAwait = this.context.await;
+                      this.context.allowYield = true;
+                      this.context.await = isAsync;
+                      var node = this.startNode(startToken);
+                      this.expect("=>");
+                      var body = void 0;
+                      if (this.match("{")) {
+                        var previousAllowIn = this.context.allowIn;
+                        this.context.allowIn = true;
+                        body = this.parseFunctionSourceElements();
+                        this.context.allowIn = previousAllowIn;
+                      } else {
+                        body = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                      }
+                      var expression = body.type !== syntax_1.Syntax.BlockStatement;
+                      if (this.context.strict && list.firstRestricted) {
+                        this.throwUnexpectedToken(list.firstRestricted, list.message);
+                      }
+                      if (this.context.strict && list.stricted) {
+                        this.tolerateUnexpectedToken(list.stricted, list.message);
+                      }
+                      expr = isAsync ? this.finalize(node, new Node.AsyncArrowFunctionExpression(list.params, body, expression)) : this.finalize(node, new Node.ArrowFunctionExpression(list.params, body, expression));
+                      this.context.strict = previousStrict;
+                      this.context.allowStrictDirective = previousAllowStrictDirective;
+                      this.context.allowYield = previousAllowYield;
+                      this.context.await = previousAwait;
+                    }
+                  } else {
+                    if (this.matchAssign()) {
+                      if (!this.context.isAssignmentTarget) {
+                        this.tolerateError(messages_1.Messages.InvalidLHSInAssignment);
+                      }
+                      if (this.context.strict && expr.type === syntax_1.Syntax.Identifier) {
+                        var id = expr;
+                        if (this.scanner.isRestrictedWord(id.name)) {
+                          this.tolerateUnexpectedToken(token, messages_1.Messages.StrictLHSAssignment);
+                        }
+                        if (this.scanner.isStrictModeReservedWord(id.name)) {
+                          this.tolerateUnexpectedToken(token, messages_1.Messages.StrictReservedWord);
+                        }
+                      }
+                      if (!this.match("=")) {
+                        this.context.isAssignmentTarget = false;
+                        this.context.isBindingElement = false;
+                      } else {
+                        this.reinterpretExpressionAsPattern(expr);
+                      }
+                      token = this.nextToken();
+                      var operator = token.value;
+                      var right = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                      expr = this.finalize(this.startNode(startToken), new Node.AssignmentExpression(operator, expr, right));
+                      this.context.firstCoverInitializedNameError = null;
+                    }
+                  }
+                }
+                return expr;
+              };
+              Parser2.prototype.parseExpression = function() {
+                var startToken = this.lookahead;
+                var expr = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                if (this.match(",")) {
+                  var expressions = [];
+                  expressions.push(expr);
+                  while (this.lookahead.type !== 2) {
+                    if (!this.match(",")) {
+                      break;
+                    }
+                    this.nextToken();
+                    expressions.push(this.isolateCoverGrammar(this.parseAssignmentExpression));
+                  }
+                  expr = this.finalize(this.startNode(startToken), new Node.SequenceExpression(expressions));
+                }
+                return expr;
+              };
+              Parser2.prototype.parseStatementListItem = function() {
+                var statement;
+                this.context.isAssignmentTarget = true;
+                this.context.isBindingElement = true;
+                if (this.lookahead.type === 4) {
+                  switch (this.lookahead.value) {
+                    case "export":
+                      if (!this.context.isModule) {
+                        this.tolerateUnexpectedToken(this.lookahead, messages_1.Messages.IllegalExportDeclaration);
+                      }
+                      statement = this.parseExportDeclaration();
+                      break;
+                    case "import":
+                      if (!this.context.isModule) {
+                        this.tolerateUnexpectedToken(this.lookahead, messages_1.Messages.IllegalImportDeclaration);
+                      }
+                      statement = this.parseImportDeclaration();
+                      break;
+                    case "const":
+                      statement = this.parseLexicalDeclaration({ inFor: false });
+                      break;
+                    case "function":
+                      statement = this.parseFunctionDeclaration();
+                      break;
+                    case "class":
+                      statement = this.parseClassDeclaration();
+                      break;
+                    case "let":
+                      statement = this.isLexicalDeclaration() ? this.parseLexicalDeclaration({ inFor: false }) : this.parseStatement();
+                      break;
+                    default:
+                      statement = this.parseStatement();
+                      break;
+                  }
+                } else {
+                  statement = this.parseStatement();
+                }
+                return statement;
+              };
+              Parser2.prototype.parseBlock = function() {
+                var node = this.createNode();
+                this.expect("{");
+                var block = [];
+                while (true) {
+                  if (this.match("}")) {
+                    break;
+                  }
+                  block.push(this.parseStatementListItem());
+                }
+                this.expect("}");
+                return this.finalize(node, new Node.BlockStatement(block));
+              };
+              Parser2.prototype.parseLexicalBinding = function(kind, options) {
+                var node = this.createNode();
+                var params = [];
+                var id = this.parsePattern(params, kind);
+                if (this.context.strict && id.type === syntax_1.Syntax.Identifier) {
+                  if (this.scanner.isRestrictedWord(id.name)) {
+                    this.tolerateError(messages_1.Messages.StrictVarName);
+                  }
+                }
+                var init = null;
+                if (kind === "const") {
+                  if (!this.matchKeyword("in") && !this.matchContextualKeyword("of")) {
+                    if (this.match("=")) {
+                      this.nextToken();
+                      init = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                    } else {
+                      this.throwError(messages_1.Messages.DeclarationMissingInitializer, "const");
+                    }
+                  }
+                } else if (!options.inFor && id.type !== syntax_1.Syntax.Identifier || this.match("=")) {
+                  this.expect("=");
+                  init = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                }
+                return this.finalize(node, new Node.VariableDeclarator(id, init));
+              };
+              Parser2.prototype.parseBindingList = function(kind, options) {
+                var list = [this.parseLexicalBinding(kind, options)];
+                while (this.match(",")) {
+                  this.nextToken();
+                  list.push(this.parseLexicalBinding(kind, options));
+                }
+                return list;
+              };
+              Parser2.prototype.isLexicalDeclaration = function() {
+                var state = this.scanner.saveState();
+                this.scanner.scanComments();
+                var next = this.scanner.lex();
+                this.scanner.restoreState(state);
+                return next.type === 3 || next.type === 7 && next.value === "[" || next.type === 7 && next.value === "{" || next.type === 4 && next.value === "let" || next.type === 4 && next.value === "yield";
+              };
+              Parser2.prototype.parseLexicalDeclaration = function(options) {
+                var node = this.createNode();
+                var kind = this.nextToken().value;
+                assert_1.assert(kind === "let" || kind === "const", "Lexical declaration must be either let or const");
+                var declarations = this.parseBindingList(kind, options);
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.VariableDeclaration(declarations, kind));
+              };
+              Parser2.prototype.parseBindingRestElement = function(params, kind) {
+                var node = this.createNode();
+                this.expect("...");
+                var arg = this.parsePattern(params, kind);
+                return this.finalize(node, new Node.RestElement(arg));
+              };
+              Parser2.prototype.parseArrayPattern = function(params, kind) {
+                var node = this.createNode();
+                this.expect("[");
+                var elements = [];
+                while (!this.match("]")) {
+                  if (this.match(",")) {
+                    this.nextToken();
+                    elements.push(null);
+                  } else {
+                    if (this.match("...")) {
+                      elements.push(this.parseBindingRestElement(params, kind));
+                      break;
+                    } else {
+                      elements.push(this.parsePatternWithDefault(params, kind));
+                    }
+                    if (!this.match("]")) {
+                      this.expect(",");
+                    }
+                  }
+                }
+                this.expect("]");
+                return this.finalize(node, new Node.ArrayPattern(elements));
+              };
+              Parser2.prototype.parsePropertyPattern = function(params, kind) {
+                var node = this.createNode();
+                var computed = false;
+                var shorthand = false;
+                var method = false;
+                var key;
+                var value;
+                if (this.lookahead.type === 3) {
+                  var keyToken = this.lookahead;
+                  key = this.parseVariableIdentifier();
+                  var init = this.finalize(node, new Node.Identifier(keyToken.value));
+                  if (this.match("=")) {
+                    params.push(keyToken);
+                    shorthand = true;
+                    this.nextToken();
+                    var expr = this.parseAssignmentExpression();
+                    value = this.finalize(this.startNode(keyToken), new Node.AssignmentPattern(init, expr));
+                  } else if (!this.match(":")) {
+                    params.push(keyToken);
+                    shorthand = true;
+                    value = init;
+                  } else {
+                    this.expect(":");
+                    value = this.parsePatternWithDefault(params, kind);
+                  }
+                } else {
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                  this.expect(":");
+                  value = this.parsePatternWithDefault(params, kind);
+                }
+                return this.finalize(node, new Node.Property("init", key, computed, value, method, shorthand));
+              };
+              Parser2.prototype.parseObjectPattern = function(params, kind) {
+                var node = this.createNode();
+                var properties = [];
+                this.expect("{");
+                while (!this.match("}")) {
+                  properties.push(this.parsePropertyPattern(params, kind));
+                  if (!this.match("}")) {
+                    this.expect(",");
+                  }
+                }
+                this.expect("}");
+                return this.finalize(node, new Node.ObjectPattern(properties));
+              };
+              Parser2.prototype.parsePattern = function(params, kind) {
+                var pattern;
+                if (this.match("[")) {
+                  pattern = this.parseArrayPattern(params, kind);
+                } else if (this.match("{")) {
+                  pattern = this.parseObjectPattern(params, kind);
+                } else {
+                  if (this.matchKeyword("let") && (kind === "const" || kind === "let")) {
+                    this.tolerateUnexpectedToken(this.lookahead, messages_1.Messages.LetInLexicalBinding);
+                  }
+                  params.push(this.lookahead);
+                  pattern = this.parseVariableIdentifier(kind);
+                }
+                return pattern;
+              };
+              Parser2.prototype.parsePatternWithDefault = function(params, kind) {
+                var startToken = this.lookahead;
+                var pattern = this.parsePattern(params, kind);
+                if (this.match("=")) {
+                  this.nextToken();
+                  var previousAllowYield = this.context.allowYield;
+                  this.context.allowYield = true;
+                  var right = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                  this.context.allowYield = previousAllowYield;
+                  pattern = this.finalize(this.startNode(startToken), new Node.AssignmentPattern(pattern, right));
+                }
+                return pattern;
+              };
+              Parser2.prototype.parseVariableIdentifier = function(kind) {
+                var node = this.createNode();
+                var token = this.nextToken();
+                if (token.type === 4 && token.value === "yield") {
+                  if (this.context.strict) {
+                    this.tolerateUnexpectedToken(token, messages_1.Messages.StrictReservedWord);
+                  } else if (!this.context.allowYield) {
+                    this.throwUnexpectedToken(token);
+                  }
+                } else if (token.type !== 3) {
+                  if (this.context.strict && token.type === 4 && this.scanner.isStrictModeReservedWord(token.value)) {
+                    this.tolerateUnexpectedToken(token, messages_1.Messages.StrictReservedWord);
+                  } else {
+                    if (this.context.strict || token.value !== "let" || kind !== "var") {
+                      this.throwUnexpectedToken(token);
+                    }
+                  }
+                } else if ((this.context.isModule || this.context.await) && token.type === 3 && token.value === "await") {
+                  this.tolerateUnexpectedToken(token);
+                }
+                return this.finalize(node, new Node.Identifier(token.value));
+              };
+              Parser2.prototype.parseVariableDeclaration = function(options) {
+                var node = this.createNode();
+                var params = [];
+                var id = this.parsePattern(params, "var");
+                if (this.context.strict && id.type === syntax_1.Syntax.Identifier) {
+                  if (this.scanner.isRestrictedWord(id.name)) {
+                    this.tolerateError(messages_1.Messages.StrictVarName);
+                  }
+                }
+                var init = null;
+                if (this.match("=")) {
+                  this.nextToken();
+                  init = this.isolateCoverGrammar(this.parseAssignmentExpression);
+                } else if (id.type !== syntax_1.Syntax.Identifier && !options.inFor) {
+                  this.expect("=");
+                }
+                return this.finalize(node, new Node.VariableDeclarator(id, init));
+              };
+              Parser2.prototype.parseVariableDeclarationList = function(options) {
+                var opt = { inFor: options.inFor };
+                var list = [];
+                list.push(this.parseVariableDeclaration(opt));
+                while (this.match(",")) {
+                  this.nextToken();
+                  list.push(this.parseVariableDeclaration(opt));
+                }
+                return list;
+              };
+              Parser2.prototype.parseVariableStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("var");
+                var declarations = this.parseVariableDeclarationList({ inFor: false });
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.VariableDeclaration(declarations, "var"));
+              };
+              Parser2.prototype.parseEmptyStatement = function() {
+                var node = this.createNode();
+                this.expect(";");
+                return this.finalize(node, new Node.EmptyStatement());
+              };
+              Parser2.prototype.parseExpressionStatement = function() {
+                var node = this.createNode();
+                var expr = this.parseExpression();
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.ExpressionStatement(expr));
+              };
+              Parser2.prototype.parseIfClause = function() {
+                if (this.context.strict && this.matchKeyword("function")) {
+                  this.tolerateError(messages_1.Messages.StrictFunction);
+                }
+                return this.parseStatement();
+              };
+              Parser2.prototype.parseIfStatement = function() {
+                var node = this.createNode();
+                var consequent;
+                var alternate = null;
+                this.expectKeyword("if");
+                this.expect("(");
+                var test2 = this.parseExpression();
+                if (!this.match(")") && this.config.tolerant) {
+                  this.tolerateUnexpectedToken(this.nextToken());
+                  consequent = this.finalize(this.createNode(), new Node.EmptyStatement());
+                } else {
+                  this.expect(")");
+                  consequent = this.parseIfClause();
+                  if (this.matchKeyword("else")) {
+                    this.nextToken();
+                    alternate = this.parseIfClause();
+                  }
+                }
+                return this.finalize(node, new Node.IfStatement(test2, consequent, alternate));
+              };
+              Parser2.prototype.parseDoWhileStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("do");
+                var previousInIteration = this.context.inIteration;
+                this.context.inIteration = true;
+                var body = this.parseStatement();
+                this.context.inIteration = previousInIteration;
+                this.expectKeyword("while");
+                this.expect("(");
+                var test2 = this.parseExpression();
+                if (!this.match(")") && this.config.tolerant) {
+                  this.tolerateUnexpectedToken(this.nextToken());
+                } else {
+                  this.expect(")");
+                  if (this.match(";")) {
+                    this.nextToken();
+                  }
+                }
+                return this.finalize(node, new Node.DoWhileStatement(body, test2));
+              };
+              Parser2.prototype.parseWhileStatement = function() {
+                var node = this.createNode();
+                var body;
+                this.expectKeyword("while");
+                this.expect("(");
+                var test2 = this.parseExpression();
+                if (!this.match(")") && this.config.tolerant) {
+                  this.tolerateUnexpectedToken(this.nextToken());
+                  body = this.finalize(this.createNode(), new Node.EmptyStatement());
+                } else {
+                  this.expect(")");
+                  var previousInIteration = this.context.inIteration;
+                  this.context.inIteration = true;
+                  body = this.parseStatement();
+                  this.context.inIteration = previousInIteration;
+                }
+                return this.finalize(node, new Node.WhileStatement(test2, body));
+              };
+              Parser2.prototype.parseForStatement = function() {
+                var init = null;
+                var test2 = null;
+                var update = null;
+                var forIn = true;
+                var left, right;
+                var node = this.createNode();
+                this.expectKeyword("for");
+                this.expect("(");
+                if (this.match(";")) {
+                  this.nextToken();
+                } else {
+                  if (this.matchKeyword("var")) {
+                    init = this.createNode();
+                    this.nextToken();
+                    var previousAllowIn = this.context.allowIn;
+                    this.context.allowIn = false;
+                    var declarations = this.parseVariableDeclarationList({ inFor: true });
+                    this.context.allowIn = previousAllowIn;
+                    if (declarations.length === 1 && this.matchKeyword("in")) {
+                      var decl = declarations[0];
+                      if (decl.init && (decl.id.type === syntax_1.Syntax.ArrayPattern || decl.id.type === syntax_1.Syntax.ObjectPattern || this.context.strict)) {
+                        this.tolerateError(messages_1.Messages.ForInOfLoopInitializer, "for-in");
+                      }
+                      init = this.finalize(init, new Node.VariableDeclaration(declarations, "var"));
+                      this.nextToken();
+                      left = init;
+                      right = this.parseExpression();
+                      init = null;
+                    } else if (declarations.length === 1 && declarations[0].init === null && this.matchContextualKeyword("of")) {
+                      init = this.finalize(init, new Node.VariableDeclaration(declarations, "var"));
+                      this.nextToken();
+                      left = init;
+                      right = this.parseAssignmentExpression();
+                      init = null;
+                      forIn = false;
+                    } else {
+                      init = this.finalize(init, new Node.VariableDeclaration(declarations, "var"));
+                      this.expect(";");
+                    }
+                  } else if (this.matchKeyword("const") || this.matchKeyword("let")) {
+                    init = this.createNode();
+                    var kind = this.nextToken().value;
+                    if (!this.context.strict && this.lookahead.value === "in") {
+                      init = this.finalize(init, new Node.Identifier(kind));
+                      this.nextToken();
+                      left = init;
+                      right = this.parseExpression();
+                      init = null;
+                    } else {
+                      var previousAllowIn = this.context.allowIn;
+                      this.context.allowIn = false;
+                      var declarations = this.parseBindingList(kind, { inFor: true });
+                      this.context.allowIn = previousAllowIn;
+                      if (declarations.length === 1 && declarations[0].init === null && this.matchKeyword("in")) {
+                        init = this.finalize(init, new Node.VariableDeclaration(declarations, kind));
+                        this.nextToken();
+                        left = init;
+                        right = this.parseExpression();
+                        init = null;
+                      } else if (declarations.length === 1 && declarations[0].init === null && this.matchContextualKeyword("of")) {
+                        init = this.finalize(init, new Node.VariableDeclaration(declarations, kind));
+                        this.nextToken();
+                        left = init;
+                        right = this.parseAssignmentExpression();
+                        init = null;
+                        forIn = false;
+                      } else {
+                        this.consumeSemicolon();
+                        init = this.finalize(init, new Node.VariableDeclaration(declarations, kind));
+                      }
+                    }
+                  } else {
+                    var initStartToken = this.lookahead;
+                    var previousAllowIn = this.context.allowIn;
+                    this.context.allowIn = false;
+                    init = this.inheritCoverGrammar(this.parseAssignmentExpression);
+                    this.context.allowIn = previousAllowIn;
+                    if (this.matchKeyword("in")) {
+                      if (!this.context.isAssignmentTarget || init.type === syntax_1.Syntax.AssignmentExpression) {
+                        this.tolerateError(messages_1.Messages.InvalidLHSInForIn);
+                      }
+                      this.nextToken();
+                      this.reinterpretExpressionAsPattern(init);
+                      left = init;
+                      right = this.parseExpression();
+                      init = null;
+                    } else if (this.matchContextualKeyword("of")) {
+                      if (!this.context.isAssignmentTarget || init.type === syntax_1.Syntax.AssignmentExpression) {
+                        this.tolerateError(messages_1.Messages.InvalidLHSInForLoop);
+                      }
+                      this.nextToken();
+                      this.reinterpretExpressionAsPattern(init);
+                      left = init;
+                      right = this.parseAssignmentExpression();
+                      init = null;
+                      forIn = false;
+                    } else {
+                      if (this.match(",")) {
+                        var initSeq = [init];
+                        while (this.match(",")) {
+                          this.nextToken();
+                          initSeq.push(this.isolateCoverGrammar(this.parseAssignmentExpression));
+                        }
+                        init = this.finalize(this.startNode(initStartToken), new Node.SequenceExpression(initSeq));
+                      }
+                      this.expect(";");
+                    }
+                  }
+                }
+                if (typeof left === "undefined") {
+                  if (!this.match(";")) {
+                    test2 = this.parseExpression();
+                  }
+                  this.expect(";");
+                  if (!this.match(")")) {
+                    update = this.parseExpression();
+                  }
+                }
+                var body;
+                if (!this.match(")") && this.config.tolerant) {
+                  this.tolerateUnexpectedToken(this.nextToken());
+                  body = this.finalize(this.createNode(), new Node.EmptyStatement());
+                } else {
+                  this.expect(")");
+                  var previousInIteration = this.context.inIteration;
+                  this.context.inIteration = true;
+                  body = this.isolateCoverGrammar(this.parseStatement);
+                  this.context.inIteration = previousInIteration;
+                }
+                return typeof left === "undefined" ? this.finalize(node, new Node.ForStatement(init, test2, update, body)) : forIn ? this.finalize(node, new Node.ForInStatement(left, right, body)) : this.finalize(node, new Node.ForOfStatement(left, right, body));
+              };
+              Parser2.prototype.parseContinueStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("continue");
+                var label = null;
+                if (this.lookahead.type === 3 && !this.hasLineTerminator) {
+                  var id = this.parseVariableIdentifier();
+                  label = id;
+                  var key = "$" + id.name;
+                  if (!Object.prototype.hasOwnProperty.call(this.context.labelSet, key)) {
+                    this.throwError(messages_1.Messages.UnknownLabel, id.name);
+                  }
+                }
+                this.consumeSemicolon();
+                if (label === null && !this.context.inIteration) {
+                  this.throwError(messages_1.Messages.IllegalContinue);
+                }
+                return this.finalize(node, new Node.ContinueStatement(label));
+              };
+              Parser2.prototype.parseBreakStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("break");
+                var label = null;
+                if (this.lookahead.type === 3 && !this.hasLineTerminator) {
+                  var id = this.parseVariableIdentifier();
+                  var key = "$" + id.name;
+                  if (!Object.prototype.hasOwnProperty.call(this.context.labelSet, key)) {
+                    this.throwError(messages_1.Messages.UnknownLabel, id.name);
+                  }
+                  label = id;
+                }
+                this.consumeSemicolon();
+                if (label === null && !this.context.inIteration && !this.context.inSwitch) {
+                  this.throwError(messages_1.Messages.IllegalBreak);
+                }
+                return this.finalize(node, new Node.BreakStatement(label));
+              };
+              Parser2.prototype.parseReturnStatement = function() {
+                if (!this.context.inFunctionBody) {
+                  this.tolerateError(messages_1.Messages.IllegalReturn);
+                }
+                var node = this.createNode();
+                this.expectKeyword("return");
+                var hasArgument = !this.match(";") && !this.match("}") && !this.hasLineTerminator && this.lookahead.type !== 2 || this.lookahead.type === 8 || this.lookahead.type === 10;
+                var argument = hasArgument ? this.parseExpression() : null;
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.ReturnStatement(argument));
+              };
+              Parser2.prototype.parseWithStatement = function() {
+                if (this.context.strict) {
+                  this.tolerateError(messages_1.Messages.StrictModeWith);
+                }
+                var node = this.createNode();
+                var body;
+                this.expectKeyword("with");
+                this.expect("(");
+                var object = this.parseExpression();
+                if (!this.match(")") && this.config.tolerant) {
+                  this.tolerateUnexpectedToken(this.nextToken());
+                  body = this.finalize(this.createNode(), new Node.EmptyStatement());
+                } else {
+                  this.expect(")");
+                  body = this.parseStatement();
+                }
+                return this.finalize(node, new Node.WithStatement(object, body));
+              };
+              Parser2.prototype.parseSwitchCase = function() {
+                var node = this.createNode();
+                var test2;
+                if (this.matchKeyword("default")) {
+                  this.nextToken();
+                  test2 = null;
+                } else {
+                  this.expectKeyword("case");
+                  test2 = this.parseExpression();
+                }
+                this.expect(":");
+                var consequent = [];
+                while (true) {
+                  if (this.match("}") || this.matchKeyword("default") || this.matchKeyword("case")) {
+                    break;
+                  }
+                  consequent.push(this.parseStatementListItem());
+                }
+                return this.finalize(node, new Node.SwitchCase(test2, consequent));
+              };
+              Parser2.prototype.parseSwitchStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("switch");
+                this.expect("(");
+                var discriminant = this.parseExpression();
+                this.expect(")");
+                var previousInSwitch = this.context.inSwitch;
+                this.context.inSwitch = true;
+                var cases = [];
+                var defaultFound = false;
+                this.expect("{");
+                while (true) {
+                  if (this.match("}")) {
+                    break;
+                  }
+                  var clause = this.parseSwitchCase();
+                  if (clause.test === null) {
+                    if (defaultFound) {
+                      this.throwError(messages_1.Messages.MultipleDefaultsInSwitch);
+                    }
+                    defaultFound = true;
+                  }
+                  cases.push(clause);
+                }
+                this.expect("}");
+                this.context.inSwitch = previousInSwitch;
+                return this.finalize(node, new Node.SwitchStatement(discriminant, cases));
+              };
+              Parser2.prototype.parseLabelledStatement = function() {
+                var node = this.createNode();
+                var expr = this.parseExpression();
+                var statement;
+                if (expr.type === syntax_1.Syntax.Identifier && this.match(":")) {
+                  this.nextToken();
+                  var id = expr;
+                  var key = "$" + id.name;
+                  if (Object.prototype.hasOwnProperty.call(this.context.labelSet, key)) {
+                    this.throwError(messages_1.Messages.Redeclaration, "Label", id.name);
+                  }
+                  this.context.labelSet[key] = true;
+                  var body = void 0;
+                  if (this.matchKeyword("class")) {
+                    this.tolerateUnexpectedToken(this.lookahead);
+                    body = this.parseClassDeclaration();
+                  } else if (this.matchKeyword("function")) {
+                    var token = this.lookahead;
+                    var declaration = this.parseFunctionDeclaration();
+                    if (this.context.strict) {
+                      this.tolerateUnexpectedToken(token, messages_1.Messages.StrictFunction);
+                    } else if (declaration.generator) {
+                      this.tolerateUnexpectedToken(token, messages_1.Messages.GeneratorInLegacyContext);
+                    }
+                    body = declaration;
+                  } else {
+                    body = this.parseStatement();
+                  }
+                  delete this.context.labelSet[key];
+                  statement = new Node.LabeledStatement(id, body);
+                } else {
+                  this.consumeSemicolon();
+                  statement = new Node.ExpressionStatement(expr);
+                }
+                return this.finalize(node, statement);
+              };
+              Parser2.prototype.parseThrowStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("throw");
+                if (this.hasLineTerminator) {
+                  this.throwError(messages_1.Messages.NewlineAfterThrow);
+                }
+                var argument = this.parseExpression();
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.ThrowStatement(argument));
+              };
+              Parser2.prototype.parseCatchClause = function() {
+                var node = this.createNode();
+                this.expectKeyword("catch");
+                this.expect("(");
+                if (this.match(")")) {
+                  this.throwUnexpectedToken(this.lookahead);
+                }
+                var params = [];
+                var param = this.parsePattern(params);
+                var paramMap = {};
+                for (var i = 0; i < params.length; i++) {
+                  var key = "$" + params[i].value;
+                  if (Object.prototype.hasOwnProperty.call(paramMap, key)) {
+                    this.tolerateError(messages_1.Messages.DuplicateBinding, params[i].value);
+                  }
+                  paramMap[key] = true;
+                }
+                if (this.context.strict && param.type === syntax_1.Syntax.Identifier) {
+                  if (this.scanner.isRestrictedWord(param.name)) {
+                    this.tolerateError(messages_1.Messages.StrictCatchVariable);
+                  }
+                }
+                this.expect(")");
+                var body = this.parseBlock();
+                return this.finalize(node, new Node.CatchClause(param, body));
+              };
+              Parser2.prototype.parseFinallyClause = function() {
+                this.expectKeyword("finally");
+                return this.parseBlock();
+              };
+              Parser2.prototype.parseTryStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("try");
+                var block = this.parseBlock();
+                var handler = this.matchKeyword("catch") ? this.parseCatchClause() : null;
+                var finalizer = this.matchKeyword("finally") ? this.parseFinallyClause() : null;
+                if (!handler && !finalizer) {
+                  this.throwError(messages_1.Messages.NoCatchOrFinally);
+                }
+                return this.finalize(node, new Node.TryStatement(block, handler, finalizer));
+              };
+              Parser2.prototype.parseDebuggerStatement = function() {
+                var node = this.createNode();
+                this.expectKeyword("debugger");
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.DebuggerStatement());
+              };
+              Parser2.prototype.parseStatement = function() {
+                var statement;
+                switch (this.lookahead.type) {
+                  case 1:
+                  case 5:
+                  case 6:
+                  case 8:
+                  case 10:
+                  case 9:
+                    statement = this.parseExpressionStatement();
+                    break;
+                  case 7:
+                    var value = this.lookahead.value;
+                    if (value === "{") {
+                      statement = this.parseBlock();
+                    } else if (value === "(") {
+                      statement = this.parseExpressionStatement();
+                    } else if (value === ";") {
+                      statement = this.parseEmptyStatement();
+                    } else {
+                      statement = this.parseExpressionStatement();
+                    }
+                    break;
+                  case 3:
+                    statement = this.matchAsyncFunction() ? this.parseFunctionDeclaration() : this.parseLabelledStatement();
+                    break;
+                  case 4:
+                    switch (this.lookahead.value) {
+                      case "break":
+                        statement = this.parseBreakStatement();
+                        break;
+                      case "continue":
+                        statement = this.parseContinueStatement();
+                        break;
+                      case "debugger":
+                        statement = this.parseDebuggerStatement();
+                        break;
+                      case "do":
+                        statement = this.parseDoWhileStatement();
+                        break;
+                      case "for":
+                        statement = this.parseForStatement();
+                        break;
+                      case "function":
+                        statement = this.parseFunctionDeclaration();
+                        break;
+                      case "if":
+                        statement = this.parseIfStatement();
+                        break;
+                      case "return":
+                        statement = this.parseReturnStatement();
+                        break;
+                      case "switch":
+                        statement = this.parseSwitchStatement();
+                        break;
+                      case "throw":
+                        statement = this.parseThrowStatement();
+                        break;
+                      case "try":
+                        statement = this.parseTryStatement();
+                        break;
+                      case "var":
+                        statement = this.parseVariableStatement();
+                        break;
+                      case "while":
+                        statement = this.parseWhileStatement();
+                        break;
+                      case "with":
+                        statement = this.parseWithStatement();
+                        break;
+                      default:
+                        statement = this.parseExpressionStatement();
+                        break;
+                    }
+                    break;
+                  default:
+                    statement = this.throwUnexpectedToken(this.lookahead);
+                }
+                return statement;
+              };
+              Parser2.prototype.parseFunctionSourceElements = function() {
+                var node = this.createNode();
+                this.expect("{");
+                var body = this.parseDirectivePrologues();
+                var previousLabelSet = this.context.labelSet;
+                var previousInIteration = this.context.inIteration;
+                var previousInSwitch = this.context.inSwitch;
+                var previousInFunctionBody = this.context.inFunctionBody;
+                this.context.labelSet = {};
+                this.context.inIteration = false;
+                this.context.inSwitch = false;
+                this.context.inFunctionBody = true;
+                while (this.lookahead.type !== 2) {
+                  if (this.match("}")) {
+                    break;
+                  }
+                  body.push(this.parseStatementListItem());
+                }
+                this.expect("}");
+                this.context.labelSet = previousLabelSet;
+                this.context.inIteration = previousInIteration;
+                this.context.inSwitch = previousInSwitch;
+                this.context.inFunctionBody = previousInFunctionBody;
+                return this.finalize(node, new Node.BlockStatement(body));
+              };
+              Parser2.prototype.validateParam = function(options, param, name) {
+                var key = "$" + name;
+                if (this.context.strict) {
+                  if (this.scanner.isRestrictedWord(name)) {
+                    options.stricted = param;
+                    options.message = messages_1.Messages.StrictParamName;
+                  }
+                  if (Object.prototype.hasOwnProperty.call(options.paramSet, key)) {
+                    options.stricted = param;
+                    options.message = messages_1.Messages.StrictParamDupe;
+                  }
+                } else if (!options.firstRestricted) {
+                  if (this.scanner.isRestrictedWord(name)) {
+                    options.firstRestricted = param;
+                    options.message = messages_1.Messages.StrictParamName;
+                  } else if (this.scanner.isStrictModeReservedWord(name)) {
+                    options.firstRestricted = param;
+                    options.message = messages_1.Messages.StrictReservedWord;
+                  } else if (Object.prototype.hasOwnProperty.call(options.paramSet, key)) {
+                    options.stricted = param;
+                    options.message = messages_1.Messages.StrictParamDupe;
+                  }
+                }
+                if (typeof Object.defineProperty === "function") {
+                  Object.defineProperty(options.paramSet, key, { value: true, enumerable: true, writable: true, configurable: true });
+                } else {
+                  options.paramSet[key] = true;
+                }
+              };
+              Parser2.prototype.parseRestElement = function(params) {
+                var node = this.createNode();
+                this.expect("...");
+                var arg = this.parsePattern(params);
+                if (this.match("=")) {
+                  this.throwError(messages_1.Messages.DefaultRestParameter);
+                }
+                if (!this.match(")")) {
+                  this.throwError(messages_1.Messages.ParameterAfterRestParameter);
+                }
+                return this.finalize(node, new Node.RestElement(arg));
+              };
+              Parser2.prototype.parseFormalParameter = function(options) {
+                var params = [];
+                var param = this.match("...") ? this.parseRestElement(params) : this.parsePatternWithDefault(params);
+                for (var i = 0; i < params.length; i++) {
+                  this.validateParam(options, params[i], params[i].value);
+                }
+                options.simple = options.simple && param instanceof Node.Identifier;
+                options.params.push(param);
+              };
+              Parser2.prototype.parseFormalParameters = function(firstRestricted) {
+                var options;
+                options = {
+                  simple: true,
+                  params: [],
+                  firstRestricted
+                };
+                this.expect("(");
+                if (!this.match(")")) {
+                  options.paramSet = {};
+                  while (this.lookahead.type !== 2) {
+                    this.parseFormalParameter(options);
+                    if (this.match(")")) {
+                      break;
+                    }
+                    this.expect(",");
+                    if (this.match(")")) {
+                      break;
+                    }
+                  }
+                }
+                this.expect(")");
+                return {
+                  simple: options.simple,
+                  params: options.params,
+                  stricted: options.stricted,
+                  firstRestricted: options.firstRestricted,
+                  message: options.message
+                };
+              };
+              Parser2.prototype.matchAsyncFunction = function() {
+                var match = this.matchContextualKeyword("async");
+                if (match) {
+                  var state = this.scanner.saveState();
+                  this.scanner.scanComments();
+                  var next = this.scanner.lex();
+                  this.scanner.restoreState(state);
+                  match = state.lineNumber === next.lineNumber && next.type === 4 && next.value === "function";
+                }
+                return match;
+              };
+              Parser2.prototype.parseFunctionDeclaration = function(identifierIsOptional) {
+                var node = this.createNode();
+                var isAsync = this.matchContextualKeyword("async");
+                if (isAsync) {
+                  this.nextToken();
+                }
+                this.expectKeyword("function");
+                var isGenerator = isAsync ? false : this.match("*");
+                if (isGenerator) {
+                  this.nextToken();
+                }
+                var message;
+                var id = null;
+                var firstRestricted = null;
+                if (!identifierIsOptional || !this.match("(")) {
+                  var token = this.lookahead;
+                  id = this.parseVariableIdentifier();
+                  if (this.context.strict) {
+                    if (this.scanner.isRestrictedWord(token.value)) {
+                      this.tolerateUnexpectedToken(token, messages_1.Messages.StrictFunctionName);
+                    }
+                  } else {
+                    if (this.scanner.isRestrictedWord(token.value)) {
+                      firstRestricted = token;
+                      message = messages_1.Messages.StrictFunctionName;
+                    } else if (this.scanner.isStrictModeReservedWord(token.value)) {
+                      firstRestricted = token;
+                      message = messages_1.Messages.StrictReservedWord;
+                    }
+                  }
+                }
+                var previousAllowAwait = this.context.await;
+                var previousAllowYield = this.context.allowYield;
+                this.context.await = isAsync;
+                this.context.allowYield = !isGenerator;
+                var formalParameters = this.parseFormalParameters(firstRestricted);
+                var params = formalParameters.params;
+                var stricted = formalParameters.stricted;
+                firstRestricted = formalParameters.firstRestricted;
+                if (formalParameters.message) {
+                  message = formalParameters.message;
+                }
+                var previousStrict = this.context.strict;
+                var previousAllowStrictDirective = this.context.allowStrictDirective;
+                this.context.allowStrictDirective = formalParameters.simple;
+                var body = this.parseFunctionSourceElements();
+                if (this.context.strict && firstRestricted) {
+                  this.throwUnexpectedToken(firstRestricted, message);
+                }
+                if (this.context.strict && stricted) {
+                  this.tolerateUnexpectedToken(stricted, message);
+                }
+                this.context.strict = previousStrict;
+                this.context.allowStrictDirective = previousAllowStrictDirective;
+                this.context.await = previousAllowAwait;
+                this.context.allowYield = previousAllowYield;
+                return isAsync ? this.finalize(node, new Node.AsyncFunctionDeclaration(id, params, body)) : this.finalize(node, new Node.FunctionDeclaration(id, params, body, isGenerator));
+              };
+              Parser2.prototype.parseFunctionExpression = function() {
+                var node = this.createNode();
+                var isAsync = this.matchContextualKeyword("async");
+                if (isAsync) {
+                  this.nextToken();
+                }
+                this.expectKeyword("function");
+                var isGenerator = isAsync ? false : this.match("*");
+                if (isGenerator) {
+                  this.nextToken();
+                }
+                var message;
+                var id = null;
+                var firstRestricted;
+                var previousAllowAwait = this.context.await;
+                var previousAllowYield = this.context.allowYield;
+                this.context.await = isAsync;
+                this.context.allowYield = !isGenerator;
+                if (!this.match("(")) {
+                  var token = this.lookahead;
+                  id = !this.context.strict && !isGenerator && this.matchKeyword("yield") ? this.parseIdentifierName() : this.parseVariableIdentifier();
+                  if (this.context.strict) {
+                    if (this.scanner.isRestrictedWord(token.value)) {
+                      this.tolerateUnexpectedToken(token, messages_1.Messages.StrictFunctionName);
+                    }
+                  } else {
+                    if (this.scanner.isRestrictedWord(token.value)) {
+                      firstRestricted = token;
+                      message = messages_1.Messages.StrictFunctionName;
+                    } else if (this.scanner.isStrictModeReservedWord(token.value)) {
+                      firstRestricted = token;
+                      message = messages_1.Messages.StrictReservedWord;
+                    }
+                  }
+                }
+                var formalParameters = this.parseFormalParameters(firstRestricted);
+                var params = formalParameters.params;
+                var stricted = formalParameters.stricted;
+                firstRestricted = formalParameters.firstRestricted;
+                if (formalParameters.message) {
+                  message = formalParameters.message;
+                }
+                var previousStrict = this.context.strict;
+                var previousAllowStrictDirective = this.context.allowStrictDirective;
+                this.context.allowStrictDirective = formalParameters.simple;
+                var body = this.parseFunctionSourceElements();
+                if (this.context.strict && firstRestricted) {
+                  this.throwUnexpectedToken(firstRestricted, message);
+                }
+                if (this.context.strict && stricted) {
+                  this.tolerateUnexpectedToken(stricted, message);
+                }
+                this.context.strict = previousStrict;
+                this.context.allowStrictDirective = previousAllowStrictDirective;
+                this.context.await = previousAllowAwait;
+                this.context.allowYield = previousAllowYield;
+                return isAsync ? this.finalize(node, new Node.AsyncFunctionExpression(id, params, body)) : this.finalize(node, new Node.FunctionExpression(id, params, body, isGenerator));
+              };
+              Parser2.prototype.parseDirective = function() {
+                var token = this.lookahead;
+                var node = this.createNode();
+                var expr = this.parseExpression();
+                var directive = expr.type === syntax_1.Syntax.Literal ? this.getTokenRaw(token).slice(1, -1) : null;
+                this.consumeSemicolon();
+                return this.finalize(node, directive ? new Node.Directive(expr, directive) : new Node.ExpressionStatement(expr));
+              };
+              Parser2.prototype.parseDirectivePrologues = function() {
+                var firstRestricted = null;
+                var body = [];
+                while (true) {
+                  var token = this.lookahead;
+                  if (token.type !== 8) {
+                    break;
+                  }
+                  var statement = this.parseDirective();
+                  body.push(statement);
+                  var directive = statement.directive;
+                  if (typeof directive !== "string") {
+                    break;
+                  }
+                  if (directive === "use strict") {
+                    this.context.strict = true;
+                    if (firstRestricted) {
+                      this.tolerateUnexpectedToken(firstRestricted, messages_1.Messages.StrictOctalLiteral);
+                    }
+                    if (!this.context.allowStrictDirective) {
+                      this.tolerateUnexpectedToken(token, messages_1.Messages.IllegalLanguageModeDirective);
+                    }
+                  } else {
+                    if (!firstRestricted && token.octal) {
+                      firstRestricted = token;
+                    }
+                  }
+                }
+                return body;
+              };
+              Parser2.prototype.qualifiedPropertyName = function(token) {
+                switch (token.type) {
+                  case 3:
+                  case 8:
+                  case 1:
+                  case 5:
+                  case 6:
+                  case 4:
+                    return true;
+                  case 7:
+                    return token.value === "[";
+                  default:
+                    break;
+                }
+                return false;
+              };
+              Parser2.prototype.parseGetterMethod = function() {
+                var node = this.createNode();
+                var isGenerator = false;
+                var previousAllowYield = this.context.allowYield;
+                this.context.allowYield = !isGenerator;
+                var formalParameters = this.parseFormalParameters();
+                if (formalParameters.params.length > 0) {
+                  this.tolerateError(messages_1.Messages.BadGetterArity);
+                }
+                var method = this.parsePropertyMethod(formalParameters);
+                this.context.allowYield = previousAllowYield;
+                return this.finalize(node, new Node.FunctionExpression(null, formalParameters.params, method, isGenerator));
+              };
+              Parser2.prototype.parseSetterMethod = function() {
+                var node = this.createNode();
+                var isGenerator = false;
+                var previousAllowYield = this.context.allowYield;
+                this.context.allowYield = !isGenerator;
+                var formalParameters = this.parseFormalParameters();
+                if (formalParameters.params.length !== 1) {
+                  this.tolerateError(messages_1.Messages.BadSetterArity);
+                } else if (formalParameters.params[0] instanceof Node.RestElement) {
+                  this.tolerateError(messages_1.Messages.BadSetterRestParameter);
+                }
+                var method = this.parsePropertyMethod(formalParameters);
+                this.context.allowYield = previousAllowYield;
+                return this.finalize(node, new Node.FunctionExpression(null, formalParameters.params, method, isGenerator));
+              };
+              Parser2.prototype.parseGeneratorMethod = function() {
+                var node = this.createNode();
+                var isGenerator = true;
+                var previousAllowYield = this.context.allowYield;
+                this.context.allowYield = true;
+                var params = this.parseFormalParameters();
+                this.context.allowYield = false;
+                var method = this.parsePropertyMethod(params);
+                this.context.allowYield = previousAllowYield;
+                return this.finalize(node, new Node.FunctionExpression(null, params.params, method, isGenerator));
+              };
+              Parser2.prototype.isStartOfExpression = function() {
+                var start = true;
+                var value = this.lookahead.value;
+                switch (this.lookahead.type) {
+                  case 7:
+                    start = value === "[" || value === "(" || value === "{" || value === "+" || value === "-" || value === "!" || value === "~" || value === "++" || value === "--" || value === "/" || value === "/=";
+                    break;
+                  case 4:
+                    start = value === "class" || value === "delete" || value === "function" || value === "let" || value === "new" || value === "super" || value === "this" || value === "typeof" || value === "void" || value === "yield";
+                    break;
+                  default:
+                    break;
+                }
+                return start;
+              };
+              Parser2.prototype.parseYieldExpression = function() {
+                var node = this.createNode();
+                this.expectKeyword("yield");
+                var argument = null;
+                var delegate = false;
+                if (!this.hasLineTerminator) {
+                  var previousAllowYield = this.context.allowYield;
+                  this.context.allowYield = false;
+                  delegate = this.match("*");
+                  if (delegate) {
+                    this.nextToken();
+                    argument = this.parseAssignmentExpression();
+                  } else if (this.isStartOfExpression()) {
+                    argument = this.parseAssignmentExpression();
+                  }
+                  this.context.allowYield = previousAllowYield;
+                }
+                return this.finalize(node, new Node.YieldExpression(argument, delegate));
+              };
+              Parser2.prototype.parseClassElement = function(hasConstructor) {
+                var token = this.lookahead;
+                var node = this.createNode();
+                var kind = "";
+                var key = null;
+                var value = null;
+                var computed = false;
+                var method = false;
+                var isStatic = false;
+                var isAsync = false;
+                if (this.match("*")) {
+                  this.nextToken();
+                } else {
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                  var id = key;
+                  if (id.name === "static" && (this.qualifiedPropertyName(this.lookahead) || this.match("*"))) {
+                    token = this.lookahead;
+                    isStatic = true;
+                    computed = this.match("[");
+                    if (this.match("*")) {
+                      this.nextToken();
+                    } else {
+                      key = this.parseObjectPropertyKey();
+                    }
+                  }
+                  if (token.type === 3 && !this.hasLineTerminator && token.value === "async") {
+                    var punctuator = this.lookahead.value;
+                    if (punctuator !== ":" && punctuator !== "(" && punctuator !== "*") {
+                      isAsync = true;
+                      token = this.lookahead;
+                      key = this.parseObjectPropertyKey();
+                      if (token.type === 3 && token.value === "constructor") {
+                        this.tolerateUnexpectedToken(token, messages_1.Messages.ConstructorIsAsync);
+                      }
+                    }
+                  }
+                }
+                var lookaheadPropertyKey = this.qualifiedPropertyName(this.lookahead);
+                if (token.type === 3) {
+                  if (token.value === "get" && lookaheadPropertyKey) {
+                    kind = "get";
+                    computed = this.match("[");
+                    key = this.parseObjectPropertyKey();
+                    this.context.allowYield = false;
+                    value = this.parseGetterMethod();
+                  } else if (token.value === "set" && lookaheadPropertyKey) {
+                    kind = "set";
+                    computed = this.match("[");
+                    key = this.parseObjectPropertyKey();
+                    value = this.parseSetterMethod();
+                  }
+                } else if (token.type === 7 && token.value === "*" && lookaheadPropertyKey) {
+                  kind = "init";
+                  computed = this.match("[");
+                  key = this.parseObjectPropertyKey();
+                  value = this.parseGeneratorMethod();
+                  method = true;
+                }
+                if (!kind && key && this.match("(")) {
+                  kind = "init";
+                  value = isAsync ? this.parsePropertyMethodAsyncFunction() : this.parsePropertyMethodFunction();
+                  method = true;
+                }
+                if (!kind) {
+                  this.throwUnexpectedToken(this.lookahead);
+                }
+                if (kind === "init") {
+                  kind = "method";
+                }
+                if (!computed) {
+                  if (isStatic && this.isPropertyKey(key, "prototype")) {
+                    this.throwUnexpectedToken(token, messages_1.Messages.StaticPrototype);
+                  }
+                  if (!isStatic && this.isPropertyKey(key, "constructor")) {
+                    if (kind !== "method" || !method || value && value.generator) {
+                      this.throwUnexpectedToken(token, messages_1.Messages.ConstructorSpecialMethod);
+                    }
+                    if (hasConstructor.value) {
+                      this.throwUnexpectedToken(token, messages_1.Messages.DuplicateConstructor);
+                    } else {
+                      hasConstructor.value = true;
+                    }
+                    kind = "constructor";
+                  }
+                }
+                return this.finalize(node, new Node.MethodDefinition(key, computed, value, kind, isStatic));
+              };
+              Parser2.prototype.parseClassElementList = function() {
+                var body = [];
+                var hasConstructor = { value: false };
+                this.expect("{");
+                while (!this.match("}")) {
+                  if (this.match(";")) {
+                    this.nextToken();
+                  } else {
+                    body.push(this.parseClassElement(hasConstructor));
+                  }
+                }
+                this.expect("}");
+                return body;
+              };
+              Parser2.prototype.parseClassBody = function() {
+                var node = this.createNode();
+                var elementList = this.parseClassElementList();
+                return this.finalize(node, new Node.ClassBody(elementList));
+              };
+              Parser2.prototype.parseClassDeclaration = function(identifierIsOptional) {
+                var node = this.createNode();
+                var previousStrict = this.context.strict;
+                this.context.strict = true;
+                this.expectKeyword("class");
+                var id = identifierIsOptional && this.lookahead.type !== 3 ? null : this.parseVariableIdentifier();
+                var superClass = null;
+                if (this.matchKeyword("extends")) {
+                  this.nextToken();
+                  superClass = this.isolateCoverGrammar(this.parseLeftHandSideExpressionAllowCall);
+                }
+                var classBody = this.parseClassBody();
+                this.context.strict = previousStrict;
+                return this.finalize(node, new Node.ClassDeclaration(id, superClass, classBody));
+              };
+              Parser2.prototype.parseClassExpression = function() {
+                var node = this.createNode();
+                var previousStrict = this.context.strict;
+                this.context.strict = true;
+                this.expectKeyword("class");
+                var id = this.lookahead.type === 3 ? this.parseVariableIdentifier() : null;
+                var superClass = null;
+                if (this.matchKeyword("extends")) {
+                  this.nextToken();
+                  superClass = this.isolateCoverGrammar(this.parseLeftHandSideExpressionAllowCall);
+                }
+                var classBody = this.parseClassBody();
+                this.context.strict = previousStrict;
+                return this.finalize(node, new Node.ClassExpression(id, superClass, classBody));
+              };
+              Parser2.prototype.parseModule = function() {
+                this.context.strict = true;
+                this.context.isModule = true;
+                this.scanner.isModule = true;
+                var node = this.createNode();
+                var body = this.parseDirectivePrologues();
+                while (this.lookahead.type !== 2) {
+                  body.push(this.parseStatementListItem());
+                }
+                return this.finalize(node, new Node.Module(body));
+              };
+              Parser2.prototype.parseScript = function() {
+                var node = this.createNode();
+                var body = this.parseDirectivePrologues();
+                while (this.lookahead.type !== 2) {
+                  body.push(this.parseStatementListItem());
+                }
+                return this.finalize(node, new Node.Script(body));
+              };
+              Parser2.prototype.parseModuleSpecifier = function() {
+                var node = this.createNode();
+                if (this.lookahead.type !== 8) {
+                  this.throwError(messages_1.Messages.InvalidModuleSpecifier);
+                }
+                var token = this.nextToken();
+                var raw = this.getTokenRaw(token);
+                return this.finalize(node, new Node.Literal(token.value, raw));
+              };
+              Parser2.prototype.parseImportSpecifier = function() {
+                var node = this.createNode();
+                var imported;
+                var local;
+                if (this.lookahead.type === 3) {
+                  imported = this.parseVariableIdentifier();
+                  local = imported;
+                  if (this.matchContextualKeyword("as")) {
+                    this.nextToken();
+                    local = this.parseVariableIdentifier();
+                  }
+                } else {
+                  imported = this.parseIdentifierName();
+                  local = imported;
+                  if (this.matchContextualKeyword("as")) {
+                    this.nextToken();
+                    local = this.parseVariableIdentifier();
+                  } else {
+                    this.throwUnexpectedToken(this.nextToken());
+                  }
+                }
+                return this.finalize(node, new Node.ImportSpecifier(local, imported));
+              };
+              Parser2.prototype.parseNamedImports = function() {
+                this.expect("{");
+                var specifiers = [];
+                while (!this.match("}")) {
+                  specifiers.push(this.parseImportSpecifier());
+                  if (!this.match("}")) {
+                    this.expect(",");
+                  }
+                }
+                this.expect("}");
+                return specifiers;
+              };
+              Parser2.prototype.parseImportDefaultSpecifier = function() {
+                var node = this.createNode();
+                var local = this.parseIdentifierName();
+                return this.finalize(node, new Node.ImportDefaultSpecifier(local));
+              };
+              Parser2.prototype.parseImportNamespaceSpecifier = function() {
+                var node = this.createNode();
+                this.expect("*");
+                if (!this.matchContextualKeyword("as")) {
+                  this.throwError(messages_1.Messages.NoAsAfterImportNamespace);
+                }
+                this.nextToken();
+                var local = this.parseIdentifierName();
+                return this.finalize(node, new Node.ImportNamespaceSpecifier(local));
+              };
+              Parser2.prototype.parseImportDeclaration = function() {
+                if (this.context.inFunctionBody) {
+                  this.throwError(messages_1.Messages.IllegalImportDeclaration);
+                }
+                var node = this.createNode();
+                this.expectKeyword("import");
+                var src;
+                var specifiers = [];
+                if (this.lookahead.type === 8) {
+                  src = this.parseModuleSpecifier();
+                } else {
+                  if (this.match("{")) {
+                    specifiers = specifiers.concat(this.parseNamedImports());
+                  } else if (this.match("*")) {
+                    specifiers.push(this.parseImportNamespaceSpecifier());
+                  } else if (this.isIdentifierName(this.lookahead) && !this.matchKeyword("default")) {
+                    specifiers.push(this.parseImportDefaultSpecifier());
+                    if (this.match(",")) {
+                      this.nextToken();
+                      if (this.match("*")) {
+                        specifiers.push(this.parseImportNamespaceSpecifier());
+                      } else if (this.match("{")) {
+                        specifiers = specifiers.concat(this.parseNamedImports());
+                      } else {
+                        this.throwUnexpectedToken(this.lookahead);
+                      }
+                    }
+                  } else {
+                    this.throwUnexpectedToken(this.nextToken());
+                  }
+                  if (!this.matchContextualKeyword("from")) {
+                    var message = this.lookahead.value ? messages_1.Messages.UnexpectedToken : messages_1.Messages.MissingFromClause;
+                    this.throwError(message, this.lookahead.value);
+                  }
+                  this.nextToken();
+                  src = this.parseModuleSpecifier();
+                }
+                this.consumeSemicolon();
+                return this.finalize(node, new Node.ImportDeclaration(specifiers, src));
+              };
+              Parser2.prototype.parseExportSpecifier = function() {
+                var node = this.createNode();
+                var local = this.parseIdentifierName();
+                var exported = local;
+                if (this.matchContextualKeyword("as")) {
+                  this.nextToken();
+                  exported = this.parseIdentifierName();
+                }
+                return this.finalize(node, new Node.ExportSpecifier(local, exported));
+              };
+              Parser2.prototype.parseExportDeclaration = function() {
+                if (this.context.inFunctionBody) {
+                  this.throwError(messages_1.Messages.IllegalExportDeclaration);
+                }
+                var node = this.createNode();
+                this.expectKeyword("export");
+                var exportDeclaration;
+                if (this.matchKeyword("default")) {
+                  this.nextToken();
+                  if (this.matchKeyword("function")) {
+                    var declaration = this.parseFunctionDeclaration(true);
+                    exportDeclaration = this.finalize(node, new Node.ExportDefaultDeclaration(declaration));
+                  } else if (this.matchKeyword("class")) {
+                    var declaration = this.parseClassDeclaration(true);
+                    exportDeclaration = this.finalize(node, new Node.ExportDefaultDeclaration(declaration));
+                  } else if (this.matchContextualKeyword("async")) {
+                    var declaration = this.matchAsyncFunction() ? this.parseFunctionDeclaration(true) : this.parseAssignmentExpression();
+                    exportDeclaration = this.finalize(node, new Node.ExportDefaultDeclaration(declaration));
+                  } else {
+                    if (this.matchContextualKeyword("from")) {
+                      this.throwError(messages_1.Messages.UnexpectedToken, this.lookahead.value);
+                    }
+                    var declaration = this.match("{") ? this.parseObjectInitializer() : this.match("[") ? this.parseArrayInitializer() : this.parseAssignmentExpression();
+                    this.consumeSemicolon();
+                    exportDeclaration = this.finalize(node, new Node.ExportDefaultDeclaration(declaration));
+                  }
+                } else if (this.match("*")) {
+                  this.nextToken();
+                  if (!this.matchContextualKeyword("from")) {
+                    var message = this.lookahead.value ? messages_1.Messages.UnexpectedToken : messages_1.Messages.MissingFromClause;
+                    this.throwError(message, this.lookahead.value);
+                  }
+                  this.nextToken();
+                  var src = this.parseModuleSpecifier();
+                  this.consumeSemicolon();
+                  exportDeclaration = this.finalize(node, new Node.ExportAllDeclaration(src));
+                } else if (this.lookahead.type === 4) {
+                  var declaration = void 0;
+                  switch (this.lookahead.value) {
+                    case "let":
+                    case "const":
+                      declaration = this.parseLexicalDeclaration({ inFor: false });
+                      break;
+                    case "var":
+                    case "class":
+                    case "function":
+                      declaration = this.parseStatementListItem();
+                      break;
+                    default:
+                      this.throwUnexpectedToken(this.lookahead);
+                  }
+                  exportDeclaration = this.finalize(node, new Node.ExportNamedDeclaration(declaration, [], null));
+                } else if (this.matchAsyncFunction()) {
+                  var declaration = this.parseFunctionDeclaration();
+                  exportDeclaration = this.finalize(node, new Node.ExportNamedDeclaration(declaration, [], null));
+                } else {
+                  var specifiers = [];
+                  var source = null;
+                  var isExportFromIdentifier = false;
+                  this.expect("{");
+                  while (!this.match("}")) {
+                    isExportFromIdentifier = isExportFromIdentifier || this.matchKeyword("default");
+                    specifiers.push(this.parseExportSpecifier());
+                    if (!this.match("}")) {
+                      this.expect(",");
+                    }
+                  }
+                  this.expect("}");
+                  if (this.matchContextualKeyword("from")) {
+                    this.nextToken();
+                    source = this.parseModuleSpecifier();
+                    this.consumeSemicolon();
+                  } else if (isExportFromIdentifier) {
+                    var message = this.lookahead.value ? messages_1.Messages.UnexpectedToken : messages_1.Messages.MissingFromClause;
+                    this.throwError(message, this.lookahead.value);
+                  } else {
+                    this.consumeSemicolon();
+                  }
+                  exportDeclaration = this.finalize(node, new Node.ExportNamedDeclaration(null, specifiers, source));
+                }
+                return exportDeclaration;
+              };
+              return Parser2;
+            })();
+            exports2.Parser = Parser;
+          },
+          /* 9 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            function assert(condition, message) {
+              if (!condition) {
+                throw new Error("ASSERT: " + message);
+              }
+            }
+            exports2.assert = assert;
+          },
+          /* 10 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var ErrorHandler = (function() {
+              function ErrorHandler2() {
+                this.errors = [];
+                this.tolerant = false;
+              }
+              ErrorHandler2.prototype.recordError = function(error3) {
+                this.errors.push(error3);
+              };
+              ErrorHandler2.prototype.tolerate = function(error3) {
+                if (this.tolerant) {
+                  this.recordError(error3);
+                } else {
+                  throw error3;
+                }
+              };
+              ErrorHandler2.prototype.constructError = function(msg, column) {
+                var error3 = new Error(msg);
+                try {
+                  throw error3;
+                } catch (base) {
+                  if (Object.create && Object.defineProperty) {
+                    error3 = Object.create(base);
+                    Object.defineProperty(error3, "column", { value: column });
+                  }
+                }
+                return error3;
+              };
+              ErrorHandler2.prototype.createError = function(index, line, col, description) {
+                var msg = "Line " + line + ": " + description;
+                var error3 = this.constructError(msg, col);
+                error3.index = index;
+                error3.lineNumber = line;
+                error3.description = description;
+                return error3;
+              };
+              ErrorHandler2.prototype.throwError = function(index, line, col, description) {
+                throw this.createError(index, line, col, description);
+              };
+              ErrorHandler2.prototype.tolerateError = function(index, line, col, description) {
+                var error3 = this.createError(index, line, col, description);
+                if (this.tolerant) {
+                  this.recordError(error3);
+                } else {
+                  throw error3;
+                }
+              };
+              return ErrorHandler2;
+            })();
+            exports2.ErrorHandler = ErrorHandler;
+          },
+          /* 11 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            exports2.Messages = {
+              BadGetterArity: "Getter must not have any formal parameters",
+              BadSetterArity: "Setter must have exactly one formal parameter",
+              BadSetterRestParameter: "Setter function argument must not be a rest parameter",
+              ConstructorIsAsync: "Class constructor may not be an async method",
+              ConstructorSpecialMethod: "Class constructor may not be an accessor",
+              DeclarationMissingInitializer: "Missing initializer in %0 declaration",
+              DefaultRestParameter: "Unexpected token =",
+              DuplicateBinding: "Duplicate binding %0",
+              DuplicateConstructor: "A class may only have one constructor",
+              DuplicateProtoProperty: "Duplicate __proto__ fields are not allowed in object literals",
+              ForInOfLoopInitializer: "%0 loop variable declaration may not have an initializer",
+              GeneratorInLegacyContext: "Generator declarations are not allowed in legacy contexts",
+              IllegalBreak: "Illegal break statement",
+              IllegalContinue: "Illegal continue statement",
+              IllegalExportDeclaration: "Unexpected token",
+              IllegalImportDeclaration: "Unexpected token",
+              IllegalLanguageModeDirective: "Illegal 'use strict' directive in function with non-simple parameter list",
+              IllegalReturn: "Illegal return statement",
+              InvalidEscapedReservedWord: "Keyword must not contain escaped characters",
+              InvalidHexEscapeSequence: "Invalid hexadecimal escape sequence",
+              InvalidLHSInAssignment: "Invalid left-hand side in assignment",
+              InvalidLHSInForIn: "Invalid left-hand side in for-in",
+              InvalidLHSInForLoop: "Invalid left-hand side in for-loop",
+              InvalidModuleSpecifier: "Unexpected token",
+              InvalidRegExp: "Invalid regular expression",
+              LetInLexicalBinding: "let is disallowed as a lexically bound name",
+              MissingFromClause: "Unexpected token",
+              MultipleDefaultsInSwitch: "More than one default clause in switch statement",
+              NewlineAfterThrow: "Illegal newline after throw",
+              NoAsAfterImportNamespace: "Unexpected token",
+              NoCatchOrFinally: "Missing catch or finally after try",
+              ParameterAfterRestParameter: "Rest parameter must be last formal parameter",
+              Redeclaration: "%0 '%1' has already been declared",
+              StaticPrototype: "Classes may not have static property named prototype",
+              StrictCatchVariable: "Catch variable may not be eval or arguments in strict mode",
+              StrictDelete: "Delete of an unqualified identifier in strict mode.",
+              StrictFunction: "In strict mode code, functions can only be declared at top level or inside a block",
+              StrictFunctionName: "Function name may not be eval or arguments in strict mode",
+              StrictLHSAssignment: "Assignment to eval or arguments is not allowed in strict mode",
+              StrictLHSPostfix: "Postfix increment/decrement may not have eval or arguments operand in strict mode",
+              StrictLHSPrefix: "Prefix increment/decrement may not have eval or arguments operand in strict mode",
+              StrictModeWith: "Strict mode code may not include a with statement",
+              StrictOctalLiteral: "Octal literals are not allowed in strict mode.",
+              StrictParamDupe: "Strict mode function may not have duplicate parameter names",
+              StrictParamName: "Parameter name eval or arguments is not allowed in strict mode",
+              StrictReservedWord: "Use of future reserved word in strict mode",
+              StrictVarName: "Variable name may not be eval or arguments in strict mode",
+              TemplateOctalLiteral: "Octal literals are not allowed in template strings.",
+              UnexpectedEOS: "Unexpected end of input",
+              UnexpectedIdentifier: "Unexpected identifier",
+              UnexpectedNumber: "Unexpected number",
+              UnexpectedReserved: "Unexpected reserved word",
+              UnexpectedString: "Unexpected string",
+              UnexpectedTemplate: "Unexpected quasi %0",
+              UnexpectedToken: "Unexpected token %0",
+              UnexpectedTokenIllegal: "Unexpected token ILLEGAL",
+              UnknownLabel: "Undefined label '%0'",
+              UnterminatedRegExp: "Invalid regular expression: missing /"
+            };
+          },
+          /* 12 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var assert_1 = __webpack_require__(9);
+            var character_1 = __webpack_require__(4);
+            var messages_1 = __webpack_require__(11);
+            function hexValue(ch) {
+              return "0123456789abcdef".indexOf(ch.toLowerCase());
+            }
+            function octalValue(ch) {
+              return "01234567".indexOf(ch);
+            }
+            var Scanner = (function() {
+              function Scanner2(code, handler) {
+                this.source = code;
+                this.errorHandler = handler;
+                this.trackComment = false;
+                this.isModule = false;
+                this.length = code.length;
+                this.index = 0;
+                this.lineNumber = code.length > 0 ? 1 : 0;
+                this.lineStart = 0;
+                this.curlyStack = [];
+              }
+              Scanner2.prototype.saveState = function() {
+                return {
+                  index: this.index,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart
+                };
+              };
+              Scanner2.prototype.restoreState = function(state) {
+                this.index = state.index;
+                this.lineNumber = state.lineNumber;
+                this.lineStart = state.lineStart;
+              };
+              Scanner2.prototype.eof = function() {
+                return this.index >= this.length;
+              };
+              Scanner2.prototype.throwUnexpectedToken = function(message) {
+                if (message === void 0) {
+                  message = messages_1.Messages.UnexpectedTokenIllegal;
+                }
+                return this.errorHandler.throwError(this.index, this.lineNumber, this.index - this.lineStart + 1, message);
+              };
+              Scanner2.prototype.tolerateUnexpectedToken = function(message) {
+                if (message === void 0) {
+                  message = messages_1.Messages.UnexpectedTokenIllegal;
+                }
+                this.errorHandler.tolerateError(this.index, this.lineNumber, this.index - this.lineStart + 1, message);
+              };
+              Scanner2.prototype.skipSingleLineComment = function(offset) {
+                var comments = [];
+                var start, loc;
+                if (this.trackComment) {
+                  comments = [];
+                  start = this.index - offset;
+                  loc = {
+                    start: {
+                      line: this.lineNumber,
+                      column: this.index - this.lineStart - offset
+                    },
+                    end: {}
+                  };
+                }
+                while (!this.eof()) {
+                  var ch = this.source.charCodeAt(this.index);
+                  ++this.index;
+                  if (character_1.Character.isLineTerminator(ch)) {
+                    if (this.trackComment) {
+                      loc.end = {
+                        line: this.lineNumber,
+                        column: this.index - this.lineStart - 1
+                      };
+                      var entry = {
+                        multiLine: false,
+                        slice: [start + offset, this.index - 1],
+                        range: [start, this.index - 1],
+                        loc
+                      };
+                      comments.push(entry);
+                    }
+                    if (ch === 13 && this.source.charCodeAt(this.index) === 10) {
+                      ++this.index;
+                    }
+                    ++this.lineNumber;
+                    this.lineStart = this.index;
+                    return comments;
+                  }
+                }
+                if (this.trackComment) {
+                  loc.end = {
+                    line: this.lineNumber,
+                    column: this.index - this.lineStart
+                  };
+                  var entry = {
+                    multiLine: false,
+                    slice: [start + offset, this.index],
+                    range: [start, this.index],
+                    loc
+                  };
+                  comments.push(entry);
+                }
+                return comments;
+              };
+              Scanner2.prototype.skipMultiLineComment = function() {
+                var comments = [];
+                var start, loc;
+                if (this.trackComment) {
+                  comments = [];
+                  start = this.index - 2;
+                  loc = {
+                    start: {
+                      line: this.lineNumber,
+                      column: this.index - this.lineStart - 2
+                    },
+                    end: {}
+                  };
+                }
+                while (!this.eof()) {
+                  var ch = this.source.charCodeAt(this.index);
+                  if (character_1.Character.isLineTerminator(ch)) {
+                    if (ch === 13 && this.source.charCodeAt(this.index + 1) === 10) {
+                      ++this.index;
+                    }
+                    ++this.lineNumber;
+                    ++this.index;
+                    this.lineStart = this.index;
+                  } else if (ch === 42) {
+                    if (this.source.charCodeAt(this.index + 1) === 47) {
+                      this.index += 2;
+                      if (this.trackComment) {
+                        loc.end = {
+                          line: this.lineNumber,
+                          column: this.index - this.lineStart
+                        };
+                        var entry = {
+                          multiLine: true,
+                          slice: [start + 2, this.index - 2],
+                          range: [start, this.index],
+                          loc
+                        };
+                        comments.push(entry);
+                      }
+                      return comments;
+                    }
+                    ++this.index;
+                  } else {
+                    ++this.index;
+                  }
+                }
+                if (this.trackComment) {
+                  loc.end = {
+                    line: this.lineNumber,
+                    column: this.index - this.lineStart
+                  };
+                  var entry = {
+                    multiLine: true,
+                    slice: [start + 2, this.index],
+                    range: [start, this.index],
+                    loc
+                  };
+                  comments.push(entry);
+                }
+                this.tolerateUnexpectedToken();
+                return comments;
+              };
+              Scanner2.prototype.scanComments = function() {
+                var comments;
+                if (this.trackComment) {
+                  comments = [];
+                }
+                var start = this.index === 0;
+                while (!this.eof()) {
+                  var ch = this.source.charCodeAt(this.index);
+                  if (character_1.Character.isWhiteSpace(ch)) {
+                    ++this.index;
+                  } else if (character_1.Character.isLineTerminator(ch)) {
+                    ++this.index;
+                    if (ch === 13 && this.source.charCodeAt(this.index) === 10) {
+                      ++this.index;
+                    }
+                    ++this.lineNumber;
+                    this.lineStart = this.index;
+                    start = true;
+                  } else if (ch === 47) {
+                    ch = this.source.charCodeAt(this.index + 1);
+                    if (ch === 47) {
+                      this.index += 2;
+                      var comment = this.skipSingleLineComment(2);
+                      if (this.trackComment) {
+                        comments = comments.concat(comment);
+                      }
+                      start = true;
+                    } else if (ch === 42) {
+                      this.index += 2;
+                      var comment = this.skipMultiLineComment();
+                      if (this.trackComment) {
+                        comments = comments.concat(comment);
+                      }
+                    } else {
+                      break;
+                    }
+                  } else if (start && ch === 45) {
+                    if (this.source.charCodeAt(this.index + 1) === 45 && this.source.charCodeAt(this.index + 2) === 62) {
+                      this.index += 3;
+                      var comment = this.skipSingleLineComment(3);
+                      if (this.trackComment) {
+                        comments = comments.concat(comment);
+                      }
+                    } else {
+                      break;
+                    }
+                  } else if (ch === 60 && !this.isModule) {
+                    if (this.source.slice(this.index + 1, this.index + 4) === "!--") {
+                      this.index += 4;
+                      var comment = this.skipSingleLineComment(4);
+                      if (this.trackComment) {
+                        comments = comments.concat(comment);
+                      }
+                    } else {
+                      break;
+                    }
+                  } else {
+                    break;
+                  }
+                }
+                return comments;
+              };
+              Scanner2.prototype.isFutureReservedWord = function(id) {
+                switch (id) {
+                  case "enum":
+                  case "export":
+                  case "import":
+                  case "super":
+                    return true;
+                  default:
+                    return false;
+                }
+              };
+              Scanner2.prototype.isStrictModeReservedWord = function(id) {
+                switch (id) {
+                  case "implements":
+                  case "interface":
+                  case "package":
+                  case "private":
+                  case "protected":
+                  case "public":
+                  case "static":
+                  case "yield":
+                  case "let":
+                    return true;
+                  default:
+                    return false;
+                }
+              };
+              Scanner2.prototype.isRestrictedWord = function(id) {
+                return id === "eval" || id === "arguments";
+              };
+              Scanner2.prototype.isKeyword = function(id) {
+                switch (id.length) {
+                  case 2:
+                    return id === "if" || id === "in" || id === "do";
+                  case 3:
+                    return id === "var" || id === "for" || id === "new" || id === "try" || id === "let";
+                  case 4:
+                    return id === "this" || id === "else" || id === "case" || id === "void" || id === "with" || id === "enum";
+                  case 5:
+                    return id === "while" || id === "break" || id === "catch" || id === "throw" || id === "const" || id === "yield" || id === "class" || id === "super";
+                  case 6:
+                    return id === "return" || id === "typeof" || id === "delete" || id === "switch" || id === "export" || id === "import";
+                  case 7:
+                    return id === "default" || id === "finally" || id === "extends";
+                  case 8:
+                    return id === "function" || id === "continue" || id === "debugger";
+                  case 10:
+                    return id === "instanceof";
+                  default:
+                    return false;
+                }
+              };
+              Scanner2.prototype.codePointAt = function(i) {
+                var cp = this.source.charCodeAt(i);
+                if (cp >= 55296 && cp <= 56319) {
+                  var second = this.source.charCodeAt(i + 1);
+                  if (second >= 56320 && second <= 57343) {
+                    var first = cp;
+                    cp = (first - 55296) * 1024 + second - 56320 + 65536;
+                  }
+                }
+                return cp;
+              };
+              Scanner2.prototype.scanHexEscape = function(prefix) {
+                var len = prefix === "u" ? 4 : 2;
+                var code = 0;
+                for (var i = 0; i < len; ++i) {
+                  if (!this.eof() && character_1.Character.isHexDigit(this.source.charCodeAt(this.index))) {
+                    code = code * 16 + hexValue(this.source[this.index++]);
+                  } else {
+                    return null;
+                  }
+                }
+                return String.fromCharCode(code);
+              };
+              Scanner2.prototype.scanUnicodeCodePointEscape = function() {
+                var ch = this.source[this.index];
+                var code = 0;
+                if (ch === "}") {
+                  this.throwUnexpectedToken();
+                }
+                while (!this.eof()) {
+                  ch = this.source[this.index++];
+                  if (!character_1.Character.isHexDigit(ch.charCodeAt(0))) {
+                    break;
+                  }
+                  code = code * 16 + hexValue(ch);
+                }
+                if (code > 1114111 || ch !== "}") {
+                  this.throwUnexpectedToken();
+                }
+                return character_1.Character.fromCodePoint(code);
+              };
+              Scanner2.prototype.getIdentifier = function() {
+                var start = this.index++;
+                while (!this.eof()) {
+                  var ch = this.source.charCodeAt(this.index);
+                  if (ch === 92) {
+                    this.index = start;
+                    return this.getComplexIdentifier();
+                  } else if (ch >= 55296 && ch < 57343) {
+                    this.index = start;
+                    return this.getComplexIdentifier();
+                  }
+                  if (character_1.Character.isIdentifierPart(ch)) {
+                    ++this.index;
+                  } else {
+                    break;
+                  }
+                }
+                return this.source.slice(start, this.index);
+              };
+              Scanner2.prototype.getComplexIdentifier = function() {
+                var cp = this.codePointAt(this.index);
+                var id = character_1.Character.fromCodePoint(cp);
+                this.index += id.length;
+                var ch;
+                if (cp === 92) {
+                  if (this.source.charCodeAt(this.index) !== 117) {
+                    this.throwUnexpectedToken();
+                  }
+                  ++this.index;
+                  if (this.source[this.index] === "{") {
+                    ++this.index;
+                    ch = this.scanUnicodeCodePointEscape();
+                  } else {
+                    ch = this.scanHexEscape("u");
+                    if (ch === null || ch === "\\" || !character_1.Character.isIdentifierStart(ch.charCodeAt(0))) {
+                      this.throwUnexpectedToken();
+                    }
+                  }
+                  id = ch;
+                }
+                while (!this.eof()) {
+                  cp = this.codePointAt(this.index);
+                  if (!character_1.Character.isIdentifierPart(cp)) {
+                    break;
+                  }
+                  ch = character_1.Character.fromCodePoint(cp);
+                  id += ch;
+                  this.index += ch.length;
+                  if (cp === 92) {
+                    id = id.substr(0, id.length - 1);
+                    if (this.source.charCodeAt(this.index) !== 117) {
+                      this.throwUnexpectedToken();
+                    }
+                    ++this.index;
+                    if (this.source[this.index] === "{") {
+                      ++this.index;
+                      ch = this.scanUnicodeCodePointEscape();
+                    } else {
+                      ch = this.scanHexEscape("u");
+                      if (ch === null || ch === "\\" || !character_1.Character.isIdentifierPart(ch.charCodeAt(0))) {
+                        this.throwUnexpectedToken();
+                      }
+                    }
+                    id += ch;
+                  }
+                }
+                return id;
+              };
+              Scanner2.prototype.octalToDecimal = function(ch) {
+                var octal = ch !== "0";
+                var code = octalValue(ch);
+                if (!this.eof() && character_1.Character.isOctalDigit(this.source.charCodeAt(this.index))) {
+                  octal = true;
+                  code = code * 8 + octalValue(this.source[this.index++]);
+                  if ("0123".indexOf(ch) >= 0 && !this.eof() && character_1.Character.isOctalDigit(this.source.charCodeAt(this.index))) {
+                    code = code * 8 + octalValue(this.source[this.index++]);
+                  }
+                }
+                return {
+                  code,
+                  octal
+                };
+              };
+              Scanner2.prototype.scanIdentifier = function() {
+                var type;
+                var start = this.index;
+                var id = this.source.charCodeAt(start) === 92 ? this.getComplexIdentifier() : this.getIdentifier();
+                if (id.length === 1) {
+                  type = 3;
+                } else if (this.isKeyword(id)) {
+                  type = 4;
+                } else if (id === "null") {
+                  type = 5;
+                } else if (id === "true" || id === "false") {
+                  type = 1;
+                } else {
+                  type = 3;
+                }
+                if (type !== 3 && start + id.length !== this.index) {
+                  var restore = this.index;
+                  this.index = start;
+                  this.tolerateUnexpectedToken(messages_1.Messages.InvalidEscapedReservedWord);
+                  this.index = restore;
+                }
+                return {
+                  type,
+                  value: id,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.scanPunctuator = function() {
+                var start = this.index;
+                var str = this.source[this.index];
+                switch (str) {
+                  case "(":
+                  case "{":
+                    if (str === "{") {
+                      this.curlyStack.push("{");
+                    }
+                    ++this.index;
+                    break;
+                  case ".":
+                    ++this.index;
+                    if (this.source[this.index] === "." && this.source[this.index + 1] === ".") {
+                      this.index += 2;
+                      str = "...";
+                    }
+                    break;
+                  case "}":
+                    ++this.index;
+                    this.curlyStack.pop();
+                    break;
+                  case ")":
+                  case ";":
+                  case ",":
+                  case "[":
+                  case "]":
+                  case ":":
+                  case "?":
+                  case "~":
+                    ++this.index;
+                    break;
+                  default:
+                    str = this.source.substr(this.index, 4);
+                    if (str === ">>>=") {
+                      this.index += 4;
+                    } else {
+                      str = str.substr(0, 3);
+                      if (str === "===" || str === "!==" || str === ">>>" || str === "<<=" || str === ">>=" || str === "**=") {
+                        this.index += 3;
+                      } else {
+                        str = str.substr(0, 2);
+                        if (str === "&&" || str === "||" || str === "==" || str === "!=" || str === "+=" || str === "-=" || str === "*=" || str === "/=" || str === "++" || str === "--" || str === "<<" || str === ">>" || str === "&=" || str === "|=" || str === "^=" || str === "%=" || str === "<=" || str === ">=" || str === "=>" || str === "**") {
+                          this.index += 2;
+                        } else {
+                          str = this.source[this.index];
+                          if ("<>=!+-*%&|^/".indexOf(str) >= 0) {
+                            ++this.index;
+                          }
+                        }
+                      }
+                    }
+                }
+                if (this.index === start) {
+                  this.throwUnexpectedToken();
+                }
+                return {
+                  type: 7,
+                  value: str,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.scanHexLiteral = function(start) {
+                var num = "";
+                while (!this.eof()) {
+                  if (!character_1.Character.isHexDigit(this.source.charCodeAt(this.index))) {
+                    break;
+                  }
+                  num += this.source[this.index++];
+                }
+                if (num.length === 0) {
+                  this.throwUnexpectedToken();
+                }
+                if (character_1.Character.isIdentifierStart(this.source.charCodeAt(this.index))) {
+                  this.throwUnexpectedToken();
+                }
+                return {
+                  type: 6,
+                  value: parseInt("0x" + num, 16),
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.scanBinaryLiteral = function(start) {
+                var num = "";
+                var ch;
+                while (!this.eof()) {
+                  ch = this.source[this.index];
+                  if (ch !== "0" && ch !== "1") {
+                    break;
+                  }
+                  num += this.source[this.index++];
+                }
+                if (num.length === 0) {
+                  this.throwUnexpectedToken();
+                }
+                if (!this.eof()) {
+                  ch = this.source.charCodeAt(this.index);
+                  if (character_1.Character.isIdentifierStart(ch) || character_1.Character.isDecimalDigit(ch)) {
+                    this.throwUnexpectedToken();
+                  }
+                }
+                return {
+                  type: 6,
+                  value: parseInt(num, 2),
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.scanOctalLiteral = function(prefix, start) {
+                var num = "";
+                var octal = false;
+                if (character_1.Character.isOctalDigit(prefix.charCodeAt(0))) {
+                  octal = true;
+                  num = "0" + this.source[this.index++];
+                } else {
+                  ++this.index;
+                }
+                while (!this.eof()) {
+                  if (!character_1.Character.isOctalDigit(this.source.charCodeAt(this.index))) {
+                    break;
+                  }
+                  num += this.source[this.index++];
+                }
+                if (!octal && num.length === 0) {
+                  this.throwUnexpectedToken();
+                }
+                if (character_1.Character.isIdentifierStart(this.source.charCodeAt(this.index)) || character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index))) {
+                  this.throwUnexpectedToken();
+                }
+                return {
+                  type: 6,
+                  value: parseInt(num, 8),
+                  octal,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.isImplicitOctalLiteral = function() {
+                for (var i = this.index + 1; i < this.length; ++i) {
+                  var ch = this.source[i];
+                  if (ch === "8" || ch === "9") {
+                    return false;
+                  }
+                  if (!character_1.Character.isOctalDigit(ch.charCodeAt(0))) {
+                    return true;
+                  }
+                }
+                return true;
+              };
+              Scanner2.prototype.scanNumericLiteral = function() {
+                var start = this.index;
+                var ch = this.source[start];
+                assert_1.assert(character_1.Character.isDecimalDigit(ch.charCodeAt(0)) || ch === ".", "Numeric literal must start with a decimal digit or a decimal point");
+                var num = "";
+                if (ch !== ".") {
+                  num = this.source[this.index++];
+                  ch = this.source[this.index];
+                  if (num === "0") {
+                    if (ch === "x" || ch === "X") {
+                      ++this.index;
+                      return this.scanHexLiteral(start);
+                    }
+                    if (ch === "b" || ch === "B") {
+                      ++this.index;
+                      return this.scanBinaryLiteral(start);
+                    }
+                    if (ch === "o" || ch === "O") {
+                      return this.scanOctalLiteral(ch, start);
+                    }
+                    if (ch && character_1.Character.isOctalDigit(ch.charCodeAt(0))) {
+                      if (this.isImplicitOctalLiteral()) {
+                        return this.scanOctalLiteral(ch, start);
+                      }
+                    }
+                  }
+                  while (character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index))) {
+                    num += this.source[this.index++];
+                  }
+                  ch = this.source[this.index];
+                }
+                if (ch === ".") {
+                  num += this.source[this.index++];
+                  while (character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index))) {
+                    num += this.source[this.index++];
+                  }
+                  ch = this.source[this.index];
+                }
+                if (ch === "e" || ch === "E") {
+                  num += this.source[this.index++];
+                  ch = this.source[this.index];
+                  if (ch === "+" || ch === "-") {
+                    num += this.source[this.index++];
+                  }
+                  if (character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index))) {
+                    while (character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index))) {
+                      num += this.source[this.index++];
+                    }
+                  } else {
+                    this.throwUnexpectedToken();
+                  }
+                }
+                if (character_1.Character.isIdentifierStart(this.source.charCodeAt(this.index))) {
+                  this.throwUnexpectedToken();
+                }
+                return {
+                  type: 6,
+                  value: parseFloat(num),
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.scanStringLiteral = function() {
+                var start = this.index;
+                var quote = this.source[start];
+                assert_1.assert(quote === "'" || quote === '"', "String literal must starts with a quote");
+                ++this.index;
+                var octal = false;
+                var str = "";
+                while (!this.eof()) {
+                  var ch = this.source[this.index++];
+                  if (ch === quote) {
+                    quote = "";
+                    break;
+                  } else if (ch === "\\") {
+                    ch = this.source[this.index++];
+                    if (!ch || !character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                      switch (ch) {
+                        case "u":
+                          if (this.source[this.index] === "{") {
+                            ++this.index;
+                            str += this.scanUnicodeCodePointEscape();
+                          } else {
+                            var unescaped_1 = this.scanHexEscape(ch);
+                            if (unescaped_1 === null) {
+                              this.throwUnexpectedToken();
+                            }
+                            str += unescaped_1;
+                          }
+                          break;
+                        case "x":
+                          var unescaped = this.scanHexEscape(ch);
+                          if (unescaped === null) {
+                            this.throwUnexpectedToken(messages_1.Messages.InvalidHexEscapeSequence);
+                          }
+                          str += unescaped;
+                          break;
+                        case "n":
+                          str += "\n";
+                          break;
+                        case "r":
+                          str += "\r";
+                          break;
+                        case "t":
+                          str += "	";
+                          break;
+                        case "b":
+                          str += "\b";
+                          break;
+                        case "f":
+                          str += "\f";
+                          break;
+                        case "v":
+                          str += "\v";
+                          break;
+                        case "8":
+                        case "9":
+                          str += ch;
+                          this.tolerateUnexpectedToken();
+                          break;
+                        default:
+                          if (ch && character_1.Character.isOctalDigit(ch.charCodeAt(0))) {
+                            var octToDec = this.octalToDecimal(ch);
+                            octal = octToDec.octal || octal;
+                            str += String.fromCharCode(octToDec.code);
+                          } else {
+                            str += ch;
+                          }
+                          break;
+                      }
+                    } else {
+                      ++this.lineNumber;
+                      if (ch === "\r" && this.source[this.index] === "\n") {
+                        ++this.index;
+                      }
+                      this.lineStart = this.index;
+                    }
+                  } else if (character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                    break;
+                  } else {
+                    str += ch;
+                  }
+                }
+                if (quote !== "") {
+                  this.index = start;
+                  this.throwUnexpectedToken();
+                }
+                return {
+                  type: 8,
+                  value: str,
+                  octal,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.scanTemplate = function() {
+                var cooked = "";
+                var terminated = false;
+                var start = this.index;
+                var head = this.source[start] === "`";
+                var tail = false;
+                var rawOffset = 2;
+                ++this.index;
+                while (!this.eof()) {
+                  var ch = this.source[this.index++];
+                  if (ch === "`") {
+                    rawOffset = 1;
+                    tail = true;
+                    terminated = true;
+                    break;
+                  } else if (ch === "$") {
+                    if (this.source[this.index] === "{") {
+                      this.curlyStack.push("${");
+                      ++this.index;
+                      terminated = true;
+                      break;
+                    }
+                    cooked += ch;
+                  } else if (ch === "\\") {
+                    ch = this.source[this.index++];
+                    if (!character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                      switch (ch) {
+                        case "n":
+                          cooked += "\n";
+                          break;
+                        case "r":
+                          cooked += "\r";
+                          break;
+                        case "t":
+                          cooked += "	";
+                          break;
+                        case "u":
+                          if (this.source[this.index] === "{") {
+                            ++this.index;
+                            cooked += this.scanUnicodeCodePointEscape();
+                          } else {
+                            var restore = this.index;
+                            var unescaped_2 = this.scanHexEscape(ch);
+                            if (unescaped_2 !== null) {
+                              cooked += unescaped_2;
+                            } else {
+                              this.index = restore;
+                              cooked += ch;
+                            }
+                          }
+                          break;
+                        case "x":
+                          var unescaped = this.scanHexEscape(ch);
+                          if (unescaped === null) {
+                            this.throwUnexpectedToken(messages_1.Messages.InvalidHexEscapeSequence);
+                          }
+                          cooked += unescaped;
+                          break;
+                        case "b":
+                          cooked += "\b";
+                          break;
+                        case "f":
+                          cooked += "\f";
+                          break;
+                        case "v":
+                          cooked += "\v";
+                          break;
+                        default:
+                          if (ch === "0") {
+                            if (character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index))) {
+                              this.throwUnexpectedToken(messages_1.Messages.TemplateOctalLiteral);
+                            }
+                            cooked += "\0";
+                          } else if (character_1.Character.isOctalDigit(ch.charCodeAt(0))) {
+                            this.throwUnexpectedToken(messages_1.Messages.TemplateOctalLiteral);
+                          } else {
+                            cooked += ch;
+                          }
+                          break;
+                      }
+                    } else {
+                      ++this.lineNumber;
+                      if (ch === "\r" && this.source[this.index] === "\n") {
+                        ++this.index;
+                      }
+                      this.lineStart = this.index;
+                    }
+                  } else if (character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                    ++this.lineNumber;
+                    if (ch === "\r" && this.source[this.index] === "\n") {
+                      ++this.index;
+                    }
+                    this.lineStart = this.index;
+                    cooked += "\n";
+                  } else {
+                    cooked += ch;
+                  }
+                }
+                if (!terminated) {
+                  this.throwUnexpectedToken();
+                }
+                if (!head) {
+                  this.curlyStack.pop();
+                }
+                return {
+                  type: 10,
+                  value: this.source.slice(start + 1, this.index - rawOffset),
+                  cooked,
+                  head,
+                  tail,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.testRegExp = function(pattern, flags) {
+                var astralSubstitute = "\uFFFF";
+                var tmp = pattern;
+                var self2 = this;
+                if (flags.indexOf("u") >= 0) {
+                  tmp = tmp.replace(/\\u\{([0-9a-fA-F]+)\}|\\u([a-fA-F0-9]{4})/g, function($0, $1, $2) {
+                    var codePoint = parseInt($1 || $2, 16);
+                    if (codePoint > 1114111) {
+                      self2.throwUnexpectedToken(messages_1.Messages.InvalidRegExp);
+                    }
+                    if (codePoint <= 65535) {
+                      return String.fromCharCode(codePoint);
+                    }
+                    return astralSubstitute;
+                  }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, astralSubstitute);
+                }
+                try {
+                  RegExp(tmp);
+                } catch (e) {
+                  this.throwUnexpectedToken(messages_1.Messages.InvalidRegExp);
+                }
+                try {
+                  return new RegExp(pattern, flags);
+                } catch (exception) {
+                  return null;
+                }
+              };
+              Scanner2.prototype.scanRegExpBody = function() {
+                var ch = this.source[this.index];
+                assert_1.assert(ch === "/", "Regular expression literal must start with a slash");
+                var str = this.source[this.index++];
+                var classMarker = false;
+                var terminated = false;
+                while (!this.eof()) {
+                  ch = this.source[this.index++];
+                  str += ch;
+                  if (ch === "\\") {
+                    ch = this.source[this.index++];
+                    if (character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                      this.throwUnexpectedToken(messages_1.Messages.UnterminatedRegExp);
+                    }
+                    str += ch;
+                  } else if (character_1.Character.isLineTerminator(ch.charCodeAt(0))) {
+                    this.throwUnexpectedToken(messages_1.Messages.UnterminatedRegExp);
+                  } else if (classMarker) {
+                    if (ch === "]") {
+                      classMarker = false;
+                    }
+                  } else {
+                    if (ch === "/") {
+                      terminated = true;
+                      break;
+                    } else if (ch === "[") {
+                      classMarker = true;
+                    }
+                  }
+                }
+                if (!terminated) {
+                  this.throwUnexpectedToken(messages_1.Messages.UnterminatedRegExp);
+                }
+                return str.substr(1, str.length - 2);
+              };
+              Scanner2.prototype.scanRegExpFlags = function() {
+                var str = "";
+                var flags = "";
+                while (!this.eof()) {
+                  var ch = this.source[this.index];
+                  if (!character_1.Character.isIdentifierPart(ch.charCodeAt(0))) {
+                    break;
+                  }
+                  ++this.index;
+                  if (ch === "\\" && !this.eof()) {
+                    ch = this.source[this.index];
+                    if (ch === "u") {
+                      ++this.index;
+                      var restore = this.index;
+                      var char = this.scanHexEscape("u");
+                      if (char !== null) {
+                        flags += char;
+                        for (str += "\\u"; restore < this.index; ++restore) {
+                          str += this.source[restore];
+                        }
+                      } else {
+                        this.index = restore;
+                        flags += "u";
+                        str += "\\u";
+                      }
+                      this.tolerateUnexpectedToken();
+                    } else {
+                      str += "\\";
+                      this.tolerateUnexpectedToken();
+                    }
+                  } else {
+                    flags += ch;
+                    str += ch;
+                  }
+                }
+                return flags;
+              };
+              Scanner2.prototype.scanRegExp = function() {
+                var start = this.index;
+                var pattern = this.scanRegExpBody();
+                var flags = this.scanRegExpFlags();
+                var value = this.testRegExp(pattern, flags);
+                return {
+                  type: 9,
+                  value: "",
+                  pattern,
+                  flags,
+                  regex: value,
+                  lineNumber: this.lineNumber,
+                  lineStart: this.lineStart,
+                  start,
+                  end: this.index
+                };
+              };
+              Scanner2.prototype.lex = function() {
+                if (this.eof()) {
+                  return {
+                    type: 2,
+                    value: "",
+                    lineNumber: this.lineNumber,
+                    lineStart: this.lineStart,
+                    start: this.index,
+                    end: this.index
+                  };
+                }
+                var cp = this.source.charCodeAt(this.index);
+                if (character_1.Character.isIdentifierStart(cp)) {
+                  return this.scanIdentifier();
+                }
+                if (cp === 40 || cp === 41 || cp === 59) {
+                  return this.scanPunctuator();
+                }
+                if (cp === 39 || cp === 34) {
+                  return this.scanStringLiteral();
+                }
+                if (cp === 46) {
+                  if (character_1.Character.isDecimalDigit(this.source.charCodeAt(this.index + 1))) {
+                    return this.scanNumericLiteral();
+                  }
+                  return this.scanPunctuator();
+                }
+                if (character_1.Character.isDecimalDigit(cp)) {
+                  return this.scanNumericLiteral();
+                }
+                if (cp === 96 || cp === 125 && this.curlyStack[this.curlyStack.length - 1] === "${") {
+                  return this.scanTemplate();
+                }
+                if (cp >= 55296 && cp < 57343) {
+                  if (character_1.Character.isIdentifierStart(this.codePointAt(this.index))) {
+                    return this.scanIdentifier();
+                  }
+                }
+                return this.scanPunctuator();
+              };
+              return Scanner2;
+            })();
+            exports2.Scanner = Scanner;
+          },
+          /* 13 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            exports2.TokenName = {};
+            exports2.TokenName[
+              1
+              /* BooleanLiteral */
+            ] = "Boolean";
+            exports2.TokenName[
+              2
+              /* EOF */
+            ] = "<end>";
+            exports2.TokenName[
+              3
+              /* Identifier */
+            ] = "Identifier";
+            exports2.TokenName[
+              4
+              /* Keyword */
+            ] = "Keyword";
+            exports2.TokenName[
+              5
+              /* NullLiteral */
+            ] = "Null";
+            exports2.TokenName[
+              6
+              /* NumericLiteral */
+            ] = "Numeric";
+            exports2.TokenName[
+              7
+              /* Punctuator */
+            ] = "Punctuator";
+            exports2.TokenName[
+              8
+              /* StringLiteral */
+            ] = "String";
+            exports2.TokenName[
+              9
+              /* RegularExpression */
+            ] = "RegularExpression";
+            exports2.TokenName[
+              10
+              /* Template */
+            ] = "Template";
+          },
+          /* 14 */
+          /***/
+          function(module2, exports2) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            exports2.XHTMLEntities = {
+              quot: '"',
+              amp: "&",
+              apos: "'",
+              gt: ">",
+              nbsp: "\xA0",
+              iexcl: "\xA1",
+              cent: "\xA2",
+              pound: "\xA3",
+              curren: "\xA4",
+              yen: "\xA5",
+              brvbar: "\xA6",
+              sect: "\xA7",
+              uml: "\xA8",
+              copy: "\xA9",
+              ordf: "\xAA",
+              laquo: "\xAB",
+              not: "\xAC",
+              shy: "\xAD",
+              reg: "\xAE",
+              macr: "\xAF",
+              deg: "\xB0",
+              plusmn: "\xB1",
+              sup2: "\xB2",
+              sup3: "\xB3",
+              acute: "\xB4",
+              micro: "\xB5",
+              para: "\xB6",
+              middot: "\xB7",
+              cedil: "\xB8",
+              sup1: "\xB9",
+              ordm: "\xBA",
+              raquo: "\xBB",
+              frac14: "\xBC",
+              frac12: "\xBD",
+              frac34: "\xBE",
+              iquest: "\xBF",
+              Agrave: "\xC0",
+              Aacute: "\xC1",
+              Acirc: "\xC2",
+              Atilde: "\xC3",
+              Auml: "\xC4",
+              Aring: "\xC5",
+              AElig: "\xC6",
+              Ccedil: "\xC7",
+              Egrave: "\xC8",
+              Eacute: "\xC9",
+              Ecirc: "\xCA",
+              Euml: "\xCB",
+              Igrave: "\xCC",
+              Iacute: "\xCD",
+              Icirc: "\xCE",
+              Iuml: "\xCF",
+              ETH: "\xD0",
+              Ntilde: "\xD1",
+              Ograve: "\xD2",
+              Oacute: "\xD3",
+              Ocirc: "\xD4",
+              Otilde: "\xD5",
+              Ouml: "\xD6",
+              times: "\xD7",
+              Oslash: "\xD8",
+              Ugrave: "\xD9",
+              Uacute: "\xDA",
+              Ucirc: "\xDB",
+              Uuml: "\xDC",
+              Yacute: "\xDD",
+              THORN: "\xDE",
+              szlig: "\xDF",
+              agrave: "\xE0",
+              aacute: "\xE1",
+              acirc: "\xE2",
+              atilde: "\xE3",
+              auml: "\xE4",
+              aring: "\xE5",
+              aelig: "\xE6",
+              ccedil: "\xE7",
+              egrave: "\xE8",
+              eacute: "\xE9",
+              ecirc: "\xEA",
+              euml: "\xEB",
+              igrave: "\xEC",
+              iacute: "\xED",
+              icirc: "\xEE",
+              iuml: "\xEF",
+              eth: "\xF0",
+              ntilde: "\xF1",
+              ograve: "\xF2",
+              oacute: "\xF3",
+              ocirc: "\xF4",
+              otilde: "\xF5",
+              ouml: "\xF6",
+              divide: "\xF7",
+              oslash: "\xF8",
+              ugrave: "\xF9",
+              uacute: "\xFA",
+              ucirc: "\xFB",
+              uuml: "\xFC",
+              yacute: "\xFD",
+              thorn: "\xFE",
+              yuml: "\xFF",
+              OElig: "\u0152",
+              oelig: "\u0153",
+              Scaron: "\u0160",
+              scaron: "\u0161",
+              Yuml: "\u0178",
+              fnof: "\u0192",
+              circ: "\u02C6",
+              tilde: "\u02DC",
+              Alpha: "\u0391",
+              Beta: "\u0392",
+              Gamma: "\u0393",
+              Delta: "\u0394",
+              Epsilon: "\u0395",
+              Zeta: "\u0396",
+              Eta: "\u0397",
+              Theta: "\u0398",
+              Iota: "\u0399",
+              Kappa: "\u039A",
+              Lambda: "\u039B",
+              Mu: "\u039C",
+              Nu: "\u039D",
+              Xi: "\u039E",
+              Omicron: "\u039F",
+              Pi: "\u03A0",
+              Rho: "\u03A1",
+              Sigma: "\u03A3",
+              Tau: "\u03A4",
+              Upsilon: "\u03A5",
+              Phi: "\u03A6",
+              Chi: "\u03A7",
+              Psi: "\u03A8",
+              Omega: "\u03A9",
+              alpha: "\u03B1",
+              beta: "\u03B2",
+              gamma: "\u03B3",
+              delta: "\u03B4",
+              epsilon: "\u03B5",
+              zeta: "\u03B6",
+              eta: "\u03B7",
+              theta: "\u03B8",
+              iota: "\u03B9",
+              kappa: "\u03BA",
+              lambda: "\u03BB",
+              mu: "\u03BC",
+              nu: "\u03BD",
+              xi: "\u03BE",
+              omicron: "\u03BF",
+              pi: "\u03C0",
+              rho: "\u03C1",
+              sigmaf: "\u03C2",
+              sigma: "\u03C3",
+              tau: "\u03C4",
+              upsilon: "\u03C5",
+              phi: "\u03C6",
+              chi: "\u03C7",
+              psi: "\u03C8",
+              omega: "\u03C9",
+              thetasym: "\u03D1",
+              upsih: "\u03D2",
+              piv: "\u03D6",
+              ensp: "\u2002",
+              emsp: "\u2003",
+              thinsp: "\u2009",
+              zwnj: "\u200C",
+              zwj: "\u200D",
+              lrm: "\u200E",
+              rlm: "\u200F",
+              ndash: "\u2013",
+              mdash: "\u2014",
+              lsquo: "\u2018",
+              rsquo: "\u2019",
+              sbquo: "\u201A",
+              ldquo: "\u201C",
+              rdquo: "\u201D",
+              bdquo: "\u201E",
+              dagger: "\u2020",
+              Dagger: "\u2021",
+              bull: "\u2022",
+              hellip: "\u2026",
+              permil: "\u2030",
+              prime: "\u2032",
+              Prime: "\u2033",
+              lsaquo: "\u2039",
+              rsaquo: "\u203A",
+              oline: "\u203E",
+              frasl: "\u2044",
+              euro: "\u20AC",
+              image: "\u2111",
+              weierp: "\u2118",
+              real: "\u211C",
+              trade: "\u2122",
+              alefsym: "\u2135",
+              larr: "\u2190",
+              uarr: "\u2191",
+              rarr: "\u2192",
+              darr: "\u2193",
+              harr: "\u2194",
+              crarr: "\u21B5",
+              lArr: "\u21D0",
+              uArr: "\u21D1",
+              rArr: "\u21D2",
+              dArr: "\u21D3",
+              hArr: "\u21D4",
+              forall: "\u2200",
+              part: "\u2202",
+              exist: "\u2203",
+              empty: "\u2205",
+              nabla: "\u2207",
+              isin: "\u2208",
+              notin: "\u2209",
+              ni: "\u220B",
+              prod: "\u220F",
+              sum: "\u2211",
+              minus: "\u2212",
+              lowast: "\u2217",
+              radic: "\u221A",
+              prop: "\u221D",
+              infin: "\u221E",
+              ang: "\u2220",
+              and: "\u2227",
+              or: "\u2228",
+              cap: "\u2229",
+              cup: "\u222A",
+              int: "\u222B",
+              there4: "\u2234",
+              sim: "\u223C",
+              cong: "\u2245",
+              asymp: "\u2248",
+              ne: "\u2260",
+              equiv: "\u2261",
+              le: "\u2264",
+              ge: "\u2265",
+              sub: "\u2282",
+              sup: "\u2283",
+              nsub: "\u2284",
+              sube: "\u2286",
+              supe: "\u2287",
+              oplus: "\u2295",
+              otimes: "\u2297",
+              perp: "\u22A5",
+              sdot: "\u22C5",
+              lceil: "\u2308",
+              rceil: "\u2309",
+              lfloor: "\u230A",
+              rfloor: "\u230B",
+              loz: "\u25CA",
+              spades: "\u2660",
+              clubs: "\u2663",
+              hearts: "\u2665",
+              diams: "\u2666",
+              lang: "\u27E8",
+              rang: "\u27E9"
+            };
+          },
+          /* 15 */
+          /***/
+          function(module2, exports2, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports2, "__esModule", { value: true });
+            var error_handler_1 = __webpack_require__(10);
+            var scanner_1 = __webpack_require__(12);
+            var token_1 = __webpack_require__(13);
+            var Reader = (function() {
+              function Reader2() {
+                this.values = [];
+                this.curly = this.paren = -1;
+              }
+              Reader2.prototype.beforeFunctionExpression = function(t) {
+                return [
+                  "(",
+                  "{",
+                  "[",
+                  "in",
+                  "typeof",
+                  "instanceof",
+                  "new",
+                  "return",
+                  "case",
+                  "delete",
+                  "throw",
+                  "void",
+                  // assignment operators
+                  "=",
+                  "+=",
+                  "-=",
+                  "*=",
+                  "**=",
+                  "/=",
+                  "%=",
+                  "<<=",
+                  ">>=",
+                  ">>>=",
+                  "&=",
+                  "|=",
+                  "^=",
+                  ",",
+                  // binary/unary operators
+                  "+",
+                  "-",
+                  "*",
+                  "**",
+                  "/",
+                  "%",
+                  "++",
+                  "--",
+                  "<<",
+                  ">>",
+                  ">>>",
+                  "&",
+                  "|",
+                  "^",
+                  "!",
+                  "~",
+                  "&&",
+                  "||",
+                  "?",
+                  ":",
+                  "===",
+                  "==",
+                  ">=",
+                  "<=",
+                  "<",
+                  ">",
+                  "!=",
+                  "!=="
+                ].indexOf(t) >= 0;
+              };
+              Reader2.prototype.isRegexStart = function() {
+                var previous = this.values[this.values.length - 1];
+                var regex = previous !== null;
+                switch (previous) {
+                  case "this":
+                  case "]":
+                    regex = false;
+                    break;
+                  case ")":
+                    var keyword = this.values[this.paren - 1];
+                    regex = keyword === "if" || keyword === "while" || keyword === "for" || keyword === "with";
+                    break;
+                  case "}":
+                    regex = false;
+                    if (this.values[this.curly - 3] === "function") {
+                      var check = this.values[this.curly - 4];
+                      regex = check ? !this.beforeFunctionExpression(check) : false;
+                    } else if (this.values[this.curly - 4] === "function") {
+                      var check = this.values[this.curly - 5];
+                      regex = check ? !this.beforeFunctionExpression(check) : true;
+                    }
+                    break;
+                  default:
+                    break;
+                }
+                return regex;
+              };
+              Reader2.prototype.push = function(token) {
+                if (token.type === 7 || token.type === 4) {
+                  if (token.value === "{") {
+                    this.curly = this.values.length;
+                  } else if (token.value === "(") {
+                    this.paren = this.values.length;
+                  }
+                  this.values.push(token.value);
+                } else {
+                  this.values.push(null);
+                }
+              };
+              return Reader2;
+            })();
+            var Tokenizer = (function() {
+              function Tokenizer2(code, config) {
+                this.errorHandler = new error_handler_1.ErrorHandler();
+                this.errorHandler.tolerant = config ? typeof config.tolerant === "boolean" && config.tolerant : false;
+                this.scanner = new scanner_1.Scanner(code, this.errorHandler);
+                this.scanner.trackComment = config ? typeof config.comment === "boolean" && config.comment : false;
+                this.trackRange = config ? typeof config.range === "boolean" && config.range : false;
+                this.trackLoc = config ? typeof config.loc === "boolean" && config.loc : false;
+                this.buffer = [];
+                this.reader = new Reader();
+              }
+              Tokenizer2.prototype.errors = function() {
+                return this.errorHandler.errors;
+              };
+              Tokenizer2.prototype.getNextToken = function() {
+                if (this.buffer.length === 0) {
+                  var comments = this.scanner.scanComments();
+                  if (this.scanner.trackComment) {
+                    for (var i = 0; i < comments.length; ++i) {
+                      var e = comments[i];
+                      var value = this.scanner.source.slice(e.slice[0], e.slice[1]);
+                      var comment = {
+                        type: e.multiLine ? "BlockComment" : "LineComment",
+                        value
+                      };
+                      if (this.trackRange) {
+                        comment.range = e.range;
+                      }
+                      if (this.trackLoc) {
+                        comment.loc = e.loc;
+                      }
+                      this.buffer.push(comment);
+                    }
+                  }
+                  if (!this.scanner.eof()) {
+                    var loc = void 0;
+                    if (this.trackLoc) {
+                      loc = {
+                        start: {
+                          line: this.scanner.lineNumber,
+                          column: this.scanner.index - this.scanner.lineStart
+                        },
+                        end: {}
+                      };
+                    }
+                    var startRegex = this.scanner.source[this.scanner.index] === "/" && this.reader.isRegexStart();
+                    var token = startRegex ? this.scanner.scanRegExp() : this.scanner.lex();
+                    this.reader.push(token);
+                    var entry = {
+                      type: token_1.TokenName[token.type],
+                      value: this.scanner.source.slice(token.start, token.end)
+                    };
+                    if (this.trackRange) {
+                      entry.range = [token.start, token.end];
+                    }
+                    if (this.trackLoc) {
+                      loc.end = {
+                        line: this.scanner.lineNumber,
+                        column: this.scanner.index - this.scanner.lineStart
+                      };
+                      entry.loc = loc;
+                    }
+                    if (token.type === 9) {
+                      var pattern = token.pattern;
+                      var flags = token.flags;
+                      entry.regex = { pattern, flags };
+                    }
+                    this.buffer.push(entry);
+                  }
+                }
+                return this.buffer.shift();
+              };
+              return Tokenizer2;
+            })();
+            exports2.Tokenizer = Tokenizer;
+          }
+          /******/
+        ])
+      );
+    });
+  }
+});
+
+// node_modules/.pnpm/array-timsort@1.0.3/node_modules/array-timsort/src/index.js
+var require_src2 = __commonJS({
+  "node_modules/.pnpm/array-timsort@1.0.3/node_modules/array-timsort/src/index.js"(exports, module) {
+    var DEFAULT_MIN_MERGE = 32;
+    var DEFAULT_MIN_GALLOPING = 7;
+    var DEFAULT_TMP_STORAGE_LENGTH = 256;
+    var POWERS_OF_TEN = [1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9];
+    var results;
+    var log10 = (x) => x < 1e5 ? x < 100 ? x < 10 ? 0 : 1 : x < 1e4 ? x < 1e3 ? 2 : 3 : 4 : x < 1e7 ? x < 1e6 ? 5 : 6 : x < 1e9 ? x < 1e8 ? 7 : 8 : 9;
+    function alphabeticalCompare(a, b) {
+      if (a === b) {
+        return 0;
+      }
+      if (~~a === a && ~~b === b) {
+        if (a === 0 || b === 0) {
+          return a < b ? -1 : 1;
+        }
+        if (a < 0 || b < 0) {
+          if (b >= 0) {
+            return -1;
+          }
+          if (a >= 0) {
+            return 1;
+          }
+          a = -a;
+          b = -b;
+        }
+        const al = log10(a);
+        const bl = log10(b);
+        let t = 0;
+        if (al < bl) {
+          a *= POWERS_OF_TEN[bl - al - 1];
+          b /= 10;
+          t = -1;
+        } else if (al > bl) {
+          b *= POWERS_OF_TEN[al - bl - 1];
+          a /= 10;
+          t = 1;
+        }
+        if (a === b) {
+          return t;
+        }
+        return a < b ? -1 : 1;
+      }
+      const aStr = String(a);
+      const bStr = String(b);
+      if (aStr === bStr) {
+        return 0;
+      }
+      return aStr < bStr ? -1 : 1;
+    }
+    function minRunLength(n) {
+      let r = 0;
+      while (n >= DEFAULT_MIN_MERGE) {
+        r |= n & 1;
+        n >>= 1;
+      }
+      return n + r;
+    }
+    function makeAscendingRun(array, lo, hi, compare) {
+      let runHi = lo + 1;
+      if (runHi === hi) {
+        return 1;
+      }
+      if (compare(array[runHi++], array[lo]) < 0) {
+        while (runHi < hi && compare(array[runHi], array[runHi - 1]) < 0) {
+          runHi++;
+        }
+        reverseRun(array, lo, runHi);
+        reverseRun(results, lo, runHi);
+      } else {
+        while (runHi < hi && compare(array[runHi], array[runHi - 1]) >= 0) {
+          runHi++;
+        }
+      }
+      return runHi - lo;
+    }
+    function reverseRun(array, lo, hi) {
+      hi--;
+      while (lo < hi) {
+        const t = array[lo];
+        array[lo++] = array[hi];
+        array[hi--] = t;
+      }
+    }
+    function binaryInsertionSort(array, lo, hi, start, compare) {
+      if (start === lo) {
+        start++;
+      }
+      for (; start < hi; start++) {
+        const pivot = array[start];
+        const pivotIndex = results[start];
+        let left = lo;
+        let right = start;
+        while (left < right) {
+          const mid = left + right >>> 1;
+          if (compare(pivot, array[mid]) < 0) {
+            right = mid;
+          } else {
+            left = mid + 1;
+          }
+        }
+        let n = start - left;
+        switch (n) {
+          case 3:
+            array[left + 3] = array[left + 2];
+            results[left + 3] = results[left + 2];
+          /* falls through */
+          case 2:
+            array[left + 2] = array[left + 1];
+            results[left + 2] = results[left + 1];
+          /* falls through */
+          case 1:
+            array[left + 1] = array[left];
+            results[left + 1] = results[left];
+            break;
+          default:
+            while (n > 0) {
+              array[left + n] = array[left + n - 1];
+              results[left + n] = results[left + n - 1];
+              n--;
+            }
+        }
+        array[left] = pivot;
+        results[left] = pivotIndex;
+      }
+    }
+    function gallopLeft(value, array, start, length, hint, compare) {
+      let lastOffset = 0;
+      let maxOffset = 0;
+      let offset = 1;
+      if (compare(value, array[start + hint]) > 0) {
+        maxOffset = length - hint;
+        while (offset < maxOffset && compare(value, array[start + hint + offset]) > 0) {
+          lastOffset = offset;
+          offset = (offset << 1) + 1;
+          if (offset <= 0) {
+            offset = maxOffset;
+          }
+        }
+        if (offset > maxOffset) {
+          offset = maxOffset;
+        }
+        lastOffset += hint;
+        offset += hint;
+      } else {
+        maxOffset = hint + 1;
+        while (offset < maxOffset && compare(value, array[start + hint - offset]) <= 0) {
+          lastOffset = offset;
+          offset = (offset << 1) + 1;
+          if (offset <= 0) {
+            offset = maxOffset;
+          }
+        }
+        if (offset > maxOffset) {
+          offset = maxOffset;
+        }
+        const tmp = lastOffset;
+        lastOffset = hint - offset;
+        offset = hint - tmp;
+      }
+      lastOffset++;
+      while (lastOffset < offset) {
+        const m = lastOffset + (offset - lastOffset >>> 1);
+        if (compare(value, array[start + m]) > 0) {
+          lastOffset = m + 1;
+        } else {
+          offset = m;
+        }
+      }
+      return offset;
+    }
+    function gallopRight(value, array, start, length, hint, compare) {
+      let lastOffset = 0;
+      let maxOffset = 0;
+      let offset = 1;
+      if (compare(value, array[start + hint]) < 0) {
+        maxOffset = hint + 1;
+        while (offset < maxOffset && compare(value, array[start + hint - offset]) < 0) {
+          lastOffset = offset;
+          offset = (offset << 1) + 1;
+          if (offset <= 0) {
+            offset = maxOffset;
+          }
+        }
+        if (offset > maxOffset) {
+          offset = maxOffset;
+        }
+        const tmp = lastOffset;
+        lastOffset = hint - offset;
+        offset = hint - tmp;
+      } else {
+        maxOffset = length - hint;
+        while (offset < maxOffset && compare(value, array[start + hint + offset]) >= 0) {
+          lastOffset = offset;
+          offset = (offset << 1) + 1;
+          if (offset <= 0) {
+            offset = maxOffset;
+          }
+        }
+        if (offset > maxOffset) {
+          offset = maxOffset;
+        }
+        lastOffset += hint;
+        offset += hint;
+      }
+      lastOffset++;
+      while (lastOffset < offset) {
+        const m = lastOffset + (offset - lastOffset >>> 1);
+        if (compare(value, array[start + m]) < 0) {
+          offset = m;
+        } else {
+          lastOffset = m + 1;
+        }
+      }
+      return offset;
+    }
+    var TimSort = class {
+      constructor(array, compare) {
+        this.array = array;
+        this.compare = compare;
+        const { length } = array;
+        this.length = length;
+        this.minGallop = DEFAULT_MIN_GALLOPING;
+        this.tmpStorageLength = length < 2 * DEFAULT_TMP_STORAGE_LENGTH ? length >>> 1 : DEFAULT_TMP_STORAGE_LENGTH;
+        this.tmp = new Array(this.tmpStorageLength);
+        this.tmpIndex = new Array(this.tmpStorageLength);
+        this.stackLength = length < 120 ? 5 : length < 1542 ? 10 : length < 119151 ? 19 : 40;
+        this.runStart = new Array(this.stackLength);
+        this.runLength = new Array(this.stackLength);
+        this.stackSize = 0;
+      }
+      /**
+       * Push a new run on TimSort's stack.
+       *
+       * @param {number} runStart - Start index of the run in the original array.
+       * @param {number} runLength - Length of the run;
+       */
+      pushRun(runStart, runLength) {
+        this.runStart[this.stackSize] = runStart;
+        this.runLength[this.stackSize] = runLength;
+        this.stackSize += 1;
+      }
+      /**
+       * Merge runs on TimSort's stack so that the following holds for all i:
+       * 1) runLength[i - 3] > runLength[i - 2] + runLength[i - 1]
+       * 2) runLength[i - 2] > runLength[i - 1]
+       */
+      mergeRuns() {
+        while (this.stackSize > 1) {
+          let n = this.stackSize - 2;
+          if (n >= 1 && this.runLength[n - 1] <= this.runLength[n] + this.runLength[n + 1] || n >= 2 && this.runLength[n - 2] <= this.runLength[n] + this.runLength[n - 1]) {
+            if (this.runLength[n - 1] < this.runLength[n + 1]) {
+              n--;
+            }
+          } else if (this.runLength[n] > this.runLength[n + 1]) {
+            break;
+          }
+          this.mergeAt(n);
+        }
+      }
+      /**
+       * Merge all runs on TimSort's stack until only one remains.
+       */
+      forceMergeRuns() {
+        while (this.stackSize > 1) {
+          let n = this.stackSize - 2;
+          if (n > 0 && this.runLength[n - 1] < this.runLength[n + 1]) {
+            n--;
+          }
+          this.mergeAt(n);
+        }
+      }
+      /**
+       * Merge the runs on the stack at positions i and i+1. Must be always be called
+       * with i=stackSize-2 or i=stackSize-3 (that is, we merge on top of the stack).
+       *
+       * @param {number} i - Index of the run to merge in TimSort's stack.
+       */
+      mergeAt(i) {
+        const { compare } = this;
+        const { array } = this;
+        let start1 = this.runStart[i];
+        let length1 = this.runLength[i];
+        const start2 = this.runStart[i + 1];
+        let length2 = this.runLength[i + 1];
+        this.runLength[i] = length1 + length2;
+        if (i === this.stackSize - 3) {
+          this.runStart[i + 1] = this.runStart[i + 2];
+          this.runLength[i + 1] = this.runLength[i + 2];
+        }
+        this.stackSize--;
+        const k = gallopRight(array[start2], array, start1, length1, 0, compare);
+        start1 += k;
+        length1 -= k;
+        if (length1 === 0) {
+          return;
+        }
+        length2 = gallopLeft(
+          array[start1 + length1 - 1],
+          array,
+          start2,
+          length2,
+          length2 - 1,
+          compare
+        );
+        if (length2 === 0) {
+          return;
+        }
+        if (length1 <= length2) {
+          this.mergeLow(start1, length1, start2, length2);
+        } else {
+          this.mergeHigh(start1, length1, start2, length2);
+        }
+      }
+      /**
+       * Merge two adjacent runs in a stable way. The runs must be such that the
+       * first element of run1 is bigger than the first element in run2 and the
+       * last element of run1 is greater than all the elements in run2.
+       * The method should be called when run1.length <= run2.length as it uses
+       * TimSort temporary array to store run1. Use mergeHigh if run1.length >
+       * run2.length.
+       *
+       * @param {number} start1 - First element in run1.
+       * @param {number} length1 - Length of run1.
+       * @param {number} start2 - First element in run2.
+       * @param {number} length2 - Length of run2.
+       */
+      mergeLow(start1, length1, start2, length2) {
+        const { compare } = this;
+        const { array } = this;
+        const { tmp } = this;
+        const { tmpIndex } = this;
+        let i = 0;
+        for (i = 0; i < length1; i++) {
+          tmp[i] = array[start1 + i];
+          tmpIndex[i] = results[start1 + i];
+        }
+        let cursor1 = 0;
+        let cursor2 = start2;
+        let dest = start1;
+        array[dest] = array[cursor2];
+        results[dest] = results[cursor2];
+        dest++;
+        cursor2++;
+        if (--length2 === 0) {
+          for (i = 0; i < length1; i++) {
+            array[dest + i] = tmp[cursor1 + i];
+            results[dest + i] = tmpIndex[cursor1 + i];
+          }
+          return;
+        }
+        if (length1 === 1) {
+          for (i = 0; i < length2; i++) {
+            array[dest + i] = array[cursor2 + i];
+            results[dest + i] = results[cursor2 + i];
+          }
+          array[dest + length2] = tmp[cursor1];
+          results[dest + length2] = tmpIndex[cursor1];
+          return;
+        }
+        let { minGallop } = this;
+        while (true) {
+          let count1 = 0;
+          let count2 = 0;
+          let exit = false;
+          do {
+            if (compare(array[cursor2], tmp[cursor1]) < 0) {
+              array[dest] = array[cursor2];
+              results[dest] = results[cursor2];
+              dest++;
+              cursor2++;
+              count2++;
+              count1 = 0;
+              if (--length2 === 0) {
+                exit = true;
+                break;
+              }
+            } else {
+              array[dest] = tmp[cursor1];
+              results[dest] = tmpIndex[cursor1];
+              dest++;
+              cursor1++;
+              count1++;
+              count2 = 0;
+              if (--length1 === 1) {
+                exit = true;
+                break;
+              }
+            }
+          } while ((count1 | count2) < minGallop);
+          if (exit) {
+            break;
+          }
+          do {
+            count1 = gallopRight(array[cursor2], tmp, cursor1, length1, 0, compare);
+            if (count1 !== 0) {
+              for (i = 0; i < count1; i++) {
+                array[dest + i] = tmp[cursor1 + i];
+                results[dest + i] = tmpIndex[cursor1 + i];
+              }
+              dest += count1;
+              cursor1 += count1;
+              length1 -= count1;
+              if (length1 <= 1) {
+                exit = true;
+                break;
+              }
+            }
+            array[dest] = array[cursor2];
+            results[dest] = results[cursor2];
+            dest++;
+            cursor2++;
+            if (--length2 === 0) {
+              exit = true;
+              break;
+            }
+            count2 = gallopLeft(tmp[cursor1], array, cursor2, length2, 0, compare);
+            if (count2 !== 0) {
+              for (i = 0; i < count2; i++) {
+                array[dest + i] = array[cursor2 + i];
+                results[dest + i] = results[cursor2 + i];
+              }
+              dest += count2;
+              cursor2 += count2;
+              length2 -= count2;
+              if (length2 === 0) {
+                exit = true;
+                break;
+              }
+            }
+            array[dest] = tmp[cursor1];
+            results[dest] = tmpIndex[cursor1];
+            dest++;
+            cursor1++;
+            if (--length1 === 1) {
+              exit = true;
+              break;
+            }
+            minGallop--;
+          } while (count1 >= DEFAULT_MIN_GALLOPING || count2 >= DEFAULT_MIN_GALLOPING);
+          if (exit) {
+            break;
+          }
+          if (minGallop < 0) {
+            minGallop = 0;
+          }
+          minGallop += 2;
+        }
+        this.minGallop = minGallop;
+        if (minGallop < 1) {
+          this.minGallop = 1;
+        }
+        if (length1 === 1) {
+          for (i = 0; i < length2; i++) {
+            array[dest + i] = array[cursor2 + i];
+            results[dest + i] = results[cursor2 + i];
+          }
+          array[dest + length2] = tmp[cursor1];
+          results[dest + length2] = tmpIndex[cursor1];
+        } else if (length1 === 0) {
+          throw new Error("mergeLow preconditions were not respected");
+        } else {
+          for (i = 0; i < length1; i++) {
+            array[dest + i] = tmp[cursor1 + i];
+            results[dest + i] = tmpIndex[cursor1 + i];
+          }
+        }
+      }
+      /**
+       * Merge two adjacent runs in a stable way. The runs must be such that the
+       * first element of run1 is bigger than the first element in run2 and the
+       * last element of run1 is greater than all the elements in run2.
+       * The method should be called when run1.length > run2.length as it uses
+       * TimSort temporary array to store run2. Use mergeLow if run1.length <=
+       * run2.length.
+       *
+       * @param {number} start1 - First element in run1.
+       * @param {number} length1 - Length of run1.
+       * @param {number} start2 - First element in run2.
+       * @param {number} length2 - Length of run2.
+       */
+      mergeHigh(start1, length1, start2, length2) {
+        const { compare } = this;
+        const { array } = this;
+        const { tmp } = this;
+        const { tmpIndex } = this;
+        let i = 0;
+        for (i = 0; i < length2; i++) {
+          tmp[i] = array[start2 + i];
+          tmpIndex[i] = results[start2 + i];
+        }
+        let cursor1 = start1 + length1 - 1;
+        let cursor2 = length2 - 1;
+        let dest = start2 + length2 - 1;
+        let customCursor = 0;
+        let customDest = 0;
+        array[dest] = array[cursor1];
+        results[dest] = results[cursor1];
+        dest--;
+        cursor1--;
+        if (--length1 === 0) {
+          customCursor = dest - (length2 - 1);
+          for (i = 0; i < length2; i++) {
+            array[customCursor + i] = tmp[i];
+            results[customCursor + i] = tmpIndex[i];
+          }
+          return;
+        }
+        if (length2 === 1) {
+          dest -= length1;
+          cursor1 -= length1;
+          customDest = dest + 1;
+          customCursor = cursor1 + 1;
+          for (i = length1 - 1; i >= 0; i--) {
+            array[customDest + i] = array[customCursor + i];
+            results[customDest + i] = results[customCursor + i];
+          }
+          array[dest] = tmp[cursor2];
+          results[dest] = tmpIndex[cursor2];
+          return;
+        }
+        let { minGallop } = this;
+        while (true) {
+          let count1 = 0;
+          let count2 = 0;
+          let exit = false;
+          do {
+            if (compare(tmp[cursor2], array[cursor1]) < 0) {
+              array[dest] = array[cursor1];
+              results[dest] = results[cursor1];
+              dest--;
+              cursor1--;
+              count1++;
+              count2 = 0;
+              if (--length1 === 0) {
+                exit = true;
+                break;
+              }
+            } else {
+              array[dest] = tmp[cursor2];
+              results[dest] = tmpIndex[cursor2];
+              dest--;
+              cursor2--;
+              count2++;
+              count1 = 0;
+              if (--length2 === 1) {
+                exit = true;
+                break;
+              }
+            }
+          } while ((count1 | count2) < minGallop);
+          if (exit) {
+            break;
+          }
+          do {
+            count1 = length1 - gallopRight(
+              tmp[cursor2],
+              array,
+              start1,
+              length1,
+              length1 - 1,
+              compare
+            );
+            if (count1 !== 0) {
+              dest -= count1;
+              cursor1 -= count1;
+              length1 -= count1;
+              customDest = dest + 1;
+              customCursor = cursor1 + 1;
+              for (i = count1 - 1; i >= 0; i--) {
+                array[customDest + i] = array[customCursor + i];
+                results[customDest + i] = results[customCursor + i];
+              }
+              if (length1 === 0) {
+                exit = true;
+                break;
+              }
+            }
+            array[dest] = tmp[cursor2];
+            results[dest] = tmpIndex[cursor2];
+            dest--;
+            cursor2--;
+            if (--length2 === 1) {
+              exit = true;
+              break;
+            }
+            count2 = length2 - gallopLeft(
+              array[cursor1],
+              tmp,
+              0,
+              length2,
+              length2 - 1,
+              compare
+            );
+            if (count2 !== 0) {
+              dest -= count2;
+              cursor2 -= count2;
+              length2 -= count2;
+              customDest = dest + 1;
+              customCursor = cursor2 + 1;
+              for (i = 0; i < count2; i++) {
+                array[customDest + i] = tmp[customCursor + i];
+                results[customDest + i] = tmpIndex[customCursor + i];
+              }
+              if (length2 <= 1) {
+                exit = true;
+                break;
+              }
+            }
+            array[dest] = array[cursor1];
+            results[dest] = results[cursor1];
+            dest--;
+            cursor1--;
+            if (--length1 === 0) {
+              exit = true;
+              break;
+            }
+            minGallop--;
+          } while (count1 >= DEFAULT_MIN_GALLOPING || count2 >= DEFAULT_MIN_GALLOPING);
+          if (exit) {
+            break;
+          }
+          if (minGallop < 0) {
+            minGallop = 0;
+          }
+          minGallop += 2;
+        }
+        this.minGallop = minGallop;
+        if (minGallop < 1) {
+          this.minGallop = 1;
+        }
+        if (length2 === 1) {
+          dest -= length1;
+          cursor1 -= length1;
+          customDest = dest + 1;
+          customCursor = cursor1 + 1;
+          for (i = length1 - 1; i >= 0; i--) {
+            array[customDest + i] = array[customCursor + i];
+            results[customDest + i] = results[customCursor + i];
+          }
+          array[dest] = tmp[cursor2];
+          results[dest] = tmpIndex[cursor2];
+        } else if (length2 === 0) {
+          throw new Error("mergeHigh preconditions were not respected");
+        } else {
+          customCursor = dest - (length2 - 1);
+          for (i = 0; i < length2; i++) {
+            array[customCursor + i] = tmp[i];
+            results[customCursor + i] = tmpIndex[i];
+          }
+        }
+      }
+    };
+    function sort(array, compare, lo, hi) {
+      if (!Array.isArray(array)) {
+        throw new TypeError(
+          `The "array" argument must be an array. Received ${array}`
+        );
+      }
+      results = [];
+      const { length } = array;
+      let i = 0;
+      while (i < length) {
+        results[i] = i++;
+      }
+      if (!compare) {
+        compare = alphabeticalCompare;
+      } else if (typeof compare !== "function") {
+        hi = lo;
+        lo = compare;
+        compare = alphabeticalCompare;
+      }
+      if (!lo) {
+        lo = 0;
+      }
+      if (!hi) {
+        hi = length;
+      }
+      let remaining = hi - lo;
+      if (remaining < 2) {
+        return results;
+      }
+      let runLength = 0;
+      if (remaining < DEFAULT_MIN_MERGE) {
+        runLength = makeAscendingRun(array, lo, hi, compare);
+        binaryInsertionSort(array, lo, hi, lo + runLength, compare);
+        return results;
+      }
+      const ts = new TimSort(array, compare);
+      const minRun = minRunLength(remaining);
+      do {
+        runLength = makeAscendingRun(array, lo, hi, compare);
+        if (runLength < minRun) {
+          let force = remaining;
+          if (force > minRun) {
+            force = minRun;
+          }
+          binaryInsertionSort(array, lo, lo + force, lo + runLength, compare);
+          runLength = force;
+        }
+        ts.pushRun(lo, runLength);
+        ts.mergeRuns();
+        remaining -= runLength;
+        lo += runLength;
+      } while (remaining !== 0);
+      ts.forceMergeRuns();
+      return results;
+    }
+    module.exports = {
+      sort
+    };
+  }
+});
+
+// node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/common.js
+var require_common2 = __commonJS({
+  "node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/common.js"(exports, module) {
+    var PREFIX_BEFORE = "before";
+    var PREFIX_AFTER_PROP = "after-prop";
+    var PREFIX_AFTER_COLON = "after-colon";
+    var PREFIX_AFTER_VALUE = "after-value";
+    var PREFIX_AFTER = "after";
+    var PREFIX_BEFORE_ALL = "before-all";
+    var PREFIX_AFTER_ALL = "after-all";
+    var BRACKET_OPEN = "[";
+    var BRACKET_CLOSE = "]";
+    var CURLY_BRACKET_OPEN = "{";
+    var CURLY_BRACKET_CLOSE = "}";
+    var COMMA = ",";
+    var EMPTY = "";
+    var MINUS = "-";
+    var PROP_SYMBOL_PREFIXES = [
+      PREFIX_BEFORE,
+      PREFIX_AFTER_PROP,
+      PREFIX_AFTER_COLON,
+      PREFIX_AFTER_VALUE,
+      PREFIX_AFTER
+    ];
+    var NON_PROP_SYMBOL_PREFIXES = [
+      PREFIX_BEFORE,
+      PREFIX_AFTER,
+      PREFIX_BEFORE_ALL,
+      PREFIX_AFTER_ALL
+    ];
+    var NON_PROP_SYMBOL_KEYS = NON_PROP_SYMBOL_PREFIXES.map(Symbol.for);
+    var COLON = ":";
+    var UNDEFINED = void 0;
+    var LINE_BREAKS_BEFORE = /* @__PURE__ */ new WeakMap();
+    var LINE_BREAKS_AFTER = /* @__PURE__ */ new WeakMap();
+    var RAW_STRING_LITERALS = /* @__PURE__ */ new WeakMap();
+    var is_string = (subject) => typeof subject === "string";
+    var is_number = (subject) => typeof subject === "number";
+    var is_object = (v) => typeof v === "object" && v !== null;
+    var normalize_key = (key) => is_string(key) || is_number(key) ? String(key) : null;
+    var set_raw_string_literal = (host, key, raw) => {
+      if (!is_object(host) || !is_string(raw)) {
+        return;
+      }
+      const normalized = normalize_key(key);
+      if (normalized === null) {
+        return;
+      }
+      let map = RAW_STRING_LITERALS.get(host);
+      if (!map) {
+        map = /* @__PURE__ */ new Map();
+        RAW_STRING_LITERALS.set(host, map);
+      }
+      map.set(normalized, raw);
+    };
+    var get_raw_string_literal = (host, key) => {
+      if (!is_object(host)) {
+        return;
+      }
+      const normalized = normalize_key(key);
+      if (normalized === null) {
+        return;
+      }
+      const map = RAW_STRING_LITERALS.get(host);
+      return map ? map.get(normalized) : void 0;
+    };
+    var symbol = (prefix, key) => /* @__PURE__ */ Symbol.for(prefix + COLON + key);
+    var symbol_checked = (prefix, key) => {
+      if (key) {
+        if (PROP_SYMBOL_PREFIXES.includes(prefix)) {
+          return symbol(prefix, key);
+        }
+        throw new RangeError(
+          `Unsupported comment position ${prefix} with key ${key}`
+        );
+      }
+      if (NON_PROP_SYMBOL_PREFIXES.includes(prefix)) {
+        return Symbol.for(prefix);
+      }
+      throw new RangeError(`Unsupported comment position ${prefix}`);
+    };
+    var define2 = (target, key, value) => Object.defineProperty(target, key, {
+      value,
+      writable: true,
+      configurable: true
+    });
+    var copy_comments_by_kind = (target, source, target_key, source_key, prefix, remove_source) => {
+      const source_prop = symbol(prefix, source_key);
+      if (!Object.hasOwn(source, source_prop)) {
+        return;
+      }
+      const target_prop = target_key === source_key ? source_prop : symbol(prefix, target_key);
+      define2(target, target_prop, source[source_prop]);
+      if (remove_source) {
+        delete source[source_prop];
+      }
+    };
+    var copy_comments = (target, source, target_key, source_key, remove_source) => {
+      PROP_SYMBOL_PREFIXES.forEach((prefix) => {
+        copy_comments_by_kind(
+          target,
+          source,
+          target_key,
+          source_key,
+          prefix,
+          remove_source
+        );
+      });
+    };
+    var swap_comments = (array, from, to) => {
+      if (from === to) {
+        return;
+      }
+      PROP_SYMBOL_PREFIXES.forEach((prefix) => {
+        const target_prop = symbol(prefix, to);
+        if (!Object.hasOwn(array, target_prop)) {
+          copy_comments_by_kind(array, array, to, from, prefix, true);
+          return;
+        }
+        const comments = array[target_prop];
+        delete array[target_prop];
+        copy_comments_by_kind(array, array, to, from, prefix, true);
+        define2(array, symbol(prefix, from), comments);
+      });
+    };
+    var assign_non_prop_comments = (target, source) => {
+      NON_PROP_SYMBOL_KEYS.forEach((key) => {
+        const comments = source[key];
+        if (comments) {
+          define2(target, key, comments);
+        }
+      });
+    };
+    var assign = (target, source, keys) => {
+      keys.forEach((key) => {
+        if (typeof key !== "string" && typeof key !== "number") {
+          return;
+        }
+        if (!Object.hasOwn(source, key)) {
+          return;
+        }
+        target[key] = source[key];
+        copy_comments(target, source, key, key);
+      });
+      return target;
+    };
+    var is_raw_json = typeof JSON.isRawJSON === "function" ? JSON.isRawJSON : () => false;
+    var set_comment_line_breaks = (comment, before, after) => {
+      if (is_number(before) && before >= 0) {
+        LINE_BREAKS_BEFORE.set(comment, before);
+      }
+      if (is_number(after) && after >= 0) {
+        LINE_BREAKS_AFTER.set(comment, after);
+      }
+    };
+    var get_comment_line_breaks_before = (comment) => LINE_BREAKS_BEFORE.get(comment);
+    var get_comment_line_breaks_after = (comment) => LINE_BREAKS_AFTER.get(comment);
+    module.exports = {
+      PROP_SYMBOL_PREFIXES,
+      PREFIX_BEFORE,
+      PREFIX_AFTER_PROP,
+      PREFIX_AFTER_COLON,
+      PREFIX_AFTER_VALUE,
+      PREFIX_AFTER,
+      PREFIX_BEFORE_ALL,
+      PREFIX_AFTER_ALL,
+      BRACKET_OPEN,
+      BRACKET_CLOSE,
+      CURLY_BRACKET_OPEN,
+      CURLY_BRACKET_CLOSE,
+      COLON,
+      COMMA,
+      MINUS,
+      EMPTY,
+      UNDEFINED,
+      symbol,
+      define: define2,
+      copy_comments,
+      swap_comments,
+      assign_non_prop_comments,
+      is_string,
+      is_number,
+      is_object,
+      is_raw_json,
+      set_raw_string_literal,
+      get_raw_string_literal,
+      set_comment_line_breaks,
+      get_comment_line_breaks_before,
+      get_comment_line_breaks_after,
+      /**
+       * Assign properties and comments from source to target object.
+       *
+       * @param {Object} target The target object to assign properties and comments
+       *   to.
+       * @param {Object} source The source object to copy properties and comments
+       *   from.
+       * @param {Array<string|number>} [keys] Optional array of keys to assign. If
+       *   not provided, all keys and non-property comments are assigned. If empty
+       *   array, only non-property comments are assigned.
+       * @returns {Object} The target object with assigned properties and comments.
+       *
+       * @throws {TypeError} If target cannot be converted to object or keys is not
+       *   array or undefined.
+       *
+       * @example
+       * const source = parse('{"a": 1 // comment a, "b": 2 // comment b}')
+       * const target = {}
+       *
+       * // Copy all properties and comments
+       * assign(target, source)
+       *
+       * // Copy only specific properties and their comments
+       * assign(target, source, ['a'])
+       *
+       * // Copy only non-property comments
+       * assign(target, source, [])
+       */
+      assign(target, source, keys) {
+        if (!is_object(target)) {
+          throw new TypeError("Cannot convert undefined or null to object");
+        }
+        if (!is_object(source)) {
+          return target;
+        }
+        if (keys === UNDEFINED) {
+          keys = Object.keys(source);
+          assign_non_prop_comments(target, source);
+        } else if (!Array.isArray(keys)) {
+          throw new TypeError("keys must be array or undefined");
+        } else if (keys.length === 0) {
+          assign_non_prop_comments(target, source);
+        }
+        return assign(target, source, keys);
+      },
+      /**
+       * Move comments from one location to another within objects.
+       *
+       * @param {Object} source The source object containing comments to move.
+       * @param {Object} [target] The target object to move comments to. If not
+       *   provided, defaults to source (move within same object).
+       * @param {Object} from The source comment location.
+       * @param {string} from.where The comment position (e.g., 'before',
+       *   'after', 'before-all', etc.).
+       * @param {string} [from.key] The property key for property-specific comments.
+       *   Omit for non-property comments.
+       * @param {Object} to The target comment location.
+       * @param {string} to.where The comment position (e.g., 'before',
+       *   'after', 'before-all', etc.).
+       * @param {string} [to.key] The property key for property-specific comments.
+       *   Omit for non-property comments.
+       * @param {boolean} [override=false] Whether to override existing comments at
+       *   the target location. If false, comments will be appended.
+       *
+       * @throws {TypeError} If source is not an object.
+       * @throws {RangeError} If where parameter is invalid or incompatible with key.
+       *
+       * @example
+       * const obj = parse('{"a": 1 // comment on a}')
+       *
+       * // Move comment from after 'a' to before 'a'
+       * moveComments(obj, obj,
+       *   { where: 'after', key: 'a' },
+       *   { where: 'before', key: 'a' }
+       * )
+       *
+       * @example
+       * // Move non-property comment
+       * moveComments(obj, obj,
+       *   { where: 'before-all' },
+       *   { where: 'after-all' }
+       * )
+       */
+      moveComments(source, target, {
+        where: from_where,
+        key: from_key
+      }, {
+        where: to_where,
+        key: to_key
+      }, override = false) {
+        if (!is_object(source)) {
+          throw new TypeError("source must be an object");
+        }
+        if (!target) {
+          target = source;
+        }
+        if (!is_object(target)) {
+          return;
+        }
+        const from_prop = symbol_checked(from_where, from_key);
+        const to_prop = symbol_checked(to_where, to_key);
+        if (!Object.hasOwn(source, from_prop)) {
+          return;
+        }
+        const source_comments = source[from_prop];
+        delete source[from_prop];
+        if (override || !Object.hasOwn(target, to_prop)) {
+          define2(target, to_prop, source_comments);
+          return;
+        }
+        const target_comments = target[to_prop];
+        if (target_comments) {
+          target_comments.push(...source_comments);
+        }
+      },
+      /**
+       * Remove comments from a specific location within an object.
+       *
+       * @param {Object} target The target object to remove comments from.
+       * @param {Object} location The comment location to remove.
+       * @param {string} location.where The comment position (e.g., 'before',
+       *   'after', 'before-all', etc.).
+       * @param {string} [location.key] The property key for property-specific
+       *   comments. Omit for non-property comments.
+       *
+       * @throws {TypeError} If target is not an object.
+       * @throws {RangeError} If where parameter is invalid or incompatible with key.
+       *
+       * @example
+       * const obj = parse('{"a": 1 // comment on a}')
+       *
+       * // Remove comment after 'a'
+       * removeComments(obj, { where: 'after', key: 'a' })
+       *
+       * @example
+       * // Remove non-property comment
+       * removeComments(obj, { where: 'before-all' })
+       */
+      removeComments(target, {
+        where,
+        key
+      }) {
+        if (!is_object(target)) {
+          throw new TypeError("target must be an object");
+        }
+        const prop = symbol_checked(where, key);
+        if (!Object.hasOwn(target, prop)) {
+          return;
+        }
+        delete target[prop];
+      }
+    };
+  }
+});
+
+// node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/array.js
+var require_array = __commonJS({
+  "node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/array.js"(exports, module) {
+    var { sort } = require_src2();
+    var {
+      PROP_SYMBOL_PREFIXES,
+      UNDEFINED,
+      symbol,
+      copy_comments,
+      swap_comments
+    } = require_common2();
+    var reverse_comments = (array) => {
+      const { length } = array;
+      let i = 0;
+      const max = length / 2;
+      for (; i < max; i++) {
+        swap_comments(array, i, length - i - 1);
+      }
+    };
+    var move_comment = (target, source, i, offset, remove) => {
+      copy_comments(target, source, i + offset, i, remove);
+    };
+    var move_comments = (target, source, start, count, offset, remove) => {
+      if (offset > 0) {
+        let i2 = count;
+        while (i2-- > 0) {
+          move_comment(target, source, start + i2, offset, remove);
+        }
+        return;
+      }
+      let i = 0;
+      while (i < count) {
+        const ii = i++;
+        move_comment(target, source, start + ii, offset, remove);
+      }
+    };
+    var remove_comments = (array, key) => {
+      PROP_SYMBOL_PREFIXES.forEach((prefix) => {
+        const prop = symbol(prefix, key);
+        delete array[prop];
+      });
+    };
+    var get_mapped = (map, key) => {
+      let mapped = key;
+      while (mapped in map) {
+        mapped = map[mapped];
+      }
+      return mapped;
+    };
+    var CommentArray = class _CommentArray extends Array {
+      // - deleteCount + items.length
+      // We should avoid `splice(begin, deleteCount, ...items)`,
+      // because `splice(0, undefined)` is not equivalent to `splice(0)`,
+      // as well as:
+      // - slice
+      /**
+       * Changes the contents of an array by removing or replacing existing
+       *   elements and/or adding new elements in place.
+       * Comments are automatically preserved and repositioned during the operation.
+       *
+       * @param {...*} args Arguments passed to Array.prototype.splice
+       * @returns {CommentArray} A new CommentArray containing the deleted elements.
+       */
+      splice(...args) {
+        const { length } = this;
+        const ret = super.splice(...args);
+        let [begin, deleteCount, ...items] = args;
+        if (begin < 0) {
+          begin += length;
+        }
+        if (arguments.length === 1) {
+          deleteCount = length - begin;
+        } else {
+          deleteCount = Math.min(length - begin, deleteCount);
+        }
+        const {
+          length: item_length
+        } = items;
+        const offset = item_length - deleteCount;
+        const start = begin + deleteCount;
+        const count = length - start;
+        move_comments(this, this, start, count, offset, true);
+        return ret;
+      }
+      /**
+       * Returns a shallow copy of a portion of an array into a new CommentArray object.
+       * Comments are copied to the appropriate positions in the new array.
+       *
+       * @param {...*} args Arguments passed to Array.prototype.slice
+       * @returns {CommentArray} A new CommentArray containing the extracted
+       *   elements with their comments.
+       */
+      slice(...args) {
+        const { length } = this;
+        const array = super.slice(...args);
+        if (!array.length) {
+          return new _CommentArray();
+        }
+        let [begin, before] = args;
+        if (before === UNDEFINED) {
+          before = length;
+        } else if (before < 0) {
+          before += length;
+        }
+        if (begin < 0) {
+          begin += length;
+        } else if (begin === UNDEFINED) {
+          begin = 0;
+        }
+        move_comments(array, this, begin, before - begin, -begin);
+        return array;
+      }
+      unshift(...items) {
+        const { length } = this;
+        const ret = super.unshift(...items);
+        const {
+          length: items_length
+        } = items;
+        if (items_length > 0) {
+          move_comments(this, this, 0, length, items_length, true);
+        }
+        return ret;
+      }
+      shift() {
+        const ret = super.shift();
+        const { length } = this;
+        remove_comments(this, 0);
+        move_comments(this, this, 1, length, -1, true);
+        return ret;
+      }
+      reverse() {
+        super.reverse();
+        reverse_comments(this);
+        return this;
+      }
+      pop() {
+        const ret = super.pop();
+        remove_comments(this, this.length);
+        return ret;
+      }
+      concat(...items) {
+        let { length } = this;
+        const ret = super.concat(...items);
+        if (!items.length) {
+          return ret;
+        }
+        move_comments(ret, this, 0, this.length, 0);
+        items.forEach((item) => {
+          const prev = length;
+          length += Array.isArray(item) ? item.length : 1;
+          if (!(item instanceof _CommentArray)) {
+            return;
+          }
+          move_comments(ret, item, 0, item.length, prev);
+        });
+        return ret;
+      }
+      sort(...args) {
+        const result = sort(
+          this,
+          ...args.slice(0, 1)
+        );
+        const map = /* @__PURE__ */ Object.create(null);
+        result.forEach((source_index, index) => {
+          if (source_index === index) {
+            return;
+          }
+          const real_source_index = get_mapped(map, source_index);
+          if (real_source_index === index) {
+            return;
+          }
+          map[index] = real_source_index;
+          swap_comments(this, index, real_source_index);
+        });
+        return this;
+      }
+    };
+    module.exports = {
+      CommentArray
+    };
+  }
+});
+
+// node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/parse.js
+var require_parse = __commonJS({
+  "node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/parse.js"(exports, module) {
+    var esprima = require_esprima();
+    var {
+      CommentArray
+    } = require_array();
+    var {
+      PREFIX_BEFORE,
+      PREFIX_AFTER_PROP,
+      PREFIX_AFTER_COLON,
+      PREFIX_AFTER_VALUE,
+      PREFIX_AFTER,
+      PREFIX_BEFORE_ALL,
+      PREFIX_AFTER_ALL,
+      BRACKET_OPEN,
+      BRACKET_CLOSE,
+      CURLY_BRACKET_OPEN,
+      CURLY_BRACKET_CLOSE,
+      COLON,
+      COMMA,
+      MINUS,
+      EMPTY,
+      UNDEFINED,
+      is_object,
+      define: define2,
+      set_raw_string_literal,
+      set_comment_line_breaks,
+      assign_non_prop_comments
+    } = require_common2();
+    var tokenize = (code) => esprima.tokenize(code, {
+      comment: true,
+      loc: true
+    });
+    var current_code;
+    var previous_hosts = [];
+    var comments_host = null;
+    var unassigned_comments = null;
+    var previous_props = [];
+    var last_prop;
+    var remove_comments = false;
+    var inline = false;
+    var tokens = null;
+    var last = null;
+    var current = null;
+    var index;
+    var reviver = null;
+    var clean = () => {
+      current_code = UNDEFINED;
+      previous_props.length = previous_hosts.length = 0;
+      last = null;
+      last_prop = UNDEFINED;
+    };
+    var free = () => {
+      clean();
+      tokens.length = 0;
+      unassigned_comments = comments_host = tokens = last = current = reviver = null;
+      current_code = UNDEFINED;
+    };
+    var symbolFor = (prefix) => Symbol.for(
+      last_prop !== UNDEFINED ? prefix + COLON + last_prop : prefix
+    );
+    var transform = (k, { value, context = {} }) => reviver ? reviver(k, value, context) : value;
+    var unexpected = () => {
+      const error3 = new SyntaxError(`Unexpected token '${current.value.slice(0, 1)}', "${current_code}" is not valid JSON`);
+      Object.assign(error3, current.loc.start);
+      free();
+      throw error3;
+    };
+    var unexpected_end = () => {
+      const error3 = new SyntaxError("Unexpected end of JSON input");
+      Object.assign(error3, last ? last.loc.end : {
+        line: 1,
+        column: 0
+      });
+      free();
+      throw error3;
+    };
+    var next = () => {
+      const new_token = tokens[++index];
+      inline = current && new_token && current.loc.end.line === new_token.loc.start.line || false;
+      last = current;
+      current = new_token;
+    };
+    var type = () => {
+      if (!current) {
+        unexpected_end();
+      }
+      return current.type === "Punctuator" ? current.value : current.type;
+    };
+    var is = (t) => type() === t;
+    var expect = (a) => {
+      if (!is(a)) {
+        unexpected();
+      }
+    };
+    var set_comments_host = (new_host) => {
+      previous_hosts.push(comments_host);
+      comments_host = new_host;
+    };
+    var restore_comments_host = () => {
+      comments_host = previous_hosts.pop();
+    };
+    var assign_after_comments = () => {
+      if (!unassigned_comments) {
+        return;
+      }
+      const after_comments = [];
+      for (const comment of unassigned_comments) {
+        if (comment.inline) {
+          after_comments.push(comment);
+        } else {
+          break;
+        }
+      }
+      const { length } = after_comments;
+      if (!length) {
+        return;
+      }
+      if (length === unassigned_comments.length) {
+        unassigned_comments = null;
+      } else {
+        unassigned_comments.splice(0, length);
+      }
+      define2(comments_host, symbolFor(PREFIX_AFTER), after_comments);
+    };
+    var assign_comments = (prefix) => {
+      if (!unassigned_comments) {
+        return;
+      }
+      define2(comments_host, symbolFor(prefix), unassigned_comments);
+      unassigned_comments = null;
+    };
+    var parse_comments = (prefix) => {
+      const comments = [];
+      while (current && (is("LineComment") || is("BlockComment"))) {
+        const comment = {
+          ...current,
+          inline
+        };
+        const previous_line = last ? last.loc.end.line : 1;
+        set_comment_line_breaks(
+          comment,
+          Math.max(0, comment.loc.start.line - previous_line)
+        );
+        comments.push(comment);
+        next();
+      }
+      const { length } = comments;
+      if (length) {
+        const comment = comments[length - 1];
+        const current_line = current ? current.loc.start.line : comment.loc.end.line;
+        set_comment_line_breaks(
+          comment,
+          void 0,
+          Math.max(0, current_line - comment.loc.end.line)
+        );
+      }
+      if (remove_comments) {
+        return;
+      }
+      if (!length) {
+        return;
+      }
+      if (prefix) {
+        define2(comments_host, symbolFor(prefix), comments);
+        return;
+      }
+      unassigned_comments = comments;
+    };
+    var set_prop = (prop, push) => {
+      if (push) {
+        previous_props.push(last_prop);
+      }
+      last_prop = prop;
+    };
+    var restore_prop = () => {
+      last_prop = previous_props.pop();
+    };
+    var parse_object = () => {
+      const obj = {};
+      set_comments_host(obj);
+      set_prop(UNDEFINED, true);
+      let started = false;
+      let name;
+      parse_comments();
+      while (!is(CURLY_BRACKET_CLOSE)) {
+        if (started) {
+          assign_comments(PREFIX_AFTER_VALUE);
+          expect(COMMA);
+          next();
+          parse_comments();
+          assign_after_comments();
+          if (is(CURLY_BRACKET_CLOSE)) {
+            break;
+          }
+        }
+        started = true;
+        expect("String");
+        name = JSON.parse(current.value);
+        set_prop(name);
+        assign_comments(PREFIX_BEFORE);
+        next();
+        parse_comments(PREFIX_AFTER_PROP);
+        expect(COLON);
+        next();
+        parse_comments(PREFIX_AFTER_COLON);
+        obj[name] = transform(name, walk());
+        parse_comments();
+      }
+      if (started) {
+        assign_comments(PREFIX_AFTER);
+      }
+      next();
+      last_prop = void 0;
+      if (!started) {
+        assign_comments(PREFIX_BEFORE);
+      }
+      restore_comments_host();
+      restore_prop();
+      return obj;
+    };
+    var parse_array = () => {
+      const array = new CommentArray();
+      set_comments_host(array);
+      set_prop(UNDEFINED, true);
+      let started = false;
+      let i = 0;
+      parse_comments();
+      while (!is(BRACKET_CLOSE)) {
+        if (started) {
+          assign_comments(PREFIX_AFTER_VALUE);
+          expect(COMMA);
+          next();
+          parse_comments();
+          assign_after_comments();
+          if (is(BRACKET_CLOSE)) {
+            break;
+          }
+        }
+        started = true;
+        set_prop(i);
+        assign_comments(PREFIX_BEFORE);
+        array[i] = transform(i, walk());
+        i++;
+        parse_comments();
+      }
+      if (started) {
+        assign_comments(PREFIX_AFTER);
+      }
+      next();
+      last_prop = void 0;
+      if (!started) {
+        assign_comments(PREFIX_BEFORE);
+      }
+      restore_comments_host();
+      restore_prop();
+      return array;
+    };
+    function walk() {
+      let tt = type();
+      if (tt === CURLY_BRACKET_OPEN) {
+        next();
+        return {
+          value: parse_object()
+        };
+      }
+      if (tt === BRACKET_OPEN) {
+        next();
+        return {
+          value: parse_array()
+        };
+      }
+      let negative = EMPTY;
+      if (tt === MINUS) {
+        next();
+        tt = type();
+        negative = MINUS;
+      }
+      let v;
+      let source;
+      switch (tt) {
+        case "String":
+          set_raw_string_literal(comments_host, last_prop, current.value);
+        // falls through
+        case "Boolean":
+        case "Null":
+        case "Numeric":
+          v = current.value;
+          next();
+          source = negative + v;
+          return {
+            value: JSON.parse(source),
+            context: {
+              source
+            }
+          };
+        default:
+          return {};
+      }
+    }
+    var parse2 = (code, rev, no_comments) => {
+      clean();
+      current_code = code;
+      tokens = tokenize(code);
+      reviver = rev;
+      remove_comments = no_comments;
+      if (!tokens.length) {
+        unexpected_end();
+      }
+      index = -1;
+      next();
+      set_comments_host({});
+      parse_comments(PREFIX_BEFORE_ALL);
+      const final = walk();
+      parse_comments(PREFIX_AFTER_ALL);
+      if (current) {
+        unexpected();
+      }
+      let result = transform("", final);
+      if (!no_comments && result !== null) {
+        if (!is_object(result)) {
+          result = new Object(result);
+        }
+        assign_non_prop_comments(result, comments_host);
+      }
+      restore_comments_host();
+      free();
+      return result;
+    };
+    module.exports = {
+      parse: parse2,
+      tokenize
+    };
+  }
+});
+
+// node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/stringify.js
+var require_stringify = __commonJS({
+  "node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/stringify.js"(exports, module) {
+    var {
+      PREFIX_BEFORE_ALL,
+      PREFIX_BEFORE,
+      PREFIX_AFTER_PROP,
+      PREFIX_AFTER_COLON,
+      PREFIX_AFTER_VALUE,
+      PREFIX_AFTER,
+      PREFIX_AFTER_ALL,
+      BRACKET_OPEN,
+      BRACKET_CLOSE,
+      CURLY_BRACKET_OPEN,
+      CURLY_BRACKET_CLOSE,
+      COLON,
+      COMMA,
+      EMPTY,
+      UNDEFINED,
+      is_string,
+      is_number,
+      is_object,
+      get_raw_string_literal,
+      get_comment_line_breaks_before,
+      get_comment_line_breaks_after,
+      is_raw_json
+    } = require_common2();
+    var SPACE = " ";
+    var LF = "\n";
+    var STR_NULL = "null";
+    var BEFORE = (prop) => `${PREFIX_BEFORE}:${prop}`;
+    var AFTER_PROP = (prop) => `${PREFIX_AFTER_PROP}:${prop}`;
+    var AFTER_COLON = (prop) => `${PREFIX_AFTER_COLON}:${prop}`;
+    var AFTER_VALUE = (prop) => `${PREFIX_AFTER_VALUE}:${prop}`;
+    var AFTER = (prop) => `${PREFIX_AFTER}:${prop}`;
+    var quote = JSON.stringify;
+    var comment_stringify = (value, line) => line ? `//${value}` : `/*${value}*/`;
+    var repeat_line_breaks = (line_breaks, gap) => (LF + gap).repeat(line_breaks);
+    var read_line_breaks = (line_breaks) => is_number(line_breaks) && line_breaks >= 0 ? line_breaks : null;
+    var read_line_breaks_from_loc = (previous_comment, comment) => {
+      if (!previous_comment || !previous_comment.loc || !comment.loc) {
+        return null;
+      }
+      const { end } = previous_comment.loc;
+      const { start } = comment.loc;
+      if (!end || !start || !is_number(end.line) || !is_number(start.line)) {
+        return null;
+      }
+      const line_breaks = start.line - end.line;
+      return line_breaks >= 0 ? line_breaks : null;
+    };
+    var count_trailing_line_breaks = (str, gap) => {
+      const unit = LF + gap;
+      const { length } = unit;
+      let i = str.length;
+      let count = 0;
+      while (i >= length && str.slice(i - length, i) === unit) {
+        i -= length;
+        count++;
+      }
+      return count;
+    };
+    var process_comments = (host, symbol_tag, deeper_gap, display_block) => {
+      const comments = host[Symbol.for(symbol_tag)];
+      if (!comments || !comments.length) {
+        return EMPTY;
+      }
+      let str = EMPTY;
+      let last_comment = null;
+      comments.forEach((comment, i) => {
+        const {
+          inline,
+          type,
+          value
+        } = comment;
+        let line_breaks_before = read_line_breaks(
+          get_comment_line_breaks_before(comment)
+        );
+        if (line_breaks_before === null) {
+          line_breaks_before = read_line_breaks_from_loc(last_comment, comment);
+        }
+        if (line_breaks_before === null) {
+          line_breaks_before = inline ? 0 : 1;
+        }
+        const delimiter = line_breaks_before > 0 ? repeat_line_breaks(line_breaks_before, deeper_gap) : inline ? SPACE : i === 0 ? EMPTY : LF + deeper_gap;
+        const is_line_comment = type === "LineComment";
+        str += delimiter + comment_stringify(value, is_line_comment);
+        last_comment = comment;
+      });
+      const default_line_breaks_after = display_block || last_comment.type === "LineComment" ? 1 : 0;
+      const line_breaks_after = Math.max(
+        default_line_breaks_after,
+        read_line_breaks(get_comment_line_breaks_after(last_comment)) || 0
+      );
+      return str + repeat_line_breaks(line_breaks_after, deeper_gap);
+    };
+    var replacer = null;
+    var indent = EMPTY;
+    var clean = () => {
+      replacer = null;
+      indent = EMPTY;
+    };
+    var join2 = (one, two, gap) => one ? two ? one + two.trim() + LF + gap : one.trimRight() + repeat_line_breaks(
+      Math.max(1, count_trailing_line_breaks(one, gap)),
+      gap
+    ) : two ? two.trimRight() + repeat_line_breaks(
+      Math.max(1, count_trailing_line_breaks(two, gap)),
+      gap
+    ) : EMPTY;
+    var join_content = (inside, value, gap) => {
+      const comment = process_comments(value, PREFIX_BEFORE, gap + indent, true);
+      return join2(comment, inside, gap);
+    };
+    var stringify_string = (holder, key, value) => {
+      const raw = get_raw_string_literal(holder, key);
+      if (is_string(raw)) {
+        try {
+          if (JSON.parse(raw) === value) {
+            return raw;
+          }
+        } catch (e) {
+        }
+      }
+      return quote(value);
+    };
+    var array_stringify = (value, gap) => {
+      const deeper_gap = gap + indent;
+      const { length } = value;
+      let inside = EMPTY;
+      let after_comma = EMPTY;
+      for (let i = 0; i < length; i++) {
+        if (i !== 0) {
+          inside += COMMA;
+        }
+        const before = join2(
+          after_comma,
+          process_comments(value, BEFORE(i), deeper_gap),
+          deeper_gap
+        );
+        inside += before || LF + deeper_gap;
+        inside += stringify2(i, value, deeper_gap) || STR_NULL;
+        inside += process_comments(value, AFTER_VALUE(i), deeper_gap);
+        after_comma = process_comments(value, AFTER(i), deeper_gap);
+      }
+      inside += join2(
+        after_comma,
+        process_comments(value, PREFIX_AFTER, deeper_gap),
+        deeper_gap
+      );
+      return BRACKET_OPEN + join_content(inside, value, gap) + BRACKET_CLOSE;
+    };
+    var object_stringify = (value, gap) => {
+      if (!value) {
+        return "null";
+      }
+      const deeper_gap = gap + indent;
+      let inside = EMPTY;
+      let after_comma = EMPTY;
+      let first = true;
+      const keys = Array.isArray(replacer) ? replacer : Object.keys(value);
+      const iteratee = (key) => {
+        const sv = stringify2(key, value, deeper_gap);
+        if (sv === UNDEFINED) {
+          return;
+        }
+        if (!first) {
+          inside += COMMA;
+        }
+        first = false;
+        const before = join2(
+          after_comma,
+          process_comments(value, BEFORE(key), deeper_gap),
+          deeper_gap
+        );
+        inside += before || LF + deeper_gap;
+        inside += quote(key) + process_comments(value, AFTER_PROP(key), deeper_gap) + COLON + process_comments(value, AFTER_COLON(key), deeper_gap) + SPACE + sv + process_comments(value, AFTER_VALUE(key), deeper_gap);
+        after_comma = process_comments(value, AFTER(key), deeper_gap);
+      };
+      keys.forEach(iteratee);
+      inside += join2(
+        after_comma,
+        process_comments(value, PREFIX_AFTER, deeper_gap),
+        deeper_gap
+      );
+      return CURLY_BRACKET_OPEN + join_content(inside, value, gap) + CURLY_BRACKET_CLOSE;
+    };
+    function stringify2(key, holder, gap) {
+      let value = holder[key];
+      if (is_object(value) && typeof value.toJSON === "function") {
+        value = value.toJSON(key);
+      }
+      if (typeof replacer === "function") {
+        value = replacer.call(holder, key, value);
+      }
+      switch (typeof value) {
+        case "string":
+          return stringify_string(holder, key, value);
+        case "number":
+          return Number.isFinite(value) ? String(value) : STR_NULL;
+        case "boolean":
+        case "null":
+          return String(value);
+        // If the type is 'object', we might be dealing with an object or an array or
+        // null.
+        case "object":
+          if (is_raw_json(value)) {
+            return value.rawJSON;
+          }
+          return Array.isArray(value) ? array_stringify(value, gap) : object_stringify(value, gap);
+        // undefined
+        default:
+      }
+    }
+    var get_indent = (space) => typeof space === "string" ? space : typeof space === "number" ? SPACE.repeat(space) : EMPTY;
+    var { toString: toString3 } = Object.prototype;
+    var PRIMITIVE_OBJECT_TYPES = [
+      "[object Number]",
+      "[object String]",
+      "[object Boolean]"
+    ];
+    var is_primitive_object = (subject) => {
+      if (typeof subject !== "object") {
+        return false;
+      }
+      const str = toString3.call(subject);
+      return PRIMITIVE_OBJECT_TYPES.includes(str);
+    };
+    module.exports = (value, replacer_, space) => {
+      const indent_ = get_indent(space);
+      if (!indent_) {
+        return JSON.stringify(value, replacer_);
+      }
+      if (typeof replacer_ !== "function" && !Array.isArray(replacer_)) {
+        replacer_ = null;
+      }
+      replacer = replacer_;
+      indent = indent_;
+      const str = is_primitive_object(value) ? JSON.stringify(value) : stringify2("", { "": value }, EMPTY);
+      clean();
+      return is_object(value) ? process_comments(value, PREFIX_BEFORE_ALL, EMPTY, true).trimLeft() + str + process_comments(value, PREFIX_AFTER_ALL, EMPTY).trimRight() : str;
+    };
+  }
+});
+
+// node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/index.js
+var require_src3 = __commonJS({
+  "node_modules/.pnpm/comment-json@4.6.2/node_modules/comment-json/src/index.js"(exports, module) {
+    var { parse: parse2, tokenize } = require_parse();
+    var stringify2 = require_stringify();
+    var { CommentArray } = require_array();
+    var {
+      PREFIX_BEFORE,
+      PREFIX_AFTER_PROP,
+      PREFIX_AFTER_COLON,
+      PREFIX_AFTER_VALUE,
+      PREFIX_AFTER,
+      PREFIX_BEFORE_ALL,
+      PREFIX_AFTER_ALL,
+      assign,
+      moveComments,
+      removeComments
+    } = require_common2();
+    module.exports = {
+      PREFIX_BEFORE,
+      PREFIX_AFTER_PROP,
+      PREFIX_AFTER_COLON,
+      PREFIX_AFTER_VALUE,
+      PREFIX_AFTER,
+      PREFIX_BEFORE_ALL,
+      PREFIX_AFTER_ALL,
+      parse: parse2,
+      stringify: stringify2,
+      tokenize,
+      CommentArray,
+      assign,
+      moveComments,
+      removeComments
+    };
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/identity.js
+var require_identity = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/identity.js"(exports) {
+    "use strict";
+    var ALIAS = /* @__PURE__ */ Symbol.for("yaml.alias");
+    var DOC = /* @__PURE__ */ Symbol.for("yaml.document");
+    var MAP = /* @__PURE__ */ Symbol.for("yaml.map");
+    var PAIR = /* @__PURE__ */ Symbol.for("yaml.pair");
+    var SCALAR = /* @__PURE__ */ Symbol.for("yaml.scalar");
+    var SEQ = /* @__PURE__ */ Symbol.for("yaml.seq");
+    var NODE_TYPE = /* @__PURE__ */ Symbol.for("yaml.node.type");
+    var isAlias = (node) => !!node && typeof node === "object" && node[NODE_TYPE] === ALIAS;
+    var isDocument = (node) => !!node && typeof node === "object" && node[NODE_TYPE] === DOC;
+    var isMap = (node) => !!node && typeof node === "object" && node[NODE_TYPE] === MAP;
+    var isPair = (node) => !!node && typeof node === "object" && node[NODE_TYPE] === PAIR;
+    var isScalar = (node) => !!node && typeof node === "object" && node[NODE_TYPE] === SCALAR;
+    var isSeq = (node) => !!node && typeof node === "object" && node[NODE_TYPE] === SEQ;
+    function isCollection(node) {
+      if (node && typeof node === "object")
+        switch (node[NODE_TYPE]) {
+          case MAP:
+          case SEQ:
+            return true;
+        }
+      return false;
+    }
+    function isNode(node) {
+      if (node && typeof node === "object")
+        switch (node[NODE_TYPE]) {
+          case ALIAS:
+          case MAP:
+          case SCALAR:
+          case SEQ:
+            return true;
+        }
+      return false;
+    }
+    var hasAnchor = (node) => (isScalar(node) || isCollection(node)) && !!node.anchor;
+    exports.ALIAS = ALIAS;
+    exports.DOC = DOC;
+    exports.MAP = MAP;
+    exports.NODE_TYPE = NODE_TYPE;
+    exports.PAIR = PAIR;
+    exports.SCALAR = SCALAR;
+    exports.SEQ = SEQ;
+    exports.hasAnchor = hasAnchor;
+    exports.isAlias = isAlias;
+    exports.isCollection = isCollection;
+    exports.isDocument = isDocument;
+    exports.isMap = isMap;
+    exports.isNode = isNode;
+    exports.isPair = isPair;
+    exports.isScalar = isScalar;
+    exports.isSeq = isSeq;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/visit.js
+var require_visit = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/visit.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var BREAK = /* @__PURE__ */ Symbol("break visit");
+    var SKIP = /* @__PURE__ */ Symbol("skip children");
+    var REMOVE = /* @__PURE__ */ Symbol("remove node");
+    function visit(node, visitor) {
+      const visitor_ = initVisitor(visitor);
+      if (identity.isDocument(node)) {
+        const cd = visit_(null, node.contents, visitor_, Object.freeze([node]));
+        if (cd === REMOVE)
+          node.contents = null;
+      } else
+        visit_(null, node, visitor_, Object.freeze([]));
+    }
+    visit.BREAK = BREAK;
+    visit.SKIP = SKIP;
+    visit.REMOVE = REMOVE;
+    function visit_(key, node, visitor, path3) {
+      const ctrl = callVisitor(key, node, visitor, path3);
+      if (identity.isNode(ctrl) || identity.isPair(ctrl)) {
+        replaceNode(key, path3, ctrl);
+        return visit_(key, ctrl, visitor, path3);
+      }
+      if (typeof ctrl !== "symbol") {
+        if (identity.isCollection(node)) {
+          path3 = Object.freeze(path3.concat(node));
+          for (let i = 0; i < node.items.length; ++i) {
+            const ci = visit_(i, node.items[i], visitor, path3);
+            if (typeof ci === "number")
+              i = ci - 1;
+            else if (ci === BREAK)
+              return BREAK;
+            else if (ci === REMOVE) {
+              node.items.splice(i, 1);
+              i -= 1;
+            }
+          }
+        } else if (identity.isPair(node)) {
+          path3 = Object.freeze(path3.concat(node));
+          const ck = visit_("key", node.key, visitor, path3);
+          if (ck === BREAK)
+            return BREAK;
+          else if (ck === REMOVE)
+            node.key = null;
+          const cv = visit_("value", node.value, visitor, path3);
+          if (cv === BREAK)
+            return BREAK;
+          else if (cv === REMOVE)
+            node.value = null;
+        }
+      }
+      return ctrl;
+    }
+    async function visitAsync(node, visitor) {
+      const visitor_ = initVisitor(visitor);
+      if (identity.isDocument(node)) {
+        const cd = await visitAsync_(null, node.contents, visitor_, Object.freeze([node]));
+        if (cd === REMOVE)
+          node.contents = null;
+      } else
+        await visitAsync_(null, node, visitor_, Object.freeze([]));
+    }
+    visitAsync.BREAK = BREAK;
+    visitAsync.SKIP = SKIP;
+    visitAsync.REMOVE = REMOVE;
+    async function visitAsync_(key, node, visitor, path3) {
+      const ctrl = await callVisitor(key, node, visitor, path3);
+      if (identity.isNode(ctrl) || identity.isPair(ctrl)) {
+        replaceNode(key, path3, ctrl);
+        return visitAsync_(key, ctrl, visitor, path3);
+      }
+      if (typeof ctrl !== "symbol") {
+        if (identity.isCollection(node)) {
+          path3 = Object.freeze(path3.concat(node));
+          for (let i = 0; i < node.items.length; ++i) {
+            const ci = await visitAsync_(i, node.items[i], visitor, path3);
+            if (typeof ci === "number")
+              i = ci - 1;
+            else if (ci === BREAK)
+              return BREAK;
+            else if (ci === REMOVE) {
+              node.items.splice(i, 1);
+              i -= 1;
+            }
+          }
+        } else if (identity.isPair(node)) {
+          path3 = Object.freeze(path3.concat(node));
+          const ck = await visitAsync_("key", node.key, visitor, path3);
+          if (ck === BREAK)
+            return BREAK;
+          else if (ck === REMOVE)
+            node.key = null;
+          const cv = await visitAsync_("value", node.value, visitor, path3);
+          if (cv === BREAK)
+            return BREAK;
+          else if (cv === REMOVE)
+            node.value = null;
+        }
+      }
+      return ctrl;
+    }
+    function initVisitor(visitor) {
+      if (typeof visitor === "object" && (visitor.Collection || visitor.Node || visitor.Value)) {
+        return Object.assign({
+          Alias: visitor.Node,
+          Map: visitor.Node,
+          Scalar: visitor.Node,
+          Seq: visitor.Node
+        }, visitor.Value && {
+          Map: visitor.Value,
+          Scalar: visitor.Value,
+          Seq: visitor.Value
+        }, visitor.Collection && {
+          Map: visitor.Collection,
+          Seq: visitor.Collection
+        }, visitor);
+      }
+      return visitor;
+    }
+    function callVisitor(key, node, visitor, path3) {
+      if (typeof visitor === "function")
+        return visitor(key, node, path3);
+      if (identity.isMap(node))
+        return visitor.Map?.(key, node, path3);
+      if (identity.isSeq(node))
+        return visitor.Seq?.(key, node, path3);
+      if (identity.isPair(node))
+        return visitor.Pair?.(key, node, path3);
+      if (identity.isScalar(node))
+        return visitor.Scalar?.(key, node, path3);
+      if (identity.isAlias(node))
+        return visitor.Alias?.(key, node, path3);
+      return void 0;
+    }
+    function replaceNode(key, path3, node) {
+      const parent = path3[path3.length - 1];
+      if (identity.isCollection(parent)) {
+        parent.items[key] = node;
+      } else if (identity.isPair(parent)) {
+        if (key === "key")
+          parent.key = node;
+        else
+          parent.value = node;
+      } else if (identity.isDocument(parent)) {
+        parent.contents = node;
+      } else {
+        const pt = identity.isAlias(parent) ? "alias" : "scalar";
+        throw new Error(`Cannot replace node with ${pt} parent`);
+      }
+    }
+    exports.visit = visit;
+    exports.visitAsync = visitAsync;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/directives.js
+var require_directives = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/directives.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var visit = require_visit();
+    var escapeChars = {
+      "!": "%21",
+      ",": "%2C",
+      "[": "%5B",
+      "]": "%5D",
+      "{": "%7B",
+      "}": "%7D"
+    };
+    var escapeTagName = (tn) => tn.replace(/[!,[\]{}]/g, (ch) => escapeChars[ch]);
+    var Directives = class _Directives {
+      constructor(yaml, tags) {
+        this.docStart = null;
+        this.docEnd = false;
+        this.yaml = Object.assign({}, _Directives.defaultYaml, yaml);
+        this.tags = Object.assign({}, _Directives.defaultTags, tags);
+      }
+      clone() {
+        const copy = new _Directives(this.yaml, this.tags);
+        copy.docStart = this.docStart;
+        return copy;
+      }
+      /**
+       * During parsing, get a Directives instance for the current document and
+       * update the stream state according to the current version's spec.
+       */
+      atDocument() {
+        const res = new _Directives(this.yaml, this.tags);
+        switch (this.yaml.version) {
+          case "1.1":
+            this.atNextDocument = true;
+            break;
+          case "1.2":
+            this.atNextDocument = false;
+            this.yaml = {
+              explicit: _Directives.defaultYaml.explicit,
+              version: "1.2"
+            };
+            this.tags = Object.assign({}, _Directives.defaultTags);
+            break;
+        }
+        return res;
+      }
+      /**
+       * @param onError - May be called even if the action was successful
+       * @returns `true` on success
+       */
+      add(line, onError) {
+        if (this.atNextDocument) {
+          this.yaml = { explicit: _Directives.defaultYaml.explicit, version: "1.1" };
+          this.tags = Object.assign({}, _Directives.defaultTags);
+          this.atNextDocument = false;
+        }
+        const parts = line.trim().split(/[ \t]+/);
+        const name = parts.shift();
+        switch (name) {
+          case "%TAG": {
+            if (parts.length !== 2) {
+              onError(0, "%TAG directive should contain exactly two parts");
+              if (parts.length < 2)
+                return false;
+            }
+            const [handle, prefix] = parts;
+            this.tags[handle] = prefix;
+            return true;
+          }
+          case "%YAML": {
+            this.yaml.explicit = true;
+            if (parts.length !== 1) {
+              onError(0, "%YAML directive should contain exactly one part");
+              return false;
+            }
+            const [version] = parts;
+            if (version === "1.1" || version === "1.2") {
+              this.yaml.version = version;
+              return true;
+            } else {
+              const isValid = /^\d+\.\d+$/.test(version);
+              onError(6, `Unsupported YAML version ${version}`, isValid);
+              return false;
+            }
+          }
+          default:
+            onError(0, `Unknown directive ${name}`, true);
+            return false;
+        }
+      }
+      /**
+       * Resolves a tag, matching handles to those defined in %TAG directives.
+       *
+       * @returns Resolved tag, which may also be the non-specific tag `'!'` or a
+       *   `'!local'` tag, or `null` if unresolvable.
+       */
+      tagName(source, onError) {
+        if (source === "!")
+          return "!";
+        if (source[0] !== "!") {
+          onError(`Not a valid tag: ${source}`);
+          return null;
+        }
+        if (source[1] === "<") {
+          const verbatim = source.slice(2, -1);
+          if (verbatim === "!" || verbatim === "!!") {
+            onError(`Verbatim tags aren't resolved, so ${source} is invalid.`);
+            return null;
+          }
+          if (source[source.length - 1] !== ">")
+            onError("Verbatim tags must end with a >");
+          return verbatim;
+        }
+        const [, handle, suffix] = source.match(/^(.*!)([^!]*)$/s);
+        if (!suffix)
+          onError(`The ${source} tag has no suffix`);
+        const prefix = this.tags[handle];
+        if (prefix) {
+          try {
+            return prefix + decodeURIComponent(suffix);
+          } catch (error3) {
+            onError(String(error3));
+            return null;
+          }
+        }
+        if (handle === "!")
+          return source;
+        onError(`Could not resolve tag: ${source}`);
+        return null;
+      }
+      /**
+       * Given a fully resolved tag, returns its printable string form,
+       * taking into account current tag prefixes and defaults.
+       */
+      tagString(tag) {
+        for (const [handle, prefix] of Object.entries(this.tags)) {
+          if (tag.startsWith(prefix))
+            return handle + escapeTagName(tag.substring(prefix.length));
+        }
+        return tag[0] === "!" ? tag : `!<${tag}>`;
+      }
+      toString(doc) {
+        const lines = this.yaml.explicit ? [`%YAML ${this.yaml.version || "1.2"}`] : [];
+        const tagEntries = Object.entries(this.tags);
+        let tagNames;
+        if (doc && tagEntries.length > 0 && identity.isNode(doc.contents)) {
+          const tags = {};
+          visit.visit(doc.contents, (_key, node) => {
+            if (identity.isNode(node) && node.tag)
+              tags[node.tag] = true;
+          });
+          tagNames = Object.keys(tags);
+        } else
+          tagNames = [];
+        for (const [handle, prefix] of tagEntries) {
+          if (handle === "!!" && prefix === "tag:yaml.org,2002:")
+            continue;
+          if (!doc || tagNames.some((tn) => tn.startsWith(prefix)))
+            lines.push(`%TAG ${handle} ${prefix}`);
+        }
+        return lines.join("\n");
+      }
+    };
+    Directives.defaultYaml = { explicit: false, version: "1.2" };
+    Directives.defaultTags = { "!!": "tag:yaml.org,2002:" };
+    exports.Directives = Directives;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/anchors.js
+var require_anchors = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/anchors.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var visit = require_visit();
+    function anchorIsValid(anchor) {
+      if (/[\x00-\x19\s,[\]{}]/.test(anchor)) {
+        const sa = JSON.stringify(anchor);
+        const msg = `Anchor must not contain whitespace or control characters: ${sa}`;
+        throw new Error(msg);
+      }
+      return true;
+    }
+    function anchorNames(root) {
+      const anchors = /* @__PURE__ */ new Set();
+      visit.visit(root, {
+        Value(_key, node) {
+          if (node.anchor)
+            anchors.add(node.anchor);
+        }
+      });
+      return anchors;
+    }
+    function findNewAnchor(prefix, exclude) {
+      for (let i = 1; true; ++i) {
+        const name = `${prefix}${i}`;
+        if (!exclude.has(name))
+          return name;
+      }
+    }
+    function createNodeAnchors(doc, prefix) {
+      const aliasObjects = [];
+      const sourceObjects = /* @__PURE__ */ new Map();
+      let prevAnchors = null;
+      return {
+        onAnchor: (source) => {
+          aliasObjects.push(source);
+          prevAnchors ?? (prevAnchors = anchorNames(doc));
+          const anchor = findNewAnchor(prefix, prevAnchors);
+          prevAnchors.add(anchor);
+          return anchor;
+        },
+        /**
+         * With circular references, the source node is only resolved after all
+         * of its child nodes are. This is why anchors are set only after all of
+         * the nodes have been created.
+         */
+        setAnchors: () => {
+          for (const source of aliasObjects) {
+            const ref = sourceObjects.get(source);
+            if (typeof ref === "object" && ref.anchor && (identity.isScalar(ref.node) || identity.isCollection(ref.node))) {
+              ref.node.anchor = ref.anchor;
+            } else {
+              const error3 = new Error("Failed to resolve repeated object (this should not happen)");
+              error3.source = source;
+              throw error3;
+            }
+          }
+        },
+        sourceObjects
+      };
+    }
+    exports.anchorIsValid = anchorIsValid;
+    exports.anchorNames = anchorNames;
+    exports.createNodeAnchors = createNodeAnchors;
+    exports.findNewAnchor = findNewAnchor;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/applyReviver.js
+var require_applyReviver = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/applyReviver.js"(exports) {
+    "use strict";
+    function applyReviver(reviver, obj, key, val) {
+      if (val && typeof val === "object") {
+        if (Array.isArray(val)) {
+          for (let i = 0, len = val.length; i < len; ++i) {
+            const v0 = val[i];
+            const v1 = applyReviver(reviver, val, String(i), v0);
+            if (v1 === void 0)
+              delete val[i];
+            else if (v1 !== v0)
+              val[i] = v1;
+          }
+        } else if (val instanceof Map) {
+          for (const k of Array.from(val.keys())) {
+            const v0 = val.get(k);
+            const v1 = applyReviver(reviver, val, k, v0);
+            if (v1 === void 0)
+              val.delete(k);
+            else if (v1 !== v0)
+              val.set(k, v1);
+          }
+        } else if (val instanceof Set) {
+          for (const v0 of Array.from(val)) {
+            const v1 = applyReviver(reviver, val, v0, v0);
+            if (v1 === void 0)
+              val.delete(v0);
+            else if (v1 !== v0) {
+              val.delete(v0);
+              val.add(v1);
+            }
+          }
+        } else {
+          for (const [k, v0] of Object.entries(val)) {
+            const v1 = applyReviver(reviver, val, k, v0);
+            if (v1 === void 0)
+              delete val[k];
+            else if (v1 !== v0)
+              val[k] = v1;
+          }
+        }
+      }
+      return reviver.call(obj, key, val);
+    }
+    exports.applyReviver = applyReviver;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/toJS.js
+var require_toJS = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/toJS.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    function toJS(value, arg, ctx) {
+      if (Array.isArray(value))
+        return value.map((v, i) => toJS(v, String(i), ctx));
+      if (value && typeof value.toJSON === "function") {
+        if (!ctx || !identity.hasAnchor(value))
+          return value.toJSON(arg, ctx);
+        const data = { aliasCount: 0, count: 1, res: void 0 };
+        ctx.anchors.set(value, data);
+        ctx.onCreate = (res2) => {
+          data.res = res2;
+          delete ctx.onCreate;
+        };
+        const res = value.toJSON(arg, ctx);
+        if (ctx.onCreate)
+          ctx.onCreate(res);
+        return res;
+      }
+      if (typeof value === "bigint" && !ctx?.keep)
+        return Number(value);
+      return value;
+    }
+    exports.toJS = toJS;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Node.js
+var require_Node = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Node.js"(exports) {
+    "use strict";
+    var applyReviver = require_applyReviver();
+    var identity = require_identity();
+    var toJS = require_toJS();
+    var NodeBase = class {
+      constructor(type) {
+        Object.defineProperty(this, identity.NODE_TYPE, { value: type });
+      }
+      /** Create a copy of this node.  */
+      clone() {
+        const copy = Object.create(Object.getPrototypeOf(this), Object.getOwnPropertyDescriptors(this));
+        if (this.range)
+          copy.range = this.range.slice();
+        return copy;
+      }
+      /** A plain JavaScript representation of this node. */
+      toJS(doc, { mapAsMap, maxAliasCount, onAnchor, reviver } = {}) {
+        if (!identity.isDocument(doc))
+          throw new TypeError("A document argument is required");
+        const ctx = {
+          anchors: /* @__PURE__ */ new Map(),
+          doc,
+          keep: true,
+          mapAsMap: mapAsMap === true,
+          mapKeyWarned: false,
+          maxAliasCount: typeof maxAliasCount === "number" ? maxAliasCount : 100
+        };
+        const res = toJS.toJS(this, "", ctx);
+        if (typeof onAnchor === "function")
+          for (const { count, res: res2 } of ctx.anchors.values())
+            onAnchor(res2, count);
+        return typeof reviver === "function" ? applyReviver.applyReviver(reviver, { "": res }, "", res) : res;
+      }
+    };
+    exports.NodeBase = NodeBase;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Alias.js
+var require_Alias = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Alias.js"(exports) {
+    "use strict";
+    var anchors = require_anchors();
+    var visit = require_visit();
+    var identity = require_identity();
+    var Node = require_Node();
+    var toJS = require_toJS();
+    var Alias = class extends Node.NodeBase {
+      constructor(source) {
+        super(identity.ALIAS);
+        this.source = source;
+        Object.defineProperty(this, "tag", {
+          set() {
+            throw new Error("Alias nodes cannot have tags");
+          }
+        });
+      }
+      /**
+       * Resolve the value of this alias within `doc`, finding the last
+       * instance of the `source` anchor before this node.
+       */
+      resolve(doc, ctx) {
+        let nodes;
+        if (ctx?.aliasResolveCache) {
+          nodes = ctx.aliasResolveCache;
+        } else {
+          nodes = [];
+          visit.visit(doc, {
+            Node: (_key, node) => {
+              if (identity.isAlias(node) || identity.hasAnchor(node))
+                nodes.push(node);
+            }
+          });
+          if (ctx)
+            ctx.aliasResolveCache = nodes;
+        }
+        let found = void 0;
+        for (const node of nodes) {
+          if (node === this)
+            break;
+          if (node.anchor === this.source)
+            found = node;
+        }
+        return found;
+      }
+      toJSON(_arg, ctx) {
+        if (!ctx)
+          return { source: this.source };
+        const { anchors: anchors2, doc, maxAliasCount } = ctx;
+        const source = this.resolve(doc, ctx);
+        if (!source) {
+          const msg = `Unresolved alias (the anchor must be set before the alias): ${this.source}`;
+          throw new ReferenceError(msg);
+        }
+        let data = anchors2.get(source);
+        if (!data) {
+          toJS.toJS(source, null, ctx);
+          data = anchors2.get(source);
+        }
+        if (data?.res === void 0) {
+          const msg = "This should not happen: Alias anchor was not resolved?";
+          throw new ReferenceError(msg);
+        }
+        if (maxAliasCount >= 0) {
+          data.count += 1;
+          if (data.aliasCount === 0)
+            data.aliasCount = getAliasCount(doc, source, anchors2);
+          if (data.count * data.aliasCount > maxAliasCount) {
+            const msg = "Excessive alias count indicates a resource exhaustion attack";
+            throw new ReferenceError(msg);
+          }
+        }
+        return data.res;
+      }
+      toString(ctx, _onComment, _onChompKeep) {
+        const src = `*${this.source}`;
+        if (ctx) {
+          anchors.anchorIsValid(this.source);
+          if (ctx.options.verifyAliasOrder && !ctx.anchors.has(this.source)) {
+            const msg = `Unresolved alias (the anchor must be set before the alias): ${this.source}`;
+            throw new Error(msg);
+          }
+          if (ctx.implicitKey)
+            return `${src} `;
+        }
+        return src;
+      }
+    };
+    function getAliasCount(doc, node, anchors2) {
+      if (identity.isAlias(node)) {
+        const source = node.resolve(doc);
+        const anchor = anchors2 && source && anchors2.get(source);
+        return anchor ? anchor.count * anchor.aliasCount : 0;
+      } else if (identity.isCollection(node)) {
+        let count = 0;
+        for (const item of node.items) {
+          const c = getAliasCount(doc, item, anchors2);
+          if (c > count)
+            count = c;
+        }
+        return count;
+      } else if (identity.isPair(node)) {
+        const kc = getAliasCount(doc, node.key, anchors2);
+        const vc = getAliasCount(doc, node.value, anchors2);
+        return Math.max(kc, vc);
+      }
+      return 1;
+    }
+    exports.Alias = Alias;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Scalar.js
+var require_Scalar = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Scalar.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Node = require_Node();
+    var toJS = require_toJS();
+    var isScalarValue = (value) => !value || typeof value !== "function" && typeof value !== "object";
+    var Scalar = class extends Node.NodeBase {
+      constructor(value) {
+        super(identity.SCALAR);
+        this.value = value;
+      }
+      toJSON(arg, ctx) {
+        return ctx?.keep ? this.value : toJS.toJS(this.value, arg, ctx);
+      }
+      toString() {
+        return String(this.value);
+      }
+    };
+    Scalar.BLOCK_FOLDED = "BLOCK_FOLDED";
+    Scalar.BLOCK_LITERAL = "BLOCK_LITERAL";
+    Scalar.PLAIN = "PLAIN";
+    Scalar.QUOTE_DOUBLE = "QUOTE_DOUBLE";
+    Scalar.QUOTE_SINGLE = "QUOTE_SINGLE";
+    exports.Scalar = Scalar;
+    exports.isScalarValue = isScalarValue;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/createNode.js
+var require_createNode = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/createNode.js"(exports) {
+    "use strict";
+    var Alias = require_Alias();
+    var identity = require_identity();
+    var Scalar = require_Scalar();
+    var defaultTagPrefix = "tag:yaml.org,2002:";
+    function findTagObject(value, tagName, tags) {
+      if (tagName) {
+        const match = tags.filter((t) => t.tag === tagName);
+        const tagObj = match.find((t) => !t.format) ?? match[0];
+        if (!tagObj)
+          throw new Error(`Tag ${tagName} not found`);
+        return tagObj;
+      }
+      return tags.find((t) => t.identify?.(value) && !t.format);
+    }
+    function createNode(value, tagName, ctx) {
+      if (identity.isDocument(value))
+        value = value.contents;
+      if (identity.isNode(value))
+        return value;
+      if (identity.isPair(value)) {
+        const map = ctx.schema[identity.MAP].createNode?.(ctx.schema, null, ctx);
+        map.items.push(value);
+        return map;
+      }
+      if (value instanceof String || value instanceof Number || value instanceof Boolean || typeof BigInt !== "undefined" && value instanceof BigInt) {
+        value = value.valueOf();
+      }
+      const { aliasDuplicateObjects, onAnchor, onTagObj, schema, sourceObjects } = ctx;
+      let ref = void 0;
+      if (aliasDuplicateObjects && value && typeof value === "object") {
+        ref = sourceObjects.get(value);
+        if (ref) {
+          ref.anchor ?? (ref.anchor = onAnchor(value));
+          return new Alias.Alias(ref.anchor);
+        } else {
+          ref = { anchor: null, node: null };
+          sourceObjects.set(value, ref);
+        }
+      }
+      if (tagName?.startsWith("!!"))
+        tagName = defaultTagPrefix + tagName.slice(2);
+      let tagObj = findTagObject(value, tagName, schema.tags);
+      if (!tagObj) {
+        if (value && typeof value.toJSON === "function") {
+          value = value.toJSON();
+        }
+        if (!value || typeof value !== "object") {
+          const node2 = new Scalar.Scalar(value);
+          if (ref)
+            ref.node = node2;
+          return node2;
+        }
+        tagObj = value instanceof Map ? schema[identity.MAP] : Symbol.iterator in Object(value) ? schema[identity.SEQ] : schema[identity.MAP];
+      }
+      if (onTagObj) {
+        onTagObj(tagObj);
+        delete ctx.onTagObj;
+      }
+      const node = tagObj?.createNode ? tagObj.createNode(ctx.schema, value, ctx) : typeof tagObj?.nodeClass?.from === "function" ? tagObj.nodeClass.from(ctx.schema, value, ctx) : new Scalar.Scalar(value);
+      if (tagName)
+        node.tag = tagName;
+      else if (!tagObj.default)
+        node.tag = tagObj.tag;
+      if (ref)
+        ref.node = node;
+      return node;
+    }
+    exports.createNode = createNode;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Collection.js
+var require_Collection = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Collection.js"(exports) {
+    "use strict";
+    var createNode = require_createNode();
+    var identity = require_identity();
+    var Node = require_Node();
+    function collectionFromPath(schema, path3, value) {
+      let v = value;
+      for (let i = path3.length - 1; i >= 0; --i) {
+        const k = path3[i];
+        if (typeof k === "number" && Number.isInteger(k) && k >= 0) {
+          const a = [];
+          a[k] = v;
+          v = a;
+        } else {
+          v = /* @__PURE__ */ new Map([[k, v]]);
+        }
+      }
+      return createNode.createNode(v, void 0, {
+        aliasDuplicateObjects: false,
+        keepUndefined: false,
+        onAnchor: () => {
+          throw new Error("This should not happen, please report a bug.");
+        },
+        schema,
+        sourceObjects: /* @__PURE__ */ new Map()
+      });
+    }
+    var isEmptyPath = (path3) => path3 == null || typeof path3 === "object" && !!path3[Symbol.iterator]().next().done;
+    var Collection = class extends Node.NodeBase {
+      constructor(type, schema) {
+        super(type);
+        Object.defineProperty(this, "schema", {
+          value: schema,
+          configurable: true,
+          enumerable: false,
+          writable: true
+        });
+      }
+      /**
+       * Create a copy of this collection.
+       *
+       * @param schema - If defined, overwrites the original's schema
+       */
+      clone(schema) {
+        const copy = Object.create(Object.getPrototypeOf(this), Object.getOwnPropertyDescriptors(this));
+        if (schema)
+          copy.schema = schema;
+        copy.items = copy.items.map((it) => identity.isNode(it) || identity.isPair(it) ? it.clone(schema) : it);
+        if (this.range)
+          copy.range = this.range.slice();
+        return copy;
+      }
+      /**
+       * Adds a value to the collection. For `!!map` and `!!omap` the value must
+       * be a Pair instance or a `{ key, value }` object, which may not have a key
+       * that already exists in the map.
+       */
+      addIn(path3, value) {
+        if (isEmptyPath(path3))
+          this.add(value);
+        else {
+          const [key, ...rest] = path3;
+          const node = this.get(key, true);
+          if (identity.isCollection(node))
+            node.addIn(rest, value);
+          else if (node === void 0 && this.schema)
+            this.set(key, collectionFromPath(this.schema, rest, value));
+          else
+            throw new Error(`Expected YAML collection at ${key}. Remaining path: ${rest}`);
+        }
+      }
+      /**
+       * Removes a value from the collection.
+       * @returns `true` if the item was found and removed.
+       */
+      deleteIn(path3) {
+        const [key, ...rest] = path3;
+        if (rest.length === 0)
+          return this.delete(key);
+        const node = this.get(key, true);
+        if (identity.isCollection(node))
+          return node.deleteIn(rest);
+        else
+          throw new Error(`Expected YAML collection at ${key}. Remaining path: ${rest}`);
+      }
+      /**
+       * Returns item at `key`, or `undefined` if not found. By default unwraps
+       * scalar values from their surrounding node; to disable set `keepScalar` to
+       * `true` (collections are always returned intact).
+       */
+      getIn(path3, keepScalar) {
+        const [key, ...rest] = path3;
+        const node = this.get(key, true);
+        if (rest.length === 0)
+          return !keepScalar && identity.isScalar(node) ? node.value : node;
+        else
+          return identity.isCollection(node) ? node.getIn(rest, keepScalar) : void 0;
+      }
+      hasAllNullValues(allowScalar) {
+        return this.items.every((node) => {
+          if (!identity.isPair(node))
+            return false;
+          const n = node.value;
+          return n == null || allowScalar && identity.isScalar(n) && n.value == null && !n.commentBefore && !n.comment && !n.tag;
+        });
+      }
+      /**
+       * Checks if the collection includes a value with the key `key`.
+       */
+      hasIn(path3) {
+        const [key, ...rest] = path3;
+        if (rest.length === 0)
+          return this.has(key);
+        const node = this.get(key, true);
+        return identity.isCollection(node) ? node.hasIn(rest) : false;
+      }
+      /**
+       * Sets a value in this collection. For `!!set`, `value` needs to be a
+       * boolean to add/remove the item from the set.
+       */
+      setIn(path3, value) {
+        const [key, ...rest] = path3;
+        if (rest.length === 0) {
+          this.set(key, value);
+        } else {
+          const node = this.get(key, true);
+          if (identity.isCollection(node))
+            node.setIn(rest, value);
+          else if (node === void 0 && this.schema)
+            this.set(key, collectionFromPath(this.schema, rest, value));
+          else
+            throw new Error(`Expected YAML collection at ${key}. Remaining path: ${rest}`);
+        }
+      }
+    };
+    exports.Collection = Collection;
+    exports.collectionFromPath = collectionFromPath;
+    exports.isEmptyPath = isEmptyPath;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyComment.js
+var require_stringifyComment = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyComment.js"(exports) {
+    "use strict";
+    var stringifyComment = (str) => str.replace(/^(?!$)(?: $)?/gm, "#");
+    function indentComment(comment, indent) {
+      if (/^\n+$/.test(comment))
+        return comment.substring(1);
+      return indent ? comment.replace(/^(?! *$)/gm, indent) : comment;
+    }
+    var lineComment = (str, indent, comment) => str.endsWith("\n") ? indentComment(comment, indent) : comment.includes("\n") ? "\n" + indentComment(comment, indent) : (str.endsWith(" ") ? "" : " ") + comment;
+    exports.indentComment = indentComment;
+    exports.lineComment = lineComment;
+    exports.stringifyComment = stringifyComment;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/foldFlowLines.js
+var require_foldFlowLines = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/foldFlowLines.js"(exports) {
+    "use strict";
+    var FOLD_FLOW = "flow";
+    var FOLD_BLOCK = "block";
+    var FOLD_QUOTED = "quoted";
+    function foldFlowLines(text, indent, mode = "flow", { indentAtStart, lineWidth = 80, minContentWidth = 20, onFold, onOverflow } = {}) {
+      if (!lineWidth || lineWidth < 0)
+        return text;
+      if (lineWidth < minContentWidth)
+        minContentWidth = 0;
+      const endStep = Math.max(1 + minContentWidth, 1 + lineWidth - indent.length);
+      if (text.length <= endStep)
+        return text;
+      const folds = [];
+      const escapedFolds = {};
+      let end = lineWidth - indent.length;
+      if (typeof indentAtStart === "number") {
+        if (indentAtStart > lineWidth - Math.max(2, minContentWidth))
+          folds.push(0);
+        else
+          end = lineWidth - indentAtStart;
+      }
+      let split = void 0;
+      let prev = void 0;
+      let overflow = false;
+      let i = -1;
+      let escStart = -1;
+      let escEnd = -1;
+      if (mode === FOLD_BLOCK) {
+        i = consumeMoreIndentedLines(text, i, indent.length);
+        if (i !== -1)
+          end = i + endStep;
+      }
+      for (let ch; ch = text[i += 1]; ) {
+        if (mode === FOLD_QUOTED && ch === "\\") {
+          escStart = i;
+          switch (text[i + 1]) {
+            case "x":
+              i += 3;
+              break;
+            case "u":
+              i += 5;
+              break;
+            case "U":
+              i += 9;
+              break;
+            default:
+              i += 1;
+          }
+          escEnd = i;
+        }
+        if (ch === "\n") {
+          if (mode === FOLD_BLOCK)
+            i = consumeMoreIndentedLines(text, i, indent.length);
+          end = i + indent.length + endStep;
+          split = void 0;
+        } else {
+          if (ch === " " && prev && prev !== " " && prev !== "\n" && prev !== "	") {
+            const next = text[i + 1];
+            if (next && next !== " " && next !== "\n" && next !== "	")
+              split = i;
+          }
+          if (i >= end) {
+            if (split) {
+              folds.push(split);
+              end = split + endStep;
+              split = void 0;
+            } else if (mode === FOLD_QUOTED) {
+              while (prev === " " || prev === "	") {
+                prev = ch;
+                ch = text[i += 1];
+                overflow = true;
+              }
+              const j = i > escEnd + 1 ? i - 2 : escStart - 1;
+              if (escapedFolds[j])
+                return text;
+              folds.push(j);
+              escapedFolds[j] = true;
+              end = j + endStep;
+              split = void 0;
+            } else {
+              overflow = true;
+            }
+          }
+        }
+        prev = ch;
+      }
+      if (overflow && onOverflow)
+        onOverflow();
+      if (folds.length === 0)
+        return text;
+      if (onFold)
+        onFold();
+      let res = text.slice(0, folds[0]);
+      for (let i2 = 0; i2 < folds.length; ++i2) {
+        const fold = folds[i2];
+        const end2 = folds[i2 + 1] || text.length;
+        if (fold === 0)
+          res = `
+${indent}${text.slice(0, end2)}`;
+        else {
+          if (mode === FOLD_QUOTED && escapedFolds[fold])
+            res += `${text[fold]}\\`;
+          res += `
+${indent}${text.slice(fold + 1, end2)}`;
+        }
+      }
+      return res;
+    }
+    function consumeMoreIndentedLines(text, i, indent) {
+      let end = i;
+      let start = i + 1;
+      let ch = text[start];
+      while (ch === " " || ch === "	") {
+        if (i < start + indent) {
+          ch = text[++i];
+        } else {
+          do {
+            ch = text[++i];
+          } while (ch && ch !== "\n");
+          end = i;
+          start = i + 1;
+          ch = text[start];
+        }
+      }
+      return end;
+    }
+    exports.FOLD_BLOCK = FOLD_BLOCK;
+    exports.FOLD_FLOW = FOLD_FLOW;
+    exports.FOLD_QUOTED = FOLD_QUOTED;
+    exports.foldFlowLines = foldFlowLines;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyString.js
+var require_stringifyString = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyString.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var foldFlowLines = require_foldFlowLines();
+    var getFoldOptions = (ctx, isBlock) => ({
+      indentAtStart: isBlock ? ctx.indent.length : ctx.indentAtStart,
+      lineWidth: ctx.options.lineWidth,
+      minContentWidth: ctx.options.minContentWidth
+    });
+    var containsDocumentMarker = (str) => /^(%|---|\.\.\.)/m.test(str);
+    function lineLengthOverLimit(str, lineWidth, indentLength) {
+      if (!lineWidth || lineWidth < 0)
+        return false;
+      const limit = lineWidth - indentLength;
+      const strLen = str.length;
+      if (strLen <= limit)
+        return false;
+      for (let i = 0, start = 0; i < strLen; ++i) {
+        if (str[i] === "\n") {
+          if (i - start > limit)
+            return true;
+          start = i + 1;
+          if (strLen - start <= limit)
+            return false;
+        }
+      }
+      return true;
+    }
+    function doubleQuotedString(value, ctx) {
+      const json = JSON.stringify(value);
+      if (ctx.options.doubleQuotedAsJSON)
+        return json;
+      const { implicitKey } = ctx;
+      const minMultiLineLength = ctx.options.doubleQuotedMinMultiLineLength;
+      const indent = ctx.indent || (containsDocumentMarker(value) ? "  " : "");
+      let str = "";
+      let start = 0;
+      for (let i = 0, ch = json[i]; ch; ch = json[++i]) {
+        if (ch === " " && json[i + 1] === "\\" && json[i + 2] === "n") {
+          str += json.slice(start, i) + "\\ ";
+          i += 1;
+          start = i;
+          ch = "\\";
+        }
+        if (ch === "\\")
+          switch (json[i + 1]) {
+            case "u":
+              {
+                str += json.slice(start, i);
+                const code = json.substr(i + 2, 4);
+                switch (code) {
+                  case "0000":
+                    str += "\\0";
+                    break;
+                  case "0007":
+                    str += "\\a";
+                    break;
+                  case "000b":
+                    str += "\\v";
+                    break;
+                  case "001b":
+                    str += "\\e";
+                    break;
+                  case "0085":
+                    str += "\\N";
+                    break;
+                  case "00a0":
+                    str += "\\_";
+                    break;
+                  case "2028":
+                    str += "\\L";
+                    break;
+                  case "2029":
+                    str += "\\P";
+                    break;
+                  default:
+                    if (code.substr(0, 2) === "00")
+                      str += "\\x" + code.substr(2);
+                    else
+                      str += json.substr(i, 6);
+                }
+                i += 5;
+                start = i + 1;
+              }
+              break;
+            case "n":
+              if (implicitKey || json[i + 2] === '"' || json.length < minMultiLineLength) {
+                i += 1;
+              } else {
+                str += json.slice(start, i) + "\n\n";
+                while (json[i + 2] === "\\" && json[i + 3] === "n" && json[i + 4] !== '"') {
+                  str += "\n";
+                  i += 2;
+                }
+                str += indent;
+                if (json[i + 2] === " ")
+                  str += "\\";
+                i += 1;
+                start = i + 1;
+              }
+              break;
+            default:
+              i += 1;
+          }
+      }
+      str = start ? str + json.slice(start) : json;
+      return implicitKey ? str : foldFlowLines.foldFlowLines(str, indent, foldFlowLines.FOLD_QUOTED, getFoldOptions(ctx, false));
+    }
+    function singleQuotedString(value, ctx) {
+      if (ctx.options.singleQuote === false || ctx.implicitKey && value.includes("\n") || /[ \t]\n|\n[ \t]/.test(value))
+        return doubleQuotedString(value, ctx);
+      const indent = ctx.indent || (containsDocumentMarker(value) ? "  " : "");
+      const res = "'" + value.replace(/'/g, "''").replace(/\n+/g, `$&
+${indent}`) + "'";
+      return ctx.implicitKey ? res : foldFlowLines.foldFlowLines(res, indent, foldFlowLines.FOLD_FLOW, getFoldOptions(ctx, false));
+    }
+    function quotedString(value, ctx) {
+      const { singleQuote } = ctx.options;
+      let qs;
+      if (singleQuote === false)
+        qs = doubleQuotedString;
+      else {
+        const hasDouble = value.includes('"');
+        const hasSingle = value.includes("'");
+        if (hasDouble && !hasSingle)
+          qs = singleQuotedString;
+        else if (hasSingle && !hasDouble)
+          qs = doubleQuotedString;
+        else
+          qs = singleQuote ? singleQuotedString : doubleQuotedString;
+      }
+      return qs(value, ctx);
+    }
+    var blockEndNewlines;
+    try {
+      blockEndNewlines = new RegExp("(^|(?<!\n))\n+(?!\n|$)", "g");
+    } catch {
+      blockEndNewlines = /\n+(?!\n|$)/g;
+    }
+    function blockString({ comment, type, value }, ctx, onComment, onChompKeep) {
+      const { blockQuote, commentString, lineWidth } = ctx.options;
+      if (!blockQuote || /\n[\t ]+$/.test(value)) {
+        return quotedString(value, ctx);
+      }
+      const indent = ctx.indent || (ctx.forceBlockIndent || containsDocumentMarker(value) ? "  " : "");
+      const literal = blockQuote === "literal" ? true : blockQuote === "folded" || type === Scalar.Scalar.BLOCK_FOLDED ? false : type === Scalar.Scalar.BLOCK_LITERAL ? true : !lineLengthOverLimit(value, lineWidth, indent.length);
+      if (!value)
+        return literal ? "|\n" : ">\n";
+      let chomp;
+      let endStart;
+      for (endStart = value.length; endStart > 0; --endStart) {
+        const ch = value[endStart - 1];
+        if (ch !== "\n" && ch !== "	" && ch !== " ")
+          break;
+      }
+      let end = value.substring(endStart);
+      const endNlPos = end.indexOf("\n");
+      if (endNlPos === -1) {
+        chomp = "-";
+      } else if (value === end || endNlPos !== end.length - 1) {
+        chomp = "+";
+        if (onChompKeep)
+          onChompKeep();
+      } else {
+        chomp = "";
+      }
+      if (end) {
+        value = value.slice(0, -end.length);
+        if (end[end.length - 1] === "\n")
+          end = end.slice(0, -1);
+        end = end.replace(blockEndNewlines, `$&${indent}`);
+      }
+      let startWithSpace = false;
+      let startEnd;
+      let startNlPos = -1;
+      for (startEnd = 0; startEnd < value.length; ++startEnd) {
+        const ch = value[startEnd];
+        if (ch === " ")
+          startWithSpace = true;
+        else if (ch === "\n")
+          startNlPos = startEnd;
+        else
+          break;
+      }
+      let start = value.substring(0, startNlPos < startEnd ? startNlPos + 1 : startEnd);
+      if (start) {
+        value = value.substring(start.length);
+        start = start.replace(/\n+/g, `$&${indent}`);
+      }
+      const indentSize = indent ? "2" : "1";
+      let header = (startWithSpace ? indentSize : "") + chomp;
+      if (comment) {
+        header += " " + commentString(comment.replace(/ ?[\r\n]+/g, " "));
+        if (onComment)
+          onComment();
+      }
+      if (!literal) {
+        const foldedValue = value.replace(/\n+/g, "\n$&").replace(/(?:^|\n)([\t ].*)(?:([\n\t ]*)\n(?![\n\t ]))?/g, "$1$2").replace(/\n+/g, `$&${indent}`);
+        let literalFallback = false;
+        const foldOptions = getFoldOptions(ctx, true);
+        if (blockQuote !== "folded" && type !== Scalar.Scalar.BLOCK_FOLDED) {
+          foldOptions.onOverflow = () => {
+            literalFallback = true;
+          };
+        }
+        const body = foldFlowLines.foldFlowLines(`${start}${foldedValue}${end}`, indent, foldFlowLines.FOLD_BLOCK, foldOptions);
+        if (!literalFallback)
+          return `>${header}
+${indent}${body}`;
+      }
+      value = value.replace(/\n+/g, `$&${indent}`);
+      return `|${header}
+${indent}${start}${value}${end}`;
+    }
+    function plainString(item, ctx, onComment, onChompKeep) {
+      const { type, value } = item;
+      const { actualString, implicitKey, indent, indentStep, inFlow } = ctx;
+      if (implicitKey && value.includes("\n") || inFlow && /[[\]{},]/.test(value)) {
+        return quotedString(value, ctx);
+      }
+      if (/^[\n\t ,[\]{}#&*!|>'"%@`]|^[?-]$|^[?-][ \t]|[\n:][ \t]|[ \t]\n|[\n\t ]#|[\n\t :]$/.test(value)) {
+        return implicitKey || inFlow || !value.includes("\n") ? quotedString(value, ctx) : blockString(item, ctx, onComment, onChompKeep);
+      }
+      if (!implicitKey && !inFlow && type !== Scalar.Scalar.PLAIN && value.includes("\n")) {
+        return blockString(item, ctx, onComment, onChompKeep);
+      }
+      if (containsDocumentMarker(value)) {
+        if (indent === "") {
+          ctx.forceBlockIndent = true;
+          return blockString(item, ctx, onComment, onChompKeep);
+        } else if (implicitKey && indent === indentStep) {
+          return quotedString(value, ctx);
+        }
+      }
+      const str = value.replace(/\n+/g, `$&
+${indent}`);
+      if (actualString) {
+        const test2 = (tag) => tag.default && tag.tag !== "tag:yaml.org,2002:str" && tag.test?.test(str);
+        const { compat, tags } = ctx.doc.schema;
+        if (tags.some(test2) || compat?.some(test2))
+          return quotedString(value, ctx);
+      }
+      return implicitKey ? str : foldFlowLines.foldFlowLines(str, indent, foldFlowLines.FOLD_FLOW, getFoldOptions(ctx, false));
+    }
+    function stringifyString(item, ctx, onComment, onChompKeep) {
+      const { implicitKey, inFlow } = ctx;
+      const ss = typeof item.value === "string" ? item : Object.assign({}, item, { value: String(item.value) });
+      let { type } = item;
+      if (type !== Scalar.Scalar.QUOTE_DOUBLE) {
+        if (/[\x00-\x08\x0b-\x1f\x7f-\x9f\u{D800}-\u{DFFF}]/u.test(ss.value))
+          type = Scalar.Scalar.QUOTE_DOUBLE;
+      }
+      const _stringify = (_type) => {
+        switch (_type) {
+          case Scalar.Scalar.BLOCK_FOLDED:
+          case Scalar.Scalar.BLOCK_LITERAL:
+            return implicitKey || inFlow ? quotedString(ss.value, ctx) : blockString(ss, ctx, onComment, onChompKeep);
+          case Scalar.Scalar.QUOTE_DOUBLE:
+            return doubleQuotedString(ss.value, ctx);
+          case Scalar.Scalar.QUOTE_SINGLE:
+            return singleQuotedString(ss.value, ctx);
+          case Scalar.Scalar.PLAIN:
+            return plainString(ss, ctx, onComment, onChompKeep);
+          default:
+            return null;
+        }
+      };
+      let res = _stringify(type);
+      if (res === null) {
+        const { defaultKeyType, defaultStringType } = ctx.options;
+        const t = implicitKey && defaultKeyType || defaultStringType;
+        res = _stringify(t);
+        if (res === null)
+          throw new Error(`Unsupported default string type ${t}`);
+      }
+      return res;
+    }
+    exports.stringifyString = stringifyString;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringify.js
+var require_stringify2 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringify.js"(exports) {
+    "use strict";
+    var anchors = require_anchors();
+    var identity = require_identity();
+    var stringifyComment = require_stringifyComment();
+    var stringifyString = require_stringifyString();
+    function createStringifyContext(doc, options) {
+      const opt = Object.assign({
+        blockQuote: true,
+        commentString: stringifyComment.stringifyComment,
+        defaultKeyType: null,
+        defaultStringType: "PLAIN",
+        directives: null,
+        doubleQuotedAsJSON: false,
+        doubleQuotedMinMultiLineLength: 40,
+        falseStr: "false",
+        flowCollectionPadding: true,
+        indentSeq: true,
+        lineWidth: 80,
+        minContentWidth: 20,
+        nullStr: "null",
+        simpleKeys: false,
+        singleQuote: null,
+        trailingComma: false,
+        trueStr: "true",
+        verifyAliasOrder: true
+      }, doc.schema.toStringOptions, options);
+      let inFlow;
+      switch (opt.collectionStyle) {
+        case "block":
+          inFlow = false;
+          break;
+        case "flow":
+          inFlow = true;
+          break;
+        default:
+          inFlow = null;
+      }
+      return {
+        anchors: /* @__PURE__ */ new Set(),
+        doc,
+        flowCollectionPadding: opt.flowCollectionPadding ? " " : "",
+        indent: "",
+        indentStep: typeof opt.indent === "number" ? " ".repeat(opt.indent) : "  ",
+        inFlow,
+        options: opt
+      };
+    }
+    function getTagObject(tags, item) {
+      if (item.tag) {
+        const match = tags.filter((t) => t.tag === item.tag);
+        if (match.length > 0)
+          return match.find((t) => t.format === item.format) ?? match[0];
+      }
+      let tagObj = void 0;
+      let obj;
+      if (identity.isScalar(item)) {
+        obj = item.value;
+        let match = tags.filter((t) => t.identify?.(obj));
+        if (match.length > 1) {
+          const testMatch = match.filter((t) => t.test);
+          if (testMatch.length > 0)
+            match = testMatch;
+        }
+        tagObj = match.find((t) => t.format === item.format) ?? match.find((t) => !t.format);
+      } else {
+        obj = item;
+        tagObj = tags.find((t) => t.nodeClass && obj instanceof t.nodeClass);
+      }
+      if (!tagObj) {
+        const name = obj?.constructor?.name ?? (obj === null ? "null" : typeof obj);
+        throw new Error(`Tag not resolved for ${name} value`);
+      }
+      return tagObj;
+    }
+    function stringifyProps(node, tagObj, { anchors: anchors$1, doc }) {
+      if (!doc.directives)
+        return "";
+      const props = [];
+      const anchor = (identity.isScalar(node) || identity.isCollection(node)) && node.anchor;
+      if (anchor && anchors.anchorIsValid(anchor)) {
+        anchors$1.add(anchor);
+        props.push(`&${anchor}`);
+      }
+      const tag = node.tag ?? (tagObj.default ? null : tagObj.tag);
+      if (tag)
+        props.push(doc.directives.tagString(tag));
+      return props.join(" ");
+    }
+    function stringify2(item, ctx, onComment, onChompKeep) {
+      if (identity.isPair(item))
+        return item.toString(ctx, onComment, onChompKeep);
+      if (identity.isAlias(item)) {
+        if (ctx.doc.directives)
+          return item.toString(ctx);
+        if (ctx.resolvedAliases?.has(item)) {
+          throw new TypeError(`Cannot stringify circular structure without alias nodes`);
+        } else {
+          if (ctx.resolvedAliases)
+            ctx.resolvedAliases.add(item);
+          else
+            ctx.resolvedAliases = /* @__PURE__ */ new Set([item]);
+          item = item.resolve(ctx.doc);
+        }
+      }
+      let tagObj = void 0;
+      const node = identity.isNode(item) ? item : ctx.doc.createNode(item, { onTagObj: (o) => tagObj = o });
+      tagObj ?? (tagObj = getTagObject(ctx.doc.schema.tags, node));
+      const props = stringifyProps(node, tagObj, ctx);
+      if (props.length > 0)
+        ctx.indentAtStart = (ctx.indentAtStart ?? 0) + props.length + 1;
+      const str = typeof tagObj.stringify === "function" ? tagObj.stringify(node, ctx, onComment, onChompKeep) : identity.isScalar(node) ? stringifyString.stringifyString(node, ctx, onComment, onChompKeep) : node.toString(ctx, onComment, onChompKeep);
+      if (!props)
+        return str;
+      return identity.isScalar(node) || str[0] === "{" || str[0] === "[" ? `${props} ${str}` : `${props}
+${ctx.indent}${str}`;
+    }
+    exports.createStringifyContext = createStringifyContext;
+    exports.stringify = stringify2;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyPair.js
+var require_stringifyPair = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyPair.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Scalar = require_Scalar();
+    var stringify2 = require_stringify2();
+    var stringifyComment = require_stringifyComment();
+    function stringifyPair({ key, value }, ctx, onComment, onChompKeep) {
+      const { allNullValues, doc, indent, indentStep, options: { commentString, indentSeq, simpleKeys } } = ctx;
+      let keyComment = identity.isNode(key) && key.comment || null;
+      if (simpleKeys) {
+        if (keyComment) {
+          throw new Error("With simple keys, key nodes cannot have comments");
+        }
+        if (identity.isCollection(key) || !identity.isNode(key) && typeof key === "object") {
+          const msg = "With simple keys, collection cannot be used as a key value";
+          throw new Error(msg);
+        }
+      }
+      let explicitKey = !simpleKeys && (!key || keyComment && value == null && !ctx.inFlow || identity.isCollection(key) || (identity.isScalar(key) ? key.type === Scalar.Scalar.BLOCK_FOLDED || key.type === Scalar.Scalar.BLOCK_LITERAL : typeof key === "object"));
+      ctx = Object.assign({}, ctx, {
+        allNullValues: false,
+        implicitKey: !explicitKey && (simpleKeys || !allNullValues),
+        indent: indent + indentStep
+      });
+      let keyCommentDone = false;
+      let chompKeep = false;
+      let str = stringify2.stringify(key, ctx, () => keyCommentDone = true, () => chompKeep = true);
+      if (!explicitKey && !ctx.inFlow && str.length > 1024) {
+        if (simpleKeys)
+          throw new Error("With simple keys, single line scalar must not span more than 1024 characters");
+        explicitKey = true;
+      }
+      if (ctx.inFlow) {
+        if (allNullValues || value == null) {
+          if (keyCommentDone && onComment)
+            onComment();
+          return str === "" ? "?" : explicitKey ? `? ${str}` : str;
+        }
+      } else if (allNullValues && !simpleKeys || value == null && explicitKey) {
+        str = `? ${str}`;
+        if (keyComment && !keyCommentDone) {
+          str += stringifyComment.lineComment(str, ctx.indent, commentString(keyComment));
+        } else if (chompKeep && onChompKeep)
+          onChompKeep();
+        return str;
+      }
+      if (keyCommentDone)
+        keyComment = null;
+      if (explicitKey) {
+        if (keyComment)
+          str += stringifyComment.lineComment(str, ctx.indent, commentString(keyComment));
+        str = `? ${str}
+${indent}:`;
+      } else {
+        str = `${str}:`;
+        if (keyComment)
+          str += stringifyComment.lineComment(str, ctx.indent, commentString(keyComment));
+      }
+      let vsb, vcb, valueComment;
+      if (identity.isNode(value)) {
+        vsb = !!value.spaceBefore;
+        vcb = value.commentBefore;
+        valueComment = value.comment;
+      } else {
+        vsb = false;
+        vcb = null;
+        valueComment = null;
+        if (value && typeof value === "object")
+          value = doc.createNode(value);
+      }
+      ctx.implicitKey = false;
+      if (!explicitKey && !keyComment && identity.isScalar(value))
+        ctx.indentAtStart = str.length + 1;
+      chompKeep = false;
+      if (!indentSeq && indentStep.length >= 2 && !ctx.inFlow && !explicitKey && identity.isSeq(value) && !value.flow && !value.tag && !value.anchor) {
+        ctx.indent = ctx.indent.substring(2);
+      }
+      let valueCommentDone = false;
+      const valueStr = stringify2.stringify(value, ctx, () => valueCommentDone = true, () => chompKeep = true);
+      let ws = " ";
+      if (keyComment || vsb || vcb) {
+        ws = vsb ? "\n" : "";
+        if (vcb) {
+          const cs = commentString(vcb);
+          ws += `
+${stringifyComment.indentComment(cs, ctx.indent)}`;
+        }
+        if (valueStr === "" && !ctx.inFlow) {
+          if (ws === "\n" && valueComment)
+            ws = "\n\n";
+        } else {
+          ws += `
+${ctx.indent}`;
+        }
+      } else if (!explicitKey && identity.isCollection(value)) {
+        const vs0 = valueStr[0];
+        const nl0 = valueStr.indexOf("\n");
+        const hasNewline = nl0 !== -1;
+        const flow = ctx.inFlow ?? value.flow ?? value.items.length === 0;
+        if (hasNewline || !flow) {
+          let hasPropsLine = false;
+          if (hasNewline && (vs0 === "&" || vs0 === "!")) {
+            let sp0 = valueStr.indexOf(" ");
+            if (vs0 === "&" && sp0 !== -1 && sp0 < nl0 && valueStr[sp0 + 1] === "!") {
+              sp0 = valueStr.indexOf(" ", sp0 + 1);
+            }
+            if (sp0 === -1 || nl0 < sp0)
+              hasPropsLine = true;
+          }
+          if (!hasPropsLine)
+            ws = `
+${ctx.indent}`;
+        }
+      } else if (valueStr === "" || valueStr[0] === "\n") {
+        ws = "";
+      }
+      str += ws + valueStr;
+      if (ctx.inFlow) {
+        if (valueCommentDone && onComment)
+          onComment();
+      } else if (valueComment && !valueCommentDone) {
+        str += stringifyComment.lineComment(str, ctx.indent, commentString(valueComment));
+      } else if (chompKeep && onChompKeep) {
+        onChompKeep();
+      }
+      return str;
+    }
+    exports.stringifyPair = stringifyPair;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/log.js
+var require_log2 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/log.js"(exports) {
+    "use strict";
+    var node_process = __require("process");
+    function debug(logLevel, ...messages) {
+      if (logLevel === "debug")
+        console.log(...messages);
+    }
+    function warn2(logLevel, warning) {
+      if (logLevel === "debug" || logLevel === "warn") {
+        if (typeof node_process.emitWarning === "function")
+          node_process.emitWarning(warning);
+        else
+          console.warn(warning);
+      }
+    }
+    exports.debug = debug;
+    exports.warn = warn2;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/merge.js
+var require_merge = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/merge.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Scalar = require_Scalar();
+    var MERGE_KEY = "<<";
+    var merge2 = {
+      identify: (value) => value === MERGE_KEY || typeof value === "symbol" && value.description === MERGE_KEY,
+      default: "key",
+      tag: "tag:yaml.org,2002:merge",
+      test: /^<<$/,
+      resolve: () => Object.assign(new Scalar.Scalar(Symbol(MERGE_KEY)), {
+        addToJSMap: addMergeToJSMap
+      }),
+      stringify: () => MERGE_KEY
+    };
+    var isMergeKey = (ctx, key) => (merge2.identify(key) || identity.isScalar(key) && (!key.type || key.type === Scalar.Scalar.PLAIN) && merge2.identify(key.value)) && ctx?.doc.schema.tags.some((tag) => tag.tag === merge2.tag && tag.default);
+    function addMergeToJSMap(ctx, map, value) {
+      value = ctx && identity.isAlias(value) ? value.resolve(ctx.doc) : value;
+      if (identity.isSeq(value))
+        for (const it of value.items)
+          mergeValue(ctx, map, it);
+      else if (Array.isArray(value))
+        for (const it of value)
+          mergeValue(ctx, map, it);
+      else
+        mergeValue(ctx, map, value);
+    }
+    function mergeValue(ctx, map, value) {
+      const source = ctx && identity.isAlias(value) ? value.resolve(ctx.doc) : value;
+      if (!identity.isMap(source))
+        throw new Error("Merge sources must be maps or map aliases");
+      const srcMap = source.toJSON(null, ctx, Map);
+      for (const [key, value2] of srcMap) {
+        if (map instanceof Map) {
+          if (!map.has(key))
+            map.set(key, value2);
+        } else if (map instanceof Set) {
+          map.add(key);
+        } else if (!Object.prototype.hasOwnProperty.call(map, key)) {
+          Object.defineProperty(map, key, {
+            value: value2,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+        }
+      }
+      return map;
+    }
+    exports.addMergeToJSMap = addMergeToJSMap;
+    exports.isMergeKey = isMergeKey;
+    exports.merge = merge2;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/addPairToJSMap.js
+var require_addPairToJSMap = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/addPairToJSMap.js"(exports) {
+    "use strict";
+    var log = require_log2();
+    var merge2 = require_merge();
+    var stringify2 = require_stringify2();
+    var identity = require_identity();
+    var toJS = require_toJS();
+    function addPairToJSMap(ctx, map, { key, value }) {
+      if (identity.isNode(key) && key.addToJSMap)
+        key.addToJSMap(ctx, map, value);
+      else if (merge2.isMergeKey(ctx, key))
+        merge2.addMergeToJSMap(ctx, map, value);
+      else {
+        const jsKey = toJS.toJS(key, "", ctx);
+        if (map instanceof Map) {
+          map.set(jsKey, toJS.toJS(value, jsKey, ctx));
+        } else if (map instanceof Set) {
+          map.add(jsKey);
+        } else {
+          const stringKey = stringifyKey(key, jsKey, ctx);
+          const jsValue = toJS.toJS(value, stringKey, ctx);
+          if (stringKey in map)
+            Object.defineProperty(map, stringKey, {
+              value: jsValue,
+              writable: true,
+              enumerable: true,
+              configurable: true
+            });
+          else
+            map[stringKey] = jsValue;
+        }
+      }
+      return map;
+    }
+    function stringifyKey(key, jsKey, ctx) {
+      if (jsKey === null)
+        return "";
+      if (typeof jsKey !== "object")
+        return String(jsKey);
+      if (identity.isNode(key) && ctx?.doc) {
+        const strCtx = stringify2.createStringifyContext(ctx.doc, {});
+        strCtx.anchors = /* @__PURE__ */ new Set();
+        for (const node of ctx.anchors.keys())
+          strCtx.anchors.add(node.anchor);
+        strCtx.inFlow = true;
+        strCtx.inStringifyKey = true;
+        const strKey = key.toString(strCtx);
+        if (!ctx.mapKeyWarned) {
+          let jsonStr = JSON.stringify(strKey);
+          if (jsonStr.length > 40)
+            jsonStr = jsonStr.substring(0, 36) + '..."';
+          log.warn(ctx.doc.options.logLevel, `Keys with collection values will be stringified due to JS Object restrictions: ${jsonStr}. Set mapAsMap: true to use object keys.`);
+          ctx.mapKeyWarned = true;
+        }
+        return strKey;
+      }
+      return JSON.stringify(jsKey);
+    }
+    exports.addPairToJSMap = addPairToJSMap;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Pair.js
+var require_Pair = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/Pair.js"(exports) {
+    "use strict";
+    var createNode = require_createNode();
+    var stringifyPair = require_stringifyPair();
+    var addPairToJSMap = require_addPairToJSMap();
+    var identity = require_identity();
+    function createPair(key, value, ctx) {
+      const k = createNode.createNode(key, void 0, ctx);
+      const v = createNode.createNode(value, void 0, ctx);
+      return new Pair(k, v);
+    }
+    var Pair = class _Pair {
+      constructor(key, value = null) {
+        Object.defineProperty(this, identity.NODE_TYPE, { value: identity.PAIR });
+        this.key = key;
+        this.value = value;
+      }
+      clone(schema) {
+        let { key, value } = this;
+        if (identity.isNode(key))
+          key = key.clone(schema);
+        if (identity.isNode(value))
+          value = value.clone(schema);
+        return new _Pair(key, value);
+      }
+      toJSON(_, ctx) {
+        const pair = ctx?.mapAsMap ? /* @__PURE__ */ new Map() : {};
+        return addPairToJSMap.addPairToJSMap(ctx, pair, this);
+      }
+      toString(ctx, onComment, onChompKeep) {
+        return ctx?.doc ? stringifyPair.stringifyPair(this, ctx, onComment, onChompKeep) : JSON.stringify(this);
+      }
+    };
+    exports.Pair = Pair;
+    exports.createPair = createPair;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyCollection.js
+var require_stringifyCollection = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyCollection.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var stringify2 = require_stringify2();
+    var stringifyComment = require_stringifyComment();
+    function stringifyCollection(collection, ctx, options) {
+      const flow = ctx.inFlow ?? collection.flow;
+      const stringify3 = flow ? stringifyFlowCollection : stringifyBlockCollection;
+      return stringify3(collection, ctx, options);
+    }
+    function stringifyBlockCollection({ comment, items }, ctx, { blockItemPrefix, flowChars, itemIndent, onChompKeep, onComment }) {
+      const { indent, options: { commentString } } = ctx;
+      const itemCtx = Object.assign({}, ctx, { indent: itemIndent, type: null });
+      let chompKeep = false;
+      const lines = [];
+      for (let i = 0; i < items.length; ++i) {
+        const item = items[i];
+        let comment2 = null;
+        if (identity.isNode(item)) {
+          if (!chompKeep && item.spaceBefore)
+            lines.push("");
+          addCommentBefore(ctx, lines, item.commentBefore, chompKeep);
+          if (item.comment)
+            comment2 = item.comment;
+        } else if (identity.isPair(item)) {
+          const ik = identity.isNode(item.key) ? item.key : null;
+          if (ik) {
+            if (!chompKeep && ik.spaceBefore)
+              lines.push("");
+            addCommentBefore(ctx, lines, ik.commentBefore, chompKeep);
+          }
+        }
+        chompKeep = false;
+        let str2 = stringify2.stringify(item, itemCtx, () => comment2 = null, () => chompKeep = true);
+        if (comment2)
+          str2 += stringifyComment.lineComment(str2, itemIndent, commentString(comment2));
+        if (chompKeep && comment2)
+          chompKeep = false;
+        lines.push(blockItemPrefix + str2);
+      }
+      let str;
+      if (lines.length === 0) {
+        str = flowChars.start + flowChars.end;
+      } else {
+        str = lines[0];
+        for (let i = 1; i < lines.length; ++i) {
+          const line = lines[i];
+          str += line ? `
+${indent}${line}` : "\n";
+        }
+      }
+      if (comment) {
+        str += "\n" + stringifyComment.indentComment(commentString(comment), indent);
+        if (onComment)
+          onComment();
+      } else if (chompKeep && onChompKeep)
+        onChompKeep();
+      return str;
+    }
+    function stringifyFlowCollection({ items }, ctx, { flowChars, itemIndent }) {
+      const { indent, indentStep, flowCollectionPadding: fcPadding, options: { commentString } } = ctx;
+      itemIndent += indentStep;
+      const itemCtx = Object.assign({}, ctx, {
+        indent: itemIndent,
+        inFlow: true,
+        type: null
+      });
+      let reqNewline = false;
+      let linesAtValue = 0;
+      const lines = [];
+      for (let i = 0; i < items.length; ++i) {
+        const item = items[i];
+        let comment = null;
+        if (identity.isNode(item)) {
+          if (item.spaceBefore)
+            lines.push("");
+          addCommentBefore(ctx, lines, item.commentBefore, false);
+          if (item.comment)
+            comment = item.comment;
+        } else if (identity.isPair(item)) {
+          const ik = identity.isNode(item.key) ? item.key : null;
+          if (ik) {
+            if (ik.spaceBefore)
+              lines.push("");
+            addCommentBefore(ctx, lines, ik.commentBefore, false);
+            if (ik.comment)
+              reqNewline = true;
+          }
+          const iv = identity.isNode(item.value) ? item.value : null;
+          if (iv) {
+            if (iv.comment)
+              comment = iv.comment;
+            if (iv.commentBefore)
+              reqNewline = true;
+          } else if (item.value == null && ik?.comment) {
+            comment = ik.comment;
+          }
+        }
+        if (comment)
+          reqNewline = true;
+        let str = stringify2.stringify(item, itemCtx, () => comment = null);
+        reqNewline || (reqNewline = lines.length > linesAtValue || str.includes("\n"));
+        if (i < items.length - 1) {
+          str += ",";
+        } else if (ctx.options.trailingComma) {
+          if (ctx.options.lineWidth > 0) {
+            reqNewline || (reqNewline = lines.reduce((sum, line) => sum + line.length + 2, 2) + (str.length + 2) > ctx.options.lineWidth);
+          }
+          if (reqNewline) {
+            str += ",";
+          }
+        }
+        if (comment)
+          str += stringifyComment.lineComment(str, itemIndent, commentString(comment));
+        lines.push(str);
+        linesAtValue = lines.length;
+      }
+      const { start, end } = flowChars;
+      if (lines.length === 0) {
+        return start + end;
+      } else {
+        if (!reqNewline) {
+          const len = lines.reduce((sum, line) => sum + line.length + 2, 2);
+          reqNewline = ctx.options.lineWidth > 0 && len > ctx.options.lineWidth;
+        }
+        if (reqNewline) {
+          let str = start;
+          for (const line of lines)
+            str += line ? `
+${indentStep}${indent}${line}` : "\n";
+          return `${str}
+${indent}${end}`;
+        } else {
+          return `${start}${fcPadding}${lines.join(" ")}${fcPadding}${end}`;
+        }
+      }
+    }
+    function addCommentBefore({ indent, options: { commentString } }, lines, comment, chompKeep) {
+      if (comment && chompKeep)
+        comment = comment.replace(/^\n+/, "");
+      if (comment) {
+        const ic = stringifyComment.indentComment(commentString(comment), indent);
+        lines.push(ic.trimStart());
+      }
+    }
+    exports.stringifyCollection = stringifyCollection;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/YAMLMap.js
+var require_YAMLMap = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/YAMLMap.js"(exports) {
+    "use strict";
+    var stringifyCollection = require_stringifyCollection();
+    var addPairToJSMap = require_addPairToJSMap();
+    var Collection = require_Collection();
+    var identity = require_identity();
+    var Pair = require_Pair();
+    var Scalar = require_Scalar();
+    function findPair(items, key) {
+      const k = identity.isScalar(key) ? key.value : key;
+      for (const it of items) {
+        if (identity.isPair(it)) {
+          if (it.key === key || it.key === k)
+            return it;
+          if (identity.isScalar(it.key) && it.key.value === k)
+            return it;
+        }
+      }
+      return void 0;
+    }
+    var YAMLMap = class extends Collection.Collection {
+      static get tagName() {
+        return "tag:yaml.org,2002:map";
+      }
+      constructor(schema) {
+        super(identity.MAP, schema);
+        this.items = [];
+      }
+      /**
+       * A generic collection parsing method that can be extended
+       * to other node classes that inherit from YAMLMap
+       */
+      static from(schema, obj, ctx) {
+        const { keepUndefined, replacer } = ctx;
+        const map = new this(schema);
+        const add = (key, value) => {
+          if (typeof replacer === "function")
+            value = replacer.call(obj, key, value);
+          else if (Array.isArray(replacer) && !replacer.includes(key))
+            return;
+          if (value !== void 0 || keepUndefined)
+            map.items.push(Pair.createPair(key, value, ctx));
+        };
+        if (obj instanceof Map) {
+          for (const [key, value] of obj)
+            add(key, value);
+        } else if (obj && typeof obj === "object") {
+          for (const key of Object.keys(obj))
+            add(key, obj[key]);
+        }
+        if (typeof schema.sortMapEntries === "function") {
+          map.items.sort(schema.sortMapEntries);
+        }
+        return map;
+      }
+      /**
+       * Adds a value to the collection.
+       *
+       * @param overwrite - If not set `true`, using a key that is already in the
+       *   collection will throw. Otherwise, overwrites the previous value.
+       */
+      add(pair, overwrite) {
+        let _pair;
+        if (identity.isPair(pair))
+          _pair = pair;
+        else if (!pair || typeof pair !== "object" || !("key" in pair)) {
+          _pair = new Pair.Pair(pair, pair?.value);
+        } else
+          _pair = new Pair.Pair(pair.key, pair.value);
+        const prev = findPair(this.items, _pair.key);
+        const sortEntries = this.schema?.sortMapEntries;
+        if (prev) {
+          if (!overwrite)
+            throw new Error(`Key ${_pair.key} already set`);
+          if (identity.isScalar(prev.value) && Scalar.isScalarValue(_pair.value))
+            prev.value.value = _pair.value;
+          else
+            prev.value = _pair.value;
+        } else if (sortEntries) {
+          const i = this.items.findIndex((item) => sortEntries(_pair, item) < 0);
+          if (i === -1)
+            this.items.push(_pair);
+          else
+            this.items.splice(i, 0, _pair);
+        } else {
+          this.items.push(_pair);
+        }
+      }
+      delete(key) {
+        const it = findPair(this.items, key);
+        if (!it)
+          return false;
+        const del = this.items.splice(this.items.indexOf(it), 1);
+        return del.length > 0;
+      }
+      get(key, keepScalar) {
+        const it = findPair(this.items, key);
+        const node = it?.value;
+        return (!keepScalar && identity.isScalar(node) ? node.value : node) ?? void 0;
+      }
+      has(key) {
+        return !!findPair(this.items, key);
+      }
+      set(key, value) {
+        this.add(new Pair.Pair(key, value), true);
+      }
+      /**
+       * @param ctx - Conversion context, originally set in Document#toJS()
+       * @param {Class} Type - If set, forces the returned collection type
+       * @returns Instance of Type, Map, or Object
+       */
+      toJSON(_, ctx, Type) {
+        const map = Type ? new Type() : ctx?.mapAsMap ? /* @__PURE__ */ new Map() : {};
+        if (ctx?.onCreate)
+          ctx.onCreate(map);
+        for (const item of this.items)
+          addPairToJSMap.addPairToJSMap(ctx, map, item);
+        return map;
+      }
+      toString(ctx, onComment, onChompKeep) {
+        if (!ctx)
+          return JSON.stringify(this);
+        for (const item of this.items) {
+          if (!identity.isPair(item))
+            throw new Error(`Map items must all be pairs; found ${JSON.stringify(item)} instead`);
+        }
+        if (!ctx.allNullValues && this.hasAllNullValues(false))
+          ctx = Object.assign({}, ctx, { allNullValues: true });
+        return stringifyCollection.stringifyCollection(this, ctx, {
+          blockItemPrefix: "",
+          flowChars: { start: "{", end: "}" },
+          itemIndent: ctx.indent || "",
+          onChompKeep,
+          onComment
+        });
+      }
+    };
+    exports.YAMLMap = YAMLMap;
+    exports.findPair = findPair;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/map.js
+var require_map = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/map.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var YAMLMap = require_YAMLMap();
+    var map = {
+      collection: "map",
+      default: true,
+      nodeClass: YAMLMap.YAMLMap,
+      tag: "tag:yaml.org,2002:map",
+      resolve(map2, onError) {
+        if (!identity.isMap(map2))
+          onError("Expected a mapping for this tag");
+        return map2;
+      },
+      createNode: (schema, obj, ctx) => YAMLMap.YAMLMap.from(schema, obj, ctx)
+    };
+    exports.map = map;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/YAMLSeq.js
+var require_YAMLSeq = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/nodes/YAMLSeq.js"(exports) {
+    "use strict";
+    var createNode = require_createNode();
+    var stringifyCollection = require_stringifyCollection();
+    var Collection = require_Collection();
+    var identity = require_identity();
+    var Scalar = require_Scalar();
+    var toJS = require_toJS();
+    var YAMLSeq = class extends Collection.Collection {
+      static get tagName() {
+        return "tag:yaml.org,2002:seq";
+      }
+      constructor(schema) {
+        super(identity.SEQ, schema);
+        this.items = [];
+      }
+      add(value) {
+        this.items.push(value);
+      }
+      /**
+       * Removes a value from the collection.
+       *
+       * `key` must contain a representation of an integer for this to succeed.
+       * It may be wrapped in a `Scalar`.
+       *
+       * @returns `true` if the item was found and removed.
+       */
+      delete(key) {
+        const idx = asItemIndex(key);
+        if (typeof idx !== "number")
+          return false;
+        const del = this.items.splice(idx, 1);
+        return del.length > 0;
+      }
+      get(key, keepScalar) {
+        const idx = asItemIndex(key);
+        if (typeof idx !== "number")
+          return void 0;
+        const it = this.items[idx];
+        return !keepScalar && identity.isScalar(it) ? it.value : it;
+      }
+      /**
+       * Checks if the collection includes a value with the key `key`.
+       *
+       * `key` must contain a representation of an integer for this to succeed.
+       * It may be wrapped in a `Scalar`.
+       */
+      has(key) {
+        const idx = asItemIndex(key);
+        return typeof idx === "number" && idx < this.items.length;
+      }
+      /**
+       * Sets a value in this collection. For `!!set`, `value` needs to be a
+       * boolean to add/remove the item from the set.
+       *
+       * If `key` does not contain a representation of an integer, this will throw.
+       * It may be wrapped in a `Scalar`.
+       */
+      set(key, value) {
+        const idx = asItemIndex(key);
+        if (typeof idx !== "number")
+          throw new Error(`Expected a valid index, not ${key}.`);
+        const prev = this.items[idx];
+        if (identity.isScalar(prev) && Scalar.isScalarValue(value))
+          prev.value = value;
+        else
+          this.items[idx] = value;
+      }
+      toJSON(_, ctx) {
+        const seq = [];
+        if (ctx?.onCreate)
+          ctx.onCreate(seq);
+        let i = 0;
+        for (const item of this.items)
+          seq.push(toJS.toJS(item, String(i++), ctx));
+        return seq;
+      }
+      toString(ctx, onComment, onChompKeep) {
+        if (!ctx)
+          return JSON.stringify(this);
+        return stringifyCollection.stringifyCollection(this, ctx, {
+          blockItemPrefix: "- ",
+          flowChars: { start: "[", end: "]" },
+          itemIndent: (ctx.indent || "") + "  ",
+          onChompKeep,
+          onComment
+        });
+      }
+      static from(schema, obj, ctx) {
+        const { replacer } = ctx;
+        const seq = new this(schema);
+        if (obj && Symbol.iterator in Object(obj)) {
+          let i = 0;
+          for (let it of obj) {
+            if (typeof replacer === "function") {
+              const key = obj instanceof Set ? it : String(i++);
+              it = replacer.call(obj, key, it);
+            }
+            seq.items.push(createNode.createNode(it, void 0, ctx));
+          }
+        }
+        return seq;
+      }
+    };
+    function asItemIndex(key) {
+      let idx = identity.isScalar(key) ? key.value : key;
+      if (idx && typeof idx === "string")
+        idx = Number(idx);
+      return typeof idx === "number" && Number.isInteger(idx) && idx >= 0 ? idx : null;
+    }
+    exports.YAMLSeq = YAMLSeq;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/seq.js
+var require_seq = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/seq.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var YAMLSeq = require_YAMLSeq();
+    var seq = {
+      collection: "seq",
+      default: true,
+      nodeClass: YAMLSeq.YAMLSeq,
+      tag: "tag:yaml.org,2002:seq",
+      resolve(seq2, onError) {
+        if (!identity.isSeq(seq2))
+          onError("Expected a sequence for this tag");
+        return seq2;
+      },
+      createNode: (schema, obj, ctx) => YAMLSeq.YAMLSeq.from(schema, obj, ctx)
+    };
+    exports.seq = seq;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/string.js
+var require_string = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/string.js"(exports) {
+    "use strict";
+    var stringifyString = require_stringifyString();
+    var string = {
+      identify: (value) => typeof value === "string",
+      default: true,
+      tag: "tag:yaml.org,2002:str",
+      resolve: (str) => str,
+      stringify(item, ctx, onComment, onChompKeep) {
+        ctx = Object.assign({ actualString: true }, ctx);
+        return stringifyString.stringifyString(item, ctx, onComment, onChompKeep);
+      }
+    };
+    exports.string = string;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/null.js
+var require_null = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/common/null.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var nullTag = {
+      identify: (value) => value == null,
+      createNode: () => new Scalar.Scalar(null),
+      default: true,
+      tag: "tag:yaml.org,2002:null",
+      test: /^(?:~|[Nn]ull|NULL)?$/,
+      resolve: () => new Scalar.Scalar(null),
+      stringify: ({ source }, ctx) => typeof source === "string" && nullTag.test.test(source) ? source : ctx.options.nullStr
+    };
+    exports.nullTag = nullTag;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/bool.js
+var require_bool = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/bool.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var boolTag = {
+      identify: (value) => typeof value === "boolean",
+      default: true,
+      tag: "tag:yaml.org,2002:bool",
+      test: /^(?:[Tt]rue|TRUE|[Ff]alse|FALSE)$/,
+      resolve: (str) => new Scalar.Scalar(str[0] === "t" || str[0] === "T"),
+      stringify({ source, value }, ctx) {
+        if (source && boolTag.test.test(source)) {
+          const sv = source[0] === "t" || source[0] === "T";
+          if (value === sv)
+            return source;
+        }
+        return value ? ctx.options.trueStr : ctx.options.falseStr;
+      }
+    };
+    exports.boolTag = boolTag;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyNumber.js
+var require_stringifyNumber = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyNumber.js"(exports) {
+    "use strict";
+    function stringifyNumber({ format, minFractionDigits, tag, value }) {
+      if (typeof value === "bigint")
+        return String(value);
+      const num = typeof value === "number" ? value : Number(value);
+      if (!isFinite(num))
+        return isNaN(num) ? ".nan" : num < 0 ? "-.inf" : ".inf";
+      let n = Object.is(value, -0) ? "-0" : JSON.stringify(value);
+      if (!format && minFractionDigits && (!tag || tag === "tag:yaml.org,2002:float") && /^\d/.test(n)) {
+        let i = n.indexOf(".");
+        if (i < 0) {
+          i = n.length;
+          n += ".";
+        }
+        let d = minFractionDigits - (n.length - i - 1);
+        while (d-- > 0)
+          n += "0";
+      }
+      return n;
+    }
+    exports.stringifyNumber = stringifyNumber;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/float.js
+var require_float = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/float.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var stringifyNumber = require_stringifyNumber();
+    var floatNaN = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      test: /^(?:[-+]?\.(?:inf|Inf|INF)|\.nan|\.NaN|\.NAN)$/,
+      resolve: (str) => str.slice(-3).toLowerCase() === "nan" ? NaN : str[0] === "-" ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY,
+      stringify: stringifyNumber.stringifyNumber
+    };
+    var floatExp = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      format: "EXP",
+      test: /^[-+]?(?:\.[0-9]+|[0-9]+(?:\.[0-9]*)?)[eE][-+]?[0-9]+$/,
+      resolve: (str) => parseFloat(str),
+      stringify(node) {
+        const num = Number(node.value);
+        return isFinite(num) ? num.toExponential() : stringifyNumber.stringifyNumber(node);
+      }
+    };
+    var float = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      test: /^[-+]?(?:\.[0-9]+|[0-9]+\.[0-9]*)$/,
+      resolve(str) {
+        const node = new Scalar.Scalar(parseFloat(str));
+        const dot = str.indexOf(".");
+        if (dot !== -1 && str[str.length - 1] === "0")
+          node.minFractionDigits = str.length - dot - 1;
+        return node;
+      },
+      stringify: stringifyNumber.stringifyNumber
+    };
+    exports.float = float;
+    exports.floatExp = floatExp;
+    exports.floatNaN = floatNaN;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/int.js
+var require_int = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/int.js"(exports) {
+    "use strict";
+    var stringifyNumber = require_stringifyNumber();
+    var intIdentify = (value) => typeof value === "bigint" || Number.isInteger(value);
+    var intResolve = (str, offset, radix, { intAsBigInt }) => intAsBigInt ? BigInt(str) : parseInt(str.substring(offset), radix);
+    function intStringify(node, radix, prefix) {
+      const { value } = node;
+      if (intIdentify(value) && value >= 0)
+        return prefix + value.toString(radix);
+      return stringifyNumber.stringifyNumber(node);
+    }
+    var intOct = {
+      identify: (value) => intIdentify(value) && value >= 0,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      format: "OCT",
+      test: /^0o[0-7]+$/,
+      resolve: (str, _onError, opt) => intResolve(str, 2, 8, opt),
+      stringify: (node) => intStringify(node, 8, "0o")
+    };
+    var int = {
+      identify: intIdentify,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      test: /^[-+]?[0-9]+$/,
+      resolve: (str, _onError, opt) => intResolve(str, 0, 10, opt),
+      stringify: stringifyNumber.stringifyNumber
+    };
+    var intHex = {
+      identify: (value) => intIdentify(value) && value >= 0,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      format: "HEX",
+      test: /^0x[0-9a-fA-F]+$/,
+      resolve: (str, _onError, opt) => intResolve(str, 2, 16, opt),
+      stringify: (node) => intStringify(node, 16, "0x")
+    };
+    exports.int = int;
+    exports.intHex = intHex;
+    exports.intOct = intOct;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/schema.js
+var require_schema = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/core/schema.js"(exports) {
+    "use strict";
+    var map = require_map();
+    var _null = require_null();
+    var seq = require_seq();
+    var string = require_string();
+    var bool = require_bool();
+    var float = require_float();
+    var int = require_int();
+    var schema = [
+      map.map,
+      seq.seq,
+      string.string,
+      _null.nullTag,
+      bool.boolTag,
+      int.intOct,
+      int.int,
+      int.intHex,
+      float.floatNaN,
+      float.floatExp,
+      float.float
+    ];
+    exports.schema = schema;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/json/schema.js
+var require_schema2 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/json/schema.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var map = require_map();
+    var seq = require_seq();
+    function intIdentify(value) {
+      return typeof value === "bigint" || Number.isInteger(value);
+    }
+    var stringifyJSON = ({ value }) => JSON.stringify(value);
+    var jsonScalars = [
+      {
+        identify: (value) => typeof value === "string",
+        default: true,
+        tag: "tag:yaml.org,2002:str",
+        resolve: (str) => str,
+        stringify: stringifyJSON
+      },
+      {
+        identify: (value) => value == null,
+        createNode: () => new Scalar.Scalar(null),
+        default: true,
+        tag: "tag:yaml.org,2002:null",
+        test: /^null$/,
+        resolve: () => null,
+        stringify: stringifyJSON
+      },
+      {
+        identify: (value) => typeof value === "boolean",
+        default: true,
+        tag: "tag:yaml.org,2002:bool",
+        test: /^true$|^false$/,
+        resolve: (str) => str === "true",
+        stringify: stringifyJSON
+      },
+      {
+        identify: intIdentify,
+        default: true,
+        tag: "tag:yaml.org,2002:int",
+        test: /^-?(?:0|[1-9][0-9]*)$/,
+        resolve: (str, _onError, { intAsBigInt }) => intAsBigInt ? BigInt(str) : parseInt(str, 10),
+        stringify: ({ value }) => intIdentify(value) ? value.toString() : JSON.stringify(value)
+      },
+      {
+        identify: (value) => typeof value === "number",
+        default: true,
+        tag: "tag:yaml.org,2002:float",
+        test: /^-?(?:0|[1-9][0-9]*)(?:\.[0-9]*)?(?:[eE][-+]?[0-9]+)?$/,
+        resolve: (str) => parseFloat(str),
+        stringify: stringifyJSON
+      }
+    ];
+    var jsonError = {
+      default: true,
+      tag: "",
+      test: /^/,
+      resolve(str, onError) {
+        onError(`Unresolved plain scalar ${JSON.stringify(str)}`);
+        return str;
+      }
+    };
+    var schema = [map.map, seq.seq].concat(jsonScalars, jsonError);
+    exports.schema = schema;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/binary.js
+var require_binary = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/binary.js"(exports) {
+    "use strict";
+    var node_buffer = __require("buffer");
+    var Scalar = require_Scalar();
+    var stringifyString = require_stringifyString();
+    var binary = {
+      identify: (value) => value instanceof Uint8Array,
+      // Buffer inherits from Uint8Array
+      default: false,
+      tag: "tag:yaml.org,2002:binary",
+      /**
+       * Returns a Buffer in node and an Uint8Array in browsers
+       *
+       * To use the resulting buffer as an image, you'll want to do something like:
+       *
+       *   const blob = new Blob([buffer], { type: 'image/jpeg' })
+       *   document.querySelector('#photo').src = URL.createObjectURL(blob)
+       */
+      resolve(src, onError) {
+        if (typeof node_buffer.Buffer === "function") {
+          return node_buffer.Buffer.from(src, "base64");
+        } else if (typeof atob === "function") {
+          const str = atob(src.replace(/[\n\r]/g, ""));
+          const buffer = new Uint8Array(str.length);
+          for (let i = 0; i < str.length; ++i)
+            buffer[i] = str.charCodeAt(i);
+          return buffer;
+        } else {
+          onError("This environment does not support reading binary tags; either Buffer or atob is required");
+          return src;
+        }
+      },
+      stringify({ comment, type, value }, ctx, onComment, onChompKeep) {
+        if (!value)
+          return "";
+        const buf = value;
+        let str;
+        if (typeof node_buffer.Buffer === "function") {
+          str = buf instanceof node_buffer.Buffer ? buf.toString("base64") : node_buffer.Buffer.from(buf.buffer).toString("base64");
+        } else if (typeof btoa === "function") {
+          let s = "";
+          for (let i = 0; i < buf.length; ++i)
+            s += String.fromCharCode(buf[i]);
+          str = btoa(s);
+        } else {
+          throw new Error("This environment does not support writing binary tags; either Buffer or btoa is required");
+        }
+        type ?? (type = Scalar.Scalar.BLOCK_LITERAL);
+        if (type !== Scalar.Scalar.QUOTE_DOUBLE) {
+          const lineWidth = Math.max(ctx.options.lineWidth - ctx.indent.length, ctx.options.minContentWidth);
+          const n = Math.ceil(str.length / lineWidth);
+          const lines = new Array(n);
+          for (let i = 0, o = 0; i < n; ++i, o += lineWidth) {
+            lines[i] = str.substr(o, lineWidth);
+          }
+          str = lines.join(type === Scalar.Scalar.BLOCK_LITERAL ? "\n" : " ");
+        }
+        return stringifyString.stringifyString({ comment, type, value: str }, ctx, onComment, onChompKeep);
+      }
+    };
+    exports.binary = binary;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/pairs.js
+var require_pairs = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/pairs.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Pair = require_Pair();
+    var Scalar = require_Scalar();
+    var YAMLSeq = require_YAMLSeq();
+    function resolvePairs(seq, onError) {
+      if (identity.isSeq(seq)) {
+        for (let i = 0; i < seq.items.length; ++i) {
+          let item = seq.items[i];
+          if (identity.isPair(item))
+            continue;
+          else if (identity.isMap(item)) {
+            if (item.items.length > 1)
+              onError("Each pair must have its own sequence indicator");
+            const pair = item.items[0] || new Pair.Pair(new Scalar.Scalar(null));
+            if (item.commentBefore)
+              pair.key.commentBefore = pair.key.commentBefore ? `${item.commentBefore}
+${pair.key.commentBefore}` : item.commentBefore;
+            if (item.comment) {
+              const cn = pair.value ?? pair.key;
+              cn.comment = cn.comment ? `${item.comment}
+${cn.comment}` : item.comment;
+            }
+            item = pair;
+          }
+          seq.items[i] = identity.isPair(item) ? item : new Pair.Pair(item);
+        }
+      } else
+        onError("Expected a sequence for this tag");
+      return seq;
+    }
+    function createPairs(schema, iterable, ctx) {
+      const { replacer } = ctx;
+      const pairs2 = new YAMLSeq.YAMLSeq(schema);
+      pairs2.tag = "tag:yaml.org,2002:pairs";
+      let i = 0;
+      if (iterable && Symbol.iterator in Object(iterable))
+        for (let it of iterable) {
+          if (typeof replacer === "function")
+            it = replacer.call(iterable, String(i++), it);
+          let key, value;
+          if (Array.isArray(it)) {
+            if (it.length === 2) {
+              key = it[0];
+              value = it[1];
+            } else
+              throw new TypeError(`Expected [key, value] tuple: ${it}`);
+          } else if (it && it instanceof Object) {
+            const keys = Object.keys(it);
+            if (keys.length === 1) {
+              key = keys[0];
+              value = it[key];
+            } else {
+              throw new TypeError(`Expected tuple with one key, not ${keys.length} keys`);
+            }
+          } else {
+            key = it;
+          }
+          pairs2.items.push(Pair.createPair(key, value, ctx));
+        }
+      return pairs2;
+    }
+    var pairs = {
+      collection: "seq",
+      default: false,
+      tag: "tag:yaml.org,2002:pairs",
+      resolve: resolvePairs,
+      createNode: createPairs
+    };
+    exports.createPairs = createPairs;
+    exports.pairs = pairs;
+    exports.resolvePairs = resolvePairs;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/omap.js
+var require_omap = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/omap.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var toJS = require_toJS();
+    var YAMLMap = require_YAMLMap();
+    var YAMLSeq = require_YAMLSeq();
+    var pairs = require_pairs();
+    var YAMLOMap = class _YAMLOMap extends YAMLSeq.YAMLSeq {
+      constructor() {
+        super();
+        this.add = YAMLMap.YAMLMap.prototype.add.bind(this);
+        this.delete = YAMLMap.YAMLMap.prototype.delete.bind(this);
+        this.get = YAMLMap.YAMLMap.prototype.get.bind(this);
+        this.has = YAMLMap.YAMLMap.prototype.has.bind(this);
+        this.set = YAMLMap.YAMLMap.prototype.set.bind(this);
+        this.tag = _YAMLOMap.tag;
+      }
+      /**
+       * If `ctx` is given, the return type is actually `Map<unknown, unknown>`,
+       * but TypeScript won't allow widening the signature of a child method.
+       */
+      toJSON(_, ctx) {
+        if (!ctx)
+          return super.toJSON(_);
+        const map = /* @__PURE__ */ new Map();
+        if (ctx?.onCreate)
+          ctx.onCreate(map);
+        for (const pair of this.items) {
+          let key, value;
+          if (identity.isPair(pair)) {
+            key = toJS.toJS(pair.key, "", ctx);
+            value = toJS.toJS(pair.value, key, ctx);
+          } else {
+            key = toJS.toJS(pair, "", ctx);
+          }
+          if (map.has(key))
+            throw new Error("Ordered maps must not include duplicate keys");
+          map.set(key, value);
+        }
+        return map;
+      }
+      static from(schema, iterable, ctx) {
+        const pairs$1 = pairs.createPairs(schema, iterable, ctx);
+        const omap2 = new this();
+        omap2.items = pairs$1.items;
+        return omap2;
+      }
+    };
+    YAMLOMap.tag = "tag:yaml.org,2002:omap";
+    var omap = {
+      collection: "seq",
+      identify: (value) => value instanceof Map,
+      nodeClass: YAMLOMap,
+      default: false,
+      tag: "tag:yaml.org,2002:omap",
+      resolve(seq, onError) {
+        const pairs$1 = pairs.resolvePairs(seq, onError);
+        const seenKeys = [];
+        for (const { key } of pairs$1.items) {
+          if (identity.isScalar(key)) {
+            if (seenKeys.includes(key.value)) {
+              onError(`Ordered maps must not include duplicate keys: ${key.value}`);
+            } else {
+              seenKeys.push(key.value);
+            }
+          }
+        }
+        return Object.assign(new YAMLOMap(), pairs$1);
+      },
+      createNode: (schema, iterable, ctx) => YAMLOMap.from(schema, iterable, ctx)
+    };
+    exports.YAMLOMap = YAMLOMap;
+    exports.omap = omap;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/bool.js
+var require_bool2 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/bool.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    function boolStringify({ value, source }, ctx) {
+      const boolObj = value ? trueTag : falseTag;
+      if (source && boolObj.test.test(source))
+        return source;
+      return value ? ctx.options.trueStr : ctx.options.falseStr;
+    }
+    var trueTag = {
+      identify: (value) => value === true,
+      default: true,
+      tag: "tag:yaml.org,2002:bool",
+      test: /^(?:Y|y|[Yy]es|YES|[Tt]rue|TRUE|[Oo]n|ON)$/,
+      resolve: () => new Scalar.Scalar(true),
+      stringify: boolStringify
+    };
+    var falseTag = {
+      identify: (value) => value === false,
+      default: true,
+      tag: "tag:yaml.org,2002:bool",
+      test: /^(?:N|n|[Nn]o|NO|[Ff]alse|FALSE|[Oo]ff|OFF)$/,
+      resolve: () => new Scalar.Scalar(false),
+      stringify: boolStringify
+    };
+    exports.falseTag = falseTag;
+    exports.trueTag = trueTag;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/float.js
+var require_float2 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/float.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var stringifyNumber = require_stringifyNumber();
+    var floatNaN = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      test: /^(?:[-+]?\.(?:inf|Inf|INF)|\.nan|\.NaN|\.NAN)$/,
+      resolve: (str) => str.slice(-3).toLowerCase() === "nan" ? NaN : str[0] === "-" ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY,
+      stringify: stringifyNumber.stringifyNumber
+    };
+    var floatExp = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      format: "EXP",
+      test: /^[-+]?(?:[0-9][0-9_]*)?(?:\.[0-9_]*)?[eE][-+]?[0-9]+$/,
+      resolve: (str) => parseFloat(str.replace(/_/g, "")),
+      stringify(node) {
+        const num = Number(node.value);
+        return isFinite(num) ? num.toExponential() : stringifyNumber.stringifyNumber(node);
+      }
+    };
+    var float = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      test: /^[-+]?(?:[0-9][0-9_]*)?\.[0-9_]*$/,
+      resolve(str) {
+        const node = new Scalar.Scalar(parseFloat(str.replace(/_/g, "")));
+        const dot = str.indexOf(".");
+        if (dot !== -1) {
+          const f = str.substring(dot + 1).replace(/_/g, "");
+          if (f[f.length - 1] === "0")
+            node.minFractionDigits = f.length;
+        }
+        return node;
+      },
+      stringify: stringifyNumber.stringifyNumber
+    };
+    exports.float = float;
+    exports.floatExp = floatExp;
+    exports.floatNaN = floatNaN;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/int.js
+var require_int2 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/int.js"(exports) {
+    "use strict";
+    var stringifyNumber = require_stringifyNumber();
+    var intIdentify = (value) => typeof value === "bigint" || Number.isInteger(value);
+    function intResolve(str, offset, radix, { intAsBigInt }) {
+      const sign = str[0];
+      if (sign === "-" || sign === "+")
+        offset += 1;
+      str = str.substring(offset).replace(/_/g, "");
+      if (intAsBigInt) {
+        switch (radix) {
+          case 2:
+            str = `0b${str}`;
+            break;
+          case 8:
+            str = `0o${str}`;
+            break;
+          case 16:
+            str = `0x${str}`;
+            break;
+        }
+        const n2 = BigInt(str);
+        return sign === "-" ? BigInt(-1) * n2 : n2;
+      }
+      const n = parseInt(str, radix);
+      return sign === "-" ? -1 * n : n;
+    }
+    function intStringify(node, radix, prefix) {
+      const { value } = node;
+      if (intIdentify(value)) {
+        const str = value.toString(radix);
+        return value < 0 ? "-" + prefix + str.substr(1) : prefix + str;
+      }
+      return stringifyNumber.stringifyNumber(node);
+    }
+    var intBin = {
+      identify: intIdentify,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      format: "BIN",
+      test: /^[-+]?0b[0-1_]+$/,
+      resolve: (str, _onError, opt) => intResolve(str, 2, 2, opt),
+      stringify: (node) => intStringify(node, 2, "0b")
+    };
+    var intOct = {
+      identify: intIdentify,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      format: "OCT",
+      test: /^[-+]?0[0-7_]+$/,
+      resolve: (str, _onError, opt) => intResolve(str, 1, 8, opt),
+      stringify: (node) => intStringify(node, 8, "0")
+    };
+    var int = {
+      identify: intIdentify,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      test: /^[-+]?[0-9][0-9_]*$/,
+      resolve: (str, _onError, opt) => intResolve(str, 0, 10, opt),
+      stringify: stringifyNumber.stringifyNumber
+    };
+    var intHex = {
+      identify: intIdentify,
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      format: "HEX",
+      test: /^[-+]?0x[0-9a-fA-F_]+$/,
+      resolve: (str, _onError, opt) => intResolve(str, 2, 16, opt),
+      stringify: (node) => intStringify(node, 16, "0x")
+    };
+    exports.int = int;
+    exports.intBin = intBin;
+    exports.intHex = intHex;
+    exports.intOct = intOct;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/set.js
+var require_set = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/set.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Pair = require_Pair();
+    var YAMLMap = require_YAMLMap();
+    var YAMLSet = class _YAMLSet extends YAMLMap.YAMLMap {
+      constructor(schema) {
+        super(schema);
+        this.tag = _YAMLSet.tag;
+      }
+      add(key) {
+        let pair;
+        if (identity.isPair(key))
+          pair = key;
+        else if (key && typeof key === "object" && "key" in key && "value" in key && key.value === null)
+          pair = new Pair.Pair(key.key, null);
+        else
+          pair = new Pair.Pair(key, null);
+        const prev = YAMLMap.findPair(this.items, pair.key);
+        if (!prev)
+          this.items.push(pair);
+      }
+      /**
+       * If `keepPair` is `true`, returns the Pair matching `key`.
+       * Otherwise, returns the value of that Pair's key.
+       */
+      get(key, keepPair) {
+        const pair = YAMLMap.findPair(this.items, key);
+        return !keepPair && identity.isPair(pair) ? identity.isScalar(pair.key) ? pair.key.value : pair.key : pair;
+      }
+      set(key, value) {
+        if (typeof value !== "boolean")
+          throw new Error(`Expected boolean value for set(key, value) in a YAML set, not ${typeof value}`);
+        const prev = YAMLMap.findPair(this.items, key);
+        if (prev && !value) {
+          this.items.splice(this.items.indexOf(prev), 1);
+        } else if (!prev && value) {
+          this.items.push(new Pair.Pair(key));
+        }
+      }
+      toJSON(_, ctx) {
+        return super.toJSON(_, ctx, Set);
+      }
+      toString(ctx, onComment, onChompKeep) {
+        if (!ctx)
+          return JSON.stringify(this);
+        if (this.hasAllNullValues(true))
+          return super.toString(Object.assign({}, ctx, { allNullValues: true }), onComment, onChompKeep);
+        else
+          throw new Error("Set items must all have null values");
+      }
+      static from(schema, iterable, ctx) {
+        const { replacer } = ctx;
+        const set2 = new this(schema);
+        if (iterable && Symbol.iterator in Object(iterable))
+          for (let value of iterable) {
+            if (typeof replacer === "function")
+              value = replacer.call(iterable, value, value);
+            set2.items.push(Pair.createPair(value, null, ctx));
+          }
+        return set2;
+      }
+    };
+    YAMLSet.tag = "tag:yaml.org,2002:set";
+    var set = {
+      collection: "map",
+      identify: (value) => value instanceof Set,
+      nodeClass: YAMLSet,
+      default: false,
+      tag: "tag:yaml.org,2002:set",
+      createNode: (schema, iterable, ctx) => YAMLSet.from(schema, iterable, ctx),
+      resolve(map, onError) {
+        if (identity.isMap(map)) {
+          if (map.hasAllNullValues(true))
+            return Object.assign(new YAMLSet(), map);
+          else
+            onError("Set items must all have null values");
+        } else
+          onError("Expected a mapping for this tag");
+        return map;
+      }
+    };
+    exports.YAMLSet = YAMLSet;
+    exports.set = set;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/timestamp.js
+var require_timestamp = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/timestamp.js"(exports) {
+    "use strict";
+    var stringifyNumber = require_stringifyNumber();
+    function parseSexagesimal(str, asBigInt) {
+      const sign = str[0];
+      const parts = sign === "-" || sign === "+" ? str.substring(1) : str;
+      const num = (n) => asBigInt ? BigInt(n) : Number(n);
+      const res = parts.replace(/_/g, "").split(":").reduce((res2, p) => res2 * num(60) + num(p), num(0));
+      return sign === "-" ? num(-1) * res : res;
+    }
+    function stringifySexagesimal(node) {
+      let { value } = node;
+      let num = (n) => n;
+      if (typeof value === "bigint")
+        num = (n) => BigInt(n);
+      else if (isNaN(value) || !isFinite(value))
+        return stringifyNumber.stringifyNumber(node);
+      let sign = "";
+      if (value < 0) {
+        sign = "-";
+        value *= num(-1);
+      }
+      const _60 = num(60);
+      const parts = [value % _60];
+      if (value < 60) {
+        parts.unshift(0);
+      } else {
+        value = (value - parts[0]) / _60;
+        parts.unshift(value % _60);
+        if (value >= 60) {
+          value = (value - parts[0]) / _60;
+          parts.unshift(value);
+        }
+      }
+      return sign + parts.map((n) => String(n).padStart(2, "0")).join(":").replace(/000000\d*$/, "");
+    }
+    var intTime = {
+      identify: (value) => typeof value === "bigint" || Number.isInteger(value),
+      default: true,
+      tag: "tag:yaml.org,2002:int",
+      format: "TIME",
+      test: /^[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+$/,
+      resolve: (str, _onError, { intAsBigInt }) => parseSexagesimal(str, intAsBigInt),
+      stringify: stringifySexagesimal
+    };
+    var floatTime = {
+      identify: (value) => typeof value === "number",
+      default: true,
+      tag: "tag:yaml.org,2002:float",
+      format: "TIME",
+      test: /^[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\.[0-9_]*$/,
+      resolve: (str) => parseSexagesimal(str, false),
+      stringify: stringifySexagesimal
+    };
+    var timestamp = {
+      identify: (value) => value instanceof Date,
+      default: true,
+      tag: "tag:yaml.org,2002:timestamp",
+      // If the time zone is omitted, the timestamp is assumed to be specified in UTC. The time part
+      // may be omitted altogether, resulting in a date format. In such a case, the time part is
+      // assumed to be 00:00:00Z (start of day, UTC).
+      test: RegExp("^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})(?:(?:t|T|[ \\t]+)([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}(\\.[0-9]+)?)(?:[ \\t]*(Z|[-+][012]?[0-9](?::[0-9]{2})?))?)?$"),
+      resolve(str) {
+        const match = str.match(timestamp.test);
+        if (!match)
+          throw new Error("!!timestamp expects a date, starting with yyyy-mm-dd");
+        const [, year, month, day, hour, minute, second] = match.map(Number);
+        const millisec = match[7] ? Number((match[7] + "00").substr(1, 3)) : 0;
+        let date = Date.UTC(year, month - 1, day, hour || 0, minute || 0, second || 0, millisec);
+        const tz = match[8];
+        if (tz && tz !== "Z") {
+          let d = parseSexagesimal(tz, false);
+          if (Math.abs(d) < 30)
+            d *= 60;
+          date -= 6e4 * d;
+        }
+        return new Date(date);
+      },
+      stringify: ({ value }) => value?.toISOString().replace(/(T00:00:00)?\.000Z$/, "") ?? ""
+    };
+    exports.floatTime = floatTime;
+    exports.intTime = intTime;
+    exports.timestamp = timestamp;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/schema.js
+var require_schema3 = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/yaml-1.1/schema.js"(exports) {
+    "use strict";
+    var map = require_map();
+    var _null = require_null();
+    var seq = require_seq();
+    var string = require_string();
+    var binary = require_binary();
+    var bool = require_bool2();
+    var float = require_float2();
+    var int = require_int2();
+    var merge2 = require_merge();
+    var omap = require_omap();
+    var pairs = require_pairs();
+    var set = require_set();
+    var timestamp = require_timestamp();
+    var schema = [
+      map.map,
+      seq.seq,
+      string.string,
+      _null.nullTag,
+      bool.trueTag,
+      bool.falseTag,
+      int.intBin,
+      int.intOct,
+      int.int,
+      int.intHex,
+      float.floatNaN,
+      float.floatExp,
+      float.float,
+      binary.binary,
+      merge2.merge,
+      omap.omap,
+      pairs.pairs,
+      set.set,
+      timestamp.intTime,
+      timestamp.floatTime,
+      timestamp.timestamp
+    ];
+    exports.schema = schema;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/tags.js
+var require_tags = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/tags.js"(exports) {
+    "use strict";
+    var map = require_map();
+    var _null = require_null();
+    var seq = require_seq();
+    var string = require_string();
+    var bool = require_bool();
+    var float = require_float();
+    var int = require_int();
+    var schema = require_schema();
+    var schema$1 = require_schema2();
+    var binary = require_binary();
+    var merge2 = require_merge();
+    var omap = require_omap();
+    var pairs = require_pairs();
+    var schema$2 = require_schema3();
+    var set = require_set();
+    var timestamp = require_timestamp();
+    var schemas = /* @__PURE__ */ new Map([
+      ["core", schema.schema],
+      ["failsafe", [map.map, seq.seq, string.string]],
+      ["json", schema$1.schema],
+      ["yaml11", schema$2.schema],
+      ["yaml-1.1", schema$2.schema]
+    ]);
+    var tagsByName = {
+      binary: binary.binary,
+      bool: bool.boolTag,
+      float: float.float,
+      floatExp: float.floatExp,
+      floatNaN: float.floatNaN,
+      floatTime: timestamp.floatTime,
+      int: int.int,
+      intHex: int.intHex,
+      intOct: int.intOct,
+      intTime: timestamp.intTime,
+      map: map.map,
+      merge: merge2.merge,
+      null: _null.nullTag,
+      omap: omap.omap,
+      pairs: pairs.pairs,
+      seq: seq.seq,
+      set: set.set,
+      timestamp: timestamp.timestamp
+    };
+    var coreKnownTags = {
+      "tag:yaml.org,2002:binary": binary.binary,
+      "tag:yaml.org,2002:merge": merge2.merge,
+      "tag:yaml.org,2002:omap": omap.omap,
+      "tag:yaml.org,2002:pairs": pairs.pairs,
+      "tag:yaml.org,2002:set": set.set,
+      "tag:yaml.org,2002:timestamp": timestamp.timestamp
+    };
+    function getTags(customTags, schemaName, addMergeTag) {
+      const schemaTags = schemas.get(schemaName);
+      if (schemaTags && !customTags) {
+        return addMergeTag && !schemaTags.includes(merge2.merge) ? schemaTags.concat(merge2.merge) : schemaTags.slice();
+      }
+      let tags = schemaTags;
+      if (!tags) {
+        if (Array.isArray(customTags))
+          tags = [];
+        else {
+          const keys = Array.from(schemas.keys()).filter((key) => key !== "yaml11").map((key) => JSON.stringify(key)).join(", ");
+          throw new Error(`Unknown schema "${schemaName}"; use one of ${keys} or define customTags array`);
+        }
+      }
+      if (Array.isArray(customTags)) {
+        for (const tag of customTags)
+          tags = tags.concat(tag);
+      } else if (typeof customTags === "function") {
+        tags = customTags(tags.slice());
+      }
+      if (addMergeTag)
+        tags = tags.concat(merge2.merge);
+      return tags.reduce((tags2, tag) => {
+        const tagObj = typeof tag === "string" ? tagsByName[tag] : tag;
+        if (!tagObj) {
+          const tagName = JSON.stringify(tag);
+          const keys = Object.keys(tagsByName).map((key) => JSON.stringify(key)).join(", ");
+          throw new Error(`Unknown custom tag ${tagName}; use one of ${keys}`);
+        }
+        if (!tags2.includes(tagObj))
+          tags2.push(tagObj);
+        return tags2;
+      }, []);
+    }
+    exports.coreKnownTags = coreKnownTags;
+    exports.getTags = getTags;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/Schema.js
+var require_Schema = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/schema/Schema.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var map = require_map();
+    var seq = require_seq();
+    var string = require_string();
+    var tags = require_tags();
+    var sortMapEntriesByKey = (a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
+    var Schema = class _Schema {
+      constructor({ compat, customTags, merge: merge2, resolveKnownTags, schema, sortMapEntries, toStringDefaults }) {
+        this.compat = Array.isArray(compat) ? tags.getTags(compat, "compat") : compat ? tags.getTags(null, compat) : null;
+        this.name = typeof schema === "string" && schema || "core";
+        this.knownTags = resolveKnownTags ? tags.coreKnownTags : {};
+        this.tags = tags.getTags(customTags, this.name, merge2);
+        this.toStringOptions = toStringDefaults ?? null;
+        Object.defineProperty(this, identity.MAP, { value: map.map });
+        Object.defineProperty(this, identity.SCALAR, { value: string.string });
+        Object.defineProperty(this, identity.SEQ, { value: seq.seq });
+        this.sortMapEntries = typeof sortMapEntries === "function" ? sortMapEntries : sortMapEntries === true ? sortMapEntriesByKey : null;
+      }
+      clone() {
+        const copy = Object.create(_Schema.prototype, Object.getOwnPropertyDescriptors(this));
+        copy.tags = this.tags.slice();
+        return copy;
+      }
+    };
+    exports.Schema = Schema;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyDocument.js
+var require_stringifyDocument = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/stringify/stringifyDocument.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var stringify2 = require_stringify2();
+    var stringifyComment = require_stringifyComment();
+    function stringifyDocument(doc, options) {
+      const lines = [];
+      let hasDirectives = options.directives === true;
+      if (options.directives !== false && doc.directives) {
+        const dir = doc.directives.toString(doc);
+        if (dir) {
+          lines.push(dir);
+          hasDirectives = true;
+        } else if (doc.directives.docStart)
+          hasDirectives = true;
+      }
+      if (hasDirectives)
+        lines.push("---");
+      const ctx = stringify2.createStringifyContext(doc, options);
+      const { commentString } = ctx.options;
+      if (doc.commentBefore) {
+        if (lines.length !== 1)
+          lines.unshift("");
+        const cs = commentString(doc.commentBefore);
+        lines.unshift(stringifyComment.indentComment(cs, ""));
+      }
+      let chompKeep = false;
+      let contentComment = null;
+      if (doc.contents) {
+        if (identity.isNode(doc.contents)) {
+          if (doc.contents.spaceBefore && hasDirectives)
+            lines.push("");
+          if (doc.contents.commentBefore) {
+            const cs = commentString(doc.contents.commentBefore);
+            lines.push(stringifyComment.indentComment(cs, ""));
+          }
+          ctx.forceBlockIndent = !!doc.comment;
+          contentComment = doc.contents.comment;
+        }
+        const onChompKeep = contentComment ? void 0 : () => chompKeep = true;
+        let body = stringify2.stringify(doc.contents, ctx, () => contentComment = null, onChompKeep);
+        if (contentComment)
+          body += stringifyComment.lineComment(body, "", commentString(contentComment));
+        if ((body[0] === "|" || body[0] === ">") && lines[lines.length - 1] === "---") {
+          lines[lines.length - 1] = `--- ${body}`;
+        } else
+          lines.push(body);
+      } else {
+        lines.push(stringify2.stringify(doc.contents, ctx));
+      }
+      if (doc.directives?.docEnd) {
+        if (doc.comment) {
+          const cs = commentString(doc.comment);
+          if (cs.includes("\n")) {
+            lines.push("...");
+            lines.push(stringifyComment.indentComment(cs, ""));
+          } else {
+            lines.push(`... ${cs}`);
+          }
+        } else {
+          lines.push("...");
+        }
+      } else {
+        let dc = doc.comment;
+        if (dc && chompKeep)
+          dc = dc.replace(/^\n+/, "");
+        if (dc) {
+          if ((!chompKeep || contentComment) && lines[lines.length - 1] !== "")
+            lines.push("");
+          lines.push(stringifyComment.indentComment(commentString(dc), ""));
+        }
+      }
+      return lines.join("\n") + "\n";
+    }
+    exports.stringifyDocument = stringifyDocument;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/Document.js
+var require_Document = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/doc/Document.js"(exports) {
+    "use strict";
+    var Alias = require_Alias();
+    var Collection = require_Collection();
+    var identity = require_identity();
+    var Pair = require_Pair();
+    var toJS = require_toJS();
+    var Schema = require_Schema();
+    var stringifyDocument = require_stringifyDocument();
+    var anchors = require_anchors();
+    var applyReviver = require_applyReviver();
+    var createNode = require_createNode();
+    var directives = require_directives();
+    var Document = class _Document {
+      constructor(value, replacer, options) {
+        this.commentBefore = null;
+        this.comment = null;
+        this.errors = [];
+        this.warnings = [];
+        Object.defineProperty(this, identity.NODE_TYPE, { value: identity.DOC });
+        let _replacer = null;
+        if (typeof replacer === "function" || Array.isArray(replacer)) {
+          _replacer = replacer;
+        } else if (options === void 0 && replacer) {
+          options = replacer;
+          replacer = void 0;
+        }
+        const opt = Object.assign({
+          intAsBigInt: false,
+          keepSourceTokens: false,
+          logLevel: "warn",
+          prettyErrors: true,
+          strict: true,
+          stringKeys: false,
+          uniqueKeys: true,
+          version: "1.2"
+        }, options);
+        this.options = opt;
+        let { version } = opt;
+        if (options?._directives) {
+          this.directives = options._directives.atDocument();
+          if (this.directives.yaml.explicit)
+            version = this.directives.yaml.version;
+        } else
+          this.directives = new directives.Directives({ version });
+        this.setSchema(version, options);
+        this.contents = value === void 0 ? null : this.createNode(value, _replacer, options);
+      }
+      /**
+       * Create a deep copy of this Document and its contents.
+       *
+       * Custom Node values that inherit from `Object` still refer to their original instances.
+       */
+      clone() {
+        const copy = Object.create(_Document.prototype, {
+          [identity.NODE_TYPE]: { value: identity.DOC }
+        });
+        copy.commentBefore = this.commentBefore;
+        copy.comment = this.comment;
+        copy.errors = this.errors.slice();
+        copy.warnings = this.warnings.slice();
+        copy.options = Object.assign({}, this.options);
+        if (this.directives)
+          copy.directives = this.directives.clone();
+        copy.schema = this.schema.clone();
+        copy.contents = identity.isNode(this.contents) ? this.contents.clone(copy.schema) : this.contents;
+        if (this.range)
+          copy.range = this.range.slice();
+        return copy;
+      }
+      /** Adds a value to the document. */
+      add(value) {
+        if (assertCollection(this.contents))
+          this.contents.add(value);
+      }
+      /** Adds a value to the document. */
+      addIn(path3, value) {
+        if (assertCollection(this.contents))
+          this.contents.addIn(path3, value);
+      }
+      /**
+       * Create a new `Alias` node, ensuring that the target `node` has the required anchor.
+       *
+       * If `node` already has an anchor, `name` is ignored.
+       * Otherwise, the `node.anchor` value will be set to `name`,
+       * or if an anchor with that name is already present in the document,
+       * `name` will be used as a prefix for a new unique anchor.
+       * If `name` is undefined, the generated anchor will use 'a' as a prefix.
+       */
+      createAlias(node, name) {
+        if (!node.anchor) {
+          const prev = anchors.anchorNames(this);
+          node.anchor = // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          !name || prev.has(name) ? anchors.findNewAnchor(name || "a", prev) : name;
+        }
+        return new Alias.Alias(node.anchor);
+      }
+      createNode(value, replacer, options) {
+        let _replacer = void 0;
+        if (typeof replacer === "function") {
+          value = replacer.call({ "": value }, "", value);
+          _replacer = replacer;
+        } else if (Array.isArray(replacer)) {
+          const keyToStr = (v) => typeof v === "number" || v instanceof String || v instanceof Number;
+          const asStr = replacer.filter(keyToStr).map(String);
+          if (asStr.length > 0)
+            replacer = replacer.concat(asStr);
+          _replacer = replacer;
+        } else if (options === void 0 && replacer) {
+          options = replacer;
+          replacer = void 0;
+        }
+        const { aliasDuplicateObjects, anchorPrefix, flow, keepUndefined, onTagObj, tag } = options ?? {};
+        const { onAnchor, setAnchors, sourceObjects } = anchors.createNodeAnchors(
+          this,
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          anchorPrefix || "a"
+        );
+        const ctx = {
+          aliasDuplicateObjects: aliasDuplicateObjects ?? true,
+          keepUndefined: keepUndefined ?? false,
+          onAnchor,
+          onTagObj,
+          replacer: _replacer,
+          schema: this.schema,
+          sourceObjects
+        };
+        const node = createNode.createNode(value, tag, ctx);
+        if (flow && identity.isCollection(node))
+          node.flow = true;
+        setAnchors();
+        return node;
+      }
+      /**
+       * Convert a key and a value into a `Pair` using the current schema,
+       * recursively wrapping all values as `Scalar` or `Collection` nodes.
+       */
+      createPair(key, value, options = {}) {
+        const k = this.createNode(key, null, options);
+        const v = this.createNode(value, null, options);
+        return new Pair.Pair(k, v);
+      }
+      /**
+       * Removes a value from the document.
+       * @returns `true` if the item was found and removed.
+       */
+      delete(key) {
+        return assertCollection(this.contents) ? this.contents.delete(key) : false;
+      }
+      /**
+       * Removes a value from the document.
+       * @returns `true` if the item was found and removed.
+       */
+      deleteIn(path3) {
+        if (Collection.isEmptyPath(path3)) {
+          if (this.contents == null)
+            return false;
+          this.contents = null;
+          return true;
+        }
+        return assertCollection(this.contents) ? this.contents.deleteIn(path3) : false;
+      }
+      /**
+       * Returns item at `key`, or `undefined` if not found. By default unwraps
+       * scalar values from their surrounding node; to disable set `keepScalar` to
+       * `true` (collections are always returned intact).
+       */
+      get(key, keepScalar) {
+        return identity.isCollection(this.contents) ? this.contents.get(key, keepScalar) : void 0;
+      }
+      /**
+       * Returns item at `path`, or `undefined` if not found. By default unwraps
+       * scalar values from their surrounding node; to disable set `keepScalar` to
+       * `true` (collections are always returned intact).
+       */
+      getIn(path3, keepScalar) {
+        if (Collection.isEmptyPath(path3))
+          return !keepScalar && identity.isScalar(this.contents) ? this.contents.value : this.contents;
+        return identity.isCollection(this.contents) ? this.contents.getIn(path3, keepScalar) : void 0;
+      }
+      /**
+       * Checks if the document includes a value with the key `key`.
+       */
+      has(key) {
+        return identity.isCollection(this.contents) ? this.contents.has(key) : false;
+      }
+      /**
+       * Checks if the document includes a value at `path`.
+       */
+      hasIn(path3) {
+        if (Collection.isEmptyPath(path3))
+          return this.contents !== void 0;
+        return identity.isCollection(this.contents) ? this.contents.hasIn(path3) : false;
+      }
+      /**
+       * Sets a value in this document. For `!!set`, `value` needs to be a
+       * boolean to add/remove the item from the set.
+       */
+      set(key, value) {
+        if (this.contents == null) {
+          this.contents = Collection.collectionFromPath(this.schema, [key], value);
+        } else if (assertCollection(this.contents)) {
+          this.contents.set(key, value);
+        }
+      }
+      /**
+       * Sets a value in this document. For `!!set`, `value` needs to be a
+       * boolean to add/remove the item from the set.
+       */
+      setIn(path3, value) {
+        if (Collection.isEmptyPath(path3)) {
+          this.contents = value;
+        } else if (this.contents == null) {
+          this.contents = Collection.collectionFromPath(this.schema, Array.from(path3), value);
+        } else if (assertCollection(this.contents)) {
+          this.contents.setIn(path3, value);
+        }
+      }
+      /**
+       * Change the YAML version and schema used by the document.
+       * A `null` version disables support for directives, explicit tags, anchors, and aliases.
+       * It also requires the `schema` option to be given as a `Schema` instance value.
+       *
+       * Overrides all previously set schema options.
+       */
+      setSchema(version, options = {}) {
+        if (typeof version === "number")
+          version = String(version);
+        let opt;
+        switch (version) {
+          case "1.1":
+            if (this.directives)
+              this.directives.yaml.version = "1.1";
+            else
+              this.directives = new directives.Directives({ version: "1.1" });
+            opt = { resolveKnownTags: false, schema: "yaml-1.1" };
+            break;
+          case "1.2":
+          case "next":
+            if (this.directives)
+              this.directives.yaml.version = version;
+            else
+              this.directives = new directives.Directives({ version });
+            opt = { resolveKnownTags: true, schema: "core" };
+            break;
+          case null:
+            if (this.directives)
+              delete this.directives;
+            opt = null;
+            break;
+          default: {
+            const sv = JSON.stringify(version);
+            throw new Error(`Expected '1.1', '1.2' or null as first argument, but found: ${sv}`);
+          }
+        }
+        if (options.schema instanceof Object)
+          this.schema = options.schema;
+        else if (opt)
+          this.schema = new Schema.Schema(Object.assign(opt, options));
+        else
+          throw new Error(`With a null YAML version, the { schema: Schema } option is required`);
+      }
+      // json & jsonArg are only used from toJSON()
+      toJS({ json, jsonArg, mapAsMap, maxAliasCount, onAnchor, reviver } = {}) {
+        const ctx = {
+          anchors: /* @__PURE__ */ new Map(),
+          doc: this,
+          keep: !json,
+          mapAsMap: mapAsMap === true,
+          mapKeyWarned: false,
+          maxAliasCount: typeof maxAliasCount === "number" ? maxAliasCount : 100
+        };
+        const res = toJS.toJS(this.contents, jsonArg ?? "", ctx);
+        if (typeof onAnchor === "function")
+          for (const { count, res: res2 } of ctx.anchors.values())
+            onAnchor(res2, count);
+        return typeof reviver === "function" ? applyReviver.applyReviver(reviver, { "": res }, "", res) : res;
+      }
+      /**
+       * A JSON representation of the document `contents`.
+       *
+       * @param jsonArg Used by `JSON.stringify` to indicate the array index or
+       *   property name.
+       */
+      toJSON(jsonArg, onAnchor) {
+        return this.toJS({ json: true, jsonArg, mapAsMap: false, onAnchor });
+      }
+      /** A YAML representation of the document. */
+      toString(options = {}) {
+        if (this.errors.length > 0)
+          throw new Error("Document with errors cannot be stringified");
+        if ("indent" in options && (!Number.isInteger(options.indent) || Number(options.indent) <= 0)) {
+          const s = JSON.stringify(options.indent);
+          throw new Error(`"indent" option must be a positive integer, not ${s}`);
+        }
+        return stringifyDocument.stringifyDocument(this, options);
+      }
+    };
+    function assertCollection(contents) {
+      if (identity.isCollection(contents))
+        return true;
+      throw new Error("Expected a YAML collection as document contents");
+    }
+    exports.Document = Document;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/errors.js
+var require_errors = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/errors.js"(exports) {
+    "use strict";
+    var YAMLError = class extends Error {
+      constructor(name, pos, code, message) {
+        super();
+        this.name = name;
+        this.code = code;
+        this.message = message;
+        this.pos = pos;
+      }
+    };
+    var YAMLParseError = class extends YAMLError {
+      constructor(pos, code, message) {
+        super("YAMLParseError", pos, code, message);
+      }
+    };
+    var YAMLWarning = class extends YAMLError {
+      constructor(pos, code, message) {
+        super("YAMLWarning", pos, code, message);
+      }
+    };
+    var prettifyError = (src, lc) => (error3) => {
+      if (error3.pos[0] === -1)
+        return;
+      error3.linePos = error3.pos.map((pos) => lc.linePos(pos));
+      const { line, col } = error3.linePos[0];
+      error3.message += ` at line ${line}, column ${col}`;
+      let ci = col - 1;
+      let lineStr = src.substring(lc.lineStarts[line - 1], lc.lineStarts[line]).replace(/[\n\r]+$/, "");
+      if (ci >= 60 && lineStr.length > 80) {
+        const trimStart = Math.min(ci - 39, lineStr.length - 79);
+        lineStr = "\u2026" + lineStr.substring(trimStart);
+        ci -= trimStart - 1;
+      }
+      if (lineStr.length > 80)
+        lineStr = lineStr.substring(0, 79) + "\u2026";
+      if (line > 1 && /^ *$/.test(lineStr.substring(0, ci))) {
+        let prev = src.substring(lc.lineStarts[line - 2], lc.lineStarts[line - 1]);
+        if (prev.length > 80)
+          prev = prev.substring(0, 79) + "\u2026\n";
+        lineStr = prev + lineStr;
+      }
+      if (/[^ ]/.test(lineStr)) {
+        let count = 1;
+        const end = error3.linePos[1];
+        if (end?.line === line && end.col > col) {
+          count = Math.max(1, Math.min(end.col - col, 80 - ci));
+        }
+        const pointer = " ".repeat(ci) + "^".repeat(count);
+        error3.message += `:
+
+${lineStr}
+${pointer}
+`;
+      }
+    };
+    exports.YAMLError = YAMLError;
+    exports.YAMLParseError = YAMLParseError;
+    exports.YAMLWarning = YAMLWarning;
+    exports.prettifyError = prettifyError;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-props.js
+var require_resolve_props = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-props.js"(exports) {
+    "use strict";
+    function resolveProps(tokens, { flow, indicator, next, offset, onError, parentIndent, startOnNewline }) {
+      let spaceBefore = false;
+      let atNewline = startOnNewline;
+      let hasSpace = startOnNewline;
+      let comment = "";
+      let commentSep = "";
+      let hasNewline = false;
+      let reqSpace = false;
+      let tab = null;
+      let anchor = null;
+      let tag = null;
+      let newlineAfterProp = null;
+      let comma = null;
+      let found = null;
+      let start = null;
+      for (const token of tokens) {
+        if (reqSpace) {
+          if (token.type !== "space" && token.type !== "newline" && token.type !== "comma")
+            onError(token.offset, "MISSING_CHAR", "Tags and anchors must be separated from the next token by white space");
+          reqSpace = false;
+        }
+        if (tab) {
+          if (atNewline && token.type !== "comment" && token.type !== "newline") {
+            onError(tab, "TAB_AS_INDENT", "Tabs are not allowed as indentation");
+          }
+          tab = null;
+        }
+        switch (token.type) {
+          case "space":
+            if (!flow && (indicator !== "doc-start" || next?.type !== "flow-collection") && token.source.includes("	")) {
+              tab = token;
+            }
+            hasSpace = true;
+            break;
+          case "comment": {
+            if (!hasSpace)
+              onError(token, "MISSING_CHAR", "Comments must be separated from other tokens by white space characters");
+            const cb = token.source.substring(1) || " ";
+            if (!comment)
+              comment = cb;
+            else
+              comment += commentSep + cb;
+            commentSep = "";
+            atNewline = false;
+            break;
+          }
+          case "newline":
+            if (atNewline) {
+              if (comment)
+                comment += token.source;
+              else if (!found || indicator !== "seq-item-ind")
+                spaceBefore = true;
+            } else
+              commentSep += token.source;
+            atNewline = true;
+            hasNewline = true;
+            if (anchor || tag)
+              newlineAfterProp = token;
+            hasSpace = true;
+            break;
+          case "anchor":
+            if (anchor)
+              onError(token, "MULTIPLE_ANCHORS", "A node can have at most one anchor");
+            if (token.source.endsWith(":"))
+              onError(token.offset + token.source.length - 1, "BAD_ALIAS", "Anchor ending in : is ambiguous", true);
+            anchor = token;
+            start ?? (start = token.offset);
+            atNewline = false;
+            hasSpace = false;
+            reqSpace = true;
+            break;
+          case "tag": {
+            if (tag)
+              onError(token, "MULTIPLE_TAGS", "A node can have at most one tag");
+            tag = token;
+            start ?? (start = token.offset);
+            atNewline = false;
+            hasSpace = false;
+            reqSpace = true;
+            break;
+          }
+          case indicator:
+            if (anchor || tag)
+              onError(token, "BAD_PROP_ORDER", `Anchors and tags must be after the ${token.source} indicator`);
+            if (found)
+              onError(token, "UNEXPECTED_TOKEN", `Unexpected ${token.source} in ${flow ?? "collection"}`);
+            found = token;
+            atNewline = indicator === "seq-item-ind" || indicator === "explicit-key-ind";
+            hasSpace = false;
+            break;
+          case "comma":
+            if (flow) {
+              if (comma)
+                onError(token, "UNEXPECTED_TOKEN", `Unexpected , in ${flow}`);
+              comma = token;
+              atNewline = false;
+              hasSpace = false;
+              break;
+            }
+          // else fallthrough
+          default:
+            onError(token, "UNEXPECTED_TOKEN", `Unexpected ${token.type} token`);
+            atNewline = false;
+            hasSpace = false;
+        }
+      }
+      const last = tokens[tokens.length - 1];
+      const end = last ? last.offset + last.source.length : offset;
+      if (reqSpace && next && next.type !== "space" && next.type !== "newline" && next.type !== "comma" && (next.type !== "scalar" || next.source !== "")) {
+        onError(next.offset, "MISSING_CHAR", "Tags and anchors must be separated from the next token by white space");
+      }
+      if (tab && (atNewline && tab.indent <= parentIndent || next?.type === "block-map" || next?.type === "block-seq"))
+        onError(tab, "TAB_AS_INDENT", "Tabs are not allowed as indentation");
+      return {
+        comma,
+        found,
+        spaceBefore,
+        comment,
+        hasNewline,
+        anchor,
+        tag,
+        newlineAfterProp,
+        end,
+        start: start ?? end
+      };
+    }
+    exports.resolveProps = resolveProps;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-contains-newline.js
+var require_util_contains_newline = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-contains-newline.js"(exports) {
+    "use strict";
+    function containsNewline(key) {
+      if (!key)
+        return null;
+      switch (key.type) {
+        case "alias":
+        case "scalar":
+        case "double-quoted-scalar":
+        case "single-quoted-scalar":
+          if (key.source.includes("\n"))
+            return true;
+          if (key.end) {
+            for (const st of key.end)
+              if (st.type === "newline")
+                return true;
+          }
+          return false;
+        case "flow-collection":
+          for (const it of key.items) {
+            for (const st of it.start)
+              if (st.type === "newline")
+                return true;
+            if (it.sep) {
+              for (const st of it.sep)
+                if (st.type === "newline")
+                  return true;
+            }
+            if (containsNewline(it.key) || containsNewline(it.value))
+              return true;
+          }
+          return false;
+        default:
+          return true;
+      }
+    }
+    exports.containsNewline = containsNewline;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-flow-indent-check.js
+var require_util_flow_indent_check = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-flow-indent-check.js"(exports) {
+    "use strict";
+    var utilContainsNewline = require_util_contains_newline();
+    function flowIndentCheck(indent, fc, onError) {
+      if (fc?.type === "flow-collection") {
+        const end = fc.end[0];
+        if (end.indent === indent && (end.source === "]" || end.source === "}") && utilContainsNewline.containsNewline(fc)) {
+          const msg = "Flow end indicator should be more indented than parent";
+          onError(end, "BAD_INDENT", msg, true);
+        }
+      }
+    }
+    exports.flowIndentCheck = flowIndentCheck;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-map-includes.js
+var require_util_map_includes = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-map-includes.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    function mapIncludes(ctx, items, search) {
+      const { uniqueKeys } = ctx.options;
+      if (uniqueKeys === false)
+        return false;
+      const isEqual = typeof uniqueKeys === "function" ? uniqueKeys : (a, b) => a === b || identity.isScalar(a) && identity.isScalar(b) && a.value === b.value;
+      return items.some((pair) => isEqual(pair.key, search));
+    }
+    exports.mapIncludes = mapIncludes;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-block-map.js
+var require_resolve_block_map = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-block-map.js"(exports) {
+    "use strict";
+    var Pair = require_Pair();
+    var YAMLMap = require_YAMLMap();
+    var resolveProps = require_resolve_props();
+    var utilContainsNewline = require_util_contains_newline();
+    var utilFlowIndentCheck = require_util_flow_indent_check();
+    var utilMapIncludes = require_util_map_includes();
+    var startColMsg = "All mapping items must start at the same column";
+    function resolveBlockMap({ composeNode, composeEmptyNode }, ctx, bm, onError, tag) {
+      const NodeClass = tag?.nodeClass ?? YAMLMap.YAMLMap;
+      const map = new NodeClass(ctx.schema);
+      if (ctx.atRoot)
+        ctx.atRoot = false;
+      let offset = bm.offset;
+      let commentEnd = null;
+      for (const collItem of bm.items) {
+        const { start, key, sep, value } = collItem;
+        const keyProps = resolveProps.resolveProps(start, {
+          indicator: "explicit-key-ind",
+          next: key ?? sep?.[0],
+          offset,
+          onError,
+          parentIndent: bm.indent,
+          startOnNewline: true
+        });
+        const implicitKey = !keyProps.found;
+        if (implicitKey) {
+          if (key) {
+            if (key.type === "block-seq")
+              onError(offset, "BLOCK_AS_IMPLICIT_KEY", "A block sequence may not be used as an implicit map key");
+            else if ("indent" in key && key.indent !== bm.indent)
+              onError(offset, "BAD_INDENT", startColMsg);
+          }
+          if (!keyProps.anchor && !keyProps.tag && !sep) {
+            commentEnd = keyProps.end;
+            if (keyProps.comment) {
+              if (map.comment)
+                map.comment += "\n" + keyProps.comment;
+              else
+                map.comment = keyProps.comment;
+            }
+            continue;
+          }
+          if (keyProps.newlineAfterProp || utilContainsNewline.containsNewline(key)) {
+            onError(key ?? start[start.length - 1], "MULTILINE_IMPLICIT_KEY", "Implicit keys need to be on a single line");
+          }
+        } else if (keyProps.found?.indent !== bm.indent) {
+          onError(offset, "BAD_INDENT", startColMsg);
+        }
+        ctx.atKey = true;
+        const keyStart = keyProps.end;
+        const keyNode = key ? composeNode(ctx, key, keyProps, onError) : composeEmptyNode(ctx, keyStart, start, null, keyProps, onError);
+        if (ctx.schema.compat)
+          utilFlowIndentCheck.flowIndentCheck(bm.indent, key, onError);
+        ctx.atKey = false;
+        if (utilMapIncludes.mapIncludes(ctx, map.items, keyNode))
+          onError(keyStart, "DUPLICATE_KEY", "Map keys must be unique");
+        const valueProps = resolveProps.resolveProps(sep ?? [], {
+          indicator: "map-value-ind",
+          next: value,
+          offset: keyNode.range[2],
+          onError,
+          parentIndent: bm.indent,
+          startOnNewline: !key || key.type === "block-scalar"
+        });
+        offset = valueProps.end;
+        if (valueProps.found) {
+          if (implicitKey) {
+            if (value?.type === "block-map" && !valueProps.hasNewline)
+              onError(offset, "BLOCK_AS_IMPLICIT_KEY", "Nested mappings are not allowed in compact mappings");
+            if (ctx.options.strict && keyProps.start < valueProps.found.offset - 1024)
+              onError(keyNode.range, "KEY_OVER_1024_CHARS", "The : indicator must be at most 1024 chars after the start of an implicit block mapping key");
+          }
+          const valueNode = value ? composeNode(ctx, value, valueProps, onError) : composeEmptyNode(ctx, offset, sep, null, valueProps, onError);
+          if (ctx.schema.compat)
+            utilFlowIndentCheck.flowIndentCheck(bm.indent, value, onError);
+          offset = valueNode.range[2];
+          const pair = new Pair.Pair(keyNode, valueNode);
+          if (ctx.options.keepSourceTokens)
+            pair.srcToken = collItem;
+          map.items.push(pair);
+        } else {
+          if (implicitKey)
+            onError(keyNode.range, "MISSING_CHAR", "Implicit map keys need to be followed by map values");
+          if (valueProps.comment) {
+            if (keyNode.comment)
+              keyNode.comment += "\n" + valueProps.comment;
+            else
+              keyNode.comment = valueProps.comment;
+          }
+          const pair = new Pair.Pair(keyNode);
+          if (ctx.options.keepSourceTokens)
+            pair.srcToken = collItem;
+          map.items.push(pair);
+        }
+      }
+      if (commentEnd && commentEnd < offset)
+        onError(commentEnd, "IMPOSSIBLE", "Map comment with trailing content");
+      map.range = [bm.offset, offset, commentEnd ?? offset];
+      return map;
+    }
+    exports.resolveBlockMap = resolveBlockMap;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-block-seq.js
+var require_resolve_block_seq = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-block-seq.js"(exports) {
+    "use strict";
+    var YAMLSeq = require_YAMLSeq();
+    var resolveProps = require_resolve_props();
+    var utilFlowIndentCheck = require_util_flow_indent_check();
+    function resolveBlockSeq({ composeNode, composeEmptyNode }, ctx, bs, onError, tag) {
+      const NodeClass = tag?.nodeClass ?? YAMLSeq.YAMLSeq;
+      const seq = new NodeClass(ctx.schema);
+      if (ctx.atRoot)
+        ctx.atRoot = false;
+      if (ctx.atKey)
+        ctx.atKey = false;
+      let offset = bs.offset;
+      let commentEnd = null;
+      for (const { start, value } of bs.items) {
+        const props = resolveProps.resolveProps(start, {
+          indicator: "seq-item-ind",
+          next: value,
+          offset,
+          onError,
+          parentIndent: bs.indent,
+          startOnNewline: true
+        });
+        if (!props.found) {
+          if (props.anchor || props.tag || value) {
+            if (value?.type === "block-seq")
+              onError(props.end, "BAD_INDENT", "All sequence items must start at the same column");
+            else
+              onError(offset, "MISSING_CHAR", "Sequence item without - indicator");
+          } else {
+            commentEnd = props.end;
+            if (props.comment)
+              seq.comment = props.comment;
+            continue;
+          }
+        }
+        const node = value ? composeNode(ctx, value, props, onError) : composeEmptyNode(ctx, props.end, start, null, props, onError);
+        if (ctx.schema.compat)
+          utilFlowIndentCheck.flowIndentCheck(bs.indent, value, onError);
+        offset = node.range[2];
+        seq.items.push(node);
+      }
+      seq.range = [bs.offset, offset, commentEnd ?? offset];
+      return seq;
+    }
+    exports.resolveBlockSeq = resolveBlockSeq;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-end.js
+var require_resolve_end = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-end.js"(exports) {
+    "use strict";
+    function resolveEnd(end, offset, reqSpace, onError) {
+      let comment = "";
+      if (end) {
+        let hasSpace = false;
+        let sep = "";
+        for (const token of end) {
+          const { source, type } = token;
+          switch (type) {
+            case "space":
+              hasSpace = true;
+              break;
+            case "comment": {
+              if (reqSpace && !hasSpace)
+                onError(token, "MISSING_CHAR", "Comments must be separated from other tokens by white space characters");
+              const cb = source.substring(1) || " ";
+              if (!comment)
+                comment = cb;
+              else
+                comment += sep + cb;
+              sep = "";
+              break;
+            }
+            case "newline":
+              if (comment)
+                sep += source;
+              hasSpace = true;
+              break;
+            default:
+              onError(token, "UNEXPECTED_TOKEN", `Unexpected ${type} at node end`);
+          }
+          offset += source.length;
+        }
+      }
+      return { comment, offset };
+    }
+    exports.resolveEnd = resolveEnd;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-flow-collection.js
+var require_resolve_flow_collection = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-flow-collection.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Pair = require_Pair();
+    var YAMLMap = require_YAMLMap();
+    var YAMLSeq = require_YAMLSeq();
+    var resolveEnd = require_resolve_end();
+    var resolveProps = require_resolve_props();
+    var utilContainsNewline = require_util_contains_newline();
+    var utilMapIncludes = require_util_map_includes();
+    var blockMsg = "Block collections are not allowed within flow collections";
+    var isBlock = (token) => token && (token.type === "block-map" || token.type === "block-seq");
+    function resolveFlowCollection({ composeNode, composeEmptyNode }, ctx, fc, onError, tag) {
+      const isMap = fc.start.source === "{";
+      const fcName = isMap ? "flow map" : "flow sequence";
+      const NodeClass = tag?.nodeClass ?? (isMap ? YAMLMap.YAMLMap : YAMLSeq.YAMLSeq);
+      const coll = new NodeClass(ctx.schema);
+      coll.flow = true;
+      const atRoot = ctx.atRoot;
+      if (atRoot)
+        ctx.atRoot = false;
+      if (ctx.atKey)
+        ctx.atKey = false;
+      let offset = fc.offset + fc.start.source.length;
+      for (let i = 0; i < fc.items.length; ++i) {
+        const collItem = fc.items[i];
+        const { start, key, sep, value } = collItem;
+        const props = resolveProps.resolveProps(start, {
+          flow: fcName,
+          indicator: "explicit-key-ind",
+          next: key ?? sep?.[0],
+          offset,
+          onError,
+          parentIndent: fc.indent,
+          startOnNewline: false
+        });
+        if (!props.found) {
+          if (!props.anchor && !props.tag && !sep && !value) {
+            if (i === 0 && props.comma)
+              onError(props.comma, "UNEXPECTED_TOKEN", `Unexpected , in ${fcName}`);
+            else if (i < fc.items.length - 1)
+              onError(props.start, "UNEXPECTED_TOKEN", `Unexpected empty item in ${fcName}`);
+            if (props.comment) {
+              if (coll.comment)
+                coll.comment += "\n" + props.comment;
+              else
+                coll.comment = props.comment;
+            }
+            offset = props.end;
+            continue;
+          }
+          if (!isMap && ctx.options.strict && utilContainsNewline.containsNewline(key))
+            onError(
+              key,
+              // checked by containsNewline()
+              "MULTILINE_IMPLICIT_KEY",
+              "Implicit keys of flow sequence pairs need to be on a single line"
+            );
+        }
+        if (i === 0) {
+          if (props.comma)
+            onError(props.comma, "UNEXPECTED_TOKEN", `Unexpected , in ${fcName}`);
+        } else {
+          if (!props.comma)
+            onError(props.start, "MISSING_CHAR", `Missing , between ${fcName} items`);
+          if (props.comment) {
+            let prevItemComment = "";
+            loop: for (const st of start) {
+              switch (st.type) {
+                case "comma":
+                case "space":
+                  break;
+                case "comment":
+                  prevItemComment = st.source.substring(1);
+                  break loop;
+                default:
+                  break loop;
+              }
+            }
+            if (prevItemComment) {
+              let prev = coll.items[coll.items.length - 1];
+              if (identity.isPair(prev))
+                prev = prev.value ?? prev.key;
+              if (prev.comment)
+                prev.comment += "\n" + prevItemComment;
+              else
+                prev.comment = prevItemComment;
+              props.comment = props.comment.substring(prevItemComment.length + 1);
+            }
+          }
+        }
+        if (!isMap && !sep && !props.found) {
+          const valueNode = value ? composeNode(ctx, value, props, onError) : composeEmptyNode(ctx, props.end, sep, null, props, onError);
+          coll.items.push(valueNode);
+          offset = valueNode.range[2];
+          if (isBlock(value))
+            onError(valueNode.range, "BLOCK_IN_FLOW", blockMsg);
+        } else {
+          ctx.atKey = true;
+          const keyStart = props.end;
+          const keyNode = key ? composeNode(ctx, key, props, onError) : composeEmptyNode(ctx, keyStart, start, null, props, onError);
+          if (isBlock(key))
+            onError(keyNode.range, "BLOCK_IN_FLOW", blockMsg);
+          ctx.atKey = false;
+          const valueProps = resolveProps.resolveProps(sep ?? [], {
+            flow: fcName,
+            indicator: "map-value-ind",
+            next: value,
+            offset: keyNode.range[2],
+            onError,
+            parentIndent: fc.indent,
+            startOnNewline: false
+          });
+          if (valueProps.found) {
+            if (!isMap && !props.found && ctx.options.strict) {
+              if (sep)
+                for (const st of sep) {
+                  if (st === valueProps.found)
+                    break;
+                  if (st.type === "newline") {
+                    onError(st, "MULTILINE_IMPLICIT_KEY", "Implicit keys of flow sequence pairs need to be on a single line");
+                    break;
+                  }
+                }
+              if (props.start < valueProps.found.offset - 1024)
+                onError(valueProps.found, "KEY_OVER_1024_CHARS", "The : indicator must be at most 1024 chars after the start of an implicit flow sequence key");
+            }
+          } else if (value) {
+            if ("source" in value && value.source?.[0] === ":")
+              onError(value, "MISSING_CHAR", `Missing space after : in ${fcName}`);
+            else
+              onError(valueProps.start, "MISSING_CHAR", `Missing , or : between ${fcName} items`);
+          }
+          const valueNode = value ? composeNode(ctx, value, valueProps, onError) : valueProps.found ? composeEmptyNode(ctx, valueProps.end, sep, null, valueProps, onError) : null;
+          if (valueNode) {
+            if (isBlock(value))
+              onError(valueNode.range, "BLOCK_IN_FLOW", blockMsg);
+          } else if (valueProps.comment) {
+            if (keyNode.comment)
+              keyNode.comment += "\n" + valueProps.comment;
+            else
+              keyNode.comment = valueProps.comment;
+          }
+          const pair = new Pair.Pair(keyNode, valueNode);
+          if (ctx.options.keepSourceTokens)
+            pair.srcToken = collItem;
+          if (isMap) {
+            const map = coll;
+            if (utilMapIncludes.mapIncludes(ctx, map.items, keyNode))
+              onError(keyStart, "DUPLICATE_KEY", "Map keys must be unique");
+            map.items.push(pair);
+          } else {
+            const map = new YAMLMap.YAMLMap(ctx.schema);
+            map.flow = true;
+            map.items.push(pair);
+            const endRange = (valueNode ?? keyNode).range;
+            map.range = [keyNode.range[0], endRange[1], endRange[2]];
+            coll.items.push(map);
+          }
+          offset = valueNode ? valueNode.range[2] : valueProps.end;
+        }
+      }
+      const expectedEnd = isMap ? "}" : "]";
+      const [ce, ...ee] = fc.end;
+      let cePos = offset;
+      if (ce?.source === expectedEnd)
+        cePos = ce.offset + ce.source.length;
+      else {
+        const name = fcName[0].toUpperCase() + fcName.substring(1);
+        const msg = atRoot ? `${name} must end with a ${expectedEnd}` : `${name} in block collection must be sufficiently indented and end with a ${expectedEnd}`;
+        onError(offset, atRoot ? "MISSING_CHAR" : "BAD_INDENT", msg);
+        if (ce && ce.source.length !== 1)
+          ee.unshift(ce);
+      }
+      if (ee.length > 0) {
+        const end = resolveEnd.resolveEnd(ee, cePos, ctx.options.strict, onError);
+        if (end.comment) {
+          if (coll.comment)
+            coll.comment += "\n" + end.comment;
+          else
+            coll.comment = end.comment;
+        }
+        coll.range = [fc.offset, cePos, end.offset];
+      } else {
+        coll.range = [fc.offset, cePos, cePos];
+      }
+      return coll;
+    }
+    exports.resolveFlowCollection = resolveFlowCollection;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-collection.js
+var require_compose_collection = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-collection.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Scalar = require_Scalar();
+    var YAMLMap = require_YAMLMap();
+    var YAMLSeq = require_YAMLSeq();
+    var resolveBlockMap = require_resolve_block_map();
+    var resolveBlockSeq = require_resolve_block_seq();
+    var resolveFlowCollection = require_resolve_flow_collection();
+    function resolveCollection(CN, ctx, token, onError, tagName, tag) {
+      const coll = token.type === "block-map" ? resolveBlockMap.resolveBlockMap(CN, ctx, token, onError, tag) : token.type === "block-seq" ? resolveBlockSeq.resolveBlockSeq(CN, ctx, token, onError, tag) : resolveFlowCollection.resolveFlowCollection(CN, ctx, token, onError, tag);
+      const Coll = coll.constructor;
+      if (tagName === "!" || tagName === Coll.tagName) {
+        coll.tag = Coll.tagName;
+        return coll;
+      }
+      if (tagName)
+        coll.tag = tagName;
+      return coll;
+    }
+    function composeCollection(CN, ctx, token, props, onError) {
+      const tagToken = props.tag;
+      const tagName = !tagToken ? null : ctx.directives.tagName(tagToken.source, (msg) => onError(tagToken, "TAG_RESOLVE_FAILED", msg));
+      if (token.type === "block-seq") {
+        const { anchor, newlineAfterProp: nl } = props;
+        const lastProp = anchor && tagToken ? anchor.offset > tagToken.offset ? anchor : tagToken : anchor ?? tagToken;
+        if (lastProp && (!nl || nl.offset < lastProp.offset)) {
+          const message = "Missing newline after block sequence props";
+          onError(lastProp, "MISSING_CHAR", message);
+        }
+      }
+      const expType = token.type === "block-map" ? "map" : token.type === "block-seq" ? "seq" : token.start.source === "{" ? "map" : "seq";
+      if (!tagToken || !tagName || tagName === "!" || tagName === YAMLMap.YAMLMap.tagName && expType === "map" || tagName === YAMLSeq.YAMLSeq.tagName && expType === "seq") {
+        return resolveCollection(CN, ctx, token, onError, tagName);
+      }
+      let tag = ctx.schema.tags.find((t) => t.tag === tagName && t.collection === expType);
+      if (!tag) {
+        const kt = ctx.schema.knownTags[tagName];
+        if (kt?.collection === expType) {
+          ctx.schema.tags.push(Object.assign({}, kt, { default: false }));
+          tag = kt;
+        } else {
+          if (kt) {
+            onError(tagToken, "BAD_COLLECTION_TYPE", `${kt.tag} used for ${expType} collection, but expects ${kt.collection ?? "scalar"}`, true);
+          } else {
+            onError(tagToken, "TAG_RESOLVE_FAILED", `Unresolved tag: ${tagName}`, true);
+          }
+          return resolveCollection(CN, ctx, token, onError, tagName);
+        }
+      }
+      const coll = resolveCollection(CN, ctx, token, onError, tagName, tag);
+      const res = tag.resolve?.(coll, (msg) => onError(tagToken, "TAG_RESOLVE_FAILED", msg), ctx.options) ?? coll;
+      const node = identity.isNode(res) ? res : new Scalar.Scalar(res);
+      node.range = coll.range;
+      node.tag = tagName;
+      if (tag?.format)
+        node.format = tag.format;
+      return node;
+    }
+    exports.composeCollection = composeCollection;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-block-scalar.js
+var require_resolve_block_scalar = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-block-scalar.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    function resolveBlockScalar(ctx, scalar, onError) {
+      const start = scalar.offset;
+      const header = parseBlockScalarHeader(scalar, ctx.options.strict, onError);
+      if (!header)
+        return { value: "", type: null, comment: "", range: [start, start, start] };
+      const type = header.mode === ">" ? Scalar.Scalar.BLOCK_FOLDED : Scalar.Scalar.BLOCK_LITERAL;
+      const lines = scalar.source ? splitLines(scalar.source) : [];
+      let chompStart = lines.length;
+      for (let i = lines.length - 1; i >= 0; --i) {
+        const content = lines[i][1];
+        if (content === "" || content === "\r")
+          chompStart = i;
+        else
+          break;
+      }
+      if (chompStart === 0) {
+        const value2 = header.chomp === "+" && lines.length > 0 ? "\n".repeat(Math.max(1, lines.length - 1)) : "";
+        let end2 = start + header.length;
+        if (scalar.source)
+          end2 += scalar.source.length;
+        return { value: value2, type, comment: header.comment, range: [start, end2, end2] };
+      }
+      let trimIndent = scalar.indent + header.indent;
+      let offset = scalar.offset + header.length;
+      let contentStart = 0;
+      for (let i = 0; i < chompStart; ++i) {
+        const [indent, content] = lines[i];
+        if (content === "" || content === "\r") {
+          if (header.indent === 0 && indent.length > trimIndent)
+            trimIndent = indent.length;
+        } else {
+          if (indent.length < trimIndent) {
+            const message = "Block scalars with more-indented leading empty lines must use an explicit indentation indicator";
+            onError(offset + indent.length, "MISSING_CHAR", message);
+          }
+          if (header.indent === 0)
+            trimIndent = indent.length;
+          contentStart = i;
+          if (trimIndent === 0 && !ctx.atRoot) {
+            const message = "Block scalar values in collections must be indented";
+            onError(offset, "BAD_INDENT", message);
+          }
+          break;
+        }
+        offset += indent.length + content.length + 1;
+      }
+      for (let i = lines.length - 1; i >= chompStart; --i) {
+        if (lines[i][0].length > trimIndent)
+          chompStart = i + 1;
+      }
+      let value = "";
+      let sep = "";
+      let prevMoreIndented = false;
+      for (let i = 0; i < contentStart; ++i)
+        value += lines[i][0].slice(trimIndent) + "\n";
+      for (let i = contentStart; i < chompStart; ++i) {
+        let [indent, content] = lines[i];
+        offset += indent.length + content.length + 1;
+        const crlf = content[content.length - 1] === "\r";
+        if (crlf)
+          content = content.slice(0, -1);
+        if (content && indent.length < trimIndent) {
+          const src = header.indent ? "explicit indentation indicator" : "first line";
+          const message = `Block scalar lines must not be less indented than their ${src}`;
+          onError(offset - content.length - (crlf ? 2 : 1), "BAD_INDENT", message);
+          indent = "";
+        }
+        if (type === Scalar.Scalar.BLOCK_LITERAL) {
+          value += sep + indent.slice(trimIndent) + content;
+          sep = "\n";
+        } else if (indent.length > trimIndent || content[0] === "	") {
+          if (sep === " ")
+            sep = "\n";
+          else if (!prevMoreIndented && sep === "\n")
+            sep = "\n\n";
+          value += sep + indent.slice(trimIndent) + content;
+          sep = "\n";
+          prevMoreIndented = true;
+        } else if (content === "") {
+          if (sep === "\n")
+            value += "\n";
+          else
+            sep = "\n";
+        } else {
+          value += sep + content;
+          sep = " ";
+          prevMoreIndented = false;
+        }
+      }
+      switch (header.chomp) {
+        case "-":
+          break;
+        case "+":
+          for (let i = chompStart; i < lines.length; ++i)
+            value += "\n" + lines[i][0].slice(trimIndent);
+          if (value[value.length - 1] !== "\n")
+            value += "\n";
+          break;
+        default:
+          value += "\n";
+      }
+      const end = start + header.length + scalar.source.length;
+      return { value, type, comment: header.comment, range: [start, end, end] };
+    }
+    function parseBlockScalarHeader({ offset, props }, strict, onError) {
+      if (props[0].type !== "block-scalar-header") {
+        onError(props[0], "IMPOSSIBLE", "Block scalar header not found");
+        return null;
+      }
+      const { source } = props[0];
+      const mode = source[0];
+      let indent = 0;
+      let chomp = "";
+      let error3 = -1;
+      for (let i = 1; i < source.length; ++i) {
+        const ch = source[i];
+        if (!chomp && (ch === "-" || ch === "+"))
+          chomp = ch;
+        else {
+          const n = Number(ch);
+          if (!indent && n)
+            indent = n;
+          else if (error3 === -1)
+            error3 = offset + i;
+        }
+      }
+      if (error3 !== -1)
+        onError(error3, "UNEXPECTED_TOKEN", `Block scalar header includes extra characters: ${source}`);
+      let hasSpace = false;
+      let comment = "";
+      let length = source.length;
+      for (let i = 1; i < props.length; ++i) {
+        const token = props[i];
+        switch (token.type) {
+          case "space":
+            hasSpace = true;
+          // fallthrough
+          case "newline":
+            length += token.source.length;
+            break;
+          case "comment":
+            if (strict && !hasSpace) {
+              const message = "Comments must be separated from other tokens by white space characters";
+              onError(token, "MISSING_CHAR", message);
+            }
+            length += token.source.length;
+            comment = token.source.substring(1);
+            break;
+          case "error":
+            onError(token, "UNEXPECTED_TOKEN", token.message);
+            length += token.source.length;
+            break;
+          /* istanbul ignore next should not happen */
+          default: {
+            const message = `Unexpected token in block scalar header: ${token.type}`;
+            onError(token, "UNEXPECTED_TOKEN", message);
+            const ts = token.source;
+            if (ts && typeof ts === "string")
+              length += ts.length;
+          }
+        }
+      }
+      return { mode, indent, chomp, comment, length };
+    }
+    function splitLines(source) {
+      const split = source.split(/\n( *)/);
+      const first = split[0];
+      const m = first.match(/^( *)/);
+      const line0 = m?.[1] ? [m[1], first.slice(m[1].length)] : ["", first];
+      const lines = [line0];
+      for (let i = 1; i < split.length; i += 2)
+        lines.push([split[i], split[i + 1]]);
+      return lines;
+    }
+    exports.resolveBlockScalar = resolveBlockScalar;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-flow-scalar.js
+var require_resolve_flow_scalar = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/resolve-flow-scalar.js"(exports) {
+    "use strict";
+    var Scalar = require_Scalar();
+    var resolveEnd = require_resolve_end();
+    function resolveFlowScalar(scalar, strict, onError) {
+      const { offset, type, source, end } = scalar;
+      let _type;
+      let value;
+      const _onError = (rel, code, msg) => onError(offset + rel, code, msg);
+      switch (type) {
+        case "scalar":
+          _type = Scalar.Scalar.PLAIN;
+          value = plainValue(source, _onError);
+          break;
+        case "single-quoted-scalar":
+          _type = Scalar.Scalar.QUOTE_SINGLE;
+          value = singleQuotedValue(source, _onError);
+          break;
+        case "double-quoted-scalar":
+          _type = Scalar.Scalar.QUOTE_DOUBLE;
+          value = doubleQuotedValue(source, _onError);
+          break;
+        /* istanbul ignore next should not happen */
+        default:
+          onError(scalar, "UNEXPECTED_TOKEN", `Expected a flow scalar value, but found: ${type}`);
+          return {
+            value: "",
+            type: null,
+            comment: "",
+            range: [offset, offset + source.length, offset + source.length]
+          };
+      }
+      const valueEnd = offset + source.length;
+      const re = resolveEnd.resolveEnd(end, valueEnd, strict, onError);
+      return {
+        value,
+        type: _type,
+        comment: re.comment,
+        range: [offset, valueEnd, re.offset]
+      };
+    }
+    function plainValue(source, onError) {
+      let badChar = "";
+      switch (source[0]) {
+        /* istanbul ignore next should not happen */
+        case "	":
+          badChar = "a tab character";
+          break;
+        case ",":
+          badChar = "flow indicator character ,";
+          break;
+        case "%":
+          badChar = "directive indicator character %";
+          break;
+        case "|":
+        case ">": {
+          badChar = `block scalar indicator ${source[0]}`;
+          break;
+        }
+        case "@":
+        case "`": {
+          badChar = `reserved character ${source[0]}`;
+          break;
+        }
+      }
+      if (badChar)
+        onError(0, "BAD_SCALAR_START", `Plain value cannot start with ${badChar}`);
+      return foldLines(source);
+    }
+    function singleQuotedValue(source, onError) {
+      if (source[source.length - 1] !== "'" || source.length === 1)
+        onError(source.length, "MISSING_CHAR", "Missing closing 'quote");
+      return foldLines(source.slice(1, -1)).replace(/''/g, "'");
+    }
+    function foldLines(source) {
+      let first, line;
+      try {
+        first = new RegExp("(.*?)(?<![ 	])[ 	]*\r?\n", "sy");
+        line = new RegExp("[ 	]*(.*?)(?:(?<![ 	])[ 	]*)?\r?\n", "sy");
+      } catch {
+        first = /(.*?)[ \t]*\r?\n/sy;
+        line = /[ \t]*(.*?)[ \t]*\r?\n/sy;
+      }
+      let match = first.exec(source);
+      if (!match)
+        return source;
+      let res = match[1];
+      let sep = " ";
+      let pos = first.lastIndex;
+      line.lastIndex = pos;
+      while (match = line.exec(source)) {
+        if (match[1] === "") {
+          if (sep === "\n")
+            res += sep;
+          else
+            sep = "\n";
+        } else {
+          res += sep + match[1];
+          sep = " ";
+        }
+        pos = line.lastIndex;
+      }
+      const last = /[ \t]*(.*)/sy;
+      last.lastIndex = pos;
+      match = last.exec(source);
+      return res + sep + (match?.[1] ?? "");
+    }
+    function doubleQuotedValue(source, onError) {
+      let res = "";
+      for (let i = 1; i < source.length - 1; ++i) {
+        const ch = source[i];
+        if (ch === "\r" && source[i + 1] === "\n")
+          continue;
+        if (ch === "\n") {
+          const { fold, offset } = foldNewline(source, i);
+          res += fold;
+          i = offset;
+        } else if (ch === "\\") {
+          let next = source[++i];
+          const cc = escapeCodes[next];
+          if (cc)
+            res += cc;
+          else if (next === "\n") {
+            next = source[i + 1];
+            while (next === " " || next === "	")
+              next = source[++i + 1];
+          } else if (next === "\r" && source[i + 1] === "\n") {
+            next = source[++i + 1];
+            while (next === " " || next === "	")
+              next = source[++i + 1];
+          } else if (next === "x" || next === "u" || next === "U") {
+            const length = { x: 2, u: 4, U: 8 }[next];
+            res += parseCharCode(source, i + 1, length, onError);
+            i += length;
+          } else {
+            const raw = source.substr(i - 1, 2);
+            onError(i - 1, "BAD_DQ_ESCAPE", `Invalid escape sequence ${raw}`);
+            res += raw;
+          }
+        } else if (ch === " " || ch === "	") {
+          const wsStart = i;
+          let next = source[i + 1];
+          while (next === " " || next === "	")
+            next = source[++i + 1];
+          if (next !== "\n" && !(next === "\r" && source[i + 2] === "\n"))
+            res += i > wsStart ? source.slice(wsStart, i + 1) : ch;
+        } else {
+          res += ch;
+        }
+      }
+      if (source[source.length - 1] !== '"' || source.length === 1)
+        onError(source.length, "MISSING_CHAR", 'Missing closing "quote');
+      return res;
+    }
+    function foldNewline(source, offset) {
+      let fold = "";
+      let ch = source[offset + 1];
+      while (ch === " " || ch === "	" || ch === "\n" || ch === "\r") {
+        if (ch === "\r" && source[offset + 2] !== "\n")
+          break;
+        if (ch === "\n")
+          fold += "\n";
+        offset += 1;
+        ch = source[offset + 1];
+      }
+      if (!fold)
+        fold = " ";
+      return { fold, offset };
+    }
+    var escapeCodes = {
+      "0": "\0",
+      // null character
+      a: "\x07",
+      // bell character
+      b: "\b",
+      // backspace
+      e: "\x1B",
+      // escape character
+      f: "\f",
+      // form feed
+      n: "\n",
+      // line feed
+      r: "\r",
+      // carriage return
+      t: "	",
+      // horizontal tab
+      v: "\v",
+      // vertical tab
+      N: "\x85",
+      // Unicode next line
+      _: "\xA0",
+      // Unicode non-breaking space
+      L: "\u2028",
+      // Unicode line separator
+      P: "\u2029",
+      // Unicode paragraph separator
+      " ": " ",
+      '"': '"',
+      "/": "/",
+      "\\": "\\",
+      "	": "	"
+    };
+    function parseCharCode(source, offset, length, onError) {
+      const cc = source.substr(offset, length);
+      const ok = cc.length === length && /^[0-9a-fA-F]+$/.test(cc);
+      const code = ok ? parseInt(cc, 16) : NaN;
+      if (isNaN(code)) {
+        const raw = source.substr(offset - 2, length + 2);
+        onError(offset - 2, "BAD_DQ_ESCAPE", `Invalid escape sequence ${raw}`);
+        return raw;
+      }
+      return String.fromCodePoint(code);
+    }
+    exports.resolveFlowScalar = resolveFlowScalar;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-scalar.js
+var require_compose_scalar = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-scalar.js"(exports) {
+    "use strict";
+    var identity = require_identity();
+    var Scalar = require_Scalar();
+    var resolveBlockScalar = require_resolve_block_scalar();
+    var resolveFlowScalar = require_resolve_flow_scalar();
+    function composeScalar(ctx, token, tagToken, onError) {
+      const { value, type, comment, range } = token.type === "block-scalar" ? resolveBlockScalar.resolveBlockScalar(ctx, token, onError) : resolveFlowScalar.resolveFlowScalar(token, ctx.options.strict, onError);
+      const tagName = tagToken ? ctx.directives.tagName(tagToken.source, (msg) => onError(tagToken, "TAG_RESOLVE_FAILED", msg)) : null;
+      let tag;
+      if (ctx.options.stringKeys && ctx.atKey) {
+        tag = ctx.schema[identity.SCALAR];
+      } else if (tagName)
+        tag = findScalarTagByName(ctx.schema, value, tagName, tagToken, onError);
+      else if (token.type === "scalar")
+        tag = findScalarTagByTest(ctx, value, token, onError);
+      else
+        tag = ctx.schema[identity.SCALAR];
+      let scalar;
+      try {
+        const res = tag.resolve(value, (msg) => onError(tagToken ?? token, "TAG_RESOLVE_FAILED", msg), ctx.options);
+        scalar = identity.isScalar(res) ? res : new Scalar.Scalar(res);
+      } catch (error3) {
+        const msg = error3 instanceof Error ? error3.message : String(error3);
+        onError(tagToken ?? token, "TAG_RESOLVE_FAILED", msg);
+        scalar = new Scalar.Scalar(value);
+      }
+      scalar.range = range;
+      scalar.source = value;
+      if (type)
+        scalar.type = type;
+      if (tagName)
+        scalar.tag = tagName;
+      if (tag.format)
+        scalar.format = tag.format;
+      if (comment)
+        scalar.comment = comment;
+      return scalar;
+    }
+    function findScalarTagByName(schema, value, tagName, tagToken, onError) {
+      if (tagName === "!")
+        return schema[identity.SCALAR];
+      const matchWithTest = [];
+      for (const tag of schema.tags) {
+        if (!tag.collection && tag.tag === tagName) {
+          if (tag.default && tag.test)
+            matchWithTest.push(tag);
+          else
+            return tag;
+        }
+      }
+      for (const tag of matchWithTest)
+        if (tag.test?.test(value))
+          return tag;
+      const kt = schema.knownTags[tagName];
+      if (kt && !kt.collection) {
+        schema.tags.push(Object.assign({}, kt, { default: false, test: void 0 }));
+        return kt;
+      }
+      onError(tagToken, "TAG_RESOLVE_FAILED", `Unresolved tag: ${tagName}`, tagName !== "tag:yaml.org,2002:str");
+      return schema[identity.SCALAR];
+    }
+    function findScalarTagByTest({ atKey, directives, schema }, value, token, onError) {
+      const tag = schema.tags.find((tag2) => (tag2.default === true || atKey && tag2.default === "key") && tag2.test?.test(value)) || schema[identity.SCALAR];
+      if (schema.compat) {
+        const compat = schema.compat.find((tag2) => tag2.default && tag2.test?.test(value)) ?? schema[identity.SCALAR];
+        if (tag.tag !== compat.tag) {
+          const ts = directives.tagString(tag.tag);
+          const cs = directives.tagString(compat.tag);
+          const msg = `Value may be parsed as either ${ts} or ${cs}`;
+          onError(token, "TAG_RESOLVE_FAILED", msg, true);
+        }
+      }
+      return tag;
+    }
+    exports.composeScalar = composeScalar;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-empty-scalar-position.js
+var require_util_empty_scalar_position = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/util-empty-scalar-position.js"(exports) {
+    "use strict";
+    function emptyScalarPosition(offset, before, pos) {
+      if (before) {
+        pos ?? (pos = before.length);
+        for (let i = pos - 1; i >= 0; --i) {
+          let st = before[i];
+          switch (st.type) {
+            case "space":
+            case "comment":
+            case "newline":
+              offset -= st.source.length;
+              continue;
+          }
+          st = before[++i];
+          while (st?.type === "space") {
+            offset += st.source.length;
+            st = before[++i];
+          }
+          break;
+        }
+      }
+      return offset;
+    }
+    exports.emptyScalarPosition = emptyScalarPosition;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-node.js
+var require_compose_node = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-node.js"(exports) {
+    "use strict";
+    var Alias = require_Alias();
+    var identity = require_identity();
+    var composeCollection = require_compose_collection();
+    var composeScalar = require_compose_scalar();
+    var resolveEnd = require_resolve_end();
+    var utilEmptyScalarPosition = require_util_empty_scalar_position();
+    var CN = { composeNode, composeEmptyNode };
+    function composeNode(ctx, token, props, onError) {
+      const atKey = ctx.atKey;
+      const { spaceBefore, comment, anchor, tag } = props;
+      let node;
+      let isSrcToken = true;
+      switch (token.type) {
+        case "alias":
+          node = composeAlias(ctx, token, onError);
+          if (anchor || tag)
+            onError(token, "ALIAS_PROPS", "An alias node must not specify any properties");
+          break;
+        case "scalar":
+        case "single-quoted-scalar":
+        case "double-quoted-scalar":
+        case "block-scalar":
+          node = composeScalar.composeScalar(ctx, token, tag, onError);
+          if (anchor)
+            node.anchor = anchor.source.substring(1);
+          break;
+        case "block-map":
+        case "block-seq":
+        case "flow-collection":
+          try {
+            node = composeCollection.composeCollection(CN, ctx, token, props, onError);
+            if (anchor)
+              node.anchor = anchor.source.substring(1);
+          } catch (error3) {
+            const message = error3 instanceof Error ? error3.message : String(error3);
+            onError(token, "RESOURCE_EXHAUSTION", message);
+          }
+          break;
+        default: {
+          const message = token.type === "error" ? token.message : `Unsupported token (type: ${token.type})`;
+          onError(token, "UNEXPECTED_TOKEN", message);
+          isSrcToken = false;
+        }
+      }
+      node ?? (node = composeEmptyNode(ctx, token.offset, void 0, null, props, onError));
+      if (anchor && node.anchor === "")
+        onError(anchor, "BAD_ALIAS", "Anchor cannot be an empty string");
+      if (atKey && ctx.options.stringKeys && (!identity.isScalar(node) || typeof node.value !== "string" || node.tag && node.tag !== "tag:yaml.org,2002:str")) {
+        const msg = "With stringKeys, all keys must be strings";
+        onError(tag ?? token, "NON_STRING_KEY", msg);
+      }
+      if (spaceBefore)
+        node.spaceBefore = true;
+      if (comment) {
+        if (token.type === "scalar" && token.source === "")
+          node.comment = comment;
+        else
+          node.commentBefore = comment;
+      }
+      if (ctx.options.keepSourceTokens && isSrcToken)
+        node.srcToken = token;
+      return node;
+    }
+    function composeEmptyNode(ctx, offset, before, pos, { spaceBefore, comment, anchor, tag, end }, onError) {
+      const token = {
+        type: "scalar",
+        offset: utilEmptyScalarPosition.emptyScalarPosition(offset, before, pos),
+        indent: -1,
+        source: ""
+      };
+      const node = composeScalar.composeScalar(ctx, token, tag, onError);
+      if (anchor) {
+        node.anchor = anchor.source.substring(1);
+        if (node.anchor === "")
+          onError(anchor, "BAD_ALIAS", "Anchor cannot be an empty string");
+      }
+      if (spaceBefore)
+        node.spaceBefore = true;
+      if (comment) {
+        node.comment = comment;
+        node.range[2] = end;
+      }
+      return node;
+    }
+    function composeAlias({ options }, { offset, source, end }, onError) {
+      const alias = new Alias.Alias(source.substring(1));
+      if (alias.source === "")
+        onError(offset, "BAD_ALIAS", "Alias cannot be an empty string");
+      if (alias.source.endsWith(":"))
+        onError(offset + source.length - 1, "BAD_ALIAS", "Alias ending in : is ambiguous", true);
+      const valueEnd = offset + source.length;
+      const re = resolveEnd.resolveEnd(end, valueEnd, options.strict, onError);
+      alias.range = [offset, valueEnd, re.offset];
+      if (re.comment)
+        alias.comment = re.comment;
+      return alias;
+    }
+    exports.composeEmptyNode = composeEmptyNode;
+    exports.composeNode = composeNode;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-doc.js
+var require_compose_doc = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/compose-doc.js"(exports) {
+    "use strict";
+    var Document = require_Document();
+    var composeNode = require_compose_node();
+    var resolveEnd = require_resolve_end();
+    var resolveProps = require_resolve_props();
+    function composeDoc(options, directives, { offset, start, value, end }, onError) {
+      const opts = Object.assign({ _directives: directives }, options);
+      const doc = new Document.Document(void 0, opts);
+      const ctx = {
+        atKey: false,
+        atRoot: true,
+        directives: doc.directives,
+        options: doc.options,
+        schema: doc.schema
+      };
+      const props = resolveProps.resolveProps(start, {
+        indicator: "doc-start",
+        next: value ?? end?.[0],
+        offset,
+        onError,
+        parentIndent: 0,
+        startOnNewline: true
+      });
+      if (props.found) {
+        doc.directives.docStart = true;
+        if (value && (value.type === "block-map" || value.type === "block-seq") && !props.hasNewline)
+          onError(props.end, "MISSING_CHAR", "Block collection cannot start on same line with directives-end marker");
+      }
+      doc.contents = value ? composeNode.composeNode(ctx, value, props, onError) : composeNode.composeEmptyNode(ctx, props.end, start, null, props, onError);
+      const contentEnd = doc.contents.range[2];
+      const re = resolveEnd.resolveEnd(end, contentEnd, false, onError);
+      if (re.comment)
+        doc.comment = re.comment;
+      doc.range = [offset, contentEnd, re.offset];
+      return doc;
+    }
+    exports.composeDoc = composeDoc;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/composer.js
+var require_composer = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/compose/composer.js"(exports) {
+    "use strict";
+    var node_process = __require("process");
+    var directives = require_directives();
+    var Document = require_Document();
+    var errors = require_errors();
+    var identity = require_identity();
+    var composeDoc = require_compose_doc();
+    var resolveEnd = require_resolve_end();
+    function getErrorPos(src) {
+      if (typeof src === "number")
+        return [src, src + 1];
+      if (Array.isArray(src))
+        return src.length === 2 ? src : [src[0], src[1]];
+      const { offset, source } = src;
+      return [offset, offset + (typeof source === "string" ? source.length : 1)];
+    }
+    function parsePrelude(prelude) {
+      let comment = "";
+      let atComment = false;
+      let afterEmptyLine = false;
+      for (let i = 0; i < prelude.length; ++i) {
+        const source = prelude[i];
+        switch (source[0]) {
+          case "#":
+            comment += (comment === "" ? "" : afterEmptyLine ? "\n\n" : "\n") + (source.substring(1) || " ");
+            atComment = true;
+            afterEmptyLine = false;
+            break;
+          case "%":
+            if (prelude[i + 1]?.[0] !== "#")
+              i += 1;
+            atComment = false;
+            break;
+          default:
+            if (!atComment)
+              afterEmptyLine = true;
+            atComment = false;
+        }
+      }
+      return { comment, afterEmptyLine };
+    }
+    var Composer = class {
+      constructor(options = {}) {
+        this.doc = null;
+        this.atDirectives = false;
+        this.prelude = [];
+        this.errors = [];
+        this.warnings = [];
+        this.onError = (source, code, message, warning) => {
+          const pos = getErrorPos(source);
+          if (warning)
+            this.warnings.push(new errors.YAMLWarning(pos, code, message));
+          else
+            this.errors.push(new errors.YAMLParseError(pos, code, message));
+        };
+        this.directives = new directives.Directives({ version: options.version || "1.2" });
+        this.options = options;
+      }
+      decorate(doc, afterDoc) {
+        const { comment, afterEmptyLine } = parsePrelude(this.prelude);
+        if (comment) {
+          const dc = doc.contents;
+          if (afterDoc) {
+            doc.comment = doc.comment ? `${doc.comment}
+${comment}` : comment;
+          } else if (afterEmptyLine || doc.directives.docStart || !dc) {
+            doc.commentBefore = comment;
+          } else if (identity.isCollection(dc) && !dc.flow && dc.items.length > 0) {
+            let it = dc.items[0];
+            if (identity.isPair(it))
+              it = it.key;
+            const cb = it.commentBefore;
+            it.commentBefore = cb ? `${comment}
+${cb}` : comment;
+          } else {
+            const cb = dc.commentBefore;
+            dc.commentBefore = cb ? `${comment}
+${cb}` : comment;
+          }
+        }
+        if (afterDoc) {
+          Array.prototype.push.apply(doc.errors, this.errors);
+          Array.prototype.push.apply(doc.warnings, this.warnings);
+        } else {
+          doc.errors = this.errors;
+          doc.warnings = this.warnings;
+        }
+        this.prelude = [];
+        this.errors = [];
+        this.warnings = [];
+      }
+      /**
+       * Current stream status information.
+       *
+       * Mostly useful at the end of input for an empty stream.
+       */
+      streamInfo() {
+        return {
+          comment: parsePrelude(this.prelude).comment,
+          directives: this.directives,
+          errors: this.errors,
+          warnings: this.warnings
+        };
+      }
+      /**
+       * Compose tokens into documents.
+       *
+       * @param forceDoc - If the stream contains no document, still emit a final document including any comments and directives that would be applied to a subsequent document.
+       * @param endOffset - Should be set if `forceDoc` is also set, to set the document range end and to indicate errors correctly.
+       */
+      *compose(tokens, forceDoc = false, endOffset = -1) {
+        for (const token of tokens)
+          yield* this.next(token);
+        yield* this.end(forceDoc, endOffset);
+      }
+      /** Advance the composer by one CST token. */
+      *next(token) {
+        if (node_process.env.LOG_STREAM)
+          console.dir(token, { depth: null });
+        switch (token.type) {
+          case "directive":
+            this.directives.add(token.source, (offset, message, warning) => {
+              const pos = getErrorPos(token);
+              pos[0] += offset;
+              this.onError(pos, "BAD_DIRECTIVE", message, warning);
+            });
+            this.prelude.push(token.source);
+            this.atDirectives = true;
+            break;
+          case "document": {
+            const doc = composeDoc.composeDoc(this.options, this.directives, token, this.onError);
+            if (this.atDirectives && !doc.directives.docStart)
+              this.onError(token, "MISSING_CHAR", "Missing directives-end/doc-start indicator line");
+            this.decorate(doc, false);
+            if (this.doc)
+              yield this.doc;
+            this.doc = doc;
+            this.atDirectives = false;
+            break;
+          }
+          case "byte-order-mark":
+          case "space":
+            break;
+          case "comment":
+          case "newline":
+            this.prelude.push(token.source);
+            break;
+          case "error": {
+            const msg = token.source ? `${token.message}: ${JSON.stringify(token.source)}` : token.message;
+            const error3 = new errors.YAMLParseError(getErrorPos(token), "UNEXPECTED_TOKEN", msg);
+            if (this.atDirectives || !this.doc)
+              this.errors.push(error3);
+            else
+              this.doc.errors.push(error3);
+            break;
+          }
+          case "doc-end": {
+            if (!this.doc) {
+              const msg = "Unexpected doc-end without preceding document";
+              this.errors.push(new errors.YAMLParseError(getErrorPos(token), "UNEXPECTED_TOKEN", msg));
+              break;
+            }
+            this.doc.directives.docEnd = true;
+            const end = resolveEnd.resolveEnd(token.end, token.offset + token.source.length, this.doc.options.strict, this.onError);
+            this.decorate(this.doc, true);
+            if (end.comment) {
+              const dc = this.doc.comment;
+              this.doc.comment = dc ? `${dc}
+${end.comment}` : end.comment;
+            }
+            this.doc.range[2] = end.offset;
+            break;
+          }
+          default:
+            this.errors.push(new errors.YAMLParseError(getErrorPos(token), "UNEXPECTED_TOKEN", `Unsupported token ${token.type}`));
+        }
+      }
+      /**
+       * Call at end of input to yield any remaining document.
+       *
+       * @param forceDoc - If the stream contains no document, still emit a final document including any comments and directives that would be applied to a subsequent document.
+       * @param endOffset - Should be set if `forceDoc` is also set, to set the document range end and to indicate errors correctly.
+       */
+      *end(forceDoc = false, endOffset = -1) {
+        if (this.doc) {
+          this.decorate(this.doc, true);
+          yield this.doc;
+          this.doc = null;
+        } else if (forceDoc) {
+          const opts = Object.assign({ _directives: this.directives }, this.options);
+          const doc = new Document.Document(void 0, opts);
+          if (this.atDirectives)
+            this.onError(endOffset, "MISSING_CHAR", "Missing directives-end indicator line");
+          doc.range = [0, endOffset, endOffset];
+          this.decorate(doc, false);
+          yield doc;
+        }
+      }
+    };
+    exports.Composer = Composer;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst-scalar.js
+var require_cst_scalar = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst-scalar.js"(exports) {
+    "use strict";
+    var resolveBlockScalar = require_resolve_block_scalar();
+    var resolveFlowScalar = require_resolve_flow_scalar();
+    var errors = require_errors();
+    var stringifyString = require_stringifyString();
+    function resolveAsScalar(token, strict = true, onError) {
+      if (token) {
+        const _onError = (pos, code, message) => {
+          const offset = typeof pos === "number" ? pos : Array.isArray(pos) ? pos[0] : pos.offset;
+          if (onError)
+            onError(offset, code, message);
+          else
+            throw new errors.YAMLParseError([offset, offset + 1], code, message);
+        };
+        switch (token.type) {
+          case "scalar":
+          case "single-quoted-scalar":
+          case "double-quoted-scalar":
+            return resolveFlowScalar.resolveFlowScalar(token, strict, _onError);
+          case "block-scalar":
+            return resolveBlockScalar.resolveBlockScalar({ options: { strict } }, token, _onError);
+        }
+      }
+      return null;
+    }
+    function createScalarToken(value, context) {
+      const { implicitKey = false, indent, inFlow = false, offset = -1, type = "PLAIN" } = context;
+      const source = stringifyString.stringifyString({ type, value }, {
+        implicitKey,
+        indent: indent > 0 ? " ".repeat(indent) : "",
+        inFlow,
+        options: { blockQuote: true, lineWidth: -1 }
+      });
+      const end = context.end ?? [
+        { type: "newline", offset: -1, indent, source: "\n" }
+      ];
+      switch (source[0]) {
+        case "|":
+        case ">": {
+          const he = source.indexOf("\n");
+          const head = source.substring(0, he);
+          const body = source.substring(he + 1) + "\n";
+          const props = [
+            { type: "block-scalar-header", offset, indent, source: head }
+          ];
+          if (!addEndtoBlockProps(props, end))
+            props.push({ type: "newline", offset: -1, indent, source: "\n" });
+          return { type: "block-scalar", offset, indent, props, source: body };
+        }
+        case '"':
+          return { type: "double-quoted-scalar", offset, indent, source, end };
+        case "'":
+          return { type: "single-quoted-scalar", offset, indent, source, end };
+        default:
+          return { type: "scalar", offset, indent, source, end };
+      }
+    }
+    function setScalarValue(token, value, context = {}) {
+      let { afterKey = false, implicitKey = false, inFlow = false, type } = context;
+      let indent = "indent" in token ? token.indent : null;
+      if (afterKey && typeof indent === "number")
+        indent += 2;
+      if (!type)
+        switch (token.type) {
+          case "single-quoted-scalar":
+            type = "QUOTE_SINGLE";
+            break;
+          case "double-quoted-scalar":
+            type = "QUOTE_DOUBLE";
+            break;
+          case "block-scalar": {
+            const header = token.props[0];
+            if (header.type !== "block-scalar-header")
+              throw new Error("Invalid block scalar header");
+            type = header.source[0] === ">" ? "BLOCK_FOLDED" : "BLOCK_LITERAL";
+            break;
+          }
+          default:
+            type = "PLAIN";
+        }
+      const source = stringifyString.stringifyString({ type, value }, {
+        implicitKey: implicitKey || indent === null,
+        indent: indent !== null && indent > 0 ? " ".repeat(indent) : "",
+        inFlow,
+        options: { blockQuote: true, lineWidth: -1 }
+      });
+      switch (source[0]) {
+        case "|":
+        case ">":
+          setBlockScalarValue(token, source);
+          break;
+        case '"':
+          setFlowScalarValue(token, source, "double-quoted-scalar");
+          break;
+        case "'":
+          setFlowScalarValue(token, source, "single-quoted-scalar");
+          break;
+        default:
+          setFlowScalarValue(token, source, "scalar");
+      }
+    }
+    function setBlockScalarValue(token, source) {
+      const he = source.indexOf("\n");
+      const head = source.substring(0, he);
+      const body = source.substring(he + 1) + "\n";
+      if (token.type === "block-scalar") {
+        const header = token.props[0];
+        if (header.type !== "block-scalar-header")
+          throw new Error("Invalid block scalar header");
+        header.source = head;
+        token.source = body;
+      } else {
+        const { offset } = token;
+        const indent = "indent" in token ? token.indent : -1;
+        const props = [
+          { type: "block-scalar-header", offset, indent, source: head }
+        ];
+        if (!addEndtoBlockProps(props, "end" in token ? token.end : void 0))
+          props.push({ type: "newline", offset: -1, indent, source: "\n" });
+        for (const key of Object.keys(token))
+          if (key !== "type" && key !== "offset")
+            delete token[key];
+        Object.assign(token, { type: "block-scalar", indent, props, source: body });
+      }
+    }
+    function addEndtoBlockProps(props, end) {
+      if (end)
+        for (const st of end)
+          switch (st.type) {
+            case "space":
+            case "comment":
+              props.push(st);
+              break;
+            case "newline":
+              props.push(st);
+              return true;
+          }
+      return false;
+    }
+    function setFlowScalarValue(token, source, type) {
+      switch (token.type) {
+        case "scalar":
+        case "double-quoted-scalar":
+        case "single-quoted-scalar":
+          token.type = type;
+          token.source = source;
+          break;
+        case "block-scalar": {
+          const end = token.props.slice(1);
+          let oa = source.length;
+          if (token.props[0].type === "block-scalar-header")
+            oa -= token.props[0].source.length;
+          for (const tok of end)
+            tok.offset += oa;
+          delete token.props;
+          Object.assign(token, { type, source, end });
+          break;
+        }
+        case "block-map":
+        case "block-seq": {
+          const offset = token.offset + source.length;
+          const nl = { type: "newline", offset, indent: token.indent, source: "\n" };
+          delete token.items;
+          Object.assign(token, { type, source, end: [nl] });
+          break;
+        }
+        default: {
+          const indent = "indent" in token ? token.indent : -1;
+          const end = "end" in token && Array.isArray(token.end) ? token.end.filter((st) => st.type === "space" || st.type === "comment" || st.type === "newline") : [];
+          for (const key of Object.keys(token))
+            if (key !== "type" && key !== "offset")
+              delete token[key];
+          Object.assign(token, { type, indent, source, end });
+        }
+      }
+    }
+    exports.createScalarToken = createScalarToken;
+    exports.resolveAsScalar = resolveAsScalar;
+    exports.setScalarValue = setScalarValue;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst-stringify.js
+var require_cst_stringify = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst-stringify.js"(exports) {
+    "use strict";
+    var stringify2 = (cst) => "type" in cst ? stringifyToken(cst) : stringifyItem(cst);
+    function stringifyToken(token) {
+      switch (token.type) {
+        case "block-scalar": {
+          let res = "";
+          for (const tok of token.props)
+            res += stringifyToken(tok);
+          return res + token.source;
+        }
+        case "block-map":
+        case "block-seq": {
+          let res = "";
+          for (const item of token.items)
+            res += stringifyItem(item);
+          return res;
+        }
+        case "flow-collection": {
+          let res = token.start.source;
+          for (const item of token.items)
+            res += stringifyItem(item);
+          for (const st of token.end)
+            res += st.source;
+          return res;
+        }
+        case "document": {
+          let res = stringifyItem(token);
+          if (token.end)
+            for (const st of token.end)
+              res += st.source;
+          return res;
+        }
+        default: {
+          let res = token.source;
+          if ("end" in token && token.end)
+            for (const st of token.end)
+              res += st.source;
+          return res;
+        }
+      }
+    }
+    function stringifyItem({ start, key, sep, value }) {
+      let res = "";
+      for (const st of start)
+        res += st.source;
+      if (key)
+        res += stringifyToken(key);
+      if (sep)
+        for (const st of sep)
+          res += st.source;
+      if (value)
+        res += stringifyToken(value);
+      return res;
+    }
+    exports.stringify = stringify2;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst-visit.js
+var require_cst_visit = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst-visit.js"(exports) {
+    "use strict";
+    var BREAK = /* @__PURE__ */ Symbol("break visit");
+    var SKIP = /* @__PURE__ */ Symbol("skip children");
+    var REMOVE = /* @__PURE__ */ Symbol("remove item");
+    function visit(cst, visitor) {
+      if ("type" in cst && cst.type === "document")
+        cst = { start: cst.start, value: cst.value };
+      _visit(Object.freeze([]), cst, visitor);
+    }
+    visit.BREAK = BREAK;
+    visit.SKIP = SKIP;
+    visit.REMOVE = REMOVE;
+    visit.itemAtPath = (cst, path3) => {
+      let item = cst;
+      for (const [field, index] of path3) {
+        const tok = item?.[field];
+        if (tok && "items" in tok) {
+          item = tok.items[index];
+        } else
+          return void 0;
+      }
+      return item;
+    };
+    visit.parentCollection = (cst, path3) => {
+      const parent = visit.itemAtPath(cst, path3.slice(0, -1));
+      const field = path3[path3.length - 1][0];
+      const coll = parent?.[field];
+      if (coll && "items" in coll)
+        return coll;
+      throw new Error("Parent collection not found");
+    };
+    function _visit(path3, item, visitor) {
+      let ctrl = visitor(item, path3);
+      if (typeof ctrl === "symbol")
+        return ctrl;
+      for (const field of ["key", "value"]) {
+        const token = item[field];
+        if (token && "items" in token) {
+          for (let i = 0; i < token.items.length; ++i) {
+            const ci = _visit(Object.freeze(path3.concat([[field, i]])), token.items[i], visitor);
+            if (typeof ci === "number")
+              i = ci - 1;
+            else if (ci === BREAK)
+              return BREAK;
+            else if (ci === REMOVE) {
+              token.items.splice(i, 1);
+              i -= 1;
+            }
+          }
+          if (typeof ctrl === "function" && field === "key")
+            ctrl = ctrl(item, path3);
+        }
+      }
+      return typeof ctrl === "function" ? ctrl(item, path3) : ctrl;
+    }
+    exports.visit = visit;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst.js
+var require_cst = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/cst.js"(exports) {
+    "use strict";
+    var cstScalar = require_cst_scalar();
+    var cstStringify = require_cst_stringify();
+    var cstVisit = require_cst_visit();
+    var BOM = "\uFEFF";
+    var DOCUMENT = "";
+    var FLOW_END = "";
+    var SCALAR = "";
+    var isCollection = (token) => !!token && "items" in token;
+    var isScalar = (token) => !!token && (token.type === "scalar" || token.type === "single-quoted-scalar" || token.type === "double-quoted-scalar" || token.type === "block-scalar");
+    function prettyToken(token) {
+      switch (token) {
+        case BOM:
+          return "<BOM>";
+        case DOCUMENT:
+          return "<DOC>";
+        case FLOW_END:
+          return "<FLOW_END>";
+        case SCALAR:
+          return "<SCALAR>";
+        default:
+          return JSON.stringify(token);
+      }
+    }
+    function tokenType(source) {
+      switch (source) {
+        case BOM:
+          return "byte-order-mark";
+        case DOCUMENT:
+          return "doc-mode";
+        case FLOW_END:
+          return "flow-error-end";
+        case SCALAR:
+          return "scalar";
+        case "---":
+          return "doc-start";
+        case "...":
+          return "doc-end";
+        case "":
+        case "\n":
+        case "\r\n":
+          return "newline";
+        case "-":
+          return "seq-item-ind";
+        case "?":
+          return "explicit-key-ind";
+        case ":":
+          return "map-value-ind";
+        case "{":
+          return "flow-map-start";
+        case "}":
+          return "flow-map-end";
+        case "[":
+          return "flow-seq-start";
+        case "]":
+          return "flow-seq-end";
+        case ",":
+          return "comma";
+      }
+      switch (source[0]) {
+        case " ":
+        case "	":
+          return "space";
+        case "#":
+          return "comment";
+        case "%":
+          return "directive-line";
+        case "*":
+          return "alias";
+        case "&":
+          return "anchor";
+        case "!":
+          return "tag";
+        case "'":
+          return "single-quoted-scalar";
+        case '"':
+          return "double-quoted-scalar";
+        case "|":
+        case ">":
+          return "block-scalar-header";
+      }
+      return null;
+    }
+    exports.createScalarToken = cstScalar.createScalarToken;
+    exports.resolveAsScalar = cstScalar.resolveAsScalar;
+    exports.setScalarValue = cstScalar.setScalarValue;
+    exports.stringify = cstStringify.stringify;
+    exports.visit = cstVisit.visit;
+    exports.BOM = BOM;
+    exports.DOCUMENT = DOCUMENT;
+    exports.FLOW_END = FLOW_END;
+    exports.SCALAR = SCALAR;
+    exports.isCollection = isCollection;
+    exports.isScalar = isScalar;
+    exports.prettyToken = prettyToken;
+    exports.tokenType = tokenType;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/lexer.js
+var require_lexer = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/lexer.js"(exports) {
+    "use strict";
+    var cst = require_cst();
+    function isEmpty(ch) {
+      switch (ch) {
+        case void 0:
+        case " ":
+        case "\n":
+        case "\r":
+        case "	":
+          return true;
+        default:
+          return false;
+      }
+    }
+    var hexDigits = new Set("0123456789ABCDEFabcdef");
+    var tagChars = new Set("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-#;/?:@&=+$_.!~*'()");
+    var flowIndicatorChars = new Set(",[]{}");
+    var invalidAnchorChars = new Set(" ,[]{}\n\r	");
+    var isNotAnchorChar = (ch) => !ch || invalidAnchorChars.has(ch);
+    var Lexer = class {
+      constructor() {
+        this.atEnd = false;
+        this.blockScalarIndent = -1;
+        this.blockScalarKeep = false;
+        this.buffer = "";
+        this.flowKey = false;
+        this.flowLevel = 0;
+        this.indentNext = 0;
+        this.indentValue = 0;
+        this.lineEndPos = null;
+        this.next = null;
+        this.pos = 0;
+      }
+      /**
+       * Generate YAML tokens from the `source` string. If `incomplete`,
+       * a part of the last line may be left as a buffer for the next call.
+       *
+       * @returns A generator of lexical tokens
+       */
+      *lex(source, incomplete = false) {
+        if (source) {
+          if (typeof source !== "string")
+            throw TypeError("source is not a string");
+          this.buffer = this.buffer ? this.buffer + source : source;
+          this.lineEndPos = null;
+        }
+        this.atEnd = !incomplete;
+        let next = this.next ?? "stream";
+        while (next && (incomplete || this.hasChars(1)))
+          next = yield* this.parseNext(next);
+      }
+      atLineEnd() {
+        let i = this.pos;
+        let ch = this.buffer[i];
+        while (ch === " " || ch === "	")
+          ch = this.buffer[++i];
+        if (!ch || ch === "#" || ch === "\n")
+          return true;
+        if (ch === "\r")
+          return this.buffer[i + 1] === "\n";
+        return false;
+      }
+      charAt(n) {
+        return this.buffer[this.pos + n];
+      }
+      continueScalar(offset) {
+        let ch = this.buffer[offset];
+        if (this.indentNext > 0) {
+          let indent = 0;
+          while (ch === " ")
+            ch = this.buffer[++indent + offset];
+          if (ch === "\r") {
+            const next = this.buffer[indent + offset + 1];
+            if (next === "\n" || !next && !this.atEnd)
+              return offset + indent + 1;
+          }
+          return ch === "\n" || indent >= this.indentNext || !ch && !this.atEnd ? offset + indent : -1;
+        }
+        if (ch === "-" || ch === ".") {
+          const dt = this.buffer.substr(offset, 3);
+          if ((dt === "---" || dt === "...") && isEmpty(this.buffer[offset + 3]))
+            return -1;
+        }
+        return offset;
+      }
+      getLine() {
+        let end = this.lineEndPos;
+        if (typeof end !== "number" || end !== -1 && end < this.pos) {
+          end = this.buffer.indexOf("\n", this.pos);
+          this.lineEndPos = end;
+        }
+        if (end === -1)
+          return this.atEnd ? this.buffer.substring(this.pos) : null;
+        if (this.buffer[end - 1] === "\r")
+          end -= 1;
+        return this.buffer.substring(this.pos, end);
+      }
+      hasChars(n) {
+        return this.pos + n <= this.buffer.length;
+      }
+      setNext(state) {
+        this.buffer = this.buffer.substring(this.pos);
+        this.pos = 0;
+        this.lineEndPos = null;
+        this.next = state;
+        return null;
+      }
+      peek(n) {
+        return this.buffer.substr(this.pos, n);
+      }
+      *parseNext(next) {
+        switch (next) {
+          case "stream":
+            return yield* this.parseStream();
+          case "line-start":
+            return yield* this.parseLineStart();
+          case "block-start":
+            return yield* this.parseBlockStart();
+          case "doc":
+            return yield* this.parseDocument();
+          case "flow":
+            return yield* this.parseFlowCollection();
+          case "quoted-scalar":
+            return yield* this.parseQuotedScalar();
+          case "block-scalar":
+            return yield* this.parseBlockScalar();
+          case "plain-scalar":
+            return yield* this.parsePlainScalar();
+        }
+      }
+      *parseStream() {
+        let line = this.getLine();
+        if (line === null)
+          return this.setNext("stream");
+        if (line[0] === cst.BOM) {
+          yield* this.pushCount(1);
+          line = line.substring(1);
+        }
+        if (line[0] === "%") {
+          let dirEnd = line.length;
+          let cs = line.indexOf("#");
+          while (cs !== -1) {
+            const ch = line[cs - 1];
+            if (ch === " " || ch === "	") {
+              dirEnd = cs - 1;
+              break;
+            } else {
+              cs = line.indexOf("#", cs + 1);
+            }
+          }
+          while (true) {
+            const ch = line[dirEnd - 1];
+            if (ch === " " || ch === "	")
+              dirEnd -= 1;
+            else
+              break;
+          }
+          const n = (yield* this.pushCount(dirEnd)) + (yield* this.pushSpaces(true));
+          yield* this.pushCount(line.length - n);
+          this.pushNewline();
+          return "stream";
+        }
+        if (this.atLineEnd()) {
+          const sp = yield* this.pushSpaces(true);
+          yield* this.pushCount(line.length - sp);
+          yield* this.pushNewline();
+          return "stream";
+        }
+        yield cst.DOCUMENT;
+        return yield* this.parseLineStart();
+      }
+      *parseLineStart() {
+        const ch = this.charAt(0);
+        if (!ch && !this.atEnd)
+          return this.setNext("line-start");
+        if (ch === "-" || ch === ".") {
+          if (!this.atEnd && !this.hasChars(4))
+            return this.setNext("line-start");
+          const s = this.peek(3);
+          if ((s === "---" || s === "...") && isEmpty(this.charAt(3))) {
+            yield* this.pushCount(3);
+            this.indentValue = 0;
+            this.indentNext = 0;
+            return s === "---" ? "doc" : "stream";
+          }
+        }
+        this.indentValue = yield* this.pushSpaces(false);
+        if (this.indentNext > this.indentValue && !isEmpty(this.charAt(1)))
+          this.indentNext = this.indentValue;
+        return yield* this.parseBlockStart();
+      }
+      *parseBlockStart() {
+        const [ch0, ch1] = this.peek(2);
+        if (!ch1 && !this.atEnd)
+          return this.setNext("block-start");
+        if ((ch0 === "-" || ch0 === "?" || ch0 === ":") && isEmpty(ch1)) {
+          const n = (yield* this.pushCount(1)) + (yield* this.pushSpaces(true));
+          this.indentNext = this.indentValue + 1;
+          this.indentValue += n;
+          return yield* this.parseBlockStart();
+        }
+        return "doc";
+      }
+      *parseDocument() {
+        yield* this.pushSpaces(true);
+        const line = this.getLine();
+        if (line === null)
+          return this.setNext("doc");
+        let n = yield* this.pushIndicators();
+        switch (line[n]) {
+          case "#":
+            yield* this.pushCount(line.length - n);
+          // fallthrough
+          case void 0:
+            yield* this.pushNewline();
+            return yield* this.parseLineStart();
+          case "{":
+          case "[":
+            yield* this.pushCount(1);
+            this.flowKey = false;
+            this.flowLevel = 1;
+            return "flow";
+          case "}":
+          case "]":
+            yield* this.pushCount(1);
+            return "doc";
+          case "*":
+            yield* this.pushUntil(isNotAnchorChar);
+            return "doc";
+          case '"':
+          case "'":
+            return yield* this.parseQuotedScalar();
+          case "|":
+          case ">":
+            n += yield* this.parseBlockScalarHeader();
+            n += yield* this.pushSpaces(true);
+            yield* this.pushCount(line.length - n);
+            yield* this.pushNewline();
+            return yield* this.parseBlockScalar();
+          default:
+            return yield* this.parsePlainScalar();
+        }
+      }
+      *parseFlowCollection() {
+        let nl, sp;
+        let indent = -1;
+        do {
+          nl = yield* this.pushNewline();
+          if (nl > 0) {
+            sp = yield* this.pushSpaces(false);
+            this.indentValue = indent = sp;
+          } else {
+            sp = 0;
+          }
+          sp += yield* this.pushSpaces(true);
+        } while (nl + sp > 0);
+        const line = this.getLine();
+        if (line === null)
+          return this.setNext("flow");
+        if (indent !== -1 && indent < this.indentNext && line[0] !== "#" || indent === 0 && (line.startsWith("---") || line.startsWith("...")) && isEmpty(line[3])) {
+          const atFlowEndMarker = indent === this.indentNext - 1 && this.flowLevel === 1 && (line[0] === "]" || line[0] === "}");
+          if (!atFlowEndMarker) {
+            this.flowLevel = 0;
+            yield cst.FLOW_END;
+            return yield* this.parseLineStart();
+          }
+        }
+        let n = 0;
+        while (line[n] === ",") {
+          n += yield* this.pushCount(1);
+          n += yield* this.pushSpaces(true);
+          this.flowKey = false;
+        }
+        n += yield* this.pushIndicators();
+        switch (line[n]) {
+          case void 0:
+            return "flow";
+          case "#":
+            yield* this.pushCount(line.length - n);
+            return "flow";
+          case "{":
+          case "[":
+            yield* this.pushCount(1);
+            this.flowKey = false;
+            this.flowLevel += 1;
+            return "flow";
+          case "}":
+          case "]":
+            yield* this.pushCount(1);
+            this.flowKey = true;
+            this.flowLevel -= 1;
+            return this.flowLevel ? "flow" : "doc";
+          case "*":
+            yield* this.pushUntil(isNotAnchorChar);
+            return "flow";
+          case '"':
+          case "'":
+            this.flowKey = true;
+            return yield* this.parseQuotedScalar();
+          case ":": {
+            const next = this.charAt(1);
+            if (this.flowKey || isEmpty(next) || next === ",") {
+              this.flowKey = false;
+              yield* this.pushCount(1);
+              yield* this.pushSpaces(true);
+              return "flow";
+            }
+          }
+          // fallthrough
+          default:
+            this.flowKey = false;
+            return yield* this.parsePlainScalar();
+        }
+      }
+      *parseQuotedScalar() {
+        const quote = this.charAt(0);
+        let end = this.buffer.indexOf(quote, this.pos + 1);
+        if (quote === "'") {
+          while (end !== -1 && this.buffer[end + 1] === "'")
+            end = this.buffer.indexOf("'", end + 2);
+        } else {
+          while (end !== -1) {
+            let n = 0;
+            while (this.buffer[end - 1 - n] === "\\")
+              n += 1;
+            if (n % 2 === 0)
+              break;
+            end = this.buffer.indexOf('"', end + 1);
+          }
+        }
+        const qb = this.buffer.substring(0, end);
+        let nl = qb.indexOf("\n", this.pos);
+        if (nl !== -1) {
+          while (nl !== -1) {
+            const cs = this.continueScalar(nl + 1);
+            if (cs === -1)
+              break;
+            nl = qb.indexOf("\n", cs);
+          }
+          if (nl !== -1) {
+            end = nl - (qb[nl - 1] === "\r" ? 2 : 1);
+          }
+        }
+        if (end === -1) {
+          if (!this.atEnd)
+            return this.setNext("quoted-scalar");
+          end = this.buffer.length;
+        }
+        yield* this.pushToIndex(end + 1, false);
+        return this.flowLevel ? "flow" : "doc";
+      }
+      *parseBlockScalarHeader() {
+        this.blockScalarIndent = -1;
+        this.blockScalarKeep = false;
+        let i = this.pos;
+        while (true) {
+          const ch = this.buffer[++i];
+          if (ch === "+")
+            this.blockScalarKeep = true;
+          else if (ch > "0" && ch <= "9")
+            this.blockScalarIndent = Number(ch) - 1;
+          else if (ch !== "-")
+            break;
+        }
+        return yield* this.pushUntil((ch) => isEmpty(ch) || ch === "#");
+      }
+      *parseBlockScalar() {
+        let nl = this.pos - 1;
+        let indent = 0;
+        let ch;
+        loop: for (let i2 = this.pos; ch = this.buffer[i2]; ++i2) {
+          switch (ch) {
+            case " ":
+              indent += 1;
+              break;
+            case "\n":
+              nl = i2;
+              indent = 0;
+              break;
+            case "\r": {
+              const next = this.buffer[i2 + 1];
+              if (!next && !this.atEnd)
+                return this.setNext("block-scalar");
+              if (next === "\n")
+                break;
+            }
+            // fallthrough
+            default:
+              break loop;
+          }
+        }
+        if (!ch && !this.atEnd)
+          return this.setNext("block-scalar");
+        if (indent >= this.indentNext) {
+          if (this.blockScalarIndent === -1)
+            this.indentNext = indent;
+          else {
+            this.indentNext = this.blockScalarIndent + (this.indentNext === 0 ? 1 : this.indentNext);
+          }
+          do {
+            const cs = this.continueScalar(nl + 1);
+            if (cs === -1)
+              break;
+            nl = this.buffer.indexOf("\n", cs);
+          } while (nl !== -1);
+          if (nl === -1) {
+            if (!this.atEnd)
+              return this.setNext("block-scalar");
+            nl = this.buffer.length;
+          }
+        }
+        let i = nl + 1;
+        ch = this.buffer[i];
+        while (ch === " ")
+          ch = this.buffer[++i];
+        if (ch === "	") {
+          while (ch === "	" || ch === " " || ch === "\r" || ch === "\n")
+            ch = this.buffer[++i];
+          nl = i - 1;
+        } else if (!this.blockScalarKeep) {
+          do {
+            let i2 = nl - 1;
+            let ch2 = this.buffer[i2];
+            if (ch2 === "\r")
+              ch2 = this.buffer[--i2];
+            const lastChar = i2;
+            while (ch2 === " ")
+              ch2 = this.buffer[--i2];
+            if (ch2 === "\n" && i2 >= this.pos && i2 + 1 + indent > lastChar)
+              nl = i2;
+            else
+              break;
+          } while (true);
+        }
+        yield cst.SCALAR;
+        yield* this.pushToIndex(nl + 1, true);
+        return yield* this.parseLineStart();
+      }
+      *parsePlainScalar() {
+        const inFlow = this.flowLevel > 0;
+        let end = this.pos - 1;
+        let i = this.pos - 1;
+        let ch;
+        while (ch = this.buffer[++i]) {
+          if (ch === ":") {
+            const next = this.buffer[i + 1];
+            if (isEmpty(next) || inFlow && flowIndicatorChars.has(next))
+              break;
+            end = i;
+          } else if (isEmpty(ch)) {
+            let next = this.buffer[i + 1];
+            if (ch === "\r") {
+              if (next === "\n") {
+                i += 1;
+                ch = "\n";
+                next = this.buffer[i + 1];
+              } else
+                end = i;
+            }
+            if (next === "#" || inFlow && flowIndicatorChars.has(next))
+              break;
+            if (ch === "\n") {
+              const cs = this.continueScalar(i + 1);
+              if (cs === -1)
+                break;
+              i = Math.max(i, cs - 2);
+            }
+          } else {
+            if (inFlow && flowIndicatorChars.has(ch))
+              break;
+            end = i;
+          }
+        }
+        if (!ch && !this.atEnd)
+          return this.setNext("plain-scalar");
+        yield cst.SCALAR;
+        yield* this.pushToIndex(end + 1, true);
+        return inFlow ? "flow" : "doc";
+      }
+      *pushCount(n) {
+        if (n > 0) {
+          yield this.buffer.substr(this.pos, n);
+          this.pos += n;
+          return n;
+        }
+        return 0;
+      }
+      *pushToIndex(i, allowEmpty) {
+        const s = this.buffer.slice(this.pos, i);
+        if (s) {
+          yield s;
+          this.pos += s.length;
+          return s.length;
+        } else if (allowEmpty)
+          yield "";
+        return 0;
+      }
+      *pushIndicators() {
+        switch (this.charAt(0)) {
+          case "!":
+            return (yield* this.pushTag()) + (yield* this.pushSpaces(true)) + (yield* this.pushIndicators());
+          case "&":
+            return (yield* this.pushUntil(isNotAnchorChar)) + (yield* this.pushSpaces(true)) + (yield* this.pushIndicators());
+          case "-":
+          // this is an error
+          case "?":
+          // this is an error outside flow collections
+          case ":": {
+            const inFlow = this.flowLevel > 0;
+            const ch1 = this.charAt(1);
+            if (isEmpty(ch1) || inFlow && flowIndicatorChars.has(ch1)) {
+              if (!inFlow)
+                this.indentNext = this.indentValue + 1;
+              else if (this.flowKey)
+                this.flowKey = false;
+              return (yield* this.pushCount(1)) + (yield* this.pushSpaces(true)) + (yield* this.pushIndicators());
+            }
+          }
+        }
+        return 0;
+      }
+      *pushTag() {
+        if (this.charAt(1) === "<") {
+          let i = this.pos + 2;
+          let ch = this.buffer[i];
+          while (!isEmpty(ch) && ch !== ">")
+            ch = this.buffer[++i];
+          return yield* this.pushToIndex(ch === ">" ? i + 1 : i, false);
+        } else {
+          let i = this.pos + 1;
+          let ch = this.buffer[i];
+          while (ch) {
+            if (tagChars.has(ch))
+              ch = this.buffer[++i];
+            else if (ch === "%" && hexDigits.has(this.buffer[i + 1]) && hexDigits.has(this.buffer[i + 2])) {
+              ch = this.buffer[i += 3];
+            } else
+              break;
+          }
+          return yield* this.pushToIndex(i, false);
+        }
+      }
+      *pushNewline() {
+        const ch = this.buffer[this.pos];
+        if (ch === "\n")
+          return yield* this.pushCount(1);
+        else if (ch === "\r" && this.charAt(1) === "\n")
+          return yield* this.pushCount(2);
+        else
+          return 0;
+      }
+      *pushSpaces(allowTabs) {
+        let i = this.pos - 1;
+        let ch;
+        do {
+          ch = this.buffer[++i];
+        } while (ch === " " || allowTabs && ch === "	");
+        const n = i - this.pos;
+        if (n > 0) {
+          yield this.buffer.substr(this.pos, n);
+          this.pos = i;
+        }
+        return n;
+      }
+      *pushUntil(test2) {
+        let i = this.pos;
+        let ch = this.buffer[i];
+        while (!test2(ch))
+          ch = this.buffer[++i];
+        return yield* this.pushToIndex(i, false);
+      }
+    };
+    exports.Lexer = Lexer;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/line-counter.js
+var require_line_counter = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/line-counter.js"(exports) {
+    "use strict";
+    var LineCounter = class {
+      constructor() {
+        this.lineStarts = [];
+        this.addNewLine = (offset) => this.lineStarts.push(offset);
+        this.linePos = (offset) => {
+          let low = 0;
+          let high = this.lineStarts.length;
+          while (low < high) {
+            const mid = low + high >> 1;
+            if (this.lineStarts[mid] < offset)
+              low = mid + 1;
+            else
+              high = mid;
+          }
+          if (this.lineStarts[low] === offset)
+            return { line: low + 1, col: 1 };
+          if (low === 0)
+            return { line: 0, col: offset };
+          const start = this.lineStarts[low - 1];
+          return { line: low, col: offset - start + 1 };
+        };
+      }
+    };
+    exports.LineCounter = LineCounter;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/parser.js
+var require_parser = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/parse/parser.js"(exports) {
+    "use strict";
+    var node_process = __require("process");
+    var cst = require_cst();
+    var lexer = require_lexer();
+    function includesToken(list, type) {
+      for (let i = 0; i < list.length; ++i)
+        if (list[i].type === type)
+          return true;
+      return false;
+    }
+    function findNonEmptyIndex(list) {
+      for (let i = 0; i < list.length; ++i) {
+        switch (list[i].type) {
+          case "space":
+          case "comment":
+          case "newline":
+            break;
+          default:
+            return i;
+        }
+      }
+      return -1;
+    }
+    function isFlowToken(token) {
+      switch (token?.type) {
+        case "alias":
+        case "scalar":
+        case "single-quoted-scalar":
+        case "double-quoted-scalar":
+        case "flow-collection":
+          return true;
+        default:
+          return false;
+      }
+    }
+    function getPrevProps(parent) {
+      switch (parent.type) {
+        case "document":
+          return parent.start;
+        case "block-map": {
+          const it = parent.items[parent.items.length - 1];
+          return it.sep ?? it.start;
+        }
+        case "block-seq":
+          return parent.items[parent.items.length - 1].start;
+        /* istanbul ignore next should not happen */
+        default:
+          return [];
+      }
+    }
+    function getFirstKeyStartProps(prev) {
+      if (prev.length === 0)
+        return [];
+      let i = prev.length;
+      loop: while (--i >= 0) {
+        switch (prev[i].type) {
+          case "doc-start":
+          case "explicit-key-ind":
+          case "map-value-ind":
+          case "seq-item-ind":
+          case "newline":
+            break loop;
+        }
+      }
+      while (prev[++i]?.type === "space") {
+      }
+      return prev.splice(i, prev.length);
+    }
+    function fixFlowSeqItems(fc) {
+      if (fc.start.type === "flow-seq-start") {
+        for (const it of fc.items) {
+          if (it.sep && !it.value && !includesToken(it.start, "explicit-key-ind") && !includesToken(it.sep, "map-value-ind")) {
+            if (it.key)
+              it.value = it.key;
+            delete it.key;
+            if (isFlowToken(it.value)) {
+              if (it.value.end)
+                Array.prototype.push.apply(it.value.end, it.sep);
+              else
+                it.value.end = it.sep;
+            } else
+              Array.prototype.push.apply(it.start, it.sep);
+            delete it.sep;
+          }
+        }
+      }
+    }
+    var Parser = class {
+      /**
+       * @param onNewLine - If defined, called separately with the start position of
+       *   each new line (in `parse()`, including the start of input).
+       */
+      constructor(onNewLine) {
+        this.atNewLine = true;
+        this.atScalar = false;
+        this.indent = 0;
+        this.offset = 0;
+        this.onKeyLine = false;
+        this.stack = [];
+        this.source = "";
+        this.type = "";
+        this.lexer = new lexer.Lexer();
+        this.onNewLine = onNewLine;
+      }
+      /**
+       * Parse `source` as a YAML stream.
+       * If `incomplete`, a part of the last line may be left as a buffer for the next call.
+       *
+       * Errors are not thrown, but yielded as `{ type: 'error', message }` tokens.
+       *
+       * @returns A generator of tokens representing each directive, document, and other structure.
+       */
+      *parse(source, incomplete = false) {
+        if (this.onNewLine && this.offset === 0)
+          this.onNewLine(0);
+        for (const lexeme of this.lexer.lex(source, incomplete))
+          yield* this.next(lexeme);
+        if (!incomplete)
+          yield* this.end();
+      }
+      /**
+       * Advance the parser by the `source` of one lexical token.
+       */
+      *next(source) {
+        this.source = source;
+        if (node_process.env.LOG_TOKENS)
+          console.log("|", cst.prettyToken(source));
+        if (this.atScalar) {
+          this.atScalar = false;
+          yield* this.step();
+          this.offset += source.length;
+          return;
+        }
+        const type = cst.tokenType(source);
+        if (!type) {
+          const message = `Not a YAML token: ${source}`;
+          yield* this.pop({ type: "error", offset: this.offset, message, source });
+          this.offset += source.length;
+        } else if (type === "scalar") {
+          this.atNewLine = false;
+          this.atScalar = true;
+          this.type = "scalar";
+        } else {
+          this.type = type;
+          yield* this.step();
+          switch (type) {
+            case "newline":
+              this.atNewLine = true;
+              this.indent = 0;
+              if (this.onNewLine)
+                this.onNewLine(this.offset + source.length);
+              break;
+            case "space":
+              if (this.atNewLine && source[0] === " ")
+                this.indent += source.length;
+              break;
+            case "explicit-key-ind":
+            case "map-value-ind":
+            case "seq-item-ind":
+              if (this.atNewLine)
+                this.indent += source.length;
+              break;
+            case "doc-mode":
+            case "flow-error-end":
+              return;
+            default:
+              this.atNewLine = false;
+          }
+          this.offset += source.length;
+        }
+      }
+      /** Call at end of input to push out any remaining constructions */
+      *end() {
+        while (this.stack.length > 0)
+          yield* this.pop();
+      }
+      get sourceToken() {
+        const st = {
+          type: this.type,
+          offset: this.offset,
+          indent: this.indent,
+          source: this.source
+        };
+        return st;
+      }
+      *step() {
+        const top = this.peek(1);
+        if (this.type === "doc-end" && top?.type !== "doc-end") {
+          while (this.stack.length > 0)
+            yield* this.pop();
+          this.stack.push({
+            type: "doc-end",
+            offset: this.offset,
+            source: this.source
+          });
+          return;
+        }
+        if (!top)
+          return yield* this.stream();
+        switch (top.type) {
+          case "document":
+            return yield* this.document(top);
+          case "alias":
+          case "scalar":
+          case "single-quoted-scalar":
+          case "double-quoted-scalar":
+            return yield* this.scalar(top);
+          case "block-scalar":
+            return yield* this.blockScalar(top);
+          case "block-map":
+            return yield* this.blockMap(top);
+          case "block-seq":
+            return yield* this.blockSequence(top);
+          case "flow-collection":
+            return yield* this.flowCollection(top);
+          case "doc-end":
+            return yield* this.documentEnd(top);
+        }
+        yield* this.pop();
+      }
+      peek(n) {
+        return this.stack[this.stack.length - n];
+      }
+      *pop(error3) {
+        const token = error3 ?? this.stack.pop();
+        if (!token) {
+          const message = "Tried to pop an empty stack";
+          yield { type: "error", offset: this.offset, source: "", message };
+        } else if (this.stack.length === 0) {
+          yield token;
+        } else {
+          const top = this.peek(1);
+          if (token.type === "block-scalar") {
+            token.indent = "indent" in top ? top.indent : 0;
+          } else if (token.type === "flow-collection" && top.type === "document") {
+            token.indent = 0;
+          }
+          if (token.type === "flow-collection")
+            fixFlowSeqItems(token);
+          switch (top.type) {
+            case "document":
+              top.value = token;
+              break;
+            case "block-scalar":
+              top.props.push(token);
+              break;
+            case "block-map": {
+              const it = top.items[top.items.length - 1];
+              if (it.value) {
+                top.items.push({ start: [], key: token, sep: [] });
+                this.onKeyLine = true;
+                return;
+              } else if (it.sep) {
+                it.value = token;
+              } else {
+                Object.assign(it, { key: token, sep: [] });
+                this.onKeyLine = !it.explicitKey;
+                return;
+              }
+              break;
+            }
+            case "block-seq": {
+              const it = top.items[top.items.length - 1];
+              if (it.value)
+                top.items.push({ start: [], value: token });
+              else
+                it.value = token;
+              break;
+            }
+            case "flow-collection": {
+              const it = top.items[top.items.length - 1];
+              if (!it || it.value)
+                top.items.push({ start: [], key: token, sep: [] });
+              else if (it.sep)
+                it.value = token;
+              else
+                Object.assign(it, { key: token, sep: [] });
+              return;
+            }
+            /* istanbul ignore next should not happen */
+            default:
+              yield* this.pop();
+              yield* this.pop(token);
+          }
+          if ((top.type === "document" || top.type === "block-map" || top.type === "block-seq") && (token.type === "block-map" || token.type === "block-seq")) {
+            const last = token.items[token.items.length - 1];
+            if (last && !last.sep && !last.value && last.start.length > 0 && findNonEmptyIndex(last.start) === -1 && (token.indent === 0 || last.start.every((st) => st.type !== "comment" || st.indent < token.indent))) {
+              if (top.type === "document")
+                top.end = last.start;
+              else
+                top.items.push({ start: last.start });
+              token.items.splice(-1, 1);
+            }
+          }
+        }
+      }
+      *stream() {
+        switch (this.type) {
+          case "directive-line":
+            yield { type: "directive", offset: this.offset, source: this.source };
+            return;
+          case "byte-order-mark":
+          case "space":
+          case "comment":
+          case "newline":
+            yield this.sourceToken;
+            return;
+          case "doc-mode":
+          case "doc-start": {
+            const doc = {
+              type: "document",
+              offset: this.offset,
+              start: []
+            };
+            if (this.type === "doc-start")
+              doc.start.push(this.sourceToken);
+            this.stack.push(doc);
+            return;
+          }
+        }
+        yield {
+          type: "error",
+          offset: this.offset,
+          message: `Unexpected ${this.type} token in YAML stream`,
+          source: this.source
+        };
+      }
+      *document(doc) {
+        if (doc.value)
+          return yield* this.lineEnd(doc);
+        switch (this.type) {
+          case "doc-start": {
+            if (findNonEmptyIndex(doc.start) !== -1) {
+              yield* this.pop();
+              yield* this.step();
+            } else
+              doc.start.push(this.sourceToken);
+            return;
+          }
+          case "anchor":
+          case "tag":
+          case "space":
+          case "comment":
+          case "newline":
+            doc.start.push(this.sourceToken);
+            return;
+        }
+        const bv = this.startBlockValue(doc);
+        if (bv)
+          this.stack.push(bv);
+        else {
+          yield {
+            type: "error",
+            offset: this.offset,
+            message: `Unexpected ${this.type} token in YAML document`,
+            source: this.source
+          };
+        }
+      }
+      *scalar(scalar) {
+        if (this.type === "map-value-ind") {
+          const prev = getPrevProps(this.peek(2));
+          const start = getFirstKeyStartProps(prev);
+          let sep;
+          if (scalar.end) {
+            sep = scalar.end;
+            sep.push(this.sourceToken);
+            delete scalar.end;
+          } else
+            sep = [this.sourceToken];
+          const map = {
+            type: "block-map",
+            offset: scalar.offset,
+            indent: scalar.indent,
+            items: [{ start, key: scalar, sep }]
+          };
+          this.onKeyLine = true;
+          this.stack[this.stack.length - 1] = map;
+        } else
+          yield* this.lineEnd(scalar);
+      }
+      *blockScalar(scalar) {
+        switch (this.type) {
+          case "space":
+          case "comment":
+          case "newline":
+            scalar.props.push(this.sourceToken);
+            return;
+          case "scalar":
+            scalar.source = this.source;
+            this.atNewLine = true;
+            this.indent = 0;
+            if (this.onNewLine) {
+              let nl = this.source.indexOf("\n") + 1;
+              while (nl !== 0) {
+                this.onNewLine(this.offset + nl);
+                nl = this.source.indexOf("\n", nl) + 1;
+              }
+            }
+            yield* this.pop();
+            break;
+          /* istanbul ignore next should not happen */
+          default:
+            yield* this.pop();
+            yield* this.step();
+        }
+      }
+      *blockMap(map) {
+        const it = map.items[map.items.length - 1];
+        switch (this.type) {
+          case "newline":
+            this.onKeyLine = false;
+            if (it.value) {
+              const end = "end" in it.value ? it.value.end : void 0;
+              const last = Array.isArray(end) ? end[end.length - 1] : void 0;
+              if (last?.type === "comment")
+                end?.push(this.sourceToken);
+              else
+                map.items.push({ start: [this.sourceToken] });
+            } else if (it.sep) {
+              it.sep.push(this.sourceToken);
+            } else {
+              it.start.push(this.sourceToken);
+            }
+            return;
+          case "space":
+          case "comment":
+            if (it.value) {
+              map.items.push({ start: [this.sourceToken] });
+            } else if (it.sep) {
+              it.sep.push(this.sourceToken);
+            } else {
+              if (this.atIndentedComment(it.start, map.indent)) {
+                const prev = map.items[map.items.length - 2];
+                const end = prev?.value?.end;
+                if (Array.isArray(end)) {
+                  Array.prototype.push.apply(end, it.start);
+                  end.push(this.sourceToken);
+                  map.items.pop();
+                  return;
+                }
+              }
+              it.start.push(this.sourceToken);
+            }
+            return;
+        }
+        if (this.indent >= map.indent) {
+          const atMapIndent = !this.onKeyLine && this.indent === map.indent;
+          const atNextItem = atMapIndent && (it.sep || it.explicitKey) && this.type !== "seq-item-ind";
+          let start = [];
+          if (atNextItem && it.sep && !it.value) {
+            const nl = [];
+            for (let i = 0; i < it.sep.length; ++i) {
+              const st = it.sep[i];
+              switch (st.type) {
+                case "newline":
+                  nl.push(i);
+                  break;
+                case "space":
+                  break;
+                case "comment":
+                  if (st.indent > map.indent)
+                    nl.length = 0;
+                  break;
+                default:
+                  nl.length = 0;
+              }
+            }
+            if (nl.length >= 2)
+              start = it.sep.splice(nl[1]);
+          }
+          switch (this.type) {
+            case "anchor":
+            case "tag":
+              if (atNextItem || it.value) {
+                start.push(this.sourceToken);
+                map.items.push({ start });
+                this.onKeyLine = true;
+              } else if (it.sep) {
+                it.sep.push(this.sourceToken);
+              } else {
+                it.start.push(this.sourceToken);
+              }
+              return;
+            case "explicit-key-ind":
+              if (!it.sep && !it.explicitKey) {
+                it.start.push(this.sourceToken);
+                it.explicitKey = true;
+              } else if (atNextItem || it.value) {
+                start.push(this.sourceToken);
+                map.items.push({ start, explicitKey: true });
+              } else {
+                this.stack.push({
+                  type: "block-map",
+                  offset: this.offset,
+                  indent: this.indent,
+                  items: [{ start: [this.sourceToken], explicitKey: true }]
+                });
+              }
+              this.onKeyLine = true;
+              return;
+            case "map-value-ind":
+              if (it.explicitKey) {
+                if (!it.sep) {
+                  if (includesToken(it.start, "newline")) {
+                    Object.assign(it, { key: null, sep: [this.sourceToken] });
+                  } else {
+                    const start2 = getFirstKeyStartProps(it.start);
+                    this.stack.push({
+                      type: "block-map",
+                      offset: this.offset,
+                      indent: this.indent,
+                      items: [{ start: start2, key: null, sep: [this.sourceToken] }]
+                    });
+                  }
+                } else if (it.value) {
+                  map.items.push({ start: [], key: null, sep: [this.sourceToken] });
+                } else if (includesToken(it.sep, "map-value-ind")) {
+                  this.stack.push({
+                    type: "block-map",
+                    offset: this.offset,
+                    indent: this.indent,
+                    items: [{ start, key: null, sep: [this.sourceToken] }]
+                  });
+                } else if (isFlowToken(it.key) && !includesToken(it.sep, "newline")) {
+                  const start2 = getFirstKeyStartProps(it.start);
+                  const key = it.key;
+                  const sep = it.sep;
+                  sep.push(this.sourceToken);
+                  delete it.key;
+                  delete it.sep;
+                  this.stack.push({
+                    type: "block-map",
+                    offset: this.offset,
+                    indent: this.indent,
+                    items: [{ start: start2, key, sep }]
+                  });
+                } else if (start.length > 0) {
+                  it.sep = it.sep.concat(start, this.sourceToken);
+                } else {
+                  it.sep.push(this.sourceToken);
+                }
+              } else {
+                if (!it.sep) {
+                  Object.assign(it, { key: null, sep: [this.sourceToken] });
+                } else if (it.value || atNextItem) {
+                  map.items.push({ start, key: null, sep: [this.sourceToken] });
+                } else if (includesToken(it.sep, "map-value-ind")) {
+                  this.stack.push({
+                    type: "block-map",
+                    offset: this.offset,
+                    indent: this.indent,
+                    items: [{ start: [], key: null, sep: [this.sourceToken] }]
+                  });
+                } else {
+                  it.sep.push(this.sourceToken);
+                }
+              }
+              this.onKeyLine = true;
+              return;
+            case "alias":
+            case "scalar":
+            case "single-quoted-scalar":
+            case "double-quoted-scalar": {
+              const fs2 = this.flowScalar(this.type);
+              if (atNextItem || it.value) {
+                map.items.push({ start, key: fs2, sep: [] });
+                this.onKeyLine = true;
+              } else if (it.sep) {
+                this.stack.push(fs2);
+              } else {
+                Object.assign(it, { key: fs2, sep: [] });
+                this.onKeyLine = true;
+              }
+              return;
+            }
+            default: {
+              const bv = this.startBlockValue(map);
+              if (bv) {
+                if (bv.type === "block-seq") {
+                  if (!it.explicitKey && it.sep && !includesToken(it.sep, "newline")) {
+                    yield* this.pop({
+                      type: "error",
+                      offset: this.offset,
+                      message: "Unexpected block-seq-ind on same line with key",
+                      source: this.source
+                    });
+                    return;
+                  }
+                } else if (atMapIndent) {
+                  map.items.push({ start });
+                }
+                this.stack.push(bv);
+                return;
+              }
+            }
+          }
+        }
+        yield* this.pop();
+        yield* this.step();
+      }
+      *blockSequence(seq) {
+        const it = seq.items[seq.items.length - 1];
+        switch (this.type) {
+          case "newline":
+            if (it.value) {
+              const end = "end" in it.value ? it.value.end : void 0;
+              const last = Array.isArray(end) ? end[end.length - 1] : void 0;
+              if (last?.type === "comment")
+                end?.push(this.sourceToken);
+              else
+                seq.items.push({ start: [this.sourceToken] });
+            } else
+              it.start.push(this.sourceToken);
+            return;
+          case "space":
+          case "comment":
+            if (it.value)
+              seq.items.push({ start: [this.sourceToken] });
+            else {
+              if (this.atIndentedComment(it.start, seq.indent)) {
+                const prev = seq.items[seq.items.length - 2];
+                const end = prev?.value?.end;
+                if (Array.isArray(end)) {
+                  Array.prototype.push.apply(end, it.start);
+                  end.push(this.sourceToken);
+                  seq.items.pop();
+                  return;
+                }
+              }
+              it.start.push(this.sourceToken);
+            }
+            return;
+          case "anchor":
+          case "tag":
+            if (it.value || this.indent <= seq.indent)
+              break;
+            it.start.push(this.sourceToken);
+            return;
+          case "seq-item-ind":
+            if (this.indent !== seq.indent)
+              break;
+            if (it.value || includesToken(it.start, "seq-item-ind"))
+              seq.items.push({ start: [this.sourceToken] });
+            else
+              it.start.push(this.sourceToken);
+            return;
+        }
+        if (this.indent > seq.indent) {
+          const bv = this.startBlockValue(seq);
+          if (bv) {
+            this.stack.push(bv);
+            return;
+          }
+        }
+        yield* this.pop();
+        yield* this.step();
+      }
+      *flowCollection(fc) {
+        const it = fc.items[fc.items.length - 1];
+        if (this.type === "flow-error-end") {
+          let top;
+          do {
+            yield* this.pop();
+            top = this.peek(1);
+          } while (top?.type === "flow-collection");
+        } else if (fc.end.length === 0) {
+          switch (this.type) {
+            case "comma":
+            case "explicit-key-ind":
+              if (!it || it.sep)
+                fc.items.push({ start: [this.sourceToken] });
+              else
+                it.start.push(this.sourceToken);
+              return;
+            case "map-value-ind":
+              if (!it || it.value)
+                fc.items.push({ start: [], key: null, sep: [this.sourceToken] });
+              else if (it.sep)
+                it.sep.push(this.sourceToken);
+              else
+                Object.assign(it, { key: null, sep: [this.sourceToken] });
+              return;
+            case "space":
+            case "comment":
+            case "newline":
+            case "anchor":
+            case "tag":
+              if (!it || it.value)
+                fc.items.push({ start: [this.sourceToken] });
+              else if (it.sep)
+                it.sep.push(this.sourceToken);
+              else
+                it.start.push(this.sourceToken);
+              return;
+            case "alias":
+            case "scalar":
+            case "single-quoted-scalar":
+            case "double-quoted-scalar": {
+              const fs2 = this.flowScalar(this.type);
+              if (!it || it.value)
+                fc.items.push({ start: [], key: fs2, sep: [] });
+              else if (it.sep)
+                this.stack.push(fs2);
+              else
+                Object.assign(it, { key: fs2, sep: [] });
+              return;
+            }
+            case "flow-map-end":
+            case "flow-seq-end":
+              fc.end.push(this.sourceToken);
+              return;
+          }
+          const bv = this.startBlockValue(fc);
+          if (bv)
+            this.stack.push(bv);
+          else {
+            yield* this.pop();
+            yield* this.step();
+          }
+        } else {
+          const parent = this.peek(2);
+          if (parent.type === "block-map" && (this.type === "map-value-ind" && parent.indent === fc.indent || this.type === "newline" && !parent.items[parent.items.length - 1].sep)) {
+            yield* this.pop();
+            yield* this.step();
+          } else if (this.type === "map-value-ind" && parent.type !== "flow-collection") {
+            const prev = getPrevProps(parent);
+            const start = getFirstKeyStartProps(prev);
+            fixFlowSeqItems(fc);
+            const sep = fc.end.splice(1, fc.end.length);
+            sep.push(this.sourceToken);
+            const map = {
+              type: "block-map",
+              offset: fc.offset,
+              indent: fc.indent,
+              items: [{ start, key: fc, sep }]
+            };
+            this.onKeyLine = true;
+            this.stack[this.stack.length - 1] = map;
+          } else {
+            yield* this.lineEnd(fc);
+          }
+        }
+      }
+      flowScalar(type) {
+        if (this.onNewLine) {
+          let nl = this.source.indexOf("\n") + 1;
+          while (nl !== 0) {
+            this.onNewLine(this.offset + nl);
+            nl = this.source.indexOf("\n", nl) + 1;
+          }
+        }
+        return {
+          type,
+          offset: this.offset,
+          indent: this.indent,
+          source: this.source
+        };
+      }
+      startBlockValue(parent) {
+        switch (this.type) {
+          case "alias":
+          case "scalar":
+          case "single-quoted-scalar":
+          case "double-quoted-scalar":
+            return this.flowScalar(this.type);
+          case "block-scalar-header":
+            return {
+              type: "block-scalar",
+              offset: this.offset,
+              indent: this.indent,
+              props: [this.sourceToken],
+              source: ""
+            };
+          case "flow-map-start":
+          case "flow-seq-start":
+            return {
+              type: "flow-collection",
+              offset: this.offset,
+              indent: this.indent,
+              start: this.sourceToken,
+              items: [],
+              end: []
+            };
+          case "seq-item-ind":
+            return {
+              type: "block-seq",
+              offset: this.offset,
+              indent: this.indent,
+              items: [{ start: [this.sourceToken] }]
+            };
+          case "explicit-key-ind": {
+            this.onKeyLine = true;
+            const prev = getPrevProps(parent);
+            const start = getFirstKeyStartProps(prev);
+            start.push(this.sourceToken);
+            return {
+              type: "block-map",
+              offset: this.offset,
+              indent: this.indent,
+              items: [{ start, explicitKey: true }]
+            };
+          }
+          case "map-value-ind": {
+            this.onKeyLine = true;
+            const prev = getPrevProps(parent);
+            const start = getFirstKeyStartProps(prev);
+            return {
+              type: "block-map",
+              offset: this.offset,
+              indent: this.indent,
+              items: [{ start, key: null, sep: [this.sourceToken] }]
+            };
+          }
+        }
+        return null;
+      }
+      atIndentedComment(start, indent) {
+        if (this.type !== "comment")
+          return false;
+        if (this.indent <= indent)
+          return false;
+        return start.every((st) => st.type === "newline" || st.type === "space");
+      }
+      *documentEnd(docEnd) {
+        if (this.type !== "doc-mode") {
+          if (docEnd.end)
+            docEnd.end.push(this.sourceToken);
+          else
+            docEnd.end = [this.sourceToken];
+          if (this.type === "newline")
+            yield* this.pop();
+        }
+      }
+      *lineEnd(token) {
+        switch (this.type) {
+          case "comma":
+          case "doc-start":
+          case "doc-end":
+          case "flow-seq-end":
+          case "flow-map-end":
+          case "map-value-ind":
+            yield* this.pop();
+            yield* this.step();
+            break;
+          case "newline":
+            this.onKeyLine = false;
+          // fallthrough
+          case "space":
+          case "comment":
+          default:
+            if (token.end)
+              token.end.push(this.sourceToken);
+            else
+              token.end = [this.sourceToken];
+            if (this.type === "newline")
+              yield* this.pop();
+        }
+      }
+    };
+    exports.Parser = Parser;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/public-api.js
+var require_public_api = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/public-api.js"(exports) {
+    "use strict";
+    var composer = require_composer();
+    var Document = require_Document();
+    var errors = require_errors();
+    var log = require_log2();
+    var identity = require_identity();
+    var lineCounter = require_line_counter();
+    var parser = require_parser();
+    function parseOptions(options) {
+      const prettyErrors = options.prettyErrors !== false;
+      const lineCounter$1 = options.lineCounter || prettyErrors && new lineCounter.LineCounter() || null;
+      return { lineCounter: lineCounter$1, prettyErrors };
+    }
+    function parseAllDocuments(source, options = {}) {
+      const { lineCounter: lineCounter2, prettyErrors } = parseOptions(options);
+      const parser$1 = new parser.Parser(lineCounter2?.addNewLine);
+      const composer$1 = new composer.Composer(options);
+      const docs = Array.from(composer$1.compose(parser$1.parse(source)));
+      if (prettyErrors && lineCounter2)
+        for (const doc of docs) {
+          doc.errors.forEach(errors.prettifyError(source, lineCounter2));
+          doc.warnings.forEach(errors.prettifyError(source, lineCounter2));
+        }
+      if (docs.length > 0)
+        return docs;
+      return Object.assign([], { empty: true }, composer$1.streamInfo());
+    }
+    function parseDocument2(source, options = {}) {
+      const { lineCounter: lineCounter2, prettyErrors } = parseOptions(options);
+      const parser$1 = new parser.Parser(lineCounter2?.addNewLine);
+      const composer$1 = new composer.Composer(options);
+      let doc = null;
+      for (const _doc of composer$1.compose(parser$1.parse(source), true, source.length)) {
+        if (!doc)
+          doc = _doc;
+        else if (doc.options.logLevel !== "silent") {
+          doc.errors.push(new errors.YAMLParseError(_doc.range.slice(0, 2), "MULTIPLE_DOCS", "Source contains multiple documents; please use YAML.parseAllDocuments()"));
+          break;
+        }
+      }
+      if (prettyErrors && lineCounter2) {
+        doc.errors.forEach(errors.prettifyError(source, lineCounter2));
+        doc.warnings.forEach(errors.prettifyError(source, lineCounter2));
+      }
+      return doc;
+    }
+    function parse2(src, reviver, options) {
+      let _reviver = void 0;
+      if (typeof reviver === "function") {
+        _reviver = reviver;
+      } else if (options === void 0 && reviver && typeof reviver === "object") {
+        options = reviver;
+      }
+      const doc = parseDocument2(src, options);
+      if (!doc)
+        return null;
+      doc.warnings.forEach((warning) => log.warn(doc.options.logLevel, warning));
+      if (doc.errors.length > 0) {
+        if (doc.options.logLevel !== "silent")
+          throw doc.errors[0];
+        else
+          doc.errors = [];
+      }
+      return doc.toJS(Object.assign({ reviver: _reviver }, options));
+    }
+    function stringify2(value, replacer, options) {
+      let _replacer = null;
+      if (typeof replacer === "function" || Array.isArray(replacer)) {
+        _replacer = replacer;
+      } else if (options === void 0 && replacer) {
+        options = replacer;
+      }
+      if (typeof options === "string")
+        options = options.length;
+      if (typeof options === "number") {
+        const indent = Math.round(options);
+        options = indent < 1 ? void 0 : indent > 8 ? { indent: 8 } : { indent };
+      }
+      if (value === void 0) {
+        const { keepUndefined } = options ?? replacer ?? {};
+        if (!keepUndefined)
+          return void 0;
+      }
+      if (identity.isDocument(value) && !_replacer)
+        return value.toString(options);
+      return new Document.Document(value, _replacer, options).toString(options);
+    }
+    exports.parse = parse2;
+    exports.parseAllDocuments = parseAllDocuments;
+    exports.parseDocument = parseDocument2;
+    exports.stringify = stringify2;
+  }
+});
+
+// node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/index.js
+var require_dist = __commonJS({
+  "node_modules/.pnpm/yaml@2.8.3/node_modules/yaml/dist/index.js"(exports) {
+    "use strict";
+    var composer = require_composer();
+    var Document = require_Document();
+    var Schema = require_Schema();
+    var errors = require_errors();
+    var Alias = require_Alias();
+    var identity = require_identity();
+    var Pair = require_Pair();
+    var Scalar = require_Scalar();
+    var YAMLMap = require_YAMLMap();
+    var YAMLSeq = require_YAMLSeq();
+    var cst = require_cst();
+    var lexer = require_lexer();
+    var lineCounter = require_line_counter();
+    var parser = require_parser();
+    var publicApi = require_public_api();
+    var visit = require_visit();
+    exports.Composer = composer.Composer;
+    exports.Document = Document.Document;
+    exports.Schema = Schema.Schema;
+    exports.YAMLError = errors.YAMLError;
+    exports.YAMLParseError = errors.YAMLParseError;
+    exports.YAMLWarning = errors.YAMLWarning;
+    exports.Alias = Alias.Alias;
+    exports.isAlias = identity.isAlias;
+    exports.isCollection = identity.isCollection;
+    exports.isDocument = identity.isDocument;
+    exports.isMap = identity.isMap;
+    exports.isNode = identity.isNode;
+    exports.isPair = identity.isPair;
+    exports.isScalar = identity.isScalar;
+    exports.isSeq = identity.isSeq;
+    exports.Pair = Pair.Pair;
+    exports.Scalar = Scalar.Scalar;
+    exports.YAMLMap = YAMLMap.YAMLMap;
+    exports.YAMLSeq = YAMLSeq.YAMLSeq;
+    exports.CST = cst;
+    exports.Lexer = lexer.Lexer;
+    exports.LineCounter = lineCounter.LineCounter;
+    exports.Parser = parser.Parser;
+    exports.parse = publicApi.parse;
+    exports.parseAllDocuments = publicApi.parseAllDocuments;
+    exports.parseDocument = publicApi.parseDocument;
+    exports.stringify = publicApi.stringify;
+    exports.visit = visit.visit;
+    exports.visitAsync = visit.visitAsync;
+  }
+});
+
 // node_modules/.pnpm/commander@14.0.3/node_modules/commander/esm.mjs
 var import_index = __toESM(require_commander(), 1);
 var {
@@ -32994,7 +48391,7 @@ var {
   Help
 } = import_index.default;
 
-// src/commands/login.ts
+// src/commands/auth/login.ts
 import inquirer from "inquirer";
 
 // node_modules/.pnpm/axios@1.13.6/node_modules/axios/lib/helpers/bind.js
@@ -33303,12 +48700,12 @@ var freezeMethods = (obj) => {
 };
 var toObjectSet = (arrayOrString, delimiter) => {
   const obj = {};
-  const define = (arr) => {
+  const define2 = (arr) => {
     arr.forEach((value) => {
       obj[value] = true;
     });
   };
-  isArray(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
+  isArray(arrayOrString) ? define2(arrayOrString) : define2(String(arrayOrString).split(delimiter));
   return obj;
 };
 var noop = () => {
@@ -33433,12 +48830,12 @@ var utils_default = {
 
 // node_modules/.pnpm/axios@1.13.6/node_modules/axios/lib/core/AxiosError.js
 var AxiosError = class _AxiosError extends Error {
-  static from(error2, code, config, request, response, customProps) {
-    const axiosError = new _AxiosError(error2.message, code || error2.code, config, request, response);
-    axiosError.cause = error2;
-    axiosError.name = error2.name;
-    if (error2.status != null && axiosError.status == null) {
-      axiosError.status = error2.status;
+  static from(error3, code, config, request, response, customProps) {
+    const axiosError = new _AxiosError(error3.message, code || error3.code, config, request, response);
+    axiosError.cause = error3;
+    axiosError.name = error3.name;
+    if (error3.status != null && axiosError.status == null) {
+      axiosError.status = error3.status;
     }
     customProps && Object.assign(axiosError, customProps);
     return axiosError;
@@ -33517,9 +48914,9 @@ function isVisitable(thing) {
 function removeBrackets(key) {
   return utils_default.endsWith(key, "[]") ? key.slice(0, -2) : key;
 }
-function renderKey(path, key, dots) {
-  if (!path) return key;
-  return path.concat(key).map(function each(token, i) {
+function renderKey(path3, key, dots) {
+  if (!path3) return key;
+  return path3.concat(key).map(function each(token, i) {
     token = removeBrackets(token);
     return !dots && i ? "[" + token + "]" : token;
   }).join(dots ? "." : "");
@@ -33572,13 +48969,13 @@ function toFormData(obj, formData, options) {
     }
     return value;
   }
-  function defaultVisitor(value, key, path) {
+  function defaultVisitor(value, key, path3) {
     let arr = value;
     if (utils_default.isReactNative(formData) && utils_default.isReactNativeBlob(value)) {
-      formData.append(renderKey(path, key, dots), convertValue(value));
+      formData.append(renderKey(path3, key, dots), convertValue(value));
       return false;
     }
-    if (value && !path && typeof value === "object") {
+    if (value && !path3 && typeof value === "object") {
       if (utils_default.endsWith(key, "{}")) {
         key = metaTokens ? key : key.slice(0, -2);
         value = JSON.stringify(value);
@@ -33597,7 +48994,7 @@ function toFormData(obj, formData, options) {
     if (isVisitable(value)) {
       return true;
     }
-    formData.append(renderKey(path, key, dots), convertValue(value));
+    formData.append(renderKey(path3, key, dots), convertValue(value));
     return false;
   }
   const stack = [];
@@ -33606,16 +49003,16 @@ function toFormData(obj, formData, options) {
     convertValue,
     isVisitable
   });
-  function build(value, path) {
+  function build(value, path3) {
     if (utils_default.isUndefined(value)) return;
     if (stack.indexOf(value) !== -1) {
-      throw Error("Circular reference detected in " + path.join("."));
+      throw Error("Circular reference detected in " + path3.join("."));
     }
     stack.push(value);
     utils_default.forEach(value, function each(el, key) {
-      const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(formData, el, utils_default.isString(key) ? key.trim() : key, path, exposedHelpers);
+      const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(formData, el, utils_default.isString(key) ? key.trim() : key, path3, exposedHelpers);
       if (result === true) {
-        build(el, path ? path.concat(key) : [key]);
+        build(el, path3 ? path3.concat(key) : [key]);
       }
     });
     stack.pop();
@@ -33827,7 +49224,7 @@ var platform_default = {
 // node_modules/.pnpm/axios@1.13.6/node_modules/axios/lib/helpers/toURLEncodedForm.js
 function toURLEncodedForm(data, options) {
   return toFormData_default(data, new platform_default.classes.URLSearchParams(), {
-    visitor: function(value, key, path, helpers) {
+    visitor: function(value, key, path3, helpers) {
       if (platform_default.isNode && utils_default.isBuffer(value)) {
         this.append(key, value.toString("base64"));
         return false;
@@ -33857,11 +49254,11 @@ function arrayToObject(arr) {
   return obj;
 }
 function formDataToJSON(formData) {
-  function buildPath(path, value, target, index) {
-    let name = path[index++];
+  function buildPath(path3, value, target, index) {
+    let name = path3[index++];
     if (name === "__proto__") return true;
     const isNumericKey = Number.isFinite(+name);
-    const isLast = index >= path.length;
+    const isLast = index >= path3.length;
     name = !name && utils_default.isArray(target) ? target.length : name;
     if (isLast) {
       if (utils_default.hasOwnProp(target, name)) {
@@ -33874,7 +49271,7 @@ function formDataToJSON(formData) {
     if (!target[name] || !utils_default.isObject(target[name])) {
       target[name] = [];
     }
-    const result = buildPath(path, value, target[name], index);
+    const result = buildPath(path3, value, target[name], index);
     if (result && utils_default.isArray(target[name])) {
       target[name] = arrayToObject(target[name]);
     }
@@ -35255,9 +50652,9 @@ var http_default = isHttpAdapterSupported && function httpAdapter(config) {
       auth = urlUsername + ":" + urlPassword;
     }
     auth && headers.delete("authorization");
-    let path;
+    let path3;
     try {
-      path = buildURL(
+      path3 = buildURL(
         parsed.pathname + parsed.search,
         config.params,
         config.paramsSerializer
@@ -35275,7 +50672,7 @@ var http_default = isHttpAdapterSupported && function httpAdapter(config) {
       false
     );
     const options = {
-      path,
+      path: path3,
       method,
       headers: headers.toJSON(),
       agents: { http: config.httpAgent, https: config.httpsAgent },
@@ -35524,14 +50921,14 @@ var isURLSameOrigin_default = platform_default.hasStandardBrowserEnv ? /* @__PUR
 var cookies_default = platform_default.hasStandardBrowserEnv ? (
   // Standard browser envs support document.cookie
   {
-    write(name, value, expires, path, domain, secure, sameSite) {
+    write(name, value, expires, path3, domain, secure, sameSite) {
       if (typeof document === "undefined") return;
       const cookie = [`${name}=${encodeURIComponent(value)}`];
       if (utils_default.isNumber(expires)) {
         cookie.push(`expires=${new Date(expires).toUTCString()}`);
       }
-      if (utils_default.isString(path)) {
-        cookie.push(`path=${path}`);
+      if (utils_default.isString(path3)) {
+        cookie.push(`path=${path3}`);
       }
       if (utils_default.isString(domain)) {
         cookie.push(`domain=${domain}`);
@@ -36480,15 +51877,15 @@ var Axios = class {
       const onRejected = requestInterceptorChain[i++];
       try {
         newConfig = onFulfilled(newConfig);
-      } catch (error2) {
-        onRejected.call(this, error2);
+      } catch (error3) {
+        onRejected.call(this, error3);
         break;
       }
     }
     try {
       promise = dispatchRequest.call(this, newConfig);
-    } catch (error2) {
-      return Promise.reject(error2);
+    } catch (error3) {
+      return Promise.reject(error3);
     }
     i = 0;
     len = responseInterceptorChain.length;
@@ -36849,6 +52246,97 @@ async function authedRequest() {
 
 // src/utils/output.ts
 var import_picocolors = __toESM(require_picocolors(), 1);
+var globalJson;
+var globalTable;
+function setOutputMode(options) {
+  globalJson = options.json;
+  globalTable = options.table;
+}
+function getOutputFormat() {
+  if (globalTable) return "table";
+  if (globalJson === true) return "json";
+  if (globalJson === false) return "table";
+  if (!process.stdout.isTTY) return "jsonl";
+  return "table";
+}
+function isJsonMode() {
+  return getOutputFormat() !== "table";
+}
+function outputTable(options) {
+  const { data, columns, json, jsonData, tip, pagination } = options;
+  if (json) {
+    const format = getOutputFormat();
+    if (format === "jsonl") {
+      const records = extractRecords(jsonData) ?? data;
+      if (records.length === 0 && jsonData != null && typeof jsonData === "object") {
+        console.log(JSON.stringify(jsonData));
+      } else {
+        for (const record of records) {
+          console.log(JSON.stringify(record));
+        }
+      }
+      return;
+    }
+    const payload = jsonData ?? data;
+    const paginationHint = pagination ? formatPagination(pagination, data.length) : null;
+    console.log(
+      JSON.stringify({
+        ...wrapArray(payload),
+        ...tip ? { hint: tip } : {},
+        ...paginationHint ? { pagination: paginationHint } : {}
+      })
+    );
+    return;
+  }
+  if (data.length === 0) {
+    if (tip) console.log(import_picocolors.default.dim(tip));
+    return;
+  }
+  const widths = columns.map((col) => {
+    const vals = data.map((row) => formatCell(row[col.key], col.format).length);
+    return Math.max(col.header.length, ...vals);
+  });
+  if (data.length > 1) {
+    const header = columns.map((col, i) => col.header.padEnd(widths[i])).join("  ");
+    console.log(import_picocolors.default.dim(header));
+  }
+  for (const row of data) {
+    const line = columns.map((col, i) => formatCell(row[col.key], col.format).padEnd(widths[i])).join("  ");
+    console.log(line);
+  }
+  if (pagination) {
+    const msg = formatPagination(pagination, data.length);
+    if (msg) console.log(import_picocolors.default.dim(`
+${msg}`));
+  }
+  if (tip) {
+    console.log();
+    console.log(import_picocolors.default.dim(`Tip: ${tip}`));
+  }
+}
+function outputDetail(options) {
+  const { data, tip } = options;
+  if (isJsonMode()) {
+    if (tip) {
+      console.log(JSON.stringify({ ...data, hint: tip }));
+    } else {
+      console.log(JSON.stringify(data));
+    }
+    return;
+  }
+  const keys = Object.keys(data);
+  const maxKeyLen = Math.max(...keys.map((k) => k.length));
+  for (const key of keys) {
+    const val = data[key];
+    if (val === void 0 || val === null) continue;
+    const display = typeof val === "object" ? JSON.stringify(val) : String(val);
+    console.log(`${import_picocolors.default.dim(key.padEnd(maxKeyLen))}  ${display}`);
+  }
+  if (tip) {
+    console.log();
+    console.log(import_picocolors.default.dim(`Tip: ${tip}`));
+  }
+}
 function success(msg) {
   console.log(import_picocolors.default.green("\u2713") + " " + msg);
 }
@@ -36861,8 +52349,38 @@ function info(msg) {
 function warn(msg) {
   console.log(import_picocolors.default.yellow("\u26A0") + " " + msg);
 }
+function formatCell(val, format) {
+  if (val === void 0 || val === null) return "";
+  if (format) return format(val);
+  return String(val);
+}
+function extractRecords(data) {
+  if (Array.isArray(data)) return data;
+  if (typeof data === "object" && data !== null) {
+    const obj = data;
+    for (const key of ["results", "servers", "keys"]) {
+      if (Array.isArray(obj[key])) return obj[key];
+    }
+  }
+  return null;
+}
+function wrapArray(data) {
+  if (Array.isArray(data)) return { results: data };
+  if (typeof data === "object" && data !== null) return data;
+  return { result: data };
+}
+function formatPagination(info2, rowCount) {
+  if (info2.nextCursor) return `Showing ${rowCount} results. More available \u2014 use --cursor ${info2.nextCursor}`;
+  if (info2.hasMore && info2.page != null) {
+    const totalLabel = info2.total != null ? ` of ${info2.total}` : "";
+    return `Showing ${rowCount}${totalLabel} results (page ${info2.page}). Use --page ${info2.page + 1} for next page.`;
+  }
+  if (info2.page != null && info2.page > 1) return `Page ${info2.page} (last page). ${info2.total ?? rowCount} results total.`;
+  if (rowCount > 0) return `${info2.total ?? rowCount} results total.`;
+  return null;
+}
 
-// src/commands/login.ts
+// src/commands/auth/login.ts
 async function loginCommand() {
   const { username, password } = await inquirer.prompt([
     {
@@ -36905,15 +52423,20 @@ async function loginCommand() {
     });
     success(`Logged in as ${payload.email ?? username}`);
   } catch (err) {
-    error(`Login failed: ${err.response?.data?.message ?? err.message}`);
+    const msg = err instanceof Error ? err.message : String(err);
+    error(`Login failed: ${msg}`);
     process.exit(1);
   }
 }
+
+// src/commands/auth/logout.ts
 async function logoutCommand() {
   await deleteToken();
   deleteConfig();
   success("Logged out");
 }
+
+// src/commands/auth/whoami.ts
 async function whoamiCommand() {
   const token = await getToken();
   if (!token) {
@@ -36925,9 +52448,13 @@ async function whoamiCommand() {
     info("Not logged in. Run: patsnap login");
     return;
   }
-  console.log(`Logged in as: ${config.email}`);
-  if (config.tenantId) console.log(`Tenant ID:    ${config.tenantId}`);
-  console.log(`User ID:      ${config.userId}`);
+  outputDetail({
+    data: {
+      email: config.email,
+      userId: config.userId,
+      ...config.tenantId ? { tenantId: config.tenantId } : {}
+    }
+  });
 }
 
 // src/commands/apikey.ts
@@ -36980,62 +52507,334 @@ async function apikeyCreateCommand() {
   }
 }
 
-// src/commands/mcp.ts
-import inquirer3 from "inquirer";
+// src/commands/mcp/add.ts
+import inquirer4 from "inquirer";
 
-// src/lib/client-config.ts
-import { readFileSync as readFileSync2, writeFileSync as writeFileSync2, existsSync as existsSync2, mkdirSync as mkdirSync2 } from "node:fs";
-import { homedir as homedir2 } from "node:os";
-import { join as join2, dirname } from "node:path";
-var CLIENTS = [
-  {
-    name: "Claude Desktop",
-    configPath: join2(
-      homedir2(),
-      "Library/Application Support/Claude/claude_desktop_config.json"
-    ),
-    configKey: "mcpServers"
+// src/lib/client-config-io.ts
+var import_comment_json = __toESM(require_src3(), 1);
+var YAML = __toESM(require_dist(), 1);
+import fs from "node:fs";
+import path2 from "node:path";
+
+// src/config/clients.ts
+import os from "node:os";
+import path from "node:path";
+var homeDir = os.homedir();
+var platformPaths = {
+  win32: {
+    baseDir: process.env.APPDATA || path.join(homeDir, "AppData", "Roaming"),
+    vscodePath: path.join("Code", "User", "globalStorage")
   },
-  {
-    name: "Claude Code",
-    configPath: join2(homedir2(), ".claude/settings.json"),
-    configKey: "mcpServers"
+  darwin: {
+    baseDir: path.join(homeDir, "Library", "Application Support"),
+    vscodePath: path.join("Code", "User", "globalStorage")
+  },
+  linux: {
+    baseDir: process.env.XDG_CONFIG_HOME || path.join(homeDir, ".config"),
+    vscodePath: path.join("Code/User/globalStorage")
   }
-];
-function readConfig(filePath) {
-  if (!existsSync2(filePath)) return {};
-  try {
-    return JSON.parse(readFileSync2(filePath, "utf-8"));
-  } catch {
-    return {};
+};
+var platform = process.platform;
+var { baseDir } = platformPaths[platform] ?? platformPaths.linux;
+var defaultClaudePath = path.join(baseDir, "Claude", "claude_desktop_config.json");
+var CLIENTS = {
+  claude: {
+    label: "Claude Desktop",
+    install: {
+      method: "file",
+      format: "json",
+      path: defaultClaudePath
+    },
+    transports: {
+      http: { supportsOAuth: false }
+    }
+  },
+  "claude-code": {
+    label: "Claude Code",
+    install: {
+      method: "file",
+      format: "json",
+      path: path.join(homeDir, ".claude", "settings.json")
+    },
+    transports: {
+      http: { supportsOAuth: false }
+    }
+  },
+  cursor: {
+    label: "Cursor",
+    install: {
+      method: "file",
+      format: "json",
+      path: path.join(homeDir, ".cursor", "mcp.json")
+    },
+    transports: {
+      http: { supportsOAuth: false }
+    }
+  },
+  windsurf: {
+    label: "Windsurf",
+    install: {
+      method: "file",
+      format: "json",
+      path: path.join(homeDir, ".codeium", "windsurf", "mcp_config.json")
+    },
+    transports: {
+      http: { supportsOAuth: false }
+    },
+    format: {
+      fieldMappings: { url: "serverUrl" }
+    }
+  },
+  cline: {
+    label: "Cline",
+    install: {
+      method: "file",
+      format: "json",
+      path: path.join(
+        baseDir,
+        "Code",
+        "User",
+        "globalStorage",
+        "saoudrizwan.claude-dev",
+        "settings",
+        "cline_mcp_settings.json"
+      )
+    },
+    transports: {
+      http: { typeValue: "streamableHttp", supportsOAuth: false }
+    }
   }
+};
+function getClientConfiguration(clientName) {
+  const normalized = clientName.toLowerCase();
+  const config = CLIENTS[normalized];
+  if (!config) {
+    const available = Object.keys(CLIENTS).join(", ");
+    throw new Error(`Unknown client: ${clientName}. Available: ${available}`);
+  }
+  return config;
 }
-function writeConfig(filePath, config) {
-  const dir = dirname(filePath);
-  if (!existsSync2(dir)) mkdirSync2(dir, { recursive: true });
-  writeFileSync2(filePath, JSON.stringify(config, null, 2) + "\n");
+var VALID_CLIENTS = Object.keys(CLIENTS);
+
+// src/lib/logger.ts
+var import_picocolors2 = __toESM(require_picocolors(), 1);
+var isVerbose = false;
+var isDebug = false;
+function setVerbose(value) {
+  isVerbose = value;
+}
+function setDebug(value) {
+  isDebug = value;
+}
+function verbose(message) {
+  if (isVerbose) {
+    console.log(import_picocolors2.default.gray(`[verbose] ${message}`));
+  }
 }
 
-// src/commands/mcp.ts
+// src/lib/client-config-io.ts
+function fromClientFormat(config, client) {
+  if (!config || typeof config !== "object") return config;
+  const http3 = client.transports.http;
+  const mappings = client.format?.fieldMappings;
+  const configType = config.type;
+  const httpTypeValue = http3?.typeValue ?? "http";
+  let isHTTP = false;
+  if (configType === "http" || configType === "streamableHttp" || configType === "remote" || configType === httpTypeValue) {
+    isHTTP = true;
+  } else {
+    const urlKey = mappings?.url ?? "url";
+    const cmdKey = mappings?.command ?? "command";
+    isHTTP = urlKey in config && !(cmdKey in config);
+  }
+  const result = {};
+  if (isHTTP) {
+    result.type = "http";
+    const urlKey = mappings?.url ?? "url";
+    if (urlKey in config) result.url = config[urlKey];
+    if (config.headers) result.headers = config.headers;
+  } else {
+    const cmdKey = mappings?.command ?? "command";
+    const envKey = mappings?.env ?? "env";
+    if (cmdKey in config) result.command = config[cmdKey];
+    if (!result.args && Array.isArray(config.args)) result.args = config.args;
+    const envValue = config[envKey];
+    if (envValue && typeof envValue === "object" && Object.keys(envValue).length > 0) {
+      result.env = envValue;
+    }
+  }
+  return result;
+}
+function toClientFormat(config, client) {
+  if (!config || typeof config !== "object") return config;
+  const http3 = client.transports.http;
+  const mappings = client.format?.fieldMappings;
+  const result = {};
+  const isHTTP = "type" in config && (config.type === "http" || config.type === "streamableHttp");
+  if (isHTTP) {
+    result.type = http3?.typeValue ?? "http";
+    const urlKey = mappings?.url ?? "url";
+    if ("url" in config) result[urlKey] = config.url;
+    if (config.headers) result.headers = config.headers;
+  } else {
+    const cmdKey = mappings?.command ?? "command";
+    const envKey = mappings?.env ?? "env";
+    if ("command" in config) result[cmdKey] = config.command;
+    if (Array.isArray(config.args) && config.args.length > 0) result.args = config.args;
+    if (config.env && typeof config.env === "object" && Object.keys(config.env).length > 0) {
+      result[envKey] = config.env;
+    }
+  }
+  return result;
+}
+function readConfig(clientId) {
+  verbose(`Reading config for client: ${clientId}`);
+  try {
+    const clientConfig = getClientConfiguration(clientId);
+    const configPath = clientConfig.install.path;
+    if (!fs.existsSync(configPath)) {
+      verbose(`Config file not found: ${configPath}`);
+      return { mcpServers: {} };
+    }
+    const fileContent = fs.readFileSync(configPath, "utf8");
+    let rawConfig = {};
+    const format = clientConfig.install.format;
+    if (format === "jsonc") {
+      rawConfig = (0, import_comment_json.parse)(fileContent) || {};
+    } else if (format === "yaml") {
+      const parsed = YAML.parse(fileContent);
+      rawConfig = parsed && typeof parsed === "object" && !Array.isArray(parsed) && parsed || {};
+    } else {
+      rawConfig = JSON.parse(fileContent);
+    }
+    const topLevelKey = clientConfig.format?.topLevelKey ?? "mcpServers";
+    let mcpServers = rawConfig[topLevelKey] || rawConfig.mcpServers || {};
+    const needsTransform = topLevelKey !== "mcpServers" || clientConfig.format?.fieldMappings || clientConfig.transports.http?.typeValue !== void 0;
+    if (needsTransform) {
+      const transformed = {};
+      for (const [name, cfg] of Object.entries(mcpServers)) {
+        if (cfg && typeof cfg === "object" && !Array.isArray(cfg)) {
+          const t = fromClientFormat(cfg, clientConfig);
+          if (t !== null) transformed[name] = t;
+        }
+      }
+      mcpServers = transformed;
+    }
+    return { ...rawConfig, mcpServers };
+  } catch (error3) {
+    verbose(`Error reading config: ${error3 instanceof Error ? error3.message : String(error3)}`);
+    return { mcpServers: {} };
+  }
+}
+function writeConfig(config, clientId) {
+  verbose(`Writing config for client: ${clientId}`);
+  const clientConfig = getClientConfiguration(clientId);
+  const format = clientConfig.install.format;
+  const configPath = clientConfig.install.path;
+  const configDir = path2.dirname(configPath);
+  if (!fs.existsSync(configDir)) {
+    fs.mkdirSync(configDir, { recursive: true });
+  }
+  const topLevelKey = clientConfig.format?.topLevelKey ?? "mcpServers";
+  const transformedServers = {};
+  for (const [name, cfg] of Object.entries(config.mcpServers)) {
+    const t = toClientFormat(cfg, clientConfig);
+    if (t !== null) transformedServers[name] = t;
+  }
+  if (format === "jsonc") {
+    let content = "{}";
+    if (fs.existsSync(configPath)) content = fs.readFileSync(configPath, "utf8");
+    const existing = (0, import_comment_json.parse)(content);
+    existing[topLevelKey] = transformedServers;
+    fs.writeFileSync(configPath, (0, import_comment_json.stringify)(existing, null, 2));
+  } else if (format === "yaml") {
+    let existingDoc = null;
+    if (fs.existsSync(configPath)) {
+      existingDoc = YAML.parseDocument(fs.readFileSync(configPath, "utf8"));
+    }
+    if (existingDoc) {
+      existingDoc.set(topLevelKey, transformedServers);
+      fs.writeFileSync(configPath, existingDoc.toString());
+    } else {
+      fs.writeFileSync(configPath, YAML.stringify({ [topLevelKey]: transformedServers }, { indent: 2 }));
+    }
+  } else {
+    let existing = {};
+    if (fs.existsSync(configPath)) {
+      try {
+        existing = JSON.parse(fs.readFileSync(configPath, "utf8"));
+      } catch {
+      }
+    }
+    const { mcpServers: _, ...otherFields } = config;
+    const final = { ...existing, ...otherFields, [topLevelKey]: transformedServers };
+    fs.writeFileSync(configPath, JSON.stringify(final, null, 2));
+  }
+  verbose(`Config written to: ${configPath}`);
+}
+
+// src/utils/command-prompts.ts
+import inquirer3 from "inquirer";
+async function selectClient() {
+  const { clientId } = await inquirer3.prompt([
+    {
+      type: "list",
+      name: "clientId",
+      message: "Select AI client:",
+      choices: VALID_CLIENTS.map((id) => ({
+        name: getClientConfiguration(id).label,
+        value: id
+      }))
+    }
+  ]);
+  return clientId;
+}
+async function pickApiKey() {
+  try {
+    const api = await authedRequest();
+    const res = await api.get("/manager/person-center/api-keys");
+    const keys = res.data?.data ?? [];
+    if (keys.length === 0) return null;
+    const { choice } = await inquirer3.prompt([
+      {
+        type: "list",
+        name: "choice",
+        message: "Select an API key to use:",
+        choices: [
+          ...keys.map((k) => ({
+            name: `${k.name} (${k.api_key.slice(0, 10)}...)`,
+            value: k.api_key
+          })),
+          { name: "Enter API key manually", value: "__manual__" }
+        ]
+      }
+    ]);
+    return choice === "__manual__" ? null : choice;
+  } catch {
+    return null;
+  }
+}
+
+// src/commands/mcp/servers.ts
 var BUILTIN_MCP_SERVERS = [
   { id: 68, name: "global-patent-archive", display_name: "Global Patent Archive", description_en: "Complete access to patent bibliographies, claims, translations, full-text PDFs, and extended data.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent/mcp" }] },
   { id: 69, name: "advanced-patent-search", display_name: "Advanced Patent Search", description_en: "Integrates semantic search, reverse image search, classification helpers, and nested querying.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-search/mcp" }] },
-  { id: 70, name: "fto-&-infringement-engine", display_name: "FTO & Infringement Engine", description_en: "Built for FTO and infringement risk mitigation, supporting multi-image comparison and deep semantic/claim analysis.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/infringement/mcp" }] },
-  { id: 71, name: "patent-legal-&-litigation", display_name: "Patent Legal & Litigation", description_en: "Track high-value legal intelligence including global patent litigation, invalidation, UPC status, SEPs.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-legal/mcp" }] },
-  { id: 72, name: "patent-snapshot-&-translator", display_name: "Patent Snapshot & Translator", description_en: "Swiftly extract tech summaries and simple legal status, while providing high-quality machine translation.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/brief/mcp" }] },
+  { id: 70, name: "fto-infringement-engine", display_name: "FTO & Infringement Engine", description_en: "Built for FTO and infringement risk mitigation, supporting multi-image comparison and deep semantic/claim analysis.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/infringement/mcp" }] },
+  { id: 71, name: "patent-legal-litigation", display_name: "Patent Legal & Litigation", description_en: "Track high-value legal intelligence including global patent litigation, invalidation, UPC status, SEPs.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-legal/mcp" }] },
+  { id: 72, name: "patent-snapshot-translator", display_name: "Patent Snapshot & Translator", description_en: "Swiftly extract tech summaries and simple legal status, while providing high-quality machine translation.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/brief/mcp" }] },
   { id: 73, name: "patent-data-aggregation", display_name: "Patent Data Aggregation", description_en: "Offers macro-data aggregation including office statistics, tech lifecycles, 3D maps, and family/citation rankings.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/aggregation/mcp" }] },
-  { id: 74, name: "patent-mining-&-ontology", display_name: "Patent Mining & Ontology", description_en: "Extract value-added data, material ontologies, SEIC classifications, and application domains.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-mining/mcp" }] },
+  { id: 74, name: "patent-mining-ontology", display_name: "Patent Mining & Ontology", description_en: "Extract value-added data, material ontologies, SEIC classifications, and application domains.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-mining/mcp" }] },
   { id: 75, name: "patent-annuity-manager", display_name: "Patent Annuity Manager", description_en: "Combining legal status tracking with official fee interfaces for annuity management.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/annuity/mcp" }] },
   { id: 76, name: "patent-valuation-model", display_name: "Patent Valuation Model", description_en: "Comprehensive patent valuation integrating legal, tech, market, and economic dimensions.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-value/mcp" }] },
   { id: 77, name: "patent-landscape", display_name: "Patent Landscape", description_en: "Instantly generates advanced business charts like innovation word clouds, strategy radar maps, and citation networks.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-landscape/mcp" }] },
-  { id: 79, name: "trademark-search-&-vision", display_name: "Trademark Search & Vision", description_en: "Delivers powerful trademark field search, reverse image search technology, and detailed trademark profile queries.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/trademark/mcp" }] },
+  { id: 79, name: "trademark-search-vision", display_name: "Trademark Search & Vision", description_en: "Delivers powerful trademark field search, reverse image search technology, and detailed trademark profile queries.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/trademark/mcp" }] },
   { id: 80, name: "ip-academy", display_name: "IP Academy", description_en: "Connects to PatSnap Academy resources to easily access professional IP course catalogs.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/course/mcp" }] },
   { id: 81, name: "bio-ontology-dictionary", display_name: "Bio-Ontology Dictionary", description_en: "Standardizing ontology queries and auto-complete for drugs, targets, diseases.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/bio-dict/mcp" }] },
-  { id: 82, name: "compound-&-sequence-search", display_name: "Compound & Sequence Search", description_en: "Supports advanced search using chemical structures and biological sequences.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/compound-sequence/mcp" }] },
+  { id: 82, name: "compound-sequence-search", display_name: "Compound & Sequence Search", description_en: "Supports advanced search using chemical structures and biological sequences.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/compound-sequence/mcp" }] },
   { id: 83, name: "drug-basic-intelligence", display_name: "Drug Basic Intelligence", description_en: "Retrieval of global drug profiles, approval status, R&D milestones, special reviews.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-basic/mcp" }] },
   { id: 84, name: "clinical-trial-analyzer", display_name: "Clinical Trial Analyzer", description_en: "Deep dive into clinical trial designs, eligibility criteria, patient group results.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-clinical/mcp" }] },
-  { id: 85, name: "drug-discovery-&-mining", display_name: "Drug Discovery & Mining", description_en: "Designed for early-stage R&D, supporting antigen-antibody pairing, affinity search, and deep data mining.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-mining/mcp" }] },
-  { id: 86, name: "pharma-pipeline-&-org-radar", display_name: "Pharma Pipeline & Org Radar", description_en: "Gain insights into pharma companies' core pipeline layouts, research funding, investment dynamics.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-org/mcp" }] },
+  { id: 85, name: "drug-discovery-mining", display_name: "Drug Discovery & Mining", description_en: "Designed for early-stage R&D, supporting antigen-antibody pairing, affinity search, and deep data mining.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-mining/mcp" }] },
+  { id: 86, name: "pharma-pipeline-org-radar", display_name: "Pharma Pipeline & Org Radar", description_en: "Gain insights into pharma companies' core pipeline layouts, research funding, investment dynamics.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-org/mcp" }] },
   { id: 87, name: "pharma-visual-analytics", display_name: "Pharma Visual Analytics", description_en: "Provides advanced visualizations like bullseye chart and R&D milestones, alongside real-time drug intelligence alerts.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-visual/mcp" }] },
   { id: 88, name: "large-molecule-alignment", display_name: "Large Molecule Alignment", description_en: "Professional submission and analysis of large molecule sequence alignments.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/large-molecule/mcp" }] },
   { id: 89, name: "small-molecule-insights", display_name: "Small Molecule Insights", description_en: "Precision search tool for small molecules, instantly penetrating underlying scientific literature.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/small-molecule/mcp" }] },
@@ -37044,48 +52843,19 @@ var BUILTIN_MCP_SERVERS = [
   { id: 97, name: "scientific-literature-search", display_name: "Scientific Literature Search", description_en: "Crosses the patent barrier to provide scientific literature search, bibliographic info, author affiliations.", category: "R&D-Innovation", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/rnd/literature/mcp" }] },
   { id: 101, name: "auto-report-generator", display_name: "Auto-Report Generator", description_en: "Automatically generates professional-grade research reports, including tech novelty validations.", category: "R&D-Innovation", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/rnd/zhihuiya-report/mcp" }] }
 ];
-async function pickApiKey() {
-  try {
-    const api = await authedRequest();
-    const res = await api.get("/manager/person-center/api-keys");
-    const keys = res.data?.data ?? [];
-    if (keys.length > 0) {
-      const { choice } = await inquirer3.prompt([
-        {
-          type: "list",
-          name: "choice",
-          message: "Select an API key to use:",
-          choices: [
-            ...keys.map((k) => ({ name: `${k.name} (${k.api_key.slice(0, 10)}...)`, value: k.api_key })),
-            { name: "Enter API key manually", value: "__manual__" }
-          ]
-        }
-      ]);
-      if (choice !== "__manual__") return choice;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
+
+// src/commands/mcp/add.ts
 async function mcpAddCommand() {
   const token = await getToken();
   if (!token) {
     error("Not logged in. Run: patsnap login");
     process.exit(1);
   }
-  const { clientIndex } = await inquirer3.prompt([
-    {
-      type: "list",
-      name: "clientIndex",
-      message: "Add Patsnap MCP servers to which client?",
-      choices: CLIENTS.map((c, i) => ({ name: c.name, value: i }))
-    }
-  ]);
-  const client = CLIENTS[clientIndex];
+  const clientId = await selectClient();
+  const clientConfig = getClientConfiguration(clientId);
   let apiKey = await pickApiKey();
   if (!apiKey) {
-    const { manualKey } = await inquirer3.prompt([
+    const { manualKey } = await inquirer4.prompt([
       {
         type: "input",
         name: "manualKey",
@@ -37095,13 +52865,7 @@ async function mcpAddCommand() {
     ]);
     apiKey = manualKey;
   }
-  const categories = [...new Set(BUILTIN_MCP_SERVERS.map((s) => s.category))];
-  console.log("\nAvailable MCP Servers:");
-  BUILTIN_MCP_SERVERS.forEach((s, i) => {
-    console.log(`  ${String(i + 1).padStart(2)}. [${s.category}] ${s.display_name}`);
-  });
-  console.log();
-  const { selectedNames } = await inquirer3.prompt([
+  const { selectedNames } = await inquirer4.prompt([
     {
       type: "checkbox",
       name: "selectedNames",
@@ -37115,40 +52879,37 @@ async function mcpAddCommand() {
     }
   ]);
   const selected = BUILTIN_MCP_SERVERS.filter((s) => selectedNames.includes(s.name));
-  const config = readConfig(client.configPath);
-  if (!config[client.configKey]) config[client.configKey] = {};
+  const config = readConfig(clientId);
+  if (!config.mcpServers) config.mcpServers = {};
   for (const server of selected) {
     const deployUrl = server.connections[0]?.deployment_url;
     if (!deployUrl) continue;
-    config[client.configKey][server.name] = {
+    config.mcpServers[server.name] = {
+      type: "http",
       url: `${deployUrl}?apikey=${apiKey}`
     };
   }
-  writeConfig(client.configPath, config);
-  success(`Added ${selected.length} MCP server(s) to ${client.name}`);
-  info(`Config written to: ${client.configPath}`);
-  if (client.name === "Claude Desktop") {
+  writeConfig(config, clientId);
+  success(`Added ${selected.length} MCP server(s) to ${clientConfig.label}`);
+  info(`Config written to: ${clientConfig.install.path}`);
+  if (clientId === "claude") {
     warn("Restart Claude Desktop to apply changes");
   }
 }
+
+// src/commands/mcp/remove.ts
+import inquirer5 from "inquirer";
 async function mcpRemoveCommand() {
-  const { clientIndex } = await inquirer3.prompt([
-    {
-      type: "list",
-      name: "clientIndex",
-      message: "Remove Patsnap MCP servers from which client?",
-      choices: CLIENTS.map((c, i) => ({ name: c.name, value: i }))
-    }
-  ]);
-  const client = CLIENTS[clientIndex];
-  const config = readConfig(client.configPath);
-  const existing = config[client.configKey] ?? {};
+  const clientId = await selectClient();
+  const clientConfig = getClientConfiguration(clientId);
+  const config = readConfig(clientId);
+  const existing = config.mcpServers ?? {};
   const installedNames = BUILTIN_MCP_SERVERS.map((s) => s.name).filter((n) => existing[n]);
   if (installedNames.length === 0) {
-    info("No Patsnap MCP servers found in this client's config");
+    info(`No Patsnap MCP servers found in ${clientConfig.label}`);
     return;
   }
-  const { toRemove } = await inquirer3.prompt([
+  const { toRemove } = await inquirer5.prompt([
     {
       type: "checkbox",
       name: "toRemove",
@@ -37159,16 +52920,166 @@ async function mcpRemoveCommand() {
       })
     }
   ]);
-  for (const name of toRemove) {
-    delete config[client.configKey][name];
+  if (toRemove.length === 0) {
+    info("Nothing selected");
+    return;
   }
-  writeConfig(client.configPath, config);
-  success(`Removed ${toRemove.length} MCP server(s) from ${client.name}`);
+  for (const name of toRemove) {
+    delete config.mcpServers[name];
+  }
+  writeConfig(config, clientId);
+  success(`Removed ${toRemove.length} MCP server(s) from ${clientConfig.label}`);
+}
+
+// src/commands/mcp/list.ts
+async function mcpListCommand(options) {
+  const clientsToCheck = options.client ? [options.client] : VALID_CLIENTS;
+  const rows = [];
+  for (const clientId of clientsToCheck) {
+    try {
+      const clientConfig = getClientConfiguration(clientId);
+      const config = readConfig(clientId);
+      const servers = config.mcpServers ?? {};
+      for (const [name, entry] of Object.entries(servers)) {
+        if (BUILTIN_MCP_SERVERS.some((s) => s.name === name)) {
+          const server = BUILTIN_MCP_SERVERS.find((s) => s.name === name);
+          let displayUrl = entry.url ?? "";
+          displayUrl = displayUrl.replace(/[?&]apikey=[^&]*/g, "?apikey=***");
+          rows.push({
+            client: clientConfig.label,
+            name,
+            category: server?.category ?? "",
+            url: displayUrl
+          });
+        }
+      }
+    } catch {
+    }
+  }
+  if (rows.length === 0) {
+    info("No Patsnap MCP servers installed. Run: patsnap mcp add");
+    return;
+  }
+  outputTable({
+    data: rows,
+    columns: [
+      { key: "client", header: "CLIENT" },
+      { key: "name", header: "SERVER" },
+      { key: "category", header: "CATEGORY" },
+      { key: "url", header: "URL" }
+    ],
+    json: isJsonMode()
+  });
+}
+
+// src/lib/errors.ts
+function fatal(message) {
+  console.error(message);
+  process.exit(1);
+}
+
+// src/commands/mcp/get.ts
+async function mcpGetCommand(name) {
+  const server = BUILTIN_MCP_SERVERS.find((s) => s.name === name);
+  if (!server) {
+    fatal(`Server not found: "${name}". Run "patsnap mcp search" to see available servers.`);
+  }
+  outputDetail({
+    data: {
+      name: server.name,
+      display_name: server.display_name,
+      category: server.category,
+      description: server.description_en,
+      url: server.connections[0]?.deployment_url ?? ""
+    }
+  });
+}
+
+// src/commands/mcp/update.ts
+import inquirer6 from "inquirer";
+async function mcpUpdateCommand() {
+  const clientId = await selectClient();
+  const clientConfig = getClientConfiguration(clientId);
+  const config = readConfig(clientId);
+  const existing = config.mcpServers ?? {};
+  const installedNames = BUILTIN_MCP_SERVERS.map((s) => s.name).filter((n) => existing[n]);
+  if (installedNames.length === 0) {
+    info(`No Patsnap MCP servers found in ${clientConfig.label}`);
+    return;
+  }
+  const { toUpdate } = await inquirer6.prompt([
+    {
+      type: "checkbox",
+      name: "toUpdate",
+      message: "Select servers to update API key:",
+      choices: installedNames.map((n) => {
+        const server = BUILTIN_MCP_SERVERS.find((s) => s.name === n);
+        return { name: server?.display_name ?? n, value: n, checked: true };
+      })
+    }
+  ]);
+  if (toUpdate.length === 0) {
+    info("Nothing selected");
+    return;
+  }
+  let apiKey = await pickApiKey();
+  if (!apiKey) {
+    const { manualKey } = await inquirer6.prompt([
+      {
+        type: "input",
+        name: "manualKey",
+        message: "Enter new Patsnap API key (sk-...):",
+        validate: (v) => v.startsWith("sk-") || "Must start with sk-"
+      }
+    ]);
+    apiKey = manualKey;
+  }
+  for (const name of toUpdate) {
+    const entry = config.mcpServers[name];
+    if (entry?.url) {
+      const baseUrl = entry.url.split("?")[0];
+      config.mcpServers[name] = { ...entry, url: `${baseUrl}?apikey=${apiKey}` };
+    }
+  }
+  writeConfig(config, clientId);
+  success(`Updated API key for ${toUpdate.length} server(s) in ${clientConfig.label}`);
+}
+
+// src/commands/mcp/search.ts
+async function mcpSearchCommand(term) {
+  const results = term ? BUILTIN_MCP_SERVERS.filter(
+    (s) => s.display_name.toLowerCase().includes(term.toLowerCase()) || s.description_en.toLowerCase().includes(term.toLowerCase()) || s.category.toLowerCase().includes(term.toLowerCase()) || s.name.toLowerCase().includes(term.toLowerCase())
+  ) : BUILTIN_MCP_SERVERS;
+  if (results.length === 0) {
+    info(`No servers found matching "${term}"`);
+    return;
+  }
+  outputTable({
+    data: results.map((s) => ({
+      name: s.name,
+      category: s.category,
+      display_name: s.display_name,
+      description: s.description_en
+    })),
+    columns: [
+      { key: "name", header: "NAME" },
+      { key: "category", header: "CATEGORY" },
+      { key: "display_name", header: "DISPLAY NAME" },
+      { key: "description", header: "DESCRIPTION" }
+    ],
+    json: isJsonMode()
+  });
 }
 
 // src/index.ts
 var program2 = new Command();
-program2.name("patsnap").description("Patsnap CLI").version("0.1.0");
+program2.name("patsnap").description("Patsnap CLI").version("0.1.0").option("--verbose", "Show verbose logs").option("--debug", "Show debug logs").option("--json", "Output as JSON").option("--table", "Output as table");
+program2.hook("preAction", () => {
+  const opts = program2.opts();
+  setVerbose(opts.verbose ?? false);
+  setDebug(opts.debug ?? false);
+  setOutputMode({ json: opts.json, table: opts.table });
+});
 program2.command("login").description("Log in to Patsnap").action(loginCommand);
 program2.command("logout").description("Log out").action(logoutCommand);
 program2.command("whoami").description("Show current logged-in user").action(whoamiCommand);
@@ -37176,8 +53087,12 @@ var apikey = program2.command("apikey").description("Manage API keys");
 apikey.command("list").description("List your API keys").action(apikeyListCommand);
 apikey.command("create").description("Create a new API key").action(apikeyCreateCommand);
 var mcp = program2.command("mcp").description("Manage MCP server configuration");
-mcp.command("add").description("Add Patsnap MCP Server to an AI client").action(mcpAddCommand);
-mcp.command("remove").description("Remove Patsnap MCP Server from an AI client").action(mcpRemoveCommand);
+mcp.command("search [term]").description("Search available Patsnap MCP servers").action(mcpSearchCommand);
+mcp.command("add").description("Add Patsnap MCP servers to an AI client").action(mcpAddCommand);
+mcp.command("remove").description("Remove Patsnap MCP servers from an AI client").action(mcpRemoveCommand);
+mcp.command("list").description("List installed Patsnap MCP servers").option("-c, --client <client>", "Filter by client").action((opts) => mcpListCommand(opts));
+mcp.command("get <name>").description("Show details for a Patsnap MCP server").action(mcpGetCommand);
+mcp.command("update").description("Update API key for installed servers").action(mcpUpdateCommand);
 program2.parse();
 /*! Bundled license information:
 

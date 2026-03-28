@@ -7,9 +7,7 @@ import { homedir } from "node:os"
 import { join, dirname } from "node:path"
 
 export interface McpServerConfig {
-  command: string
-  args: string[]
-  env?: Record<string, string>
+  url: string
 }
 
 export interface ClientTarget {

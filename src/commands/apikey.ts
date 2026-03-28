@@ -7,17 +7,19 @@ import { authedRequest } from "../lib/api.js"
 import { success, error, info } from "../utils/output.js"
 
 interface ApiKey {
-  id: string
+  api_key_id: string
+  api_key: string
   name: string
-  prefix: string
-  createdAt: string
-  lastUsedAt?: string
+  description: string
+  status: string
+  created_at: string
+  last_used_at?: string
 }
 
 export async function apikeyListCommand() {
   try {
     const api = await authedRequest()
-    const res = await api.get("/openapi/apikey/list")
+    const res = await api.get("/manager/person-center/api-keys")
     const keys: ApiKey[] = res.data?.data ?? []
 
     if (keys.length === 0) {
@@ -25,13 +27,13 @@ export async function apikeyListCommand() {
       return
     }
 
-    console.log("\n  Name                  Key Prefix    Created")
-    console.log("  " + "─".repeat(60))
+    console.log("\n  Name                  API Key                                            Created")
+    console.log("  " + "─".repeat(80))
     for (const k of keys) {
       const name = k.name.padEnd(22)
-      const prefix = (k.prefix + "...").padEnd(14)
-      const created = new Date(k.createdAt).toLocaleDateString()
-      console.log(`  ${name}${prefix}${created}`)
+      const key = k.api_key.padEnd(51)
+      const created = k.created_at
+      console.log(`  ${name}${key}${created}`)
     }
     console.log()
   } catch (err: any) {

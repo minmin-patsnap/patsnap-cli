@@ -1,11 +1,7 @@
-/**
- * @author min.min
- * @date 2026/3/27
- */
 import inquirer from "inquirer"
-import { passportApi } from "../lib/api.js"
-import { saveToken, saveConfig, deleteToken, deleteConfig, getConfig, getToken } from "../lib/auth.js"
-import { success, error, info } from "../utils/output.js"
+import { passportApi, encryptPassword } from "../../lib/api.js"
+import { saveToken, saveConfig } from "../../lib/auth.js"
+import { success, error } from "../../utils/output.js"
 
 export async function loginCommand() {
   const { username, password } = await inquirer.prompt([
@@ -25,10 +21,14 @@ export async function loginCommand() {
   ])
 
   try {
+    const encryptedPassword = encryptPassword(password)
     const res = await passportApi.post("/doLogin", {
       username,
-      password,
-      authcType: "EMAIL_PASSWORD",
+      password: encryptedPassword,
+      client_id: "02a6af67d3264a4188b04aac8ba0c496",
+      from: "openapi-ai-inside",
+      remember_me: "on",
+      response_type: "TOKEN",
     })
 
     const { token, errcode } = res.data
@@ -39,7 +39,6 @@ export async function loginCommand() {
 
     await saveToken(token)
 
-    // Decode JWT payload to get user info (no verification needed here)
     const payload = JSON.parse(
       Buffer.from(token.split(".")[1], "base64url").toString()
     )
@@ -50,30 +49,9 @@ export async function loginCommand() {
     })
 
     success(`Logged in as ${payload.email ?? username}`)
-  } catch (err: any) {
-    error(`Login failed: ${err.response?.data?.message ?? err.message}`)
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    error(`Login failed: ${msg}`)
     process.exit(1)
   }
-}
-
-export async function logoutCommand() {
-  await deleteToken()
-  deleteConfig()
-  success("Logged out")
-}
-
-export async function whoamiCommand() {
-  const token = await getToken()
-  if (!token) {
-    info("Not logged in. Run: patsnap login")
-    return
-  }
-  const config = getConfig()
-  if (!config) {
-    info("Not logged in. Run: patsnap login")
-    return
-  }
-  console.log(`Logged in as: ${config.email}`)
-  if (config.tenantId) console.log(`Tenant ID:    ${config.tenantId}`)
-  console.log(`User ID:      ${config.userId}`)
 }
