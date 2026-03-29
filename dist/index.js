@@ -52178,27 +52178,29 @@ var forge = __toESM(require_lib(), 1);
 import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
-async function getKeytar() {
-  return (await import("keytar")).default;
-}
-var KEYCHAIN_SERVICE = "patsnap-cli";
-var KEYCHAIN_ACCOUNT = "token";
 var CONFIG_DIR = join(homedir(), ".patsnap");
 var CONFIG_FILE = join(CONFIG_DIR, "config.json");
+var TOKEN_FILE = join(CONFIG_DIR, "token");
+function ensureDir() {
+  if (!existsSync(CONFIG_DIR)) mkdirSync(CONFIG_DIR, { recursive: true });
+}
 async function saveToken(token) {
-  const keytar = await getKeytar();
-  await keytar.setPassword(KEYCHAIN_SERVICE, KEYCHAIN_ACCOUNT, token);
+  ensureDir();
+  writeFileSync(TOKEN_FILE, token, { mode: 384 });
 }
 async function getToken() {
-  const keytar = await getKeytar();
-  return keytar.getPassword(KEYCHAIN_SERVICE, KEYCHAIN_ACCOUNT);
+  if (!existsSync(TOKEN_FILE)) return null;
+  try {
+    return readFileSync(TOKEN_FILE, "utf-8").trim();
+  } catch {
+    return null;
+  }
 }
 async function deleteToken() {
-  const keytar = await getKeytar();
-  await keytar.deletePassword(KEYCHAIN_SERVICE, KEYCHAIN_ACCOUNT);
+  if (existsSync(TOKEN_FILE)) rmSync(TOKEN_FILE);
 }
 function saveConfig(config) {
-  if (!existsSync(CONFIG_DIR)) mkdirSync(CONFIG_DIR, { recursive: true });
+  ensureDir();
   writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
 }
 function getConfig() {

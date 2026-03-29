@@ -6,16 +6,9 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from "node
 import { homedir } from "node:os"
 import { join } from "node:path"
 
-// keytar is a native CJS module — load lazily to avoid bundler conflicts
-async function getKeytar() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return (await import("keytar")).default as typeof import("keytar")
-}
-
-const KEYCHAIN_SERVICE = "patsnap-cli"
-const KEYCHAIN_ACCOUNT = "token"
 const CONFIG_DIR = join(homedir(), ".patsnap")
 const CONFIG_FILE = join(CONFIG_DIR, "config.json")
+const TOKEN_FILE = join(CONFIG_DIR, "token")
 
 export interface UserConfig {
   userId: string
@@ -23,23 +16,30 @@ export interface UserConfig {
   tenantId?: string
 }
 
+function ensureDir(): void {
+  if (!existsSync(CONFIG_DIR)) mkdirSync(CONFIG_DIR, { recursive: true })
+}
+
 export async function saveToken(token: string): Promise<void> {
-  const keytar = await getKeytar()
-  await keytar.setPassword(KEYCHAIN_SERVICE, KEYCHAIN_ACCOUNT, token)
+  ensureDir()
+  writeFileSync(TOKEN_FILE, token, { mode: 0o600 })
 }
 
 export async function getToken(): Promise<string | null> {
-  const keytar = await getKeytar()
-  return keytar.getPassword(KEYCHAIN_SERVICE, KEYCHAIN_ACCOUNT)
+  if (!existsSync(TOKEN_FILE)) return null
+  try {
+    return readFileSync(TOKEN_FILE, "utf-8").trim()
+  } catch {
+    return null
+  }
 }
 
 export async function deleteToken(): Promise<void> {
-  const keytar = await getKeytar()
-  await keytar.deletePassword(KEYCHAIN_SERVICE, KEYCHAIN_ACCOUNT)
+  if (existsSync(TOKEN_FILE)) rmSync(TOKEN_FILE)
 }
 
 export function saveConfig(config: UserConfig): void {
-  if (!existsSync(CONFIG_DIR)) mkdirSync(CONFIG_DIR, { recursive: true })
+  ensureDir()
   writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
 }
 
