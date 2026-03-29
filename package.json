@@ -5,10 +5,10 @@
   "description": "Patsnap CLI - login, manage API keys, configure MCP servers",
   "main": "dist/index.js",
   "bin": {
-    "patsnap": "dist/index.js"
+    "patsnap": "cli.js"
   },
   "scripts": {
-    "build": "node build.mjs && shx chmod +x dist/index.js",
+    "build": "node build.mjs && shx chmod +x dist/index.js && shx cp dist/index.js cli.js",
     "prepare": "node scripts/prepare.mjs",
     "dev": "tsx src/index.ts",
     "typecheck": "tsc --noEmit",
