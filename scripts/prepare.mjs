@@ -1,3 +1,3 @@
-import { execSync } from "node:child_process"
-
-execSync("node build.mjs", { stdio: "inherit" })
+// dist/ is pre-built and committed to the repository.
+// No build step needed for GitHub installs.
+console.log("patsnap-cli: using pre-built dist/")
