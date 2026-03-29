@@ -11,8 +11,7 @@
     "build": "node build.mjs && shx chmod +x dist/index.js",
     "dev": "tsx src/index.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "prepare": "node build.mjs && shx chmod +x dist/index.js"
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=20.0.0"
