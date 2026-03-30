@@ -11,7 +11,7 @@ await esbuild.build({
   format: "esm",
   minify: false,
   outfile: "dist/index.js",
-  external: ["inquirer"],
+  external: ["keytar"],
   banner: {
     js: `#!/usr/bin/env node\nimport { createRequire } from 'module'; const require = createRequire(import.meta.url);`,
   },
