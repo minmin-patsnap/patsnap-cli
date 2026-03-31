@@ -3,7 +3,6 @@ import { readConfig, writeConfig } from "../../lib/client-config-io.js"
 import { getClientConfiguration } from "../../config/clients.js"
 import { success, info } from "../../utils/output.js"
 import { selectClient } from "../../utils/command-prompts.js"
-import { BUILTIN_MCP_SERVERS } from "./servers.js"
 
 export async function mcpRemoveCommand() {
   const clientId = await selectClient()
@@ -11,7 +10,7 @@ export async function mcpRemoveCommand() {
   const config = readConfig(clientId)
   const existing = config.mcpServers ?? {}
 
-  const installedNames = BUILTIN_MCP_SERVERS.map((s) => s.name).filter((n) => existing[n])
+  const installedNames = Object.keys(existing)
 
   if (installedNames.length === 0) {
     info(`No Patsnap MCP servers found in ${clientConfig.label}`)
@@ -23,10 +22,7 @@ export async function mcpRemoveCommand() {
       type: "checkbox",
       name: "toRemove",
       message: "Select MCP servers to remove:",
-      choices: installedNames.map((n) => {
-        const server = BUILTIN_MCP_SERVERS.find((s) => s.name === n)
-        return { name: server?.display_name ?? n, value: n, checked: true }
-      }),
+      choices: installedNames.map((n) => ({ name: n, value: n, checked: true })),
     },
   ])
 

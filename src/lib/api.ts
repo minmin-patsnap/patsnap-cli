@@ -8,6 +8,7 @@ import { getToken } from "./auth.js"
 
 const PASSPORT_BASE_URL = process.env.PATSNAP_API_URL ?? "https://passport.patsnap.com"
 const OPEN_SERVICE_BASE_URL = process.env.PATSNAP_OPEN_SERVICE_URL ?? "https://open-service.patsnap.com"
+const CONNECT_BASE_URL = process.env.PATSNAP_CONNECT_URL ?? "https://connect.patsnap.com"
 
 // RSA public key for password encryption
 const RSA_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
@@ -37,6 +38,15 @@ export async function authedRequest() {
   if (!token) throw new Error("Not logged in. Run: patsnap login")
   return axios.create({
     baseURL: OPEN_SERVICE_BASE_URL,
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+export async function connectAuthedRequest() {
+  const token = await getToken()
+  if (!token) throw new Error("Not logged in. Run: patsnap login")
+  return axios.create({
+    baseURL: CONNECT_BASE_URL,
     headers: { Authorization: `Bearer ${token}` },
   })
 }

@@ -1,15 +1,23 @@
 import inquirer from "inquirer"
 import { getToken } from "../../lib/auth.js"
 import { readConfig, writeConfig } from "../../lib/client-config-io.js"
-import { VALID_CLIENTS, getClientConfiguration } from "../../config/clients.js"
+import { getClientConfiguration } from "../../config/clients.js"
 import { success, error, info, warn } from "../../utils/output.js"
 import { selectClient, pickApiKey } from "../../utils/command-prompts.js"
-import { BUILTIN_MCP_SERVERS } from "./servers.js"
+import { fetchMcpServers } from "./servers.js"
 
 export async function mcpAddCommand() {
   const token = await getToken()
   if (!token) {
     error("Not logged in. Run: patsnap login")
+    process.exit(1)
+  }
+
+  let servers
+  try {
+    servers = await fetchMcpServers()
+  } catch (e: any) {
+    error(e.message)
     process.exit(1)
   }
 
@@ -34,7 +42,7 @@ export async function mcpAddCommand() {
       type: "checkbox",
       name: "selectedNames",
       message: "Select MCP servers to add (space to select, enter to confirm):",
-      choices: BUILTIN_MCP_SERVERS.map((s) => ({
+      choices: servers.map((s) => ({
         name: `[${s.category}] ${s.display_name}`,
         value: s.name,
         checked: false,
@@ -43,7 +51,7 @@ export async function mcpAddCommand() {
     },
   ])
 
-  const selected = BUILTIN_MCP_SERVERS.filter((s) => selectedNames.includes(s.name))
+  const selected = servers.filter((s) => selectedNames.includes(s.name))
   const config = readConfig(clientId)
   if (!config.mcpServers) config.mcpServers = {}
 

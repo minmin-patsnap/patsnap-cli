@@ -1,16 +1,24 @@
-import { outputTable, isJsonMode, info } from "../../utils/output.js"
-import { BUILTIN_MCP_SERVERS } from "./servers.js"
+import { outputTable, isJsonMode, info, error } from "../../utils/output.js"
+import { fetchMcpServers } from "./servers.js"
 
 export async function mcpSearchCommand(term?: string) {
+  let servers
+  try {
+    servers = await fetchMcpServers()
+  } catch (e: any) {
+    error(e.message)
+    process.exit(1)
+  }
+
   const results = term
-    ? BUILTIN_MCP_SERVERS.filter(
+    ? servers.filter(
         (s) =>
           s.display_name.toLowerCase().includes(term.toLowerCase()) ||
           s.description_en.toLowerCase().includes(term.toLowerCase()) ||
           s.category.toLowerCase().includes(term.toLowerCase()) ||
           s.name.toLowerCase().includes(term.toLowerCase()),
       )
-    : BUILTIN_MCP_SERVERS
+    : servers
 
   if (results.length === 0) {
     info(`No servers found matching "${term}"`)

@@ -3218,11 +3218,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
        */
       _getOutputContext(contextOptions) {
         contextOptions = contextOptions || {};
-        const error3 = !!contextOptions.error;
+        const error2 = !!contextOptions.error;
         let baseWrite;
         let hasColors;
         let helpWidth;
-        if (error3) {
+        if (error2) {
           baseWrite = (str) => this._outputConfiguration.writeErr(str);
           hasColors = this._outputConfiguration.getErrHasColors();
           helpWidth = this._outputConfiguration.getErrHelpWidth();
@@ -3235,7 +3235,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
           if (!hasColors) str = this._outputConfiguration.stripColor(str);
           return baseWrite(str);
         };
-        return { error: error3, write, hasColors, helpWidth };
+        return { error: error2, write, hasColors, helpWidth };
       }
       /**
        * Output help information for this command.
@@ -6753,8 +6753,8 @@ var require_Subscription = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -6936,8 +6936,8 @@ var require_timeoutProvider = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -7018,19 +7018,19 @@ var require_NotificationFactories = __commonJS({
     exports.COMPLETE_NOTIFICATION = (function() {
       return createNotification("C", void 0, void 0);
     })();
-    function errorNotification(error3) {
-      return createNotification("E", void 0, error3);
+    function errorNotification(error2) {
+      return createNotification("E", void 0, error2);
     }
     exports.errorNotification = errorNotification;
     function nextNotification(value) {
       return createNotification("N", value, void 0);
     }
     exports.nextNotification = nextNotification;
-    function createNotification(kind, value, error3) {
+    function createNotification(kind, value, error2) {
       return {
         kind,
         value,
-        error: error3
+        error: error2
       };
     }
     exports.createNotification = createNotification;
@@ -7053,10 +7053,10 @@ var require_errorContext = __commonJS({
         }
         cb();
         if (isRoot) {
-          var _a = context, errorThrown = _a.errorThrown, error3 = _a.error;
+          var _a = context, errorThrown = _a.errorThrown, error2 = _a.error;
           context = null;
           if (errorThrown) {
-            throw error3;
+            throw error2;
           }
         }
       } else {
@@ -7122,8 +7122,8 @@ var require_Subscriber = __commonJS({
         }
         return _this;
       }
-      Subscriber2.create = function(next, error3, complete) {
-        return new SafeSubscriber(next, error3, complete);
+      Subscriber2.create = function(next, error2, complete) {
+        return new SafeSubscriber(next, error2, complete);
       };
       Subscriber2.prototype.next = function(value) {
         if (this.isStopped) {
@@ -7188,8 +7188,8 @@ var require_Subscriber = __commonJS({
         if (partialObserver.next) {
           try {
             partialObserver.next(value);
-          } catch (error3) {
-            handleUnhandledError(error3);
+          } catch (error2) {
+            handleUnhandledError(error2);
           }
         }
       };
@@ -7198,8 +7198,8 @@ var require_Subscriber = __commonJS({
         if (partialObserver.error) {
           try {
             partialObserver.error(err);
-          } catch (error3) {
-            handleUnhandledError(error3);
+          } catch (error2) {
+            handleUnhandledError(error2);
           }
         } else {
           handleUnhandledError(err);
@@ -7210,8 +7210,8 @@ var require_Subscriber = __commonJS({
         if (partialObserver.complete) {
           try {
             partialObserver.complete();
-          } catch (error3) {
-            handleUnhandledError(error3);
+          } catch (error2) {
+            handleUnhandledError(error2);
           }
         }
       };
@@ -7219,13 +7219,13 @@ var require_Subscriber = __commonJS({
     })();
     var SafeSubscriber = (function(_super) {
       __extends(SafeSubscriber2, _super);
-      function SafeSubscriber2(observerOrNext, error3, complete) {
+      function SafeSubscriber2(observerOrNext, error2, complete) {
         var _this = _super.call(this) || this;
         var partialObserver;
         if (isFunction_1.isFunction(observerOrNext) || !observerOrNext) {
           partialObserver = {
             next: observerOrNext !== null && observerOrNext !== void 0 ? observerOrNext : void 0,
-            error: error3 !== null && error3 !== void 0 ? error3 : void 0,
+            error: error2 !== null && error2 !== void 0 ? error2 : void 0,
             complete: complete !== null && complete !== void 0 ? complete : void 0
           };
         } else {
@@ -7250,11 +7250,11 @@ var require_Subscriber = __commonJS({
       return SafeSubscriber2;
     })(Subscriber);
     exports.SafeSubscriber = SafeSubscriber;
-    function handleUnhandledError(error3) {
+    function handleUnhandledError(error2) {
       if (config_1.config.useDeprecatedSynchronousErrorHandling) {
-        errorContext_1.captureError(error3);
+        errorContext_1.captureError(error2);
       } else {
-        reportUnhandledError_1.reportUnhandledError(error3);
+        reportUnhandledError_1.reportUnhandledError(error2);
       }
     }
     function defaultErrorHandler(err) {
@@ -7357,9 +7357,9 @@ var require_Observable = __commonJS({
         observable.operator = operator;
         return observable;
       };
-      Observable2.prototype.subscribe = function(observerOrNext, error3, complete) {
+      Observable2.prototype.subscribe = function(observerOrNext, error2, complete) {
         var _this = this;
-        var subscriber = isSubscriber(observerOrNext) ? observerOrNext : new Subscriber_1.SafeSubscriber(observerOrNext, error3, complete);
+        var subscriber = isSubscriber(observerOrNext) ? observerOrNext : new Subscriber_1.SafeSubscriber(observerOrNext, error2, complete);
         errorContext_1.errorContext(function() {
           var _a = _this, operator = _a.operator, source = _a.source;
           subscriber.add(operator ? operator.call(subscriber, source) : source ? _this._subscribe(subscriber) : _this._trySubscribe(subscriber));
@@ -7696,8 +7696,8 @@ var require_animationFrameProvider = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -8296,8 +8296,8 @@ var require_intervalProvider = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -8414,9 +8414,9 @@ var require_AsyncAction = __commonJS({
           return new Error("executing a cancelled action");
         }
         this.pending = false;
-        var error3 = this._execute(state, delay);
-        if (error3) {
-          return error3;
+        var error2 = this._execute(state, delay);
+        if (error2) {
+          return error2;
         } else if (this.pending === false && this.id != null) {
           this.id = this.recycleAsyncId(this.scheduler, this.id, null);
         }
@@ -8505,8 +8505,8 @@ var require_immediateProvider = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -8683,19 +8683,19 @@ var require_AsyncScheduler = __commonJS({
           actions.push(action);
           return;
         }
-        var error3;
+        var error2;
         this._active = true;
         do {
-          if (error3 = action.execute(action.state, action.delay)) {
+          if (error2 = action.execute(action.state, action.delay)) {
             break;
           }
         } while (action = actions.shift());
         this._active = false;
-        if (error3) {
+        if (error2) {
           while (action = actions.shift()) {
             action.unsubscribe();
           }
-          throw error3;
+          throw error2;
         }
       };
       return AsyncScheduler2;
@@ -8740,19 +8740,19 @@ var require_AsapScheduler = __commonJS({
         var flushId = this._scheduled;
         this._scheduled = void 0;
         var actions = this.actions;
-        var error3;
+        var error2;
         action = action || actions.shift();
         do {
-          if (error3 = action.execute(action.state, action.delay)) {
+          if (error2 = action.execute(action.state, action.delay)) {
             break;
           }
         } while ((action = actions[0]) && action.id === flushId && actions.shift());
         this._active = false;
-        if (error3) {
+        if (error2) {
           while ((action = actions[0]) && action.id === flushId && actions.shift()) {
             action.unsubscribe();
           }
-          throw error3;
+          throw error2;
         }
       };
       return AsapScheduler2;
@@ -9011,19 +9011,19 @@ var require_AnimationFrameScheduler = __commonJS({
           this._scheduled = void 0;
         }
         var actions = this.actions;
-        var error3;
+        var error2;
         action = action || actions.shift();
         do {
-          if (error3 = action.execute(action.state, action.delay)) {
+          if (error2 = action.execute(action.state, action.delay)) {
             break;
           }
         } while ((action = actions[0]) && action.id === flushId && actions.shift());
         this._active = false;
-        if (error3) {
+        if (error2) {
           while ((action = actions[0]) && action.id === flushId && actions.shift()) {
             action.unsubscribe();
           }
-          throw error3;
+          throw error2;
         }
       };
       return AnimationFrameScheduler2;
@@ -9092,20 +9092,20 @@ var require_VirtualTimeScheduler = __commonJS({
       }
       VirtualTimeScheduler2.prototype.flush = function() {
         var _a = this, actions = _a.actions, maxFrames = _a.maxFrames;
-        var error3;
+        var error2;
         var action;
         while ((action = actions[0]) && action.delay <= maxFrames) {
           actions.shift();
           this.frame = action.delay;
-          if (error3 = action.execute(action.state, action.delay)) {
+          if (error2 = action.execute(action.state, action.delay)) {
             break;
           }
         }
-        if (error3) {
+        if (error2) {
           while (action = actions.shift()) {
             action.unsubscribe();
           }
-          throw error3;
+          throw error2;
         }
       };
       VirtualTimeScheduler2.frameTimeFactor = 10;
@@ -10147,27 +10147,27 @@ var require_Notification = __commonJS({
       NotificationKind2["COMPLETE"] = "C";
     })(NotificationKind = exports.NotificationKind || (exports.NotificationKind = {}));
     var Notification = (function() {
-      function Notification2(kind, value, error3) {
+      function Notification2(kind, value, error2) {
         this.kind = kind;
         this.value = value;
-        this.error = error3;
+        this.error = error2;
         this.hasValue = kind === "N";
       }
       Notification2.prototype.observe = function(observer) {
         return observeNotification(this, observer);
       };
       Notification2.prototype.do = function(nextHandler, errorHandler, completeHandler) {
-        var _a = this, kind = _a.kind, value = _a.value, error3 = _a.error;
-        return kind === "N" ? nextHandler === null || nextHandler === void 0 ? void 0 : nextHandler(value) : kind === "E" ? errorHandler === null || errorHandler === void 0 ? void 0 : errorHandler(error3) : completeHandler === null || completeHandler === void 0 ? void 0 : completeHandler();
+        var _a = this, kind = _a.kind, value = _a.value, error2 = _a.error;
+        return kind === "N" ? nextHandler === null || nextHandler === void 0 ? void 0 : nextHandler(value) : kind === "E" ? errorHandler === null || errorHandler === void 0 ? void 0 : errorHandler(error2) : completeHandler === null || completeHandler === void 0 ? void 0 : completeHandler();
       };
-      Notification2.prototype.accept = function(nextOrObserver, error3, complete) {
+      Notification2.prototype.accept = function(nextOrObserver, error2, complete) {
         var _a;
-        return isFunction_1.isFunction((_a = nextOrObserver) === null || _a === void 0 ? void 0 : _a.next) ? this.observe(nextOrObserver) : this.do(nextOrObserver, error3, complete);
+        return isFunction_1.isFunction((_a = nextOrObserver) === null || _a === void 0 ? void 0 : _a.next) ? this.observe(nextOrObserver) : this.do(nextOrObserver, error2, complete);
       };
       Notification2.prototype.toObservable = function() {
-        var _a = this, kind = _a.kind, value = _a.value, error3 = _a.error;
+        var _a = this, kind = _a.kind, value = _a.value, error2 = _a.error;
         var result = kind === "N" ? of_1.of(value) : kind === "E" ? throwError_1.throwError(function() {
-          return error3;
+          return error2;
         }) : kind === "C" ? empty_1.EMPTY : 0;
         if (!result) {
           throw new TypeError("Unexpected notification kind " + kind);
@@ -10189,11 +10189,11 @@ var require_Notification = __commonJS({
     exports.Notification = Notification;
     function observeNotification(notification, observer) {
       var _a, _b, _c;
-      var _d = notification, kind = _d.kind, value = _d.value, error3 = _d.error;
+      var _d = notification, kind = _d.kind, value = _d.value, error2 = _d.error;
       if (typeof kind !== "string") {
         throw new TypeError('Invalid notification, missing "kind"');
       }
-      kind === "N" ? (_a = observer.next) === null || _a === void 0 ? void 0 : _a.call(observer, value) : kind === "E" ? (_b = observer.error) === null || _b === void 0 ? void 0 : _b.call(observer, error3) : (_c = observer.complete) === null || _c === void 0 ? void 0 : _c.call(observer);
+      kind === "N" ? (_a = observer.next) === null || _a === void 0 ? void 0 : _a.call(observer, value) : kind === "E" ? (_b = observer.error) === null || _b === void 0 ? void 0 : _b.call(observer, error2) : (_c = observer.complete) === null || _c === void 0 ? void 0 : _c.call(observer);
     }
     exports.observeNotification = observeNotification;
   }
@@ -10460,8 +10460,8 @@ var require_mapOneOrManyArgs = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -10502,8 +10502,8 @@ var require_bindCallbackInternals = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -11037,8 +11037,8 @@ var require_fromEvent = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -11636,8 +11636,8 @@ var require_zip = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -12266,8 +12266,8 @@ var require_combineLatest2 = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -12314,8 +12314,8 @@ var require_combineLatestWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -12388,8 +12388,8 @@ var require_concat2 = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -12434,8 +12434,8 @@ var require_concatWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -12927,8 +12927,8 @@ var require_endWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -13474,8 +13474,8 @@ var require_merge2 = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -13521,8 +13521,8 @@ var require_mergeWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -13606,8 +13606,8 @@ var require_onErrorResumeNextWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -13790,8 +13790,8 @@ var require_raceWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -14188,8 +14188,8 @@ var require_share = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -14639,8 +14639,8 @@ var require_tap = __commonJS({
     var lift_1 = require_lift();
     var OperatorSubscriber_1 = require_OperatorSubscriber();
     var identity_1 = require_identity();
-    function tap(observerOrNext, error3, complete) {
-      var tapObserver = isFunction_1.isFunction(observerOrNext) || error3 || complete ? { next: observerOrNext, error: error3, complete } : observerOrNext;
+    function tap(observerOrNext, error2, complete) {
+      var tapObserver = isFunction_1.isFunction(observerOrNext) || error2 || complete ? { next: observerOrNext, error: error2, complete } : observerOrNext;
       return tapObserver ? lift_1.operate(function(source, subscriber) {
         var _a;
         (_a = tapObserver.subscribe) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
@@ -15190,8 +15190,8 @@ var require_withLatestFrom = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -15276,8 +15276,8 @@ var require_zip2 = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -15319,8 +15319,8 @@ var require_zipWith = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -16087,8 +16087,8 @@ var require_race2 = __commonJS({
       var i = m.call(o), r, ar = [], e;
       try {
         while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-      } catch (error3) {
-        e = { error: error3 };
+      } catch (error2) {
+        e = { error: error2 };
       } finally {
         try {
           if (r && !r.done && (m = i["return"])) m.call(i);
@@ -16734,9 +16734,9 @@ var require_prompt = __commonJS({
         this.close();
         return this.answers;
       }
-      onError(error3) {
+      onError(error2) {
         this.close();
-        return Promise.reject(error3);
+        return Promise.reject(error2);
       }
       processQuestion(question) {
         question = { ...question };
@@ -23117,9 +23117,9 @@ var require_async_iterator = __commonJS({
       },
       next: function next() {
         var _this = this;
-        var error3 = this[kError];
-        if (error3 !== null) {
-          return Promise.reject(error3);
+        var error2 = this[kError];
+        if (error2 !== null) {
+          return Promise.reject(error2);
         }
         if (this[kEnded]) {
           return Promise.resolve(createIterResult(void 0, true));
@@ -23232,8 +23232,8 @@ var require_from2 = __commonJS({
       try {
         var info2 = gen[key](arg);
         var value = info2.value;
-      } catch (error3) {
-        reject(error3);
+      } catch (error2) {
+        reject(error2);
         return;
       }
       if (info2.done) {
@@ -24263,16 +24263,16 @@ var require_pipeline = __commonJS({
       if (streams.length < 2) {
         throw new ERR_MISSING_ARGS("streams");
       }
-      var error3;
+      var error2;
       var destroys = streams.map(function(stream4, i) {
         var reading = i < streams.length - 1;
         var writing = i > 0;
         return destroyer(stream4, reading, writing, function(err) {
-          if (!error3) error3 = err;
+          if (!error2) error2 = err;
           if (err) destroys.forEach(call);
           if (reading) return;
           destroys.forEach(call);
-          callback(error3);
+          callback(error2);
         });
       });
       return streams.reduce(pipe);
@@ -25171,7 +25171,7 @@ var require_base = __commonJS({
         return new Promise((resolve, reject) => {
           this._run(
             (value) => resolve(value),
-            (error3) => reject(error3)
+            (error2) => reject(error2)
           );
         });
       }
@@ -25222,13 +25222,13 @@ var require_base = __commonJS({
           filter2((state) => state.isValid === true),
           take(1)
         );
-        const error3 = validation.pipe(
+        const error2 = validation.pipe(
           filter2((state) => state.isValid !== true),
           takeUntil(success2)
         );
         return {
           success: success2,
-          error: error3
+          error: error2
         };
       }
       startSpinner(value, bottomContent) {
@@ -25573,7 +25573,7 @@ var require_input = __commonJS({
        * Render the prompt to screen
        * @return {InputPrompt} self
        */
-      render(error3) {
+      render(error2) {
         let bottomContent = "";
         let appendContent = "";
         let message = this.getQuestion();
@@ -25589,8 +25589,8 @@ var require_input = __commonJS({
         } else {
           message += isFinal ? chalk.cyan(appendContent) : appendContent;
         }
-        if (error3) {
-          bottomContent = chalk.red(">> ") + error3;
+        if (error2) {
+          bottomContent = chalk.red(">> ") + error2;
         }
         this.screen.render(message, bottomContent);
       }
@@ -25785,7 +25785,7 @@ var require_rawlist = __commonJS({
        * Render the prompt to screen
        * @return {RawListPrompt} self
        */
-      render(error3) {
+      render(error2) {
         let message = this.getQuestion();
         let bottomContent = "";
         if (this.status === "answered") {
@@ -25796,8 +25796,8 @@ var require_rawlist = __commonJS({
           message += "\n  Answer: ";
         }
         message += this.rl.line;
-        if (error3) {
-          bottomContent = "\n" + chalk.red(">> ") + error3;
+        if (error2) {
+          bottomContent = "\n" + chalk.red(">> ") + error2;
         }
         this.screen.render(message, bottomContent);
       }
@@ -25942,7 +25942,7 @@ var require_expand2 = __commonJS({
        * Render the prompt to screen
        * @return {ExpandPrompt} self
        */
-      render(error3, hint) {
+      render(error2, hint) {
         let message = this.getQuestion();
         let bottomContent = "";
         if (this.status === "answered") {
@@ -25953,8 +25953,8 @@ var require_expand2 = __commonJS({
           message += "\n  Answer: ";
         }
         message += this.rl.line;
-        if (error3) {
-          bottomContent = chalk.red(">> ") + error3;
+        if (error2) {
+          bottomContent = chalk.red(">> ") + error2;
         }
         if (hint) {
           bottomContent = chalk.cyan(">> ") + hint;
@@ -26155,7 +26155,7 @@ var require_checkbox = __commonJS({
        * Render the prompt to screen
        * @return {CheckboxPrompt} self
        */
-      render(error3) {
+      render(error2) {
         let message = this.getQuestion();
         let bottomContent = "";
         if (!this.dontShowHints) {
@@ -26184,8 +26184,8 @@ var require_checkbox = __commonJS({
           }, 0) - 1;
           message += "\n" + this.paginator.paginate(choicesStr, realIndexPosition, this.opt.pageSize);
         }
-        if (error3) {
-          bottomContent = chalk.red(">> ") + error3;
+        if (error2) {
+          bottomContent = chalk.red(">> ") + error2;
         }
         this.screen.render(message, bottomContent);
       }
@@ -26324,7 +26324,7 @@ var require_password = __commonJS({
        * Render the prompt to screen
        * @return {PasswordPrompt} self
        */
-      render(error3) {
+      render(error2) {
         let message = this.getQuestion();
         let bottomContent = "";
         if (this.status === "answered") {
@@ -26332,8 +26332,8 @@ var require_password = __commonJS({
         } else {
           message += this.getMaskedValue(this.rl.line || "");
         }
-        if (error3) {
-          bottomContent = "\n" + chalk.red(">> ") + error3;
+        if (error2) {
+          bottomContent = "\n" + chalk.red(">> ") + error2;
         }
         this.screen.render(message, bottomContent);
       }
@@ -36091,7 +36091,7 @@ var require_editor = __commonJS({
        * Render the prompt to screen
        * @return {EditorPrompt} self
        */
-      render(error3) {
+      render(error2) {
         let bottomContent = "";
         let message = this.getQuestion();
         if (this.status === "answered") {
@@ -36099,8 +36099,8 @@ var require_editor = __commonJS({
         } else {
           message += chalk.dim("Press <enter> to launch your preferred editor.");
         }
-        if (error3) {
-          bottomContent = chalk.red(">> ") + error3;
+        if (error2) {
+          bottomContent = chalk.red(">> ") + error2;
         }
         this.screen.render(message, bottomContent);
       }
@@ -36111,10 +36111,10 @@ var require_editor = __commonJS({
         this.rl.pause();
         editAsync(this.currentText, this.endExternalEditor.bind(this));
       }
-      endExternalEditor(error3, result) {
+      endExternalEditor(error2, result) {
         this.rl.resume();
-        if (error3) {
-          this.editorResult.error(error3);
+        if (error2) {
+          this.editorResult.error(error2);
         } else {
           this.editorResult.next(result);
         }
@@ -36152,8 +36152,8 @@ var require_inquirer = __commonJS({
         let ui;
         try {
           ui = new inquirer7.ui.Prompt(promptModule.prompts, opt);
-        } catch (error3) {
-          return Promise.reject(error3);
+        } catch (error2) {
+          return Promise.reject(error2);
         }
         const promise = ui.run(questions, answers);
         promise.ui = ui;
@@ -45132,17 +45132,17 @@ var require_iterate = __commonJS({
     module.exports = iterate;
     function iterate(list, iterator2, state, callback) {
       var key = state["keyedList"] ? state["keyedList"][state.index] : state.index;
-      state.jobs[key] = runJob(iterator2, key, list[key], function(error3, output) {
+      state.jobs[key] = runJob(iterator2, key, list[key], function(error2, output) {
         if (!(key in state.jobs)) {
           return;
         }
         delete state.jobs[key];
-        if (error3) {
+        if (error2) {
           abort(state);
         } else {
           state.results[key] = output;
         }
-        callback(error3, state.results);
+        callback(error2, state.results);
       });
     }
     function runJob(iterator2, key, item, callback) {
@@ -45206,9 +45206,9 @@ var require_parallel = __commonJS({
     function parallel(list, iterator2, callback) {
       var state = initState(list);
       while (state.index < (state["keyedList"] || list).length) {
-        iterate(list, iterator2, state, function(error3, result) {
-          if (error3) {
-            callback(error3, result);
+        iterate(list, iterator2, state, function(error2, result) {
+          if (error2) {
+            callback(error2, result);
             return;
           }
           if (Object.keys(state.jobs).length === 0) {
@@ -45234,9 +45234,9 @@ var require_serialOrdered = __commonJS({
     module.exports.descending = descending;
     function serialOrdered(list, iterator2, sortMethod, callback) {
       var state = initState(list, sortMethod);
-      iterate(list, iterator2, state, function iteratorHandler(error3, result) {
-        if (error3) {
-          callback(error3, result);
+      iterate(list, iterator2, state, function iteratorHandler(error2, result) {
+        if (error2) {
+          callback(error2, result);
           return;
         }
         state.index++;
@@ -46430,10 +46430,10 @@ var require_form_data = __commonJS({
         this.pipe(request);
         if (cb) {
           var onResponse;
-          var callback = function(error3, responce) {
+          var callback = function(error2, responce) {
             request.removeListener("error", callback);
             request.removeListener("response", onResponse);
-            return cb.call(this, error3, responce);
+            return cb.call(this, error2, responce);
           };
           onResponse = callback.bind(this, null);
           request.on("error", callback);
@@ -46958,14 +46958,14 @@ var require_browser = __commonJS({
         } else {
           exports.storage.removeItem("debug");
         }
-      } catch (error3) {
+      } catch (error2) {
       }
     }
     function load() {
       let r;
       try {
         r = exports.storage.getItem("debug") || exports.storage.getItem("DEBUG");
-      } catch (error3) {
+      } catch (error2) {
       }
       if (!r && typeof process !== "undefined" && "env" in process) {
         r = process.env.DEBUG;
@@ -46975,7 +46975,7 @@ var require_browser = __commonJS({
     function localstorage() {
       try {
         return localStorage;
-      } catch (error3) {
+      } catch (error2) {
       }
     }
     module.exports = require_common()(exports);
@@ -46983,8 +46983,8 @@ var require_browser = __commonJS({
     formatters.j = function(v) {
       try {
         return JSON.stringify(v);
-      } catch (error3) {
-        return "[UnexpectedJSONParseError]: " + error3.message;
+      } catch (error2) {
+        return "[UnexpectedJSONParseError]: " + error2.message;
       }
     };
   }
@@ -47089,7 +47089,7 @@ var require_node3 = __commonJS({
           221
         ];
       }
-    } catch (error3) {
+    } catch (error2) {
     }
     exports.inspectOpts = Object.keys(process.env).filter((key) => {
       return /^debug_/i.test(key);
@@ -47183,7 +47183,7 @@ var require_debug = __commonJS({
       if (!debug) {
         try {
           debug = require_src()("follow-redirects");
-        } catch (error3) {
+        } catch (error2) {
         }
         if (typeof debug !== "function") {
           debug = function() {
@@ -47216,8 +47216,8 @@ var require_follow_redirects = __commonJS({
     var useNativeURL = false;
     try {
       assert(new URL2(""));
-    } catch (error3) {
-      useNativeURL = error3.code === "ERR_INVALID_URL";
+    } catch (error2) {
+      useNativeURL = error2.code === "ERR_INVALID_URL";
     }
     var preservedUrlFields = [
       "auth",
@@ -47291,9 +47291,9 @@ var require_follow_redirects = __commonJS({
       this._currentRequest.abort();
       this.emit("abort");
     };
-    RedirectableRequest.prototype.destroy = function(error3) {
-      destroyRequest(this._currentRequest, error3);
-      destroy.call(this, error3);
+    RedirectableRequest.prototype.destroy = function(error2) {
+      destroyRequest(this._currentRequest, error2);
+      destroy.call(this, error2);
       return this;
     };
     RedirectableRequest.prototype.write = function(data, encoding, callback) {
@@ -47460,10 +47460,10 @@ var require_follow_redirects = __commonJS({
         var i = 0;
         var self2 = this;
         var buffers = this._requestBodyBuffers;
-        (function writeNext(error3) {
+        (function writeNext(error2) {
           if (request === self2._currentRequest) {
-            if (error3) {
-              self2.emit("error", error3);
+            if (error2) {
+              self2.emit("error", error2);
             } else if (i < buffers.length) {
               var buffer = buffers[i++];
               if (!request.finished) {
@@ -47662,12 +47662,12 @@ var require_follow_redirects = __commonJS({
       });
       return CustomError;
     }
-    function destroyRequest(request, error3) {
+    function destroyRequest(request, error2) {
       for (var event of events) {
         request.removeListener(event, eventHandlers[event]);
       }
       request.on("error", noop2);
-      request.destroy(error3);
+      request.destroy(error2);
     }
     function isSubdomain(subdomain, domain) {
       assert(isString2(subdomain) && isString2(domain));
@@ -48829,10 +48829,10 @@ var require_util2 = __commonJS({
         rval = api.setItem(id, obj);
       }
       if (typeof rval !== "undefined" && rval.rval !== true) {
-        var error3 = new Error(rval.error.message);
-        error3.id = rval.error.id;
-        error3.name = rval.error.name;
-        throw error3;
+        var error2 = new Error(rval.error.message);
+        error2.id = rval.error.id;
+        error2.name = rval.error.name;
+        throw error2;
       }
     };
     var _getStorageObject = function(api, id) {
@@ -48843,10 +48843,10 @@ var require_util2 = __commonJS({
       if (api.init) {
         if (rval.rval === null) {
           if (rval.error) {
-            var error3 = new Error(rval.error.message);
-            error3.id = rval.error.id;
-            error3.name = rval.error.name;
-            throw error3;
+            var error2 = new Error(rval.error.message);
+            error2.id = rval.error.id;
+            error2.name = rval.error.name;
+            throw error2;
           }
           rval = null;
         } else {
@@ -50512,11 +50512,11 @@ var require_asn1 = __commonJS({
     };
     function _checkBufferLength(bytes, remaining, n) {
       if (n > remaining) {
-        var error3 = new Error("Too few bytes to parse DER.");
-        error3.available = bytes.length();
-        error3.remaining = remaining;
-        error3.requested = n;
-        throw error3;
+        var error2 = new Error("Too few bytes to parse DER.");
+        error2.available = bytes.length();
+        error2.remaining = remaining;
+        error2.requested = n;
+        throw error2;
       }
     }
     var _getValueLength = function(bytes, remaining) {
@@ -50572,10 +50572,10 @@ var require_asn1 = __commonJS({
       var byteCount = bytes.length();
       var value = _fromDer(bytes, bytes.length(), 0, options);
       if (options.parseAllBytes && bytes.length() !== 0) {
-        var error3 = new Error("Unparsed DER bytes remain after ASN.1 parsing.");
-        error3.byteCount = byteCount;
-        error3.remaining = bytes.length();
-        throw error3;
+        var error2 = new Error("Unparsed DER bytes remain after ASN.1 parsing.");
+        error2.byteCount = byteCount;
+        error2.remaining = bytes.length();
+        throw error2;
       }
       return value;
     };
@@ -50594,11 +50594,11 @@ var require_asn1 = __commonJS({
       remaining -= start - bytes.length();
       if (length !== void 0 && length > remaining) {
         if (options.strict) {
-          var error3 = new Error("Too few bytes to read ASN.1 value.");
-          error3.available = bytes.length();
-          error3.remaining = remaining;
-          error3.requested = length;
-          throw error3;
+          var error2 = new Error("Too few bytes to read ASN.1 value.");
+          error2.available = bytes.length();
+          error2.remaining = remaining;
+          error2.requested = length;
+          throw error2;
         }
         length = remaining;
       }
@@ -50928,9 +50928,9 @@ var require_asn1 = __commonJS({
       if (x >= -2147483648 && x < 2147483648) {
         return rval.putSignedInt(x, 32);
       }
-      var error3 = new Error("Integer too large; max is 32-bits.");
-      error3.integer = x;
-      throw error3;
+      var error2 = new Error("Integer too large; max is 32-bits.");
+      error2.integer = x;
+      throw error2;
     };
     asn1.derToInteger = function(bytes) {
       if (typeof bytes === "string") {
@@ -54553,10 +54553,10 @@ var require_pkcs1 = __commonJS({
       var keyLength = Math.ceil(key.n.bitLength() / 8);
       var maxLength = keyLength - 2 * md.digestLength - 2;
       if (message.length > maxLength) {
-        var error3 = new Error("RSAES-OAEP input message length is too long.");
-        error3.length = message.length;
-        error3.maxLength = maxLength;
-        throw error3;
+        var error2 = new Error("RSAES-OAEP input message length is too long.");
+        error2.length = message.length;
+        error2.maxLength = maxLength;
+        throw error2;
       }
       if (!label) {
         label = "";
@@ -54572,10 +54572,10 @@ var require_pkcs1 = __commonJS({
       if (!seed) {
         seed = forge2.random.getBytes(md.digestLength);
       } else if (seed.length !== md.digestLength) {
-        var error3 = new Error("Invalid RSAES-OAEP seed. The seed length must match the digest length.");
-        error3.seedLength = seed.length;
-        error3.digestLength = md.digestLength;
-        throw error3;
+        var error2 = new Error("Invalid RSAES-OAEP seed. The seed length must match the digest length.");
+        error2.seedLength = seed.length;
+        error2.digestLength = md.digestLength;
+        throw error2;
       }
       var dbMask = rsa_mgf1(seed, keyLength - md.digestLength - 1, mgf1Md);
       var maskedDB = forge2.util.xorBytes(DB, dbMask, DB.length);
@@ -54599,10 +54599,10 @@ var require_pkcs1 = __commonJS({
       }
       var keyLength = Math.ceil(key.n.bitLength() / 8);
       if (em.length !== keyLength) {
-        var error3 = new Error("RSAES-OAEP encoded message length is invalid.");
-        error3.length = em.length;
-        error3.expectedLength = keyLength;
-        throw error3;
+        var error2 = new Error("RSAES-OAEP encoded message length is invalid.");
+        error2.length = em.length;
+        error2.expectedLength = keyLength;
+        throw error2;
       }
       if (md === void 0) {
         md = forge2.md.sha1.create();
@@ -54628,9 +54628,9 @@ var require_pkcs1 = __commonJS({
       var dbMask = rsa_mgf1(seed, keyLength - md.digestLength - 1, mgf1Md);
       var db = forge2.util.xorBytes(maskedDB, dbMask, maskedDB.length);
       var lHashPrime = db.substring(0, md.digestLength);
-      var error3 = y !== "\0";
+      var error2 = y !== "\0";
       for (var i = 0; i < md.digestLength; ++i) {
-        error3 |= lHash.charAt(i) !== lHashPrime.charAt(i);
+        error2 |= lHash.charAt(i) !== lHashPrime.charAt(i);
       }
       var in_ps = 1;
       var index = md.digestLength;
@@ -54638,11 +54638,11 @@ var require_pkcs1 = __commonJS({
         var code = db.charCodeAt(j);
         var is_0 = code & 1 ^ 1;
         var error_mask = in_ps ? 65534 : 0;
-        error3 |= code & error_mask;
+        error2 |= code & error_mask;
         in_ps = in_ps & is_0;
         index += in_ps;
       }
-      if (error3 || db.charCodeAt(index) !== 1) {
+      if (error2 || db.charCodeAt(index) !== 1) {
         throw new Error("Invalid RSAES-OAEP padding.");
       }
       return db.substring(index + 1);
@@ -55056,9 +55056,9 @@ var require_rsa = __commonJS({
       if (md.algorithm in pki2.oids) {
         oid = pki2.oids[md.algorithm];
       } else {
-        var error3 = new Error("Unknown message digest algorithm.");
-        error3.algorithm = md.algorithm;
-        throw error3;
+        var error2 = new Error("Unknown message digest algorithm.");
+        error2.algorithm = md.algorithm;
+        throw error2;
       }
       var oidBytes = asn1.oidToDer(oid).getBytes();
       var digestInfo = asn1.create(
@@ -55154,10 +55154,10 @@ var require_rsa = __commonJS({
     pki2.rsa.decrypt = function(ed, key, pub, ml) {
       var k = Math.ceil(key.n.bitLength() / 8);
       if (ed.length !== k) {
-        var error3 = new Error("Encrypted message length is invalid.");
-        error3.length = ed.length;
-        error3.expected = k;
-        throw error3;
+        var error2 = new Error("Encrypted message length is invalid.");
+        error2.length = ed.length;
+        error2.expected = k;
+        throw error2;
       }
       var y = new BigInteger(forge2.util.createBuffer(ed).toHex(), 16);
       if (y.compareTo(key.n) >= 0) {
@@ -55533,19 +55533,19 @@ var require_rsa = __commonJS({
               var capture = {};
               var errors = [];
               if (!asn1.validate(obj, digestInfoValidator, capture, errors) || obj.value.length !== 2) {
-                var error3 = new Error(
+                var error2 = new Error(
                   "ASN.1 object does not contain a valid RSASSA-PKCS1-v1_5 DigestInfo value."
                 );
-                error3.errors = errors;
-                throw error3;
+                error2.errors = errors;
+                throw error2;
               }
               var oid = asn1.derToOid(capture.algorithmIdentifier);
               if (!(oid === forge2.oids.md2 || oid === forge2.oids.md5 || oid === forge2.oids.sha1 || oid === forge2.oids.sha224 || oid === forge2.oids.sha256 || oid === forge2.oids.sha384 || oid === forge2.oids.sha512 || oid === forge2.oids["sha512-224"] || oid === forge2.oids["sha512-256"])) {
-                var error3 = new Error(
+                var error2 = new Error(
                   "Unknown RSASSA-PKCS1-v1_5 DigestAlgorithm identifier."
                 );
-                error3.oid = oid;
-                throw error3;
+                error2.oid = oid;
+                throw error2;
               }
               if (oid === forge2.oids.md2 || oid === forge2.oids.md5) {
                 if (!("parameters" in capture)) {
@@ -55661,9 +55661,9 @@ var require_rsa = __commonJS({
       capture = {};
       errors = [];
       if (!asn1.validate(obj, rsaPrivateKeyValidator, capture, errors)) {
-        var error3 = new Error("Cannot read private key. ASN.1 object does not contain an RSAPrivateKey.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read private key. ASN.1 object does not contain an RSAPrivateKey.");
+        error2.errors = errors;
+        throw error2;
       }
       var n, e, d, p, q, dP, dQ, qInv;
       n = forge2.util.createBuffer(capture.privateKeyModulus).toHex();
@@ -55758,17 +55758,17 @@ var require_rsa = __commonJS({
       if (asn1.validate(obj, publicKeyValidator, capture, errors)) {
         var oid = asn1.derToOid(capture.publicKeyOid);
         if (oid !== pki2.oids.rsaEncryption) {
-          var error3 = new Error("Cannot read public key. Unknown OID.");
-          error3.oid = oid;
-          throw error3;
+          var error2 = new Error("Cannot read public key. Unknown OID.");
+          error2.oid = oid;
+          throw error2;
         }
         obj = capture.rsaPublicKey;
       }
       errors = [];
       if (!asn1.validate(obj, rsaPublicKeyValidator, capture, errors)) {
-        var error3 = new Error("Cannot read public key. ASN.1 object does not contain an RSAPublicKey.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read public key. ASN.1 object does not contain an RSAPublicKey.");
+        error2.errors = errors;
+        throw error2;
       }
       var n = forge2.util.createBuffer(capture.publicKeyModulus).toHex();
       var e = forge2.util.createBuffer(capture.publicKeyExponent).toHex();
@@ -55819,10 +55819,10 @@ var require_rsa = __commonJS({
       var eb = forge2.util.createBuffer();
       var k = Math.ceil(key.n.bitLength() / 8);
       if (m.length > k - 11) {
-        var error3 = new Error("Message is too long for PKCS#1 v1.5 padding.");
-        error3.length = m.length;
-        error3.max = k - 11;
-        throw error3;
+        var error2 = new Error("Message is too long for PKCS#1 v1.5 padding.");
+        error2.length = m.length;
+        error2.max = k - 11;
+        throw error2;
       }
       eb.putByte(0);
       eb.putByte(bt);
@@ -56222,9 +56222,9 @@ var require_pbe = __commonJS({
             cipherFn = forge2.des.createEncryptionCipher;
             break;
           default:
-            var error3 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
-            error3.algorithm = options.algorithm;
-            throw error3;
+            var error2 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
+            error2.algorithm = options.algorithm;
+            throw error2;
         }
         var prfAlgorithm = "hmacWith" + options.prfAlgorithm.toUpperCase();
         var md = prfAlgorithmToMessageDigest(prfAlgorithm);
@@ -56314,9 +56314,9 @@ var require_pbe = __commonJS({
           ]
         );
       } else {
-        var error3 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
-        error3.algorithm = options.algorithm;
-        throw error3;
+        var error2 = new Error("Cannot encrypt private key. Unknown encryption algorithm.");
+        error2.algorithm = options.algorithm;
+        throw error2;
       }
       var rval = asn1.create(asn1.Class.UNIVERSAL, asn1.Type.SEQUENCE, true, [
         // encryptionAlgorithm
@@ -56336,9 +56336,9 @@ var require_pbe = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, encryptedPrivateKeyValidator, capture, errors)) {
-        var error3 = new Error("Cannot read encrypted private key. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read encrypted private key. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
+        error2.errors = errors;
+        throw error2;
       }
       var oid = asn1.derToOid(capture.encryptionOid);
       var cipher = pki2.pbe.getCipher(oid, capture.encryptionParams, password);
@@ -56359,9 +56359,9 @@ var require_pbe = __commonJS({
     pki2.encryptedPrivateKeyFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "ENCRYPTED PRIVATE KEY") {
-        var error3 = new Error('Could not convert encrypted private key from PEM; PEM header type is "ENCRYPTED PRIVATE KEY".');
-        error3.headerType = msg.type;
-        throw error3;
+        var error2 = new Error('Could not convert encrypted private key from PEM; PEM header type is "ENCRYPTED PRIVATE KEY".');
+        error2.headerType = msg.type;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert encrypted private key from PEM; PEM is encrypted.");
@@ -56411,9 +56411,9 @@ var require_pbe = __commonJS({
           cipherFn = forge2.des.createEncryptionCipher;
           break;
         default:
-          var error3 = new Error('Could not encrypt RSA private key; unsupported encryption algorithm "' + options.algorithm + '".');
-          error3.algorithm = options.algorithm;
-          throw error3;
+          var error2 = new Error('Could not encrypt RSA private key; unsupported encryption algorithm "' + options.algorithm + '".');
+          error2.algorithm = options.algorithm;
+          throw error2;
       }
       var dk = forge2.pbe.opensslDeriveBytes(password, iv.substr(0, 8), dkLen);
       var cipher = cipherFn(dk);
@@ -56438,9 +56438,9 @@ var require_pbe = __commonJS({
       var rval = null;
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "ENCRYPTED PRIVATE KEY" && msg.type !== "PRIVATE KEY" && msg.type !== "RSA PRIVATE KEY") {
-        var error3 = new Error('Could not convert private key from PEM; PEM header type is not "ENCRYPTED PRIVATE KEY", "PRIVATE KEY", or "RSA PRIVATE KEY".');
-        error3.headerType = error3;
-        throw error3;
+        var error2 = new Error('Could not convert private key from PEM; PEM header type is not "ENCRYPTED PRIVATE KEY", "PRIVATE KEY", or "RSA PRIVATE KEY".');
+        error2.headerType = error2;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         var dkLen;
@@ -56485,9 +56485,9 @@ var require_pbe = __commonJS({
             };
             break;
           default:
-            var error3 = new Error('Could not decrypt private key; unsupported encryption algorithm "' + msg.dekInfo.algorithm + '".');
-            error3.algorithm = msg.dekInfo.algorithm;
-            throw error3;
+            var error2 = new Error('Could not decrypt private key; unsupported encryption algorithm "' + msg.dekInfo.algorithm + '".');
+            error2.algorithm = msg.dekInfo.algorithm;
+            throw error2;
         }
         var iv = forge2.util.hexToBytes(msg.dekInfo.parameters);
         var dk = forge2.pbe.opensslDeriveBytes(password, iv.substr(0, 8), dkLen);
@@ -56586,43 +56586,43 @@ var require_pbe = __commonJS({
         case pki2.oids["pbewithSHAAnd40BitRC2-CBC"]:
           return pki2.pbe.getCipherForPKCS12PBE(oid, params, password);
         default:
-          var error3 = new Error("Cannot read encrypted PBE data block. Unsupported OID.");
-          error3.oid = oid;
-          error3.supportedOids = [
+          var error2 = new Error("Cannot read encrypted PBE data block. Unsupported OID.");
+          error2.oid = oid;
+          error2.supportedOids = [
             "pkcs5PBES2",
             "pbeWithSHAAnd3-KeyTripleDES-CBC",
             "pbewithSHAAnd40BitRC2-CBC"
           ];
-          throw error3;
+          throw error2;
       }
     };
     pki2.pbe.getCipherForPBES2 = function(oid, params, password) {
       var capture = {};
       var errors = [];
       if (!asn1.validate(params, PBES2AlgorithmsValidator, capture, errors)) {
-        var error3 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
+        error2.errors = errors;
+        throw error2;
       }
       oid = asn1.derToOid(capture.kdfOid);
       if (oid !== pki2.oids["pkcs5PBKDF2"]) {
-        var error3 = new Error("Cannot read encrypted private key. Unsupported key derivation function OID.");
-        error3.oid = oid;
-        error3.supportedOids = ["pkcs5PBKDF2"];
-        throw error3;
+        var error2 = new Error("Cannot read encrypted private key. Unsupported key derivation function OID.");
+        error2.oid = oid;
+        error2.supportedOids = ["pkcs5PBKDF2"];
+        throw error2;
       }
       oid = asn1.derToOid(capture.encOid);
       if (oid !== pki2.oids["aes128-CBC"] && oid !== pki2.oids["aes192-CBC"] && oid !== pki2.oids["aes256-CBC"] && oid !== pki2.oids["des-EDE3-CBC"] && oid !== pki2.oids["desCBC"]) {
-        var error3 = new Error("Cannot read encrypted private key. Unsupported encryption scheme OID.");
-        error3.oid = oid;
-        error3.supportedOids = [
+        var error2 = new Error("Cannot read encrypted private key. Unsupported encryption scheme OID.");
+        error2.oid = oid;
+        error2.supportedOids = [
           "aes128-CBC",
           "aes192-CBC",
           "aes256-CBC",
           "des-EDE3-CBC",
           "desCBC"
         ];
-        throw error3;
+        throw error2;
       }
       var salt = capture.kdfSalt;
       var count = forge2.util.createBuffer(capture.kdfIterationCount);
@@ -56662,9 +56662,9 @@ var require_pbe = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(params, pkcs12PbeParamsValidator, capture, errors)) {
-        var error3 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read password-based-encryption algorithm parameters. ASN.1 object is not a supported EncryptedPrivateKeyInfo.");
+        error2.errors = errors;
+        throw error2;
       }
       var salt = forge2.util.createBuffer(capture.salt);
       var count = forge2.util.createBuffer(capture.iterations);
@@ -56686,9 +56686,9 @@ var require_pbe = __commonJS({
           };
           break;
         default:
-          var error3 = new Error("Cannot read PKCS #12 PBE data block. Unsupported OID.");
-          error3.oid = oid;
-          throw error3;
+          var error2 = new Error("Cannot read PKCS #12 PBE data block. Unsupported OID.");
+          error2.oid = oid;
+          throw error2;
       }
       var md = prfOidToMessageDigest(capture.prfOid);
       var key = pki2.pbe.generatePkcs12Key(password, salt, 1, count, dkLen, md);
@@ -56722,16 +56722,16 @@ var require_pbe = __commonJS({
       } else {
         prfAlgorithm = pki2.oids[asn1.derToOid(prfOid)];
         if (!prfAlgorithm) {
-          var error3 = new Error("Unsupported PRF OID.");
-          error3.oid = prfOid;
-          error3.supported = [
+          var error2 = new Error("Unsupported PRF OID.");
+          error2.oid = prfOid;
+          error2.supported = [
             "hmacWithSHA1",
             "hmacWithSHA224",
             "hmacWithSHA256",
             "hmacWithSHA384",
             "hmacWithSHA512"
           ];
-          throw error3;
+          throw error2;
         }
       }
       return prfAlgorithmToMessageDigest(prfAlgorithm);
@@ -56748,16 +56748,16 @@ var require_pbe = __commonJS({
           prfAlgorithm = prfAlgorithm.substr(8).toLowerCase();
           break;
         default:
-          var error3 = new Error("Unsupported PRF algorithm.");
-          error3.algorithm = prfAlgorithm;
-          error3.supported = [
+          var error2 = new Error("Unsupported PRF algorithm.");
+          error2.algorithm = prfAlgorithm;
+          error2.supported = [
             "hmacWithSHA1",
             "hmacWithSHA224",
             "hmacWithSHA256",
             "hmacWithSHA384",
             "hmacWithSHA512"
           ];
-          throw error3;
+          throw error2;
       }
       if (!factory2 || !(prfAlgorithm in factory2)) {
         throw new Error("Unknown hash algorithm: " + prfAlgorithm);
@@ -57754,9 +57754,9 @@ var require_x509 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, rsassaPssParameterValidator, capture, errors)) {
-        var error3 = new Error("Cannot read RSASSA-PSS parameter block.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read RSASSA-PSS parameter block.");
+        error2.errors = errors;
+        throw error2;
       }
       if (capture.hashOid !== void 0) {
         params.hash = params.hash || {};
@@ -57790,11 +57790,11 @@ var require_x509 = __commonJS({
         case "RSASSA-PSS":
           return forge2.md.sha256.create();
         default:
-          var error3 = new Error(
+          var error2 = new Error(
             "Could not compute " + options.type + " digest. Unknown signature OID."
           );
-          error3.signatureOid = options.signatureOid;
-          throw error3;
+          error2.signatureOid = options.signatureOid;
+          throw error2;
       }
     };
     var _verifySignature = function(options) {
@@ -57809,25 +57809,25 @@ var require_x509 = __commonJS({
           var hash, mgf;
           hash = oids[cert.signatureParameters.mgf.hash.algorithmOid];
           if (hash === void 0 || forge2.md[hash] === void 0) {
-            var error3 = new Error("Unsupported MGF hash function.");
-            error3.oid = cert.signatureParameters.mgf.hash.algorithmOid;
-            error3.name = hash;
-            throw error3;
+            var error2 = new Error("Unsupported MGF hash function.");
+            error2.oid = cert.signatureParameters.mgf.hash.algorithmOid;
+            error2.name = hash;
+            throw error2;
           }
           mgf = oids[cert.signatureParameters.mgf.algorithmOid];
           if (mgf === void 0 || forge2.mgf[mgf] === void 0) {
-            var error3 = new Error("Unsupported MGF function.");
-            error3.oid = cert.signatureParameters.mgf.algorithmOid;
-            error3.name = mgf;
-            throw error3;
+            var error2 = new Error("Unsupported MGF function.");
+            error2.oid = cert.signatureParameters.mgf.algorithmOid;
+            error2.name = mgf;
+            throw error2;
           }
           mgf = forge2.mgf[mgf].create(forge2.md[hash].create());
           hash = oids[cert.signatureParameters.hash.algorithmOid];
           if (hash === void 0 || forge2.md[hash] === void 0) {
-            var error3 = new Error("Unsupported RSASSA-PSS hash function.");
-            error3.oid = cert.signatureParameters.hash.algorithmOid;
-            error3.name = hash;
-            throw error3;
+            var error2 = new Error("Unsupported RSASSA-PSS hash function.");
+            error2.oid = cert.signatureParameters.hash.algorithmOid;
+            error2.name = hash;
+            throw error2;
           }
           scheme = forge2.pss.create(
             forge2.md[hash].create(),
@@ -57845,11 +57845,11 @@ var require_x509 = __commonJS({
     pki2.certificateFromPem = function(pem, computeHash, strict) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "CERTIFICATE" && msg.type !== "X509 CERTIFICATE" && msg.type !== "TRUSTED CERTIFICATE") {
-        var error3 = new Error(
+        var error2 = new Error(
           'Could not convert certificate from PEM; PEM header type is not "CERTIFICATE", "X509 CERTIFICATE", or "TRUSTED CERTIFICATE".'
         );
-        error3.headerType = msg.type;
-        throw error3;
+        error2.headerType = msg.type;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error(
@@ -57869,9 +57869,9 @@ var require_x509 = __commonJS({
     pki2.publicKeyFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "PUBLIC KEY" && msg.type !== "RSA PUBLIC KEY") {
-        var error3 = new Error('Could not convert public key from PEM; PEM header type is not "PUBLIC KEY" or "RSA PUBLIC KEY".');
-        error3.headerType = msg.type;
-        throw error3;
+        var error2 = new Error('Could not convert public key from PEM; PEM header type is not "PUBLIC KEY" or "RSA PUBLIC KEY".');
+        error2.headerType = msg.type;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert public key from PEM; PEM is encrypted.");
@@ -57927,9 +57927,9 @@ var require_x509 = __commonJS({
     pki2.certificationRequestFromPem = function(pem, computeHash, strict) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "CERTIFICATE REQUEST") {
-        var error3 = new Error('Could not convert certification request from PEM; PEM header type is not "CERTIFICATE REQUEST".');
-        error3.headerType = msg.type;
-        throw error3;
+        var error2 = new Error('Could not convert certification request from PEM; PEM header type is not "CERTIFICATE REQUEST".');
+        error2.headerType = msg.type;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert certification request from PEM; PEM is encrypted.");
@@ -58022,9 +58022,9 @@ var require_x509 = __commonJS({
         cert.md = md || forge2.md.sha1.create();
         var algorithmOid = oids[cert.md.algorithm + "WithRSAEncryption"];
         if (!algorithmOid) {
-          var error3 = new Error("Could not compute certificate digest. Unknown message digest algorithm OID.");
-          error3.algorithm = cert.md.algorithm;
-          throw error3;
+          var error2 = new Error("Could not compute certificate digest. Unknown message digest algorithm OID.");
+          error2.algorithm = cert.md.algorithm;
+          throw error2;
         }
         cert.signatureOid = cert.siginfo.algorithmOid = algorithmOid;
         cert.tbsCertificate = pki2.getTBSCertificate(cert);
@@ -58037,12 +58037,12 @@ var require_x509 = __commonJS({
         if (!cert.issued(child)) {
           var issuer = child.issuer;
           var subject = cert.subject;
-          var error3 = new Error(
+          var error2 = new Error(
             "The parent certificate did not issue the given child certificate; the child certificate's issuer does not match the parent's subject."
           );
-          error3.expectedIssuer = subject.attributes;
-          error3.actualIssuer = issuer.attributes;
-          throw error3;
+          error2.expectedIssuer = subject.attributes;
+          error2.actualIssuer = issuer.attributes;
+          throw error2;
         }
         var md = child.md;
         if (md === null) {
@@ -58105,9 +58105,9 @@ var require_x509 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, x509CertificateValidator, capture, errors)) {
-        var error3 = new Error("Cannot read X.509 certificate. ASN.1 object is not an X509v3 Certificate.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read X.509 certificate. ASN.1 object is not an X509v3 Certificate.");
+        error2.errors = errors;
+        throw error2;
       }
       var oid = asn1.derToOid(capture.publicKeyOid);
       if (oid !== pki2.oids.rsaEncryption) {
@@ -58322,9 +58322,9 @@ var require_x509 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, certificationRequestValidator, capture, errors)) {
-        var error3 = new Error("Cannot read PKCS#10 certificate request. ASN.1 object is not a PKCS#10 CertificationRequest.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read PKCS#10 certificate request. ASN.1 object is not a PKCS#10 CertificationRequest.");
+        error2.errors = errors;
+        throw error2;
       }
       var oid = asn1.derToOid(capture.publicKeyOid);
       if (oid !== pki2.oids.rsaEncryption) {
@@ -58420,9 +58420,9 @@ var require_x509 = __commonJS({
         csr.md = md || forge2.md.sha1.create();
         var algorithmOid = oids[csr.md.algorithm + "WithRSAEncryption"];
         if (!algorithmOid) {
-          var error3 = new Error("Could not compute certification request digest. Unknown message digest algorithm OID.");
-          error3.algorithm = csr.md.algorithm;
-          throw error3;
+          var error2 = new Error("Could not compute certification request digest. Unknown message digest algorithm OID.");
+          error2.algorithm = csr.md.algorithm;
+          throw error2;
         }
         csr.signatureOid = csr.siginfo.algorithmOid = algorithmOid;
         csr.certificationRequestInfo = pki2.getCertificationRequestInfo(csr);
@@ -58504,9 +58504,9 @@ var require_x509 = __commonJS({
           if (attr.name && attr.name in pki2.oids) {
             attr.type = pki2.oids[attr.name];
           } else {
-            var error3 = new Error("Attribute type not specified.");
-            error3.attribute = attr;
-            throw error3;
+            var error2 = new Error("Attribute type not specified.");
+            error2.attribute = attr;
+            throw error2;
           }
         }
         if (typeof attr.shortName === "undefined") {
@@ -58527,9 +58527,9 @@ var require_x509 = __commonJS({
           }
         }
         if (typeof attr.value === "undefined") {
-          var error3 = new Error("Attribute value not specified.");
-          error3.attribute = attr;
-          throw error3;
+          var error2 = new Error("Attribute value not specified.");
+          error2.attribute = attr;
+          throw error2;
         }
       }
     }
@@ -58544,9 +58544,9 @@ var require_x509 = __commonJS({
         if (e.name && e.name in pki2.oids) {
           e.id = pki2.oids[e.name];
         } else {
-          var error3 = new Error("Extension ID not specified.");
-          error3.extension = e;
-          throw error3;
+          var error2 = new Error("Extension ID not specified.");
+          error2.extension = e;
+          throw error2;
         }
       }
       if (typeof e.value !== "undefined") {
@@ -58709,11 +58709,11 @@ var require_x509 = __commonJS({
           if (altName.type === 7 && altName.ip) {
             value = forge2.util.bytesFromIP(altName.ip);
             if (value === null) {
-              var error3 = new Error(
+              var error2 = new Error(
                 'Extension "ip" value is not a valid IPv4 or IPv6 address.'
               );
-              error3.extension = e;
-              throw error3;
+              error2.extension = e;
+              throw error2;
             }
           } else if (altName.type === 8) {
             if (altName.oid) {
@@ -58795,11 +58795,11 @@ var require_x509 = __commonJS({
           if (altName.type === 7 && altName.ip) {
             value = forge2.util.bytesFromIP(altName.ip);
             if (value === null) {
-              var error3 = new Error(
+              var error2 = new Error(
                 'Extension "ip" value is not a valid IPv4 or IPv6 address.'
               );
-              error3.extension = e;
-              throw error3;
+              error2.extension = e;
+              throw error2;
             }
           } else if (altName.type === 8) {
             if (altName.oid) {
@@ -58824,9 +58824,9 @@ var require_x509 = __commonJS({
         seq.push(subSeq);
       }
       if (typeof e.value === "undefined") {
-        var error3 = new Error("Extension value not specified.");
-        error3.extension = e;
-        throw error3;
+        var error2 = new Error("Extension value not specified.");
+        error2.extension = e;
+        throw error2;
       }
       return e;
     }
@@ -59263,7 +59263,7 @@ var require_x509 = __commonJS({
         validityCheckDate = /* @__PURE__ */ new Date();
       }
       var first = true;
-      var error3 = null;
+      var error2 = null;
       var depth = 0;
       do {
         var cert = chain.shift();
@@ -59271,7 +59271,7 @@ var require_x509 = __commonJS({
         var selfSigned = false;
         if (validityCheckDate) {
           if (validityCheckDate < cert.validity.notBefore || validityCheckDate > cert.validity.notAfter) {
-            error3 = {
+            error2 = {
               message: "Certificate is not valid yet or has expired.",
               error: pki2.certificateError.certificate_expired,
               notBefore: cert.validity.notBefore,
@@ -59282,7 +59282,7 @@ var require_x509 = __commonJS({
             };
           }
         }
-        if (error3 === null) {
+        if (error2 === null) {
           parent = chain[0] || caStore.getIssuer(cert);
           if (parent === null) {
             if (cert.isIssuer(cert)) {
@@ -59304,80 +59304,80 @@ var require_x509 = __commonJS({
               }
             }
             if (!verified) {
-              error3 = {
+              error2 = {
                 message: "Certificate signature is invalid.",
                 error: pki2.certificateError.bad_certificate
               };
             }
           }
-          if (error3 === null && (!parent || selfSigned) && !caStore.hasCertificate(cert)) {
-            error3 = {
+          if (error2 === null && (!parent || selfSigned) && !caStore.hasCertificate(cert)) {
+            error2 = {
               message: "Certificate is not trusted.",
               error: pki2.certificateError.unknown_ca
             };
           }
         }
-        if (error3 === null && parent && !cert.isIssuer(parent)) {
-          error3 = {
+        if (error2 === null && parent && !cert.isIssuer(parent)) {
+          error2 = {
             message: "Certificate issuer is invalid.",
             error: pki2.certificateError.bad_certificate
           };
         }
-        if (error3 === null) {
+        if (error2 === null) {
           var se = {
             keyUsage: true,
             basicConstraints: true
           };
-          for (var i = 0; error3 === null && i < cert.extensions.length; ++i) {
+          for (var i = 0; error2 === null && i < cert.extensions.length; ++i) {
             var ext = cert.extensions[i];
             if (ext.critical && !(ext.name in se)) {
-              error3 = {
+              error2 = {
                 message: "Certificate has an unsupported critical extension.",
                 error: pki2.certificateError.unsupported_certificate
               };
             }
           }
         }
-        if (error3 === null && (!first || chain.length === 0 && (!parent || selfSigned))) {
+        if (error2 === null && (!first || chain.length === 0 && (!parent || selfSigned))) {
           var bcExt = cert.getExtension("basicConstraints");
           var keyUsageExt = cert.getExtension("keyUsage");
           if (keyUsageExt !== null) {
             if (!keyUsageExt.keyCertSign || bcExt === null) {
-              error3 = {
+              error2 = {
                 message: "Certificate keyUsage or basicConstraints conflict or indicate that the certificate is not a CA. If the certificate is the only one in the chain or isn't the first then the certificate must be a valid CA.",
                 error: pki2.certificateError.bad_certificate
               };
             }
           }
-          if (error3 === null && bcExt === null) {
-            error3 = {
+          if (error2 === null && bcExt === null) {
+            error2 = {
               message: "Certificate is missing basicConstraints extension and cannot be used as a CA.",
               error: pki2.certificateError.bad_certificate
             };
           }
-          if (error3 === null && bcExt !== null && !bcExt.cA) {
-            error3 = {
+          if (error2 === null && bcExt !== null && !bcExt.cA) {
+            error2 = {
               message: "Certificate basicConstraints indicates the certificate is not a CA.",
               error: pki2.certificateError.bad_certificate
             };
           }
-          if (error3 === null && keyUsageExt !== null && "pathLenConstraint" in bcExt) {
+          if (error2 === null && keyUsageExt !== null && "pathLenConstraint" in bcExt) {
             var pathLen = depth - 1;
             if (pathLen > bcExt.pathLenConstraint) {
-              error3 = {
+              error2 = {
                 message: "Certificate basicConstraints pathLenConstraint violated.",
                 error: pki2.certificateError.bad_certificate
               };
             }
           }
         }
-        var vfd = error3 === null ? true : error3.error;
+        var vfd = error2 === null ? true : error2.error;
         var ret = options.verify ? options.verify(vfd, depth, certs) : vfd;
         if (ret === true) {
-          error3 = null;
+          error2 = null;
         } else {
           if (vfd === true) {
-            error3 = {
+            error2 = {
               message: "The application rejected the certificate.",
               error: pki2.certificateError.bad_certificate
             };
@@ -59385,16 +59385,16 @@ var require_x509 = __commonJS({
           if (ret || ret === 0) {
             if (typeof ret === "object" && !forge2.util.isArray(ret)) {
               if (ret.message) {
-                error3.message = ret.message;
+                error2.message = ret.message;
               }
               if (ret.error) {
-                error3.error = ret.error;
+                error2.error = ret.error;
               }
             } else if (typeof ret === "string") {
-              error3.error = ret;
+              error2.error = ret;
             }
           }
-          throw error3;
+          throw error2;
         }
         first = false;
         ++depth;
@@ -59608,9 +59608,9 @@ var require_pkcs12 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, pfxValidator, capture, errors)) {
-        var error3 = new Error("Cannot read PKCS#12 PFX. ASN.1 object is not an PKCS#12 PFX.");
-        error3.errors = error3;
-        throw error3;
+        var error2 = new Error("Cannot read PKCS#12 PFX. ASN.1 object is not an PKCS#12 PFX.");
+        error2.errors = error2;
+        throw error2;
       }
       var pfx = {
         version: capture.version.charCodeAt(0),
@@ -59700,14 +59700,14 @@ var require_pkcs12 = __commonJS({
         }
       };
       if (capture.version.charCodeAt(0) !== 3) {
-        var error3 = new Error("PKCS#12 PFX of version other than 3 not supported.");
-        error3.version = capture.version.charCodeAt(0);
-        throw error3;
+        var error2 = new Error("PKCS#12 PFX of version other than 3 not supported.");
+        error2.version = capture.version.charCodeAt(0);
+        throw error2;
       }
       if (asn1.derToOid(capture.contentType) !== pki2.oids.data) {
-        var error3 = new Error("Only PKCS#12 PFX in password integrity mode supported.");
-        error3.oid = asn1.derToOid(capture.contentType);
-        throw error3;
+        var error2 = new Error("Only PKCS#12 PFX in password integrity mode supported.");
+        error2.oid = asn1.derToOid(capture.contentType);
+        throw error2;
       }
       var data = capture.content.value[0];
       if (data.tagClass !== asn1.Class.UNIVERSAL || data.type !== asn1.Type.OCTETSTRING) {
@@ -59787,9 +59787,9 @@ var require_pkcs12 = __commonJS({
         var capture = {};
         var errors = [];
         if (!asn1.validate(contentInfo, contentInfoValidator, capture, errors)) {
-          var error3 = new Error("Cannot read ContentInfo.");
-          error3.errors = errors;
-          throw error3;
+          var error2 = new Error("Cannot read ContentInfo.");
+          error2.errors = errors;
+          throw error2;
         }
         var obj = {
           encrypted: false
@@ -59808,9 +59808,9 @@ var require_pkcs12 = __commonJS({
             obj.encrypted = true;
             break;
           default:
-            var error3 = new Error("Unsupported PKCS#12 contentType.");
-            error3.contentType = asn1.derToOid(capture.contentType);
-            throw error3;
+            var error2 = new Error("Unsupported PKCS#12 contentType.");
+            error2.contentType = asn1.derToOid(capture.contentType);
+            throw error2;
         }
         obj.safeBags = _decodeSafeContents(safeContents, strict, password);
         pfx.safeContents.push(obj);
@@ -59825,17 +59825,17 @@ var require_pkcs12 = __commonJS({
         capture,
         errors
       )) {
-        var error3 = new Error("Cannot read EncryptedContentInfo.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read EncryptedContentInfo.");
+        error2.errors = errors;
+        throw error2;
       }
       var oid = asn1.derToOid(capture.contentType);
       if (oid !== pki2.oids.data) {
-        var error3 = new Error(
+        var error2 = new Error(
           "PKCS#12 EncryptedContentInfo ContentType is not Data."
         );
-        error3.oid = oid;
-        throw error3;
+        error2.oid = oid;
+        throw error2;
       }
       oid = asn1.derToOid(capture.encAlgorithm);
       var cipher = pki2.pbe.getCipher(oid, capture.encParameter, password);
@@ -59863,9 +59863,9 @@ var require_pkcs12 = __commonJS({
         var capture = {};
         var errors = [];
         if (!asn1.validate(safeBag, safeBagValidator, capture, errors)) {
-          var error3 = new Error("Cannot read SafeBag.");
-          error3.errors = errors;
-          throw error3;
+          var error2 = new Error("Cannot read SafeBag.");
+          error2.errors = errors;
+          throw error2;
         }
         var bag = {
           type: asn1.derToOid(capture.bagId),
@@ -59896,11 +59896,11 @@ var require_pkcs12 = __commonJS({
             validator = certBagValidator;
             decoder = function() {
               if (asn1.derToOid(capture.certId) !== pki2.oids.x509Certificate) {
-                var error4 = new Error(
+                var error3 = new Error(
                   "Unsupported certificate type, only X.509 supported."
                 );
-                error4.oid = asn1.derToOid(capture.certId);
-                throw error4;
+                error3.oid = asn1.derToOid(capture.certId);
+                throw error3;
               }
               var certAsn1 = asn1.fromDer(capture.cert, strict);
               try {
@@ -59912,14 +59912,14 @@ var require_pkcs12 = __commonJS({
             };
             break;
           default:
-            var error3 = new Error("Unsupported PKCS#12 SafeBag type.");
-            error3.oid = bag.type;
-            throw error3;
+            var error2 = new Error("Unsupported PKCS#12 SafeBag type.");
+            error2.oid = bag.type;
+            throw error2;
         }
         if (validator !== void 0 && !asn1.validate(bagAsn1, validator, capture, errors)) {
-          var error3 = new Error("Cannot read PKCS#12 " + validator.name);
-          error3.errors = errors;
-          throw error3;
+          var error2 = new Error("Cannot read PKCS#12 " + validator.name);
+          error2.errors = errors;
+          throw error2;
         }
         decoder();
       }
@@ -59932,9 +59932,9 @@ var require_pkcs12 = __commonJS({
           var capture = {};
           var errors = [];
           if (!asn1.validate(attributes[i], attributeValidator, capture, errors)) {
-            var error3 = new Error("Cannot read PKCS#12 BagAttribute.");
-            error3.errors = errors;
-            throw error3;
+            var error2 = new Error("Cannot read PKCS#12 BagAttribute.");
+            error2.errors = errors;
+            throw error2;
           }
           var oid = asn1.derToOid(capture.oid);
           if (pki2.oids[oid] === void 0) {
@@ -60293,9 +60293,9 @@ var require_pki = __commonJS({
     pki2.privateKeyFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "PRIVATE KEY" && msg.type !== "RSA PRIVATE KEY") {
-        var error3 = new Error('Could not convert private key from PEM; PEM header type is not "PRIVATE KEY" or "RSA PRIVATE KEY".');
-        error3.headerType = msg.type;
-        throw error3;
+        var error2 = new Error('Could not convert private key from PEM; PEM header type is not "PRIVATE KEY" or "RSA PRIVATE KEY".');
+        error2.headerType = msg.type;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert private key from PEM; PEM is encrypted.");
@@ -61007,7 +61007,7 @@ var require_tls = __commonJS({
         });
       }
       if (c.serverCertificate === null) {
-        var error3 = {
+        var error2 = {
           message: "No server certificate provided. Not enough security.",
           send: true,
           alert: {
@@ -61016,21 +61016,21 @@ var require_tls = __commonJS({
           }
         };
         var depth = 0;
-        var ret = c.verify(c, error3.alert.description, depth, []);
+        var ret = c.verify(c, error2.alert.description, depth, []);
         if (ret !== true) {
           if (ret || ret === 0) {
             if (typeof ret === "object" && !forge2.util.isArray(ret)) {
               if (ret.message) {
-                error3.message = ret.message;
+                error2.message = ret.message;
               }
               if (ret.alert) {
-                error3.alert.description = ret.alert;
+                error2.alert.description = ret.alert;
               }
             } else if (typeof ret === "number") {
-              error3.alert.description = ret;
+              error2.alert.description = ret;
             }
           }
-          return c.error(c, error3);
+          return c.error(c, error2);
         }
       }
       if (c.session.certificateRequest !== null) {
@@ -61678,9 +61678,9 @@ var require_tls = __commonJS({
           for (var i = 0; i < cert.length; ++i) {
             var msg = forge2.pem.decode(cert[i])[0];
             if (msg.type !== "CERTIFICATE" && msg.type !== "X509 CERTIFICATE" && msg.type !== "TRUSTED CERTIFICATE") {
-              var error3 = new Error('Could not convert certificate from PEM; PEM header type is not "CERTIFICATE", "X509 CERTIFICATE", or "TRUSTED CERTIFICATE".');
-              error3.headerType = msg.type;
-              throw error3;
+              var error2 = new Error('Could not convert certificate from PEM; PEM header type is not "CERTIFICATE", "X509 CERTIFICATE", or "TRUSTED CERTIFICATE".');
+              error2.headerType = msg.type;
+              throw error2;
             }
             if (msg.procType && msg.procType.type === "ENCRYPTED") {
               throw new Error("Could not convert certificate from PEM; PEM is encrypted.");
@@ -61906,8 +61906,8 @@ var require_tls = __commonJS({
       c.records = [];
       return c.tlsDataReady(c);
     };
-    var _certErrorToAlertDesc = function(error3) {
-      switch (error3) {
+    var _certErrorToAlertDesc = function(error2) {
+      switch (error2) {
         case true:
           return true;
         case forge2.pki.certificateError.bad_certificate:
@@ -61957,19 +61957,19 @@ var require_tls = __commonJS({
           var ret = c.verify(c, vfd, depth, chain2);
           if (ret !== true) {
             if (typeof ret === "object" && !forge2.util.isArray(ret)) {
-              var error3 = new Error("The application rejected the certificate.");
-              error3.send = true;
-              error3.alert = {
+              var error2 = new Error("The application rejected the certificate.");
+              error2.send = true;
+              error2.alert = {
                 level: tls.Alert.Level.fatal,
                 description: tls.Alert.Description.bad_certificate
               };
               if (ret.message) {
-                error3.message = ret.message;
+                error2.message = ret.message;
               }
               if (ret.alert) {
-                error3.alert.description = ret.alert;
+                error2.alert.description = ret.alert;
               }
-              throw error3;
+              throw error2;
             }
             if (ret !== vfd) {
               ret = _alertDescToCertError(ret);
@@ -62100,12 +62100,12 @@ var require_tls = __commonJS({
             tls.queue(c2, tls.createAlert(c2, ex.alert));
             tls.flush(c2);
           }
-          var fatal2 = ex.fatal !== false;
-          if (fatal2) {
+          var fatal = ex.fatal !== false;
+          if (fatal) {
             c2.fail = true;
           }
           options.error(c2, ex);
-          if (fatal2) {
+          if (fatal) {
             c2.close(false);
           }
         },
@@ -63053,9 +63053,9 @@ var require_ed25519 = __commonJS({
       var errors = [];
       var valid = forge2.asn1.validate(obj, privateKeyValidator, capture, errors);
       if (!valid) {
-        var error3 = new Error("Invalid Key.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Invalid Key.");
+        error2.errors = errors;
+        throw error2;
       }
       var oid = forge2.asn1.derToOid(capture.privateKeyOid);
       var ed25519Oid = forge2.oids.EdDSA25519;
@@ -63074,9 +63074,9 @@ var require_ed25519 = __commonJS({
       var errors = [];
       var valid = forge2.asn1.validate(obj, publicKeyValidator, capture, errors);
       if (!valid) {
-        var error3 = new Error("Invalid Key.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Invalid Key.");
+        error2.errors = errors;
+        throw error2;
       }
       var oid = forge2.asn1.derToOid(capture.publicKeyOid);
       var ed25519Oid = forge2.oids.EdDSA25519;
@@ -64377,9 +64377,9 @@ var require_pkcs7 = __commonJS({
     p7.messageFromPem = function(pem) {
       var msg = forge2.pem.decode(pem)[0];
       if (msg.type !== "PKCS7") {
-        var error3 = new Error('Could not convert PKCS#7 message from PEM; PEM header type is not "PKCS#7".');
-        error3.headerType = msg.type;
-        throw error3;
+        var error2 = new Error('Could not convert PKCS#7 message from PEM; PEM header type is not "PKCS#7".');
+        error2.headerType = msg.type;
+        throw error2;
       }
       if (msg.procType && msg.procType.type === "ENCRYPTED") {
         throw new Error("Could not convert PKCS#7 message from PEM; PEM is encrypted.");
@@ -64398,9 +64398,9 @@ var require_pkcs7 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, p7.asn1.contentInfoValidator, capture, errors)) {
-        var error3 = new Error("Cannot read PKCS#7 message. ASN.1 object is not an PKCS#7 ContentInfo.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read PKCS#7 message. ASN.1 object is not an PKCS#7 ContentInfo.");
+        error2.errors = errors;
+        throw error2;
       }
       var contentType = asn1.derToOid(capture.contentType);
       var msg;
@@ -65031,9 +65031,9 @@ var require_pkcs7 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, p7.asn1.recipientInfoValidator, capture, errors)) {
-        var error3 = new Error("Cannot read PKCS#7 RecipientInfo. ASN.1 object is not an PKCS#7 RecipientInfo.");
-        error3.errors = errors;
-        throw error3;
+        var error2 = new Error("Cannot read PKCS#7 RecipientInfo. ASN.1 object is not an PKCS#7 RecipientInfo.");
+        error2.errors = errors;
+        throw error2;
       }
       return {
         version: capture.version.charCodeAt(0),
@@ -65274,9 +65274,9 @@ var require_pkcs7 = __commonJS({
       var capture = {};
       var errors = [];
       if (!asn1.validate(obj, validator, capture, errors)) {
-        var error3 = new Error("Cannot read PKCS#7 message. ASN.1 object is not a supported PKCS#7 message.");
-        error3.errors = error3;
-        throw error3;
+        var error2 = new Error("Cannot read PKCS#7 message. ASN.1 object is not a supported PKCS#7 message.");
+        error2.errors = error2;
+        throw error2;
       }
       var contentType = asn1.derToOid(capture.contentType);
       if (contentType !== forge2.pki.oids.data) {
@@ -70177,45 +70177,45 @@ var require_esprima = __commonJS({
                 this.errors = [];
                 this.tolerant = false;
               }
-              ErrorHandler2.prototype.recordError = function(error3) {
-                this.errors.push(error3);
+              ErrorHandler2.prototype.recordError = function(error2) {
+                this.errors.push(error2);
               };
-              ErrorHandler2.prototype.tolerate = function(error3) {
+              ErrorHandler2.prototype.tolerate = function(error2) {
                 if (this.tolerant) {
-                  this.recordError(error3);
+                  this.recordError(error2);
                 } else {
-                  throw error3;
+                  throw error2;
                 }
               };
               ErrorHandler2.prototype.constructError = function(msg, column) {
-                var error3 = new Error(msg);
+                var error2 = new Error(msg);
                 try {
-                  throw error3;
+                  throw error2;
                 } catch (base) {
                   if (Object.create && Object.defineProperty) {
-                    error3 = Object.create(base);
-                    Object.defineProperty(error3, "column", { value: column });
+                    error2 = Object.create(base);
+                    Object.defineProperty(error2, "column", { value: column });
                   }
                 }
-                return error3;
+                return error2;
               };
               ErrorHandler2.prototype.createError = function(index, line, col, description) {
                 var msg = "Line " + line + ": " + description;
-                var error3 = this.constructError(msg, col);
-                error3.index = index;
-                error3.lineNumber = line;
-                error3.description = description;
-                return error3;
+                var error2 = this.constructError(msg, col);
+                error2.index = index;
+                error2.lineNumber = line;
+                error2.description = description;
+                return error2;
               };
               ErrorHandler2.prototype.throwError = function(index, line, col, description) {
                 throw this.createError(index, line, col, description);
               };
               ErrorHandler2.prototype.tolerateError = function(index, line, col, description) {
-                var error3 = this.createError(index, line, col, description);
+                var error2 = this.createError(index, line, col, description);
                 if (this.tolerant) {
-                  this.recordError(error3);
+                  this.recordError(error2);
                 } else {
-                  throw error3;
+                  throw error2;
                 }
               };
               return ErrorHandler2;
@@ -73129,19 +73129,19 @@ var require_parse = __commonJS({
     );
     var transform = (k, { value, context = {} }) => reviver ? reviver(k, value, context) : value;
     var unexpected = () => {
-      const error3 = new SyntaxError(`Unexpected token '${current.value.slice(0, 1)}', "${current_code}" is not valid JSON`);
-      Object.assign(error3, current.loc.start);
+      const error2 = new SyntaxError(`Unexpected token '${current.value.slice(0, 1)}', "${current_code}" is not valid JSON`);
+      Object.assign(error2, current.loc.start);
       free();
-      throw error3;
+      throw error2;
     };
     var unexpected_end = () => {
-      const error3 = new SyntaxError("Unexpected end of JSON input");
-      Object.assign(error3, last ? last.loc.end : {
+      const error2 = new SyntaxError("Unexpected end of JSON input");
+      Object.assign(error2, last ? last.loc.end : {
         line: 1,
         column: 0
       });
       free();
-      throw error3;
+      throw error2;
     };
     var next = () => {
       const new_token = tokens[++index];
@@ -74020,8 +74020,8 @@ var require_directives = __commonJS({
         if (prefix) {
           try {
             return prefix + decodeURIComponent(suffix);
-          } catch (error3) {
-            onError(String(error3));
+          } catch (error2) {
+            onError(String(error2));
             return null;
           }
         }
@@ -74123,9 +74123,9 @@ var require_anchors = __commonJS({
             if (typeof ref === "object" && ref.anchor && (identity.isScalar(ref.node) || identity.isCollection(ref.node))) {
               ref.node.anchor = ref.anchor;
             } else {
-              const error3 = new Error("Failed to resolve repeated object (this should not happen)");
-              error3.source = source;
-              throw error3;
+              const error2 = new Error("Failed to resolve repeated object (this should not happen)");
+              error2.source = source;
+              throw error2;
             }
           }
         },
@@ -77368,12 +77368,12 @@ var require_errors2 = __commonJS({
         super("YAMLWarning", pos, code, message);
       }
     };
-    var prettifyError = (src, lc) => (error3) => {
-      if (error3.pos[0] === -1)
+    var prettifyError = (src, lc) => (error2) => {
+      if (error2.pos[0] === -1)
         return;
-      error3.linePos = error3.pos.map((pos) => lc.linePos(pos));
-      const { line, col } = error3.linePos[0];
-      error3.message += ` at line ${line}, column ${col}`;
+      error2.linePos = error2.pos.map((pos) => lc.linePos(pos));
+      const { line, col } = error2.linePos[0];
+      error2.message += ` at line ${line}, column ${col}`;
       let ci = col - 1;
       let lineStr = src.substring(lc.lineStarts[line - 1], lc.lineStarts[line]).replace(/[\n\r]+$/, "");
       if (ci >= 60 && lineStr.length > 80) {
@@ -77391,12 +77391,12 @@ var require_errors2 = __commonJS({
       }
       if (/[^ ]/.test(lineStr)) {
         let count = 1;
-        const end = error3.linePos[1];
+        const end = error2.linePos[1];
         if (end?.line === line && end.col > col) {
           count = Math.max(1, Math.min(end.col - col, 80 - ci));
         }
         const pointer = " ".repeat(ci) + "^".repeat(count);
-        error3.message += `:
+        error2.message += `:
 
 ${lineStr}
 ${pointer}
@@ -78199,7 +78199,7 @@ var require_resolve_block_scalar = __commonJS({
       const mode = source[0];
       let indent = 0;
       let chomp = "";
-      let error3 = -1;
+      let error2 = -1;
       for (let i = 1; i < source.length; ++i) {
         const ch = source[i];
         if (!chomp && (ch === "-" || ch === "+"))
@@ -78208,12 +78208,12 @@ var require_resolve_block_scalar = __commonJS({
           const n = Number(ch);
           if (!indent && n)
             indent = n;
-          else if (error3 === -1)
-            error3 = offset + i;
+          else if (error2 === -1)
+            error2 = offset + i;
         }
       }
-      if (error3 !== -1)
-        onError(error3, "UNEXPECTED_TOKEN", `Block scalar header includes extra characters: ${source}`);
+      if (error2 !== -1)
+        onError(error2, "UNEXPECTED_TOKEN", `Block scalar header includes extra characters: ${source}`);
       let hasSpace = false;
       let comment = "";
       let length = source.length;
@@ -78507,8 +78507,8 @@ var require_compose_scalar = __commonJS({
       try {
         const res = tag.resolve(value, (msg) => onError(tagToken ?? token, "TAG_RESOLVE_FAILED", msg), ctx.options);
         scalar = identity.isScalar(res) ? res : new Scalar.Scalar(res);
-      } catch (error3) {
-        const msg = error3 instanceof Error ? error3.message : String(error3);
+      } catch (error2) {
+        const msg = error2 instanceof Error ? error2.message : String(error2);
         onError(tagToken ?? token, "TAG_RESOLVE_FAILED", msg);
         scalar = new Scalar.Scalar(value);
       }
@@ -78631,8 +78631,8 @@ var require_compose_node = __commonJS({
             node = composeCollection.composeCollection(CN, ctx, token, props, onError);
             if (anchor)
               node.anchor = anchor.source.substring(1);
-          } catch (error3) {
-            const message = error3 instanceof Error ? error3.message : String(error3);
+          } catch (error2) {
+            const message = error2 instanceof Error ? error2.message : String(error2);
             onError(token, "RESOURCE_EXHAUSTION", message);
           }
           break;
@@ -78895,11 +78895,11 @@ ${cb}` : comment;
             break;
           case "error": {
             const msg = token.source ? `${token.message}: ${JSON.stringify(token.source)}` : token.message;
-            const error3 = new errors.YAMLParseError(getErrorPos(token), "UNEXPECTED_TOKEN", msg);
+            const error2 = new errors.YAMLParseError(getErrorPos(token), "UNEXPECTED_TOKEN", msg);
             if (this.atDirectives || !this.doc)
-              this.errors.push(error3);
+              this.errors.push(error2);
             else
-              this.doc.errors.push(error3);
+              this.doc.errors.push(error2);
             break;
           }
           case "doc-end": {
@@ -80195,8 +80195,8 @@ var require_parser = __commonJS({
       peek(n) {
         return this.stack[this.stack.length - n];
       }
-      *pop(error3) {
-        const token = error3 ?? this.stack.pop();
+      *pop(error2) {
+        const token = error2 ?? this.stack.pop();
         if (!token) {
           const message = "Tried to pop an empty stack";
           yield { type: "error", offset: this.offset, source: "", message };
@@ -81441,12 +81441,12 @@ var utils_default = {
 
 // node_modules/.pnpm/axios@1.13.6/node_modules/axios/lib/core/AxiosError.js
 var AxiosError = class _AxiosError extends Error {
-  static from(error3, code, config, request, response, customProps) {
-    const axiosError = new _AxiosError(error3.message, code || error3.code, config, request, response);
-    axiosError.cause = error3;
-    axiosError.name = error3.name;
-    if (error3.status != null && axiosError.status == null) {
-      axiosError.status = error3.status;
+  static from(error2, code, config, request, response, customProps) {
+    const axiosError = new _AxiosError(error2.message, code || error2.code, config, request, response);
+    axiosError.cause = error2;
+    axiosError.name = error2.name;
+    if (error2.status != null && axiosError.status == null) {
+      axiosError.status = error2.status;
     }
     customProps && Object.assign(axiosError, customProps);
     return axiosError;
@@ -84488,15 +84488,15 @@ var Axios = class {
       const onRejected = requestInterceptorChain[i++];
       try {
         newConfig = onFulfilled(newConfig);
-      } catch (error3) {
-        onRejected.call(this, error3);
+      } catch (error2) {
+        onRejected.call(this, error2);
         break;
       }
     }
     try {
       promise = dispatchRequest.call(this, newConfig);
-    } catch (error3) {
-      return Promise.reject(error3);
+    } catch (error2) {
+      return Promise.reject(error2);
     }
     i = 0;
     len = responseInterceptorChain.length;
@@ -84829,6 +84829,7 @@ function deleteConfig() {
 // src/lib/api.ts
 var PASSPORT_BASE_URL = process.env.PATSNAP_API_URL ?? "https://passport.patsnap.com";
 var OPEN_SERVICE_BASE_URL = process.env.PATSNAP_OPEN_SERVICE_URL ?? "https://open-service.patsnap.com";
+var CONNECT_BASE_URL = process.env.PATSNAP_CONNECT_URL ?? "https://connect.patsnap.com";
 var RSA_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmEFWbIeixJuYXxEmeekjMU9i0
 39cJOQ9s5pOkuLC5TYzUAuv6kcD4VIFY4Vj/Z/laIoH3QO+Y0CLpQdsAv+OXDIq8
@@ -84853,6 +84854,14 @@ async function authedRequest() {
   if (!token) throw new Error("Not logged in. Run: patsnap login");
   return axios_default.create({
     baseURL: OPEN_SERVICE_BASE_URL,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+async function connectAuthedRequest() {
+  const token = await getToken();
+  if (!token) throw new Error("Not logged in. Run: patsnap login");
+  return axios_default.create({
+    baseURL: CONNECT_BASE_URL,
     headers: { Authorization: `Bearer ${token}` }
   });
 }
@@ -85334,8 +85343,8 @@ function readConfig(clientId) {
       mcpServers = transformed;
     }
     return { ...rawConfig, mcpServers };
-  } catch (error3) {
-    verbose(`Error reading config: ${error3 instanceof Error ? error3.message : String(error3)}`);
+  } catch (error2) {
+    verbose(`Error reading config: ${error2 instanceof Error ? error2.message : String(error2)}`);
     return { mcpServers: {} };
   }
 }
@@ -85429,39 +85438,24 @@ async function pickApiKey() {
 }
 
 // src/commands/mcp/servers.ts
-var BUILTIN_MCP_SERVERS = [
-  { id: 68, name: "global-patent-archive", display_name: "Global Patent Archive", description_en: "Complete access to patent bibliographies, claims, translations, full-text PDFs, and extended data.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent/mcp" }] },
-  { id: 69, name: "advanced-patent-search", display_name: "Advanced Patent Search", description_en: "Integrates semantic search, reverse image search, classification helpers, and nested querying.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-search/mcp" }] },
-  { id: 70, name: "fto-infringement-engine", display_name: "FTO & Infringement Engine", description_en: "Built for FTO and infringement risk mitigation, supporting multi-image comparison and deep semantic/claim analysis.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/infringement/mcp" }] },
-  { id: 71, name: "patent-legal-litigation", display_name: "Patent Legal & Litigation", description_en: "Track high-value legal intelligence including global patent litigation, invalidation, UPC status, SEPs.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-legal/mcp" }] },
-  { id: 72, name: "patent-snapshot-translator", display_name: "Patent Snapshot & Translator", description_en: "Swiftly extract tech summaries and simple legal status, while providing high-quality machine translation.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/brief/mcp" }] },
-  { id: 73, name: "patent-data-aggregation", display_name: "Patent Data Aggregation", description_en: "Offers macro-data aggregation including office statistics, tech lifecycles, 3D maps, and family/citation rankings.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/aggregation/mcp" }] },
-  { id: 74, name: "patent-mining-ontology", display_name: "Patent Mining & Ontology", description_en: "Extract value-added data, material ontologies, SEIC classifications, and application domains.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-mining/mcp" }] },
-  { id: 75, name: "patent-annuity-manager", display_name: "Patent Annuity Manager", description_en: "Combining legal status tracking with official fee interfaces for annuity management.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/annuity/mcp" }] },
-  { id: 76, name: "patent-valuation-model", display_name: "Patent Valuation Model", description_en: "Comprehensive patent valuation integrating legal, tech, market, and economic dimensions.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-value/mcp" }] },
-  { id: 77, name: "patent-landscape", display_name: "Patent Landscape", description_en: "Instantly generates advanced business charts like innovation word clouds, strategy radar maps, and citation networks.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/patent-landscape/mcp" }] },
-  { id: 79, name: "trademark-search-vision", display_name: "Trademark Search & Vision", description_en: "Delivers powerful trademark field search, reverse image search technology, and detailed trademark profile queries.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/trademark/mcp" }] },
-  { id: 80, name: "ip-academy", display_name: "IP Academy", description_en: "Connects to PatSnap Academy resources to easily access professional IP course catalogs.", category: "Ip-Intelligence", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ip/course/mcp" }] },
-  { id: 81, name: "bio-ontology-dictionary", display_name: "Bio-Ontology Dictionary", description_en: "Standardizing ontology queries and auto-complete for drugs, targets, diseases.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/bio-dict/mcp" }] },
-  { id: 82, name: "compound-sequence-search", display_name: "Compound & Sequence Search", description_en: "Supports advanced search using chemical structures and biological sequences.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/compound-sequence/mcp" }] },
-  { id: 83, name: "drug-basic-intelligence", display_name: "Drug Basic Intelligence", description_en: "Retrieval of global drug profiles, approval status, R&D milestones, special reviews.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-basic/mcp" }] },
-  { id: 84, name: "clinical-trial-analyzer", display_name: "Clinical Trial Analyzer", description_en: "Deep dive into clinical trial designs, eligibility criteria, patient group results.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-clinical/mcp" }] },
-  { id: 85, name: "drug-discovery-mining", display_name: "Drug Discovery & Mining", description_en: "Designed for early-stage R&D, supporting antigen-antibody pairing, affinity search, and deep data mining.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-mining/mcp" }] },
-  { id: 86, name: "pharma-pipeline-org-radar", display_name: "Pharma Pipeline & Org Radar", description_en: "Gain insights into pharma companies' core pipeline layouts, research funding, investment dynamics.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-org/mcp" }] },
-  { id: 87, name: "pharma-visual-analytics", display_name: "Pharma Visual Analytics", description_en: "Provides advanced visualizations like bullseye chart and R&D milestones, alongside real-time drug intelligence alerts.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/drug-visual/mcp" }] },
-  { id: 88, name: "large-molecule-alignment", display_name: "Large Molecule Alignment", description_en: "Professional submission and analysis of large molecule sequence alignments.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/large-molecule/mcp" }] },
-  { id: 89, name: "small-molecule-insights", display_name: "Small Molecule Insights", description_en: "Precision search tool for small molecules, instantly penetrating underlying scientific literature.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/small-molecule/mcp" }] },
-  { id: 67, name: "pharma-competitive-intelligence", display_name: "Pharma Competitive Intelligence", description_en: "Retrieval of global clinical trials, core drug patents, pharma deals, news, and translational medicine.", category: "Life-Sciences", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/ls/bio-medicine/mcp" }] },
-  { id: 96, name: "rims-connector", display_name: "RIMS Connector", description_en: "Tailored for R&D Innovation Management Systems (RIMS), aggregating essential data like patent transfers and licensing.", category: "Finance", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/rnd/rims/mcp" }] },
-  { id: 97, name: "scientific-literature-search", display_name: "Scientific Literature Search", description_en: "Crosses the patent barrier to provide scientific literature search, bibliographic info, author affiliations.", category: "R&D-Innovation", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/rnd/literature/mcp" }] },
-  { id: 101, name: "auto-report-generator", display_name: "Auto-Report Generator", description_en: "Automatically generates professional-grade research reports, including tech novelty validations.", category: "R&D-Innovation", connections: [{ type: "http", deployment_url: "https://connect.patsnap.com/v1/rnd/zhihuiya-report/mcp" }] }
-];
+async function fetchMcpServers() {
+  const api = await connectAuthedRequest();
+  const res = await api.get("/manager/mcp/server/my");
+  return res.data.data;
+}
 
 // src/commands/mcp/add.ts
 async function mcpAddCommand() {
   const token = await getToken();
   if (!token) {
     error("Not logged in. Run: patsnap login");
+    process.exit(1);
+  }
+  let servers;
+  try {
+    servers = await fetchMcpServers();
+  } catch (e) {
+    error(e.message);
     process.exit(1);
   }
   const clientId = await selectClient();
@@ -85483,7 +85477,7 @@ async function mcpAddCommand() {
       type: "checkbox",
       name: "selectedNames",
       message: "Select MCP servers to add (space to select, enter to confirm):",
-      choices: BUILTIN_MCP_SERVERS.map((s) => ({
+      choices: servers.map((s) => ({
         name: `[${s.category}] ${s.display_name}`,
         value: s.name,
         checked: false
@@ -85491,7 +85485,7 @@ async function mcpAddCommand() {
       validate: (v) => v.length > 0 || "Select at least one server"
     }
   ]);
-  const selected = BUILTIN_MCP_SERVERS.filter((s) => selectedNames.includes(s.name));
+  const selected = servers.filter((s) => selectedNames.includes(s.name));
   const config = readConfig(clientId);
   if (!config.mcpServers) config.mcpServers = {};
   for (const server of selected) {
@@ -85517,7 +85511,7 @@ async function mcpRemoveCommand() {
   const clientConfig = getClientConfiguration(clientId);
   const config = readConfig(clientId);
   const existing = config.mcpServers ?? {};
-  const installedNames = BUILTIN_MCP_SERVERS.map((s) => s.name).filter((n) => existing[n]);
+  const installedNames = Object.keys(existing);
   if (installedNames.length === 0) {
     info(`No Patsnap MCP servers found in ${clientConfig.label}`);
     return;
@@ -85527,10 +85521,7 @@ async function mcpRemoveCommand() {
       type: "checkbox",
       name: "toRemove",
       message: "Select MCP servers to remove:",
-      choices: installedNames.map((n) => {
-        const server = BUILTIN_MCP_SERVERS.find((s) => s.name === n);
-        return { name: server?.display_name ?? n, value: n, checked: true };
-      })
+      choices: installedNames.map((n) => ({ name: n, value: n, checked: true }))
     }
   ]);
   if (toRemove.length === 0) {
@@ -85554,17 +85545,13 @@ async function mcpListCommand(options) {
       const config = readConfig(clientId);
       const servers = config.mcpServers ?? {};
       for (const [name, entry] of Object.entries(servers)) {
-        if (BUILTIN_MCP_SERVERS.some((s) => s.name === name)) {
-          const server = BUILTIN_MCP_SERVERS.find((s) => s.name === name);
-          let displayUrl = entry.url ?? "";
-          displayUrl = displayUrl.replace(/[?&]apikey=[^&]*/g, "?apikey=***");
-          rows.push({
-            client: clientConfig.label,
-            name,
-            category: server?.category ?? "",
-            url: displayUrl
-          });
-        }
+        let displayUrl = entry.url ?? "";
+        displayUrl = displayUrl.replace(/[?&]apikey=[^&]*/g, "?apikey=***");
+        rows.push({
+          client: clientConfig.label,
+          name,
+          url: displayUrl
+        });
       }
     } catch {
     }
@@ -85578,24 +85565,25 @@ async function mcpListCommand(options) {
     columns: [
       { key: "client", header: "CLIENT" },
       { key: "name", header: "SERVER" },
-      { key: "category", header: "CATEGORY" },
       { key: "url", header: "URL" }
     ],
     json: isJsonMode()
   });
 }
 
-// src/lib/errors.ts
-function fatal(message) {
-  console.error(message);
-  process.exit(1);
-}
-
 // src/commands/mcp/get.ts
 async function mcpGetCommand(name) {
-  const server = BUILTIN_MCP_SERVERS.find((s) => s.name === name);
+  let servers;
+  try {
+    servers = await fetchMcpServers();
+  } catch (e) {
+    error(e.message);
+    process.exit(1);
+  }
+  const server = servers.find((s) => s.name === name);
   if (!server) {
-    fatal(`Server not found: "${name}". Run "patsnap mcp search" to see available servers.`);
+    error(`Server not found: "${name}". Run "patsnap mcp search" to see available servers.`);
+    process.exit(1);
   }
   outputDetail({
     data: {
@@ -85615,7 +85603,7 @@ async function mcpUpdateCommand() {
   const clientConfig = getClientConfiguration(clientId);
   const config = readConfig(clientId);
   const existing = config.mcpServers ?? {};
-  const installedNames = BUILTIN_MCP_SERVERS.map((s) => s.name).filter((n) => existing[n]);
+  const installedNames = Object.keys(existing);
   if (installedNames.length === 0) {
     info(`No Patsnap MCP servers found in ${clientConfig.label}`);
     return;
@@ -85625,10 +85613,7 @@ async function mcpUpdateCommand() {
       type: "checkbox",
       name: "toUpdate",
       message: "Select servers to update API key:",
-      choices: installedNames.map((n) => {
-        const server = BUILTIN_MCP_SERVERS.find((s) => s.name === n);
-        return { name: server?.display_name ?? n, value: n, checked: true };
-      })
+      choices: installedNames.map((n) => ({ name: n, value: n, checked: true }))
     }
   ]);
   if (toUpdate.length === 0) {
@@ -85660,9 +85645,16 @@ async function mcpUpdateCommand() {
 
 // src/commands/mcp/search.ts
 async function mcpSearchCommand(term) {
-  const results = term ? BUILTIN_MCP_SERVERS.filter(
+  let servers;
+  try {
+    servers = await fetchMcpServers();
+  } catch (e) {
+    error(e.message);
+    process.exit(1);
+  }
+  const results = term ? servers.filter(
     (s) => s.display_name.toLowerCase().includes(term.toLowerCase()) || s.description_en.toLowerCase().includes(term.toLowerCase()) || s.category.toLowerCase().includes(term.toLowerCase()) || s.name.toLowerCase().includes(term.toLowerCase())
-  ) : BUILTIN_MCP_SERVERS;
+  ) : servers;
   if (results.length === 0) {
     info(`No servers found matching "${term}"`);
     return;

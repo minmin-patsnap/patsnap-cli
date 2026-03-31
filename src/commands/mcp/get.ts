@@ -1,11 +1,19 @@
-import { outputDetail } from "../../utils/output.js"
-import { fatal } from "../../lib/errors.js"
-import { BUILTIN_MCP_SERVERS } from "./servers.js"
+import { outputDetail, error } from "../../utils/output.js"
+import { fetchMcpServers } from "./servers.js"
 
 export async function mcpGetCommand(name: string) {
-  const server = BUILTIN_MCP_SERVERS.find((s) => s.name === name)
+  let servers
+  try {
+    servers = await fetchMcpServers()
+  } catch (e: any) {
+    error(e.message)
+    process.exit(1)
+  }
+
+  const server = servers.find((s) => s.name === name)
   if (!server) {
-    fatal(`Server not found: "${name}". Run "patsnap mcp search" to see available servers.`)
+    error(`Server not found: "${name}". Run "patsnap mcp search" to see available servers.`)
+    process.exit(1)
   }
 
   outputDetail({
